@@ -1,0 +1,28 @@
+{
+  "passos": [
+    { "tutorial": "Coloque la pieza sobre una superficie plana y estable.", "numero": "1" },
+    { "tutorial": "Coloque la base auxiliar sobre una superficie plana, asegurándose de que esté bien posicionada.", "numero": "2" },
+    { "tutorial": "Inserte las tuercas en los espacios indicados, asegurándose de que estén correctamente colocadas.", "numero": "3" },
+    { "tutorial": "Alinee la base de la pieza con la base auxiliar, colocándolas una cerca de la otra.", "numero": "4" },
+    { "tutorial": "Atornille las esquinas de la base, asegurándose de que queden firmemente fijadas", "numero": "5" },
+    { "tutorial": "Coloque la protección en los tornillos para evitar daños y garantizar la seguridad del montaje.", "numero": "6" },
+    { "tutorial": "Coloque la arandela de presión en el centro, alineándola correctamente con los componentes.", "numero": "7" },
+    { "tutorial": "Inserte el tornillo central en la arandela de presión, asegurándose de que ambos estén bien ajustados", "numero": "8" },
+    { "tutorial": "Una la base del adaptador al tornillo central, fijándolos con firmeza", "numero": "9" },
+    { "tutorial": "Encaje el adaptador del eje en la base, alineándolo correctamente con el tornillo central.", "numero": "10" },
+    { "tutorial": "Coloque el indicador mecánico en el adaptador, asegurándose de que esté bien sujeto en el lugar correcto.", "numero": "11" },
+    { "tutorial": "Coloque el encaje principal, verificando que esté bien ajustado a la pieza.", "numero": "12" },
+    { "tutorial": "Atornille la pieza firmemente a la superficie, garantizando que todos los componentes estén bien fijados", "numero": "13" }
+  ],
+  "proximo": "Siguiente Paso",
+  "finalizar": "Finalizar Ensamblaje",
+  "popupFinalTitulo": "¡Felicidades! Ha completado con éxito el ensamblaje.",
+  "popupFinalBotaoMenu": "Volver al menú",
+  "popupFinalBotaoRecomecar": "Reiniciar Ensamblaje",
+  "popupInicialBotao": "OK",
+  "sair": "SALIR",
+  "textoDe": "de",
+  "tutorialInicial": "Toque una superficie para colocar el objeto.",
+  "popupInicialTexto1": "Apunte su cámara a una superficie plana y espere que aparezca el fondo blanco.",
+  "popupInicialTexto2": "Una vez que aparezca, toque la pantalla para ver la pieza."
+}

@@ -1,0 +1,28 @@
+{
+  "passos": [
+    { "tutorial": "Place the part on a flat and stable surface", "numero": "1" },
+    { "tutorial": "Place the auxiliary base on a flat surface, ensuring it is well positioned", "numero": "2" },
+    { "tutorial": "Insert the nuts into the indicated spaces, making sure they are correctly positioned.", "numero": "3" },
+    { "tutorial": "Align the base of the part with the auxiliary base, placing them close to each other", "numero": "4" },
+    { "tutorial": "Screw the corners of the base, ensuring they are firmly fixed", "numero": "5" },
+    { "tutorial": "Place the protection on the screws to prevent damage and ensure assembly safety", "numero": "6" },
+    { "tutorial": "Position the pressure washer in the center, aligning it correctly with the components.", "numero": "7" },
+    { "tutorial": "Insert the central screw into the pressure washer, ensuring both are well adjusted", "numero": "8" },
+    { "tutorial": "Attach the adapter base to the central screw, fastening them firmly.", "numero": "9" },
+    { "tutorial": "Fit the shaft adapter onto the base, aligning it correctly with the central screw.", "numero": "10" },
+    { "tutorial": "Attach the mechanical indicator, ensuring it is securely in place.", "numero": "11" },
+    { "tutorial": "Place the main fitting, checking that it is well adjusted to the part.", "numero": "12" },
+    { "tutorial": "Secure the part to the surface, making sure all components are firmly fixed.", "numero": "13" }
+  ],
+  "proximo": "Next Step",
+  "finalizar": "Finish Assembly",
+  "popupFinalTitulo": "Congratulations! You have successfully completed the assembly.",
+  "popupFinalBotaoMenu": "Return to Menu",
+  "popupFinalBotaoRecomecar": "Restart Assembly",
+  "popupInicialBotao": "OK",
+  "sair": "EXIT",
+  "textoDe": "of",
+  "tutorialInicial": "Tap on a surface to place the object.",
+  "popupInicialTexto1": "Point your camera at a flat surface and wait for the white background to appear.",
+  "popupInicialTexto2": "Once it appears, tap the screen to view the object."
+}

@@ -1,0 +1,28 @@
+{
+  "passos": [
+    { "tutorial": "Posicione a peça sobre uma superfície plana e estável.", "numero": "1" },
+    { "tutorial": "Coloque a base auxiliar sobre uma superfície plana, garantindo que ela esteja bem posicionada.", "numero": "2" },
+    { "tutorial": "Insira as porcas nos espaços indicados, certificando-se de que estão corretamente posicionadas.", "numero": "3" },
+    { "tutorial": "Alinhe a base da peça com a base auxiliar, colocando-as próximas uma da outra.", "numero": "4" },
+    { "tutorial": "Parafuse os cantos da base, garantindo que fiquem firmemente fixados.", "numero": "5" },
+    { "tutorial": "Coloque a proteção nos parafusos para evitar danos e garantir a segurança da montagem.", "numero": "6" },
+    { "tutorial": "Posicione a arruela de pressão no centro, alinhando-a corretamente com os componentes.", "numero": "7" },
+    { "tutorial": "Encaixe o parafuso central na arruela de pressão, assegurando-se de que ambos estejam bem ajustados.", "numero": "8" },
+    { "tutorial": "Junte a base do adaptador ao parafuso central, fixando-os com firmeza.", "numero": "9" },
+    { "tutorial": "Encaixe o adaptador do eixo na base, alinhando-o corretamente com o parafuso central.", "numero": "10" },
+    { "tutorial": "Encaixe o indicador mecânico no adaptador, garantindo que ele fique seguro no local correto.", "numero": "11" },
+    { "tutorial": "Coloque o encaixe principal, verificando se ele está bem ajustado à peça.", "numero": "12" },
+    { "tutorial": "Parafuse a peça firmemente na superfície, garantindo que todos os componentes estejam fixados de maneira segura.", "numero": "13" }
+  ],
+  "proximo": "Próximo Passo",
+  "finalizar": "Finalizar Montagem",
+  "popupFinalTitulo": "Parabéns! Você finalizou com sucesso a montagem.",
+  "popupFinalBotaoMenu": "Voltar ao menu",
+  "popupFinalBotaoRecomecar": "Recomeçar Montagem",
+  "popupInicialBotao": "OK",
+  "sair": "SAIR",
+  "textoDe": "de",
+  "tutorialInicial": "posicione o m4smart no fundo delimitado para iniciar a sua montagem",
+  "popupInicialTexto1": "Aponte sua câmera para uma superfície plana e aguarde o fundo branco ser exibido.",
+  "popupInicialTexto2": "Após o fundo branco ser exibido, toque na tela para visualizar a peça."
+}

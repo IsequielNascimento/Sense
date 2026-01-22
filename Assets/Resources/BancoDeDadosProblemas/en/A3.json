@@ -1,0 +1,17 @@
+{
+  "layer": "Problema3",
+  "etapas": [
+    {
+      "tutorial": "Etapa 1: Verifique o sistema.",
+      "animacao": "animacao_1"
+    },
+    {
+      "tutorial": "Etapa 2: Gire a válvula.",
+      "animacao": "animacao_2"
+    },
+    {
+      "tutorial": "Etapa 3: Confirme o movimento.",
+      "animacao": "animacao_3"
+    }
+  ]
+}

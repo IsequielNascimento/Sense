@@ -1,0 +1,32 @@
+{
+   "layer": "Problema 1",
+  "etapas": [
+    {
+      "tutorial": "Iniciando o processo de calibração...",
+      "animacao": "A1_p1",
+      "telaDisplay": "autocal_50",
+      "vfx": "nenhum"
+    },
+    {
+      "tutorial": "Tempo para calibração excedido. Ajuste o tempo configurado.",
+      "animacao": "A1_p2",
+      "telaDisplay": "autocal_50_abort",
+      "vfx": "nenhum"
+    },
+    {
+      "tutorial": "Ajuste o ângulo da válvula para mais de 30° para solucionar o problema.",
+      "animacao": "A1_p3",
+      "telaDisplay": "c6_tempo",
+      "vfx": "nenhum"
+    },
+    {
+      "tutorial": "O ajuste foi concluído. O ângulo está acima de 30°.",
+      "animacao": "A1_p4",
+      "telaDisplay": "25",
+      "vfx": "nenhum"
+    }
+  ],
+  "tutorialInicial": "Posicione o objeto na superfície para iniciar a solução do problema.",
+  "popupInicialTexto1": "Point your camera at a flat surface and wait for the white background to appear.",
+  "popupInicialTexto2": "Once it appears, tap the screen to view the object."
+}

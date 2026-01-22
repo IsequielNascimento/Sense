@@ -1,0 +1,28 @@
+{
+  "passos": [
+    { "tutorial": "Placez la pièce sur une surface plane et stable.", "numero": "1" },
+    { "tutorial": "Placez la base auxiliaire sur une surface plane, en vous assurant qu'elle est bien positionnée.", "numero": "2" },
+    { "tutorial": "Insérez les écrous dans les emplacements indiqués, en vérifiant qu'ils sont correctement placés.", "numero": "3" },
+    { "tutorial": "Alignez la base de la pièce avec la base auxiliaire, en les plaçant l'une près de l'autre.", "numero": "4" },
+    { "tutorial": "Vissez les coins de la base, en vous assurant qu'ils sont bien fixés.", "numero": "5" },
+    { "tutorial": "Placez la protection sur les vis pour éviter les dommages et garantir la sécurité du montage.", "numero": "6" },
+    { "tutorial": "Positionnez la rondelle de pression au centre, en l'alignant correctement avec les composants.", "numero": "7" },
+    { "tutorial": "Insérez la vis centrale dans la rondelle de pression, en vous assurant que les deux sont bien ajustés.", "numero": "8" },
+    { "tutorial": "Fixez la base de l'adaptateur à la vis centrale, en les serrant fermement.", "numero": "9" },
+    { "tutorial": "Emboîtez l'adaptateur de l'axe dans la base, en l'alignant correctement avec la vis centrale.", "numero": "10" },
+    { "tutorial": "Fixez l'indicateur mécanique à l'adaptateur, en vous assurant qu'il est bien positionné.", "numero": "11" },
+    { "tutorial": "Placez l'élément principal, en vérifiant qu'il est bien ajusté à la pièce", "numero": "12" },
+    { "tutorial": "Vissez fermement la pièce sur la surface, en vous assurant que tous les composants sont solidement fixés.", "numero": "13" }
+  ],
+  "proximo": "Étape Suivante",
+  "finalizar": "Terminer l'assemblage",
+  "popupFinalTitulo": "Félicitations ! Vous avez terminé l'assemblage avec succès.",
+  "popupFinalBotaoMenu": "Retour au menu",
+  "popupFinalBotaoRecomecar": "Recommencer l'assemblage",
+  "popupInicialBotao": "OK",
+  "sair": "QUITTER",
+  "textoDe": "sur",
+  "tutorialInicial": "Touchez une surface pour placer l'objet.",
+  "popupInicialTexto1": "Pointez votre caméra vers une surface plane et attendez que le fond blanc apparaisse.",
+  "popupInicialTexto2": "Une fois affiché, touchez l'écran pour voir l'objet."
+}

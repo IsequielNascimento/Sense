@@ -1,0 +1,4 @@
+:button {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
+}

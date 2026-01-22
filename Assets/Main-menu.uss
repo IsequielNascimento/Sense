@@ -1,0 +1,24 @@
+.botao-menu {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgb(245, 71, 3);
+    color: rgb(242, 242, 242);
+    font-size: 44.09px;
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/Poppins/Poppins-Medium.ttf?fileID=12800000&guid=0e8bf91b35e9ddf43ac332b5c70915c4&type=3#Poppins-Medium");
+    border-top-left-radius: 22.04px;
+    border-top-right-radius: 22.04px;
+    border-bottom-right-radius: 22.04px;
+    border-bottom-left-radius: 22.04px;
+    text-overflow: clip;
+    -unity-text-align: middle-center;
+    flex-shrink: 0;
+    margin-top: 33.07px;
+    margin-right: 33.07px;
+    margin-bottom: 33.07px;
+    margin-left: 33.07px;
+    white-space: normal;
+}
+
+.icone-botao {
+    margin-left: 124px;
+    background-size: 10% 66.13%;
+}

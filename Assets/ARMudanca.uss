@@ -1,0 +1,20 @@
+.TextoNumeros {
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/Poppins/Poppins-Medium.ttf?fileID=12800000&guid=0e8bf91b35e9ddf43ac332b5c70915c4&type=3#Poppins-Medium");
+    flex-shrink: 0;
+    width: auto;
+    top: -173px;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+
+.Texto {
+    color: rgb(255, 255, 255);
+    font-size: 219%;
+    -unity-text-align: upper-center;
+    white-space: pre-wrap;
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/Poppins/Poppins-SemiBold.ttf?fileID=12800000&guid=b35ef1edbfcd4de4aaf2a33aed5a2111&type=3#Poppins-SemiBold");
+}
