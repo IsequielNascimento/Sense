@@ -2,6 +2,7 @@
   "menu": {
     "botao_iniciar": "Iniciar Montaje",
     "botao_problemas": "Problema",
-    "subtitulo": "El monitor de válvula inteligente"
+    "subtitulo": "El monitor de válvula inteligente",
+    "botao_gemeo": "Gemelo Digital"
   }
 }

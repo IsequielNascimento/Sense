@@ -1,7 +1,8 @@
 {
   "menu": {
-    "botao_iniciar": "Démarrer le Montage",
+    "botao_iniciar": "Montage",
     "botao_problemas": "Problème",
-    "subtitulo": "Le moniteur de vanne intelligent"
+    "subtitulo": "Le moniteur de vanne intelligent",
+    "botao_gemeo": "Jumeau Numérique"
   }
 }
