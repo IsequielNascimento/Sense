@@ -6,48 +6,53 @@ public class Montagem2Toolkit : MonoBehaviour
 {
     public UIDocument uiDocument;
 
-    // Elementos da UI
+    // --- Elementos da UI ---
+    // Note que _btnIniciar e _btnVoltar agora são VisualElement
     private Label _lblTitulo;
     private Label _lblSubtitulo;
-    private Label _lblAvisoTexto; // O texto dentro do quadro vermelho
-    private Button _btnIniciar;   // O botão laranja
-    private Label _lblTextoBotaoIniciar; // Caso o texto seja um objeto separado dentro do botão
-    private Button _btnVoltar;    // A setinha lá em cima
+    private Label _lblAvisoTexto;
+    private VisualElement _btnIniciar; 
+    private Label _lblTextoBotaoIniciar; 
+    private VisualElement _btnVoltar;    
 
     void OnEnable()
     {
         if (uiDocument == null) uiDocument = GetComponent<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
-        // --- 1. BUSCAR ELEMENTOS (Baseado no seu print do UI Builder) ---
-        
+        // 1. Buscando os Elementos (Agora buscando como VisualElement)
         _lblTitulo = root.Q<Label>("Titulo");
         _lblSubtitulo = root.Q<Label>("subtitulo");
-        _btnVoltar = root.Q<Button>("Botao-voltar");
+        
+        _btnVoltar = root.Q<VisualElement>("Botao-voltar");
+        _btnIniciar = root.Q<VisualElement>("botao"); 
 
-        // O texto do aviso parece estar dentro de um grupo chamado "Aviso"
         var grupoAviso = root.Q<VisualElement>("Aviso");
         if (grupoAviso != null)
             _lblAvisoTexto = grupoAviso.Q<Label>("texto");
 
-        // O botão iniciar chama-se "botao" e tem um label "texto" dentro
-        _btnIniciar = root.Q<Button>("botao"); // Botão Laranja
         if (_btnIniciar != null)
             _lblTextoBotaoIniciar = _btnIniciar.Q<Label>("texto");
 
 
-        // --- 2. CONFIGURAR CLIQUES ---
-
-        // Botão Voltar -> Vai para o Menu
+        // 2. Configurando Cliques (Usando RegisterCallback para VisualElements)
         if (_btnVoltar != null)
-            _btnVoltar.clicked += () => SceneManager.LoadScene("Main-Menu");
+        {
+            _btnVoltar.RegisterCallback<ClickEvent>(evt => VoltarParaMenu());
+        }
 
-        // Botão Iniciar -> Vai para o AR
         if (_btnIniciar != null)
-            _btnIniciar.clicked += IrParaAR;
+        {
+            _btnIniciar.RegisterCallback<ClickEvent>(evt => IrParaAR());
+            Debug.Log("[Montagem2] Botão iniciar encontrado e pronto para clique!");
+        }
+        else
+        {
+            Debug.LogError("[Montagem2] ERRO: Elemento '#botao' não encontrado!");
+        }
 
 
-        // --- 3. APLICAR TEXTOS ---
+        // 3. Atualizar Textos
         AtualizarTextos();
     }
 
@@ -61,24 +66,29 @@ public class Montagem2Toolkit : MonoBehaviour
         {
             if (_lblTitulo != null) _lblTitulo.text = dados.titulo;
             if (_lblSubtitulo != null) _lblSubtitulo.text = dados.subtitulo;
-            
-            // Texto do Aviso
             if (_lblAvisoTexto != null) _lblAvisoTexto.text = dados.botao_aviso;
 
-            // Texto do Botão (Prioriza o Label interno se existir, senão usa o próprio botão)
             if (_lblTextoBotaoIniciar != null) 
                 _lblTextoBotaoIniciar.text = dados.botao_iniciar;
-            else if (_btnIniciar != null)
-                _btnIniciar.text = dados.botao_iniciar;
         }
+    }
+
+    void VoltarParaMenu()
+    {
+        SceneManager.LoadScene("Main-Menu");
     }
 
     void IrParaAR()
     {
-        // Se precisar carregar algo específico para a montagem antes de ir:
-        // string idioma = IdiomaManager.Instance.ObterIdioma();
-        // CarregarBancoDeDadosMontagem.Carregar(idioma);
+        Debug.Log("[Montagem2] Botão clicado! Carregando Banco de Dados e Cena AR...");
 
+        // Pega o idioma atual
+        string idioma = IdiomaManager.Instance.ObterIdioma();
+
+        // Carrega o banco de dados da montagem (sua lógica do NavegarParaMontagemPadrao.cs)
+        CarregarBancoDeDadosMontagem.Carregar(idioma);
+
+        // Muda para a cena AR
         SceneManager.LoadScene("ARMudanca");
     }
 }

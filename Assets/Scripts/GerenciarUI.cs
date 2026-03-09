@@ -164,7 +164,7 @@ public class GerenciarUI : MonoBehaviour
         holder.idProblema = problemaAtual.id; 
         DontDestroyOnLoad(selecionado);
         ProblemaSelecionadoAR.Instance.idProblema = problemaAtual.id;
-        SceneManager.LoadScene("ARMudanca");
+        SceneManager.LoadScene("AR_Cena_UIToolkit");
     }
 
     IEnumerator FadeIn(float duracao)
