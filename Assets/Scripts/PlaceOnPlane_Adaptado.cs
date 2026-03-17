@@ -5,7 +5,6 @@ using UnityEngine.XR.ARSubsystems;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 
-// Coloque-o no XR Origin.
 [RequireComponent(typeof(ARRaycastManager))]
 public class PlaceOnPlane_Adaptado : MonoBehaviour
 {
@@ -14,33 +13,29 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
     [SerializeField] private Camera arCamera;
 
     [Header("Conexão com UI Toolkit")]
-    [Tooltip("Arraste aqui o GameObject 'Controlador_UI' que tem o UIController.cs")]
-    [SerializeField]
-    private UIController uiController; 
+    [SerializeField] private UIController uiController; 
 
-    // --- Variáveis privadas ---
     private ARRaycastManager raycastManager;
     private GameObject spawnedObject;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
-    private Animator animator;
+    
+    // CORREÇÃO CRÍTICA: Agora usamos um Array para capturar TODOS os Animators do Prefab (Pai e Filhos)
+    private Animator[] animators; 
+    
+    private GerenciadorVisual gerenciadorVisual;
     private bool objectPlaced = false;
 
     void Awake()
     {
         raycastManager = GetComponent<ARRaycastManager>();
-
-        if (arCamera == null)
-            arCamera = Camera.main;
-
-        if (uiController == null)
-            Debug.LogError("[PlaceOnPlane] O 'Ui Controller' não foi arrastado no Inspector!");
+        if (arCamera == null) arCamera = Camera.main;
+        if (uiController == null) Debug.LogError("[PlaceOnPlane] O 'UI Controller' não foi arrastado no Inspector!");
     }
 
     void Update()
     {
         Vector2 screenPosition;
 
-        // --- Lógica de Toque/Mouse ---
 #if UNITY_EDITOR
         if (!Mouse.current.leftButton.wasPressedThisFrame) return;
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
@@ -59,26 +54,29 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
 
             if (spawnedObject == null)
             {
-                // --- PRIMEIRA COLOCAÇÃO DO OBJETO ---
                 spawnedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation);
                 spawnedObject.SetActive(true); 
 
-                animator = spawnedObject.GetComponentInChildren<Animator>();
-                if (animator == null)
+                // CAPTURA TODOS OS ANIMATORS (O do 'Animação APK' e o do 'M4_Smart_Final_Animado')
+                animators = spawnedObject.GetComponentsInChildren<Animator>();
+                gerenciadorVisual = spawnedObject.GetComponentInChildren<GerenciadorVisual>();
+
+                if (animators == null || animators.Length == 0)
                 {
-                    Debug.LogError("CRÍTICO: Animator não encontrado no prefab instanciado!");
+                    Debug.LogError("[PlaceOnPlane] CRÍTICO: Nenhum Animator encontrado no prefab instanciado!");
                     return;
                 }
 
-                animator.Rebind();
-                animator.Update(0f);
-                Debug.Log("[PlaceOnPlane] Prefab AR colocado e Animator reinicializado.");
+                // Reinicia todos os Animators encontrados para garantir um estado limpo
+                foreach (var anim in animators)
+                {
+                    anim.Rebind();
+                    anim.Update(0f); 
+                }
 
-                // --- ADAPTAÇÃO ---
                 if (uiController != null && !objectPlaced)
                 {
-                    Debug.Log("[PlaceOnPlane] Objeto colocado. Chamando uiController.IniciarPassos().");
-                    uiController.IniciarPassos(); // Inicia a UI de Montagem
+                    uiController.IniciarPassos();
                 }
                 
                 objectPlaced = true; 
@@ -86,35 +84,56 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
             }
             else
             {
-                // --- REPOSICIONAMENTO DO OBJETO ---
                 spawnedObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
             }
         }
     }
 
-    // --- FUNÇÃO DE ANIMAÇÃO (será chamada pelo UIController) ---
-    public void PlayAnimation(string animName)
+    public void PlayAnimation(string animName, string camadaAlvo, string telaDisplay, string vfx)
     {
-        if (animator == null)
+        if (animators != null && animators.Length > 0)
         {
-            Debug.LogWarning("[PlaceOnPlane] Animator não está disponível para tocar a animação.");
-            return;
+            if (string.IsNullOrEmpty(camadaAlvo)) camadaAlvo = "Base Layer";
+            int hashDaAnimacao = Animator.StringToHash(animName);
+            bool tocouEmPeloMenosUm = false;
+
+            // DISPARA A ANIMAÇÃO EM TODOS OS ANIMATORS QUE A POSSUÍREM
+            foreach (var anim in animators)
+            {
+                int layerIndex = anim.GetLayerIndex(camadaAlvo);
+                if (layerIndex != -1 && anim.HasState(layerIndex, hashDaAnimacao))
+                {
+                    anim.speed = 1f;
+
+                    // Ajusta o peso das camadas apenas no Animator atual do loop
+                    for (int i = 1; i < anim.layerCount; i++)
+                    {
+                        anim.SetLayerWeight(i, (i == layerIndex) ? 1f : 0f);
+                    }
+
+                    // Dá o Play!
+                    anim.Play(hashDaAnimacao, layerIndex, 0f);
+                    tocouEmPeloMenosUm = true;
+                }
+            }
+
+            if (tocouEmPeloMenosUm)
+            {
+                Debug.Log($"[AR Toolkit] Sucesso: Animação '{animName}' tocada na camada '{camadaAlvo}'.");
+            }
+            else
+            {
+                Debug.LogError($"[AR Toolkit] ESTADO NÃO ENCONTRADO: O estado '{animName}' NÃO EXISTE na camada '{camadaAlvo}' em nenhum dos Animators do Prefab.");
+            }
         }
 
-        string camadaAlvo = "Base Layer";
-        int layerIndex = animator.GetLayerIndex(camadaAlvo);
-        if (layerIndex == -1)
+        // Lógica do Visual (Display / Efeitos)
+        if (gerenciadorVisual != null)
         {
-            Debug.LogError($"[PlaceOnPlane] Layer '{camadaAlvo}' não existe no Animator Controller.");
-            return;
+            // Chamadas para o seu script GerenciadorVisual (Descomente e ajuste os nomes das funções)
+            // gerenciadorVisual.MudarSpriteDoSensor(telaDisplay);
+            // gerenciadorVisual.AtivarEfeito(vfx);
         }
-
-        for (int i = 0; i < animator.layerCount; i++)
-            animator.SetLayerWeight(i, (i == layerIndex) ? 1f : 0f);
-
-        Debug.Log($"[PlaceOnPlane] Tocando animação '{animName}' no layer '{camadaAlvo}'");
-        animator.Play(animName, layerIndex, 0f);
-        animator.Update(Time.deltaTime);
     }
     
     private void SetARPlanesActive(bool isActive)

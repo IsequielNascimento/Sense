@@ -8,6 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class GerenciarUI : MonoBehaviour
 {
+    [Header("Configuração de Cena")]
+    [Tooltip("Nome da cena AR com Canvas que será carregada")]
+    public string nomeCenaARCanvas = "ARMudanca";
+
     [Header("Referências UI")]
     public TMP_InputField campoDePesquisa;
     public GameObject painelDetalhes;
@@ -119,7 +123,6 @@ public class GerenciarUI : MonoBehaviour
 
         painelDetalhes.SetActive(true);
 
-        // --- CORREÇÃO: Chama o script novo para ABRIR ---
         PainelDeslizante painelScript = painelDetalhes.GetComponent<PainelDeslizante>();
         if (painelScript != null)
         {
@@ -133,16 +136,13 @@ public class GerenciarUI : MonoBehaviour
         }
     }
 
-    // --- CORREÇÃO CRÍTICA AQUI ---
-    // O seu arquivo antigo chamava 'FecharPopup()'. 
-    // Agora chamamos o painelScript.Fechar() que usa as âncoras corretas.
     public void OcultarPainelDetalhes()
     {
         PainelDeslizante painelScript = painelDetalhes.GetComponent<PainelDeslizante>();
         
         if (painelScript != null)
         {
-            painelScript.Fechar(); // Manda fechar usando animação de âncora
+            painelScript.Fechar(); 
         }
         else
         {
@@ -159,12 +159,26 @@ public class GerenciarUI : MonoBehaviour
     public void VerPassoAPasso()
     {
         CarregarBancoDeDadosMontagem.GarantirBancoCarregado();
-        var selecionado = new GameObject("ProblemaSelecionadoAR");
-        var holder = selecionado.AddComponent<ProblemaSelecionadoAR>();
-        holder.idProblema = problemaAtual.id; 
-        DontDestroyOnLoad(selecionado);
-        ProblemaSelecionadoAR.Instance.idProblema = problemaAtual.id;
-        SceneManager.LoadScene("AR_Cena_UIToolkit");
+        
+        if (ControleDeCena.Instance != null)
+        {
+            ControleDeCena.Instance.DefinirOrigem("problema");
+        }
+
+        // CORREÇÃO APLICADA AQUI: Deixamos o Awake do componente instanciado gerenciar o Singleton
+        if (ProblemaSelecionadoAR.Instance == null)
+        {
+            var selecionado = new GameObject("ProblemaSelecionadoAR");
+            var holder = selecionado.AddComponent<ProblemaSelecionadoAR>();
+            holder.idProblema = problemaAtual.id; 
+            DontDestroyOnLoad(selecionado);
+        }
+        else
+        {
+            ProblemaSelecionadoAR.Instance.idProblema = problemaAtual.id;
+        }
+
+        SceneManager.LoadScene(nomeCenaARCanvas);
     }
 
     IEnumerator FadeIn(float duracao)

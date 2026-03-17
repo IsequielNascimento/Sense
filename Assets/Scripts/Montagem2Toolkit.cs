@@ -89,6 +89,6 @@ public class Montagem2Toolkit : MonoBehaviour
         CarregarBancoDeDadosMontagem.Carregar(idioma);
 
         // Muda para a cena AR
-        SceneManager.LoadScene("ARMudanca");
+        SceneManager.LoadScene("AR_Cena_UIToolkit");
     }
 }

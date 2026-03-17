@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UIElements; // UI Toolkit
+using UnityEngine.UIElements; // Confirmação de que estamos no UI Toolkit
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,36 +10,36 @@ public class UIController : MonoBehaviour
     [Header("Conexão AR")]
     public PlaceOnPlane_Adaptado placeOnPlane; 
 
-    // --- Variáveis de Lógica ---
     private string[] passosTutoriais;
     private string[] animacoes;
+    private string[] telasDisplay;
+    private string[] vfxs;
+    
+    private string layerAtual = "Base Layer"; 
     private int passoAtual = -1;
     private bool passosIniciados = false;
     private DadosMontagem dados;
     private VisualElement root;
     
-    // Popup Inicial
+    // Elementos do UI Toolkit
     private VisualElement painelPopup; 
     private VisualElement blurBackground;
     private Label labelPopup1;
     private Label labelPopup2; 
     private Button botaoOK; 
 
-    // UI de Montagem
     private VisualElement grupoMontagem; 
-    private VisualElement tutorialUI; // #Tutorial (A caixa de instrução)
+    private VisualElement tutorialUI; 
     private Label textoTutorial; 
     private Button botaoSair; 
     private Button botaoProximo; 
     private Button botaoVoltar; 
     private Button botaoReplay; 
     
-    // Progresso (USANDO O NOVO RADIAL)
-    private RadialProgress preenchimentoProgresso; // <--- Script Customizado
+    private RadialProgress preenchimentoProgresso; 
     private Label textoNumeroProgresso; 
     private Label textoTotalPassos;     
 
-    // Popup Final
     private VisualElement painelPopupFinal; 
     private VisualElement iconeCorreto; 
     private Label labelTituloFinal; 
@@ -52,7 +52,7 @@ public class UIController : MonoBehaviour
     {
         CarregarBancoDeDadosMontagem.GarantirBancoCarregado();
         dados = CarregarBancoDeDadosMontagem.Dados;
-        if (dados != null) CarregarPassosDoProblemaOuMontagem();
+        CarregarPassosDoProblemaOuMontagem(); 
     }
 
     void OnEnable()
@@ -61,7 +61,6 @@ public class UIController : MonoBehaviour
         if (uiDocument == null) return;
         root = uiDocument.rootVisualElement;
 
-        // Buscas
         blurBackground = root.Q<VisualElement>("FundoBlur");
         painelPopup = root.Q<VisualElement>("PainelPopup");
         labelPopup1 = root.Q<Label>("LabelTexto1");
@@ -69,16 +68,14 @@ public class UIController : MonoBehaviour
         botaoOK = root.Q<Button>("OK");
 
         grupoMontagem = root.Q<VisualElement>("GrupoMontagem");
-        tutorialUI = root.Q<VisualElement>("Tutorial"); // Caixa de instrução
+        tutorialUI = root.Q<VisualElement>("Tutorial"); 
         textoTutorial = root.Q<Label>("TextoTutorial");
         botaoSair = root.Q<Button>("Sair");
         botaoProximo = root.Q<Button>("Proximo");
         botaoVoltar = root.Q<Button>("Voltar");
         botaoReplay = root.Q<Button>("Replay");
 
-        // Busca o RadialProgress
         preenchimentoProgresso = root.Q<RadialProgress>("PreenchimentoProgresso");
-        
         textoNumeroProgresso = root.Q<Label>("TextoNumeroProgresso");
         textoTotalPassos = root.Q<Label>("NumeroTotal"); 
         painelPopupFinal = root.Q<VisualElement>("PainelPopupFinal");
@@ -87,7 +84,6 @@ public class UIController : MonoBehaviour
         botaoVoltarMenu = root.Q<Button>("BotaoVoltar"); 
         botaoRecomecar = root.Q<Button>("Recomecar"); 
 
-        // Callbacks
         RegistrarCallback(botaoOK, OnBotaoOkClicado);
         RegistrarCallback(botaoSair, OnBotaoSairClicado);
         RegistrarCallback(botaoProximo, AvancarPasso);
@@ -99,14 +95,13 @@ public class UIController : MonoBehaviour
 
     void Start()
     {
-        if (root == null || dados == null) return;
-        if (placeOnPlane == null) placeOnPlane = FindObjectOfType<PlaceOnPlane_Adaptado>();
+        if (root == null) return;
+        if (placeOnPlane == null) placeOnPlane = Object.FindFirstObjectByType<PlaceOnPlane_Adaptado>();
         
         ConfigurarTextosIniciais(); 
         
-        // ESTADO INICIAL: Apenas Popup Visível
         MostrarElemento(grupoMontagem, false);
-        MostrarElemento(tutorialUI, false); // Começa invisível, aparece no OK
+        MostrarElemento(tutorialUI, false); 
         MostrarElemento(painelPopupFinal, false);
         
         StartCoroutine(Fade(painelPopup, 0, 1));
@@ -127,46 +122,30 @@ public class UIController : MonoBehaviour
         SetText(botaoRecomecar, dados.popupFinalBotaoRecomecar);
     }
 
-    // --- FLUXO 1: CLICOU EM OK ---
     private void OnBotaoOkClicado(ClickEvent evt)
     {
-        // Esconde Popup e Blur
         StartCoroutine(Fade(painelPopup, 1, 0));
         StartCoroutine(Fade(blurBackground, 1, 0));
-
-        // Mostra a caixa de instrução
         MostrarElemento(tutorialUI, true);
-        
-        // Garante que o resto está escondido enquanto procura o chão
         MostrarElemento(grupoMontagem, false); 
-
-        // Reseta a posição da instrução (caso tenha sido movida antes)
-        // Deixa ela no centro (Left: 0 se estiver com layout padrão ou ajustado no UXML)
         tutorialUI.style.left = 150; 
         tutorialUI.style.right = 0;
     }
 
-    // --- FLUXO 2: COLOCOU OBJETO (Chamado pelo PlaceOnPlane) ---
     public void IniciarPassos()
     {
         if (passosTutoriais == null || passosTutoriais.Length == 0) return;
+        
         passoAtual = 0;
         passosIniciados = true;
         
         AtualizarPasso();
 
-        // Agora mostra TUDO
         MostrarElemento(grupoMontagem, true);
         MostrarElemento(tutorialUI, true);
-
-        // --- MOVIMENTO LATERAL ---
-        // Move a caixa de instrução para a direita para não bater na barra lateral
-        // Ajuste este valor "150" ou "20%" conforme a necessidade da sua tela
         tutorialUI.style.left = new Length(25, LengthUnit.Percent); 
-        // Ou use Pixel: new Length(250, LengthUnit.Pixel);
     }
 
-    // --- ATUALIZAÇÃO DO PROGRESSO CIRCULAR ---
     private void AtualizarPasso()
     {
         if (passoAtual < 0 || passoAtual >= passosTutoriais.Length) return;
@@ -174,29 +153,80 @@ public class UIController : MonoBehaviour
         SetText(textoTutorial, passosTutoriais[passoAtual]);
         SetText(textoNumeroProgresso, (passoAtual + 1).ToString());
 
-        // LÓGICA DO RADIAL PROGRESS
         if (preenchimentoProgresso != null)
         {
             float porcentagem = (float)(passoAtual + 1) / passosTutoriais.Length;
-            // Atualiza a propriedade customizada do script RadialProgress
             preenchimentoProgresso.Progress = porcentagem; 
         }
 
         bool ultimo = passoAtual == passosTutoriais.Length - 1;
-        if (botaoProximo != null) botaoProximo.text = ultimo ? dados.finalizar : dados.proximo;
+        if (botaoProximo != null) botaoProximo.text = ultimo ? (dados != null ? dados.finalizar : "Finalizar") : (dados != null ? dados.proximo : "Próximo");
         
-        if (placeOnPlane != null && passoAtual < animacoes.Length)
-            placeOnPlane.PlayAnimation(animacoes[passoAtual]);
+        if (placeOnPlane != null && animacoes != null && passoAtual < animacoes.Length)
+        {
+            string telaAtual = (telasDisplay != null && passoAtual < telasDisplay.Length) ? telasDisplay[passoAtual] : "";
+            string vfxAtual = (vfxs != null && passoAtual < vfxs.Length) ? vfxs[passoAtual] : "";
+            
+            placeOnPlane.PlayAnimation(animacoes[passoAtual], layerAtual, telaAtual, vfxAtual);
+        }
     }
 
     private void CarregarPassosDoProblemaOuMontagem()
     {
-        string origem = "montagem"; 
-        if (origem == "montagem") {
-            if (dados != null && dados.passos != null && dados.passos.Length > 0) {
+        string origem = ControleDeCena.Instance != null ? ControleDeCena.Instance.origemDaCena : "montagem";
+        string idioma = "pt"; 
+
+        if (origem == "montagem" || string.IsNullOrEmpty(origem))
+        {
+            layerAtual = "Base Layer";
+            if (dados != null && dados.passos != null && dados.passos.Length > 0)
+            {
                 passosTutoriais = dados.passos.Select(p => p.tutorial).ToArray();
+                
+                // --- LÓGICA BASEADA NO CANVAS: Respeita os números exatos do JSON (1, 4, 11...) ---
                 animacoes = dados.passos.Select(p => $"animacao_{p.numero}").ToArray();
-            } else { passosTutoriais = new string[0]; }
+                
+                Debug.Log($"[AR Toolkit] Montagem Padrão carregada com {animacoes.Length} animações.");
+            }
+            else
+            {
+                passosTutoriais = new string[0];
+                animacoes = new string[0];
+            }
+            telasDisplay = new string[0];
+            vfxs = new string[0];
+        }
+        else
+        {
+            string idDoProblema = origem;
+            if (ProblemaSelecionadoAR.Instance != null && !string.IsNullOrEmpty(ProblemaSelecionadoAR.Instance.idProblema))
+            {
+                idDoProblema = ProblemaSelecionadoAR.Instance.idProblema;
+            }
+
+            string caminhoDoJson = $"BancoDeDadosProblemas/{idioma}/{idDoProblema}";
+            TextAsset json = Resources.Load<TextAsset>(caminhoDoJson);
+
+            if (json != null)
+            {
+                PassoAPasso dadosProblema = JsonUtility.FromJson<PassoAPasso>(json.text);
+                if (dadosProblema != null && dadosProblema.etapas != null && dadosProblema.etapas.Length > 0)
+                {
+                    passosTutoriais = dadosProblema.etapas.Select(e => e.tutorial).ToArray();
+                    animacoes = dadosProblema.etapas.Select(e => e.animacao).ToArray();
+                    telasDisplay = dadosProblema.etapas.Select(e => e.telaDisplay).ToArray();
+                    vfxs = dadosProblema.etapas.Select(e => e.vfx).ToArray();
+                    layerAtual = !string.IsNullOrEmpty(dadosProblema.layer) ? dadosProblema.layer : "Base Layer";
+                }
+            }
+            else
+            {
+                Debug.LogError($"[AR Toolkit] Erro: Arquivo JSON não encontrado em Resources/{caminhoDoJson}.");
+                passosTutoriais = new string[0];
+                animacoes = new string[0];
+                telasDisplay = new string[0];
+                vfxs = new string[0];
+            }
         }
     }
 
@@ -218,8 +248,7 @@ public class UIController : MonoBehaviour
     public void RepetirPasso(ClickEvent evt)
     {
         if (!passosIniciados) return;
-        if (placeOnPlane != null && passoAtual < animacoes.Length)
-            placeOnPlane.PlayAnimation(animacoes[passoAtual]);
+        AtualizarPasso(); 
     }
 
     private void MostrarPopupFinal()
@@ -238,10 +267,7 @@ public class UIController : MonoBehaviour
         StartCoroutine(Fade(blurBackground, 1, 0, () => {
             MostrarElemento(grupoMontagem, true); 
             MostrarElemento(tutorialUI, true);
-            
-            // Reseta a posição lateral
             tutorialUI.style.left = new Length(25, LengthUnit.Percent);
-            
             ReiniciarMontagem();
         }));
     }
@@ -252,8 +278,6 @@ public class UIController : MonoBehaviour
         passoAtual = 0;
         passosIniciados = true;
         AtualizarPasso();
-        if (placeOnPlane != null && animacoes.Length > 0)
-            placeOnPlane.PlayAnimation(animacoes[0]);
     }
 
     private void OnBotaoSairClicado(ClickEvent evt) { VoltarMenu(evt); }
