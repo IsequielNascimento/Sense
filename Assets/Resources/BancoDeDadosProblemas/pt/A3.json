@@ -1,17 +1,26 @@
 {
-  "layer": "Problema3",
+  "layer": "Problema 3",
   "etapas": [
     {
-      "tutorial": "Etapa 1: Verifique o sistema.",
-      "animacao": "animacao_1"
+      "tutorial": "Para conectar o aplicativo, certifique-se de que o Bluetooth do M4.Smart está ativado.",
+      "animacao": "A3_p1",
+      "telaDisplay": "menu",
+      "vfx": "nenhum"
     },
     {
-      "tutorial": "Etapa 2: Gire a válvula.",
-      "animacao": "animacao_2"
+      "tutorial": "Use o botão magnético B2 para ativar o pareamento. O ícone começará a piscar.",
+      "animacao": "A3_p2",
+      "telaDisplay": "bluetooth_piscando",
+      "vfx": "destaque_b2"
     },
     {
-      "tutorial": "Etapa 3: Confirme o movimento.",
-      "animacao": "animacao_3"
+      "tutorial": "Abra o aplicativo no seu smartphone e selecione o dispositivo 'M4.Smart IO'.",
+      "animacao": "A3_p3",
+      "telaDisplay": "bluetooth_conectado",
+      "vfx": "destaque_celular"
     }
-  ]
+  ],
+  "tutorialInicial": "Posicione o objeto na superfície para iniciar a solução do problema.",
+  "popupInicialTexto1": "Aponte sua câmera para uma superfície plana e aguarde o fundo branco ser exibido.",
+  "popupInicialTexto2": "Após o fundo branco ser exibido, toque na tela para visualizar a peça."
 }

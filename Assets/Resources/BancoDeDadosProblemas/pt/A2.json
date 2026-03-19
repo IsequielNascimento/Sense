@@ -1,17 +1,32 @@
 {
-  "layer": "Problema2",
+  "layer": "Problema 2",
   "etapas": [
     {
-      "tutorial": "Etapa 1: Verifique o sistema.",
-      "animacao": "animacao_1"
+      "tutorial": "Aproxime o chaveiro magnético dos sensores na carcaça (B1, B2, B3) para operar sem abrir a tampa.",
+      "animacao": "A2_p1",
+      "telaDisplay": "menu",
+      "vfx": "destaque_botoes"
     },
     {
-      "tutorial": "Etapa 2: Gire a válvula.",
-      "animacao": "animacao_2"
+      "tutorial": "Mantenha o chaveiro no botão B1 por 3 segundos para acessar as Configurações Off-line.",
+      "animacao": "A2_p2",
+      "telaDisplay": "menu_config",
+      "vfx": "nenhum"
     },
     {
-      "tutorial": "Etapa 3: Confirme o movimento.",
-      "animacao": "animacao_3"
+      "tutorial": "Toque no botão B3 repetidamente com o chaveiro para navegar no menu até as opções de saída.",
+      "animacao": "A2_p3",
+      "telaDisplay": "opcoes_saida",
+      "vfx": "nenhum"
+    },
+    {
+      "tutorial": "Toque no botão B2 para confirmar e salvar a configuração. A configuração foi aplicada.",
+      "animacao": "A2_p4",
+      "telaDisplay": "salvar",
+      "vfx": "piscar_led_verde"
     }
-  ]
+  ],
+  "tutorialInicial": "Posicione o objeto na superfície para iniciar a solução do problema.",
+  "popupInicialTexto1": "Aponte sua câmera para uma superfície plana e aguarde o fundo branco ser exibido.",
+  "popupInicialTexto2": "Após o fundo branco ser exibido, toque na tela para visualizar a peça."
 }

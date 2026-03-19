@@ -12,6 +12,12 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
     [SerializeField] private GameObject placedPrefab;
     [SerializeField] private Camera arCamera;
 
+    [Header("Ajuste Automático de Altura")]
+    [Tooltip("Altura extra para a Montagem Padrão (Deixe 0 se já estiver correto)")]
+    [SerializeField] private float alturaMontagem = 0f;
+    [Tooltip("Altura para os Problemas. Como a peça está 1 metro acima, use -1 para colar no chão.")]
+    [SerializeField] private float alturaProblemas = -1f;
+
     [Header("Conexão com UI Toolkit")]
     [SerializeField] private UIController uiController; 
 
@@ -19,11 +25,14 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
     private GameObject spawnedObject;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
     
-    // CORREÇÃO CRÍTICA: Agora usamos um Array para capturar TODOS os Animators do Prefab (Pai e Filhos)
     private Animator[] animators; 
-    
     private GerenciadorVisual gerenciadorVisual;
     private bool objectPlaced = false;
+
+    // Variáveis de controle de posição
+    private float offsetAtual = 0f;
+    private Pose lastHitPose;
+    private bool hasHit = false;
 
     void Awake()
     {
@@ -50,14 +59,17 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
 
         if (raycastManager.Raycast(screenPosition, hits, TrackableType.PlaneWithinPolygon))
         {
-            Pose hitPose = hits[0].pose;
+            lastHitPose = hits[0].pose;
+            hasHit = true;
+
+            // Calcula a posição usando o offset que estiver ativo no momento
+            Vector3 posicaoFinal = lastHitPose.position + new Vector3(0, offsetAtual, 0);
 
             if (spawnedObject == null)
             {
-                spawnedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation);
+                spawnedObject = Instantiate(placedPrefab, posicaoFinal, lastHitPose.rotation);
                 spawnedObject.SetActive(true); 
 
-                // CAPTURA TODOS OS ANIMATORS (O do 'Animação APK' e o do 'M4_Smart_Final_Animado')
                 animators = spawnedObject.GetComponentsInChildren<Animator>();
                 gerenciadorVisual = spawnedObject.GetComponentInChildren<GerenciadorVisual>();
 
@@ -67,7 +79,6 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
                     return;
                 }
 
-                // Reinicia todos os Animators encontrados para garantir um estado limpo
                 foreach (var anim in animators)
                 {
                     anim.Rebind();
@@ -76,6 +87,7 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
 
                 if (uiController != null && !objectPlaced)
                 {
+                    // IniciarPassos vai chamar o PlayAnimation, que ajustará a altura correta imediatamente!
                     uiController.IniciarPassos();
                 }
                 
@@ -84,20 +96,36 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
             }
             else
             {
-                spawnedObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
+                spawnedObject.transform.SetPositionAndRotation(posicaoFinal, lastHitPose.rotation);
             }
         }
     }
 
     public void PlayAnimation(string animName, string camadaAlvo, string telaDisplay, string vfx)
     {
+        // NOVO: Define se o objeto sobe ou desce dependendo de qual menu o usuário abriu!
+        if (string.IsNullOrEmpty(camadaAlvo) || camadaAlvo == "Base Layer")
+        {
+            offsetAtual = alturaMontagem;
+        }
+        else
+        {
+            offsetAtual = alturaProblemas;
+        }
+
+        // Se o objeto já estiver no cenário, atualiza a altura dele na mesma hora
+        if (spawnedObject != null && hasHit)
+        {
+            spawnedObject.transform.position = lastHitPose.position + new Vector3(0, offsetAtual, 0);
+        }
+
+        // 1. LÓGICA DE ANIMAÇÃO
         if (animators != null && animators.Length > 0)
         {
             if (string.IsNullOrEmpty(camadaAlvo)) camadaAlvo = "Base Layer";
             int hashDaAnimacao = Animator.StringToHash(animName);
             bool tocouEmPeloMenosUm = false;
 
-            // DISPARA A ANIMAÇÃO EM TODOS OS ANIMATORS QUE A POSSUÍREM
             foreach (var anim in animators)
             {
                 int layerIndex = anim.GetLayerIndex(camadaAlvo);
@@ -105,13 +133,11 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
                 {
                     anim.speed = 1f;
 
-                    // Ajusta o peso das camadas apenas no Animator atual do loop
                     for (int i = 1; i < anim.layerCount; i++)
                     {
                         anim.SetLayerWeight(i, (i == layerIndex) ? 1f : 0f);
                     }
 
-                    // Dá o Play!
                     anim.Play(hashDaAnimacao, layerIndex, 0f);
                     tocouEmPeloMenosUm = true;
                 }
@@ -123,16 +149,15 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"[AR Toolkit] ESTADO NÃO ENCONTRADO: O estado '{animName}' NÃO EXISTE na camada '{camadaAlvo}' em nenhum dos Animators do Prefab.");
+                Debug.LogError($"[AR Toolkit] ESTADO NÃO ENCONTRADO: O estado '{animName}' NÃO EXISTE na camada '{camadaAlvo}'.");
             }
         }
 
-        // Lógica do Visual (Display / Efeitos)
+        // 2. LÓGICA VISUAL
         if (gerenciadorVisual != null)
         {
-            // Chamadas para o seu script GerenciadorVisual (Descomente e ajuste os nomes das funções)
-            // gerenciadorVisual.MudarSpriteDoSensor(telaDisplay);
-            // gerenciadorVisual.AtivarEfeito(vfx);
+            gerenciadorVisual.MudarSpriteDoSensor(telaDisplay);
+            gerenciadorVisual.AtivarEfeito(vfx);
         }
     }
     

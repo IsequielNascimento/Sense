@@ -673,6 +673,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlaceOnPlane_Adaptado
   placedPrefab: {fileID: 8046119262532659208}
   arCamera: {fileID: 500483670}
+  alturaMontagem: 0
+  alturaProblemas: -1
   uiController: {fileID: 1609545332}
 --- !u!1 &1097942396
 GameObject:
@@ -720,17 +722,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1584911582 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4120252309857218255, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
-  m_PrefabInstance: {fileID: 8046119262532659206}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1609545329
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,55 +821,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e32c23071f0de4190a88d0410b9597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayDoSensor: {fileID: 1584911582}
+  displaySpriteRenderer: {fileID: 2121781921}
   telasDisponiveis:
-  - nome: menu
-    sprite: {fileID: 21300000, guid: 9668f8dba256ea04ea009422f67cd62c, type: 3}
-  - nome: menu_config
-    sprite: {fileID: 21300000, guid: 00ddaff36608a474d961fa3e9fe0694b, type: 3}
-  - nome: open
-    sprite: {fileID: 21300000, guid: 223eb02b10d7bc04c9ec4421229859ff, type: 3}
-  - nome: closed
-    sprite: {fileID: 21300000, guid: 0d9639b15f53cff4a91c787ce6defea7, type: 3}
-  - nome: autocal_50
-    sprite: {fileID: 21300000, guid: d5d16452c6b0c0644b900dbec2beb0dc, type: 3}
-  - nome: autocal_00
-    sprite: {fileID: 21300000, guid: 891b45b5d8da82c4fa975bc7e8862e09, type: 3}
-  - nome: autocal_50_abort
-    sprite: {fileID: 21300000, guid: 74607d5b0cdeebd44b4664fe316d3d2d, type: 3}
-  - nome: c6_tempo
-    sprite: {fileID: 21300000, guid: e418076ffe434d646b475032bfc3ca90, type: 3}
-  - nome: 10
-    sprite: {fileID: 21300000, guid: 474f8bd4986c0d14baaa18fb89941337, type: 3}
-  - nome: 25
-    sprite: {fileID: 21300000, guid: 7928ad2423039a74fa57b751cb734f65, type: 3}
-  - nome: 50
-    sprite: {fileID: 21300000, guid: fc044a9950570e2478251fa956e5f9e0, type: 3}
-  - nome: 75
-    sprite: {fileID: 21300000, guid: 74d3b15aca124ce4d89e613e4a0a5887, type: 3}
+  - Nome: autocal_50
+    Sprite: {fileID: 21300000, guid: fc044a9950570e2478251fa956e5f9e0, type: 3}
+  - Nome: autocal_50_abort
+    Sprite: {fileID: 21300000, guid: 74607d5b0cdeebd44b4664fe316d3d2d, type: 3}
+  - Nome: c6_tempo
+    Sprite: {fileID: 21300000, guid: e418076ffe434d646b475032bfc3ca90, type: 3}
+  - Nome: 25
+    Sprite: {fileID: 21300000, guid: 7928ad2423039a74fa57b751cb734f65, type: 3}
+  - Nome: menu
+    Sprite: {fileID: 21300000, guid: 9668f8dba256ea04ea009422f67cd62c, type: 3}
+  - Nome: menu_config
+    Sprite: {fileID: 21300000, guid: 00ddaff36608a474d961fa3e9fe0694b, type: 3}
+  - Nome: alerta
+    Sprite: {fileID: 21300000, guid: 74607d5b0cdeebd44b4664fe316d3d2d, type: 3}
+  - Nome: opcoes_saida
+    Sprite: {fileID: 21300000, guid: 9668f8dba256ea04ea009422f67cd62c, type: 3}
+  - Nome: salvar
+    Sprite: {fileID: 21300000, guid: 223eb02b10d7bc04c9ec4421229859ff, type: 3}
+  - Nome: bluetooth_piscando
+    Sprite: {fileID: 21300000, guid: 00ddaff36608a474d961fa3e9fe0694b, type: 3}
+  - Nome: bluetooth_conectado
+    Sprite: {fileID: 21300000, guid: 223eb02b10d7bc04c9ec4421229859ff, type: 3}
+  - Nome: erro_torque
+    Sprite: {fileID: 21300000, guid: 74607d5b0cdeebd44b4664fe316d3d2d, type: 3}
+  - Nome: alerta_pressao
+    Sprite: {fileID: 21300000, guid: 74607d5b0cdeebd44b4664fe316d3d2d, type: 3}
+  - Nome: erro_eletrico
+    Sprite: {fileID: 21300000, guid: 74607d5b0cdeebd44b4664fe316d3d2d, type: 3}
+  - Nome: alerta_manutencao
+    Sprite: {fileID: 21300000, guid: e418076ffe434d646b475032bfc3ca90, type: 3}
+  - Nome: reset_ciclos
+    Sprite: {fileID: 21300000, guid: 891b45b5d8da82c4fa975bc7e8862e09, type: 3}
   efeitosDisponiveis:
-  - nome: nenhum
-    vfxObject: {fileID: 0}
-  - nome: nenhum
-    vfxObject: {fileID: 0}
-  - nome: nenhum
-    vfxObject: {fileID: 0}
-  - nome: nenhum
-    vfxObject: {fileID: 0}
-  - nome: nenhum
-    vfxObject: {fileID: 0}
-  - nome: nenhum
-    vfxObject: {fileID: 0}
-  - nome: nenhum
-    vfxObject: {fileID: 0}
-  - nome: nenhum
-    vfxObject: {fileID: 0}
-  - nome: nenhum
-    vfxObject: {fileID: 0}
-  - nome: nenhum
-    vfxObject: {fileID: 0}
-  - nome: nenhum
-    vfxObject: {fileID: 0}
+  - Nome: alerta_vermelho
+    VfxObject: {fileID: 0}
+  - Nome: setas_rotacao
+    VfxObject: {fileID: 0}
+  - Nome: piscar_led_verde
+    VfxObject: {fileID: 0}
+  - Nome: destaque_botoes
+    VfxObject: {fileID: 0}
+  - Nome: destaque_b2
+    VfxObject: {fileID: 0}
+  - Nome: destaque_celular
+    VfxObject: {fileID: 0}
+  - Nome: destaque_eixo
+    VfxObject: {fileID: 0}
+  - Nome: animacao_chave
+    VfxObject: {fileID: 0}
+  - Nome: animacao_valvula_ar
+    VfxObject: {fileID: 0}
+  - Nome: destaque_tubulacao
+    VfxObject: {fileID: 0}
+  - Nome: vazamento_ar
+    VfxObject: {fileID: 0}
+  - Nome: animacao_chave_boca
+    VfxObject: {fileID: 0}
+  - Nome: destaque_tampa
+    VfxObject: {fileID: 0}
+  - Nome: multimentro_medindo
+    VfxObject: {fileID: 0}
+  - Nome: piscar_led_laranja
+    VfxObject: {fileID: 0}
+  - Nome: destaque_lubrificacao
+    VfxObject: {fileID: 0}
 --- !u!4 &1650130471
 Transform:
   m_ObjectHideFlags: 0
@@ -1156,7 +1165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &2121781921
 SpriteRenderer:
   serializedVersion: 2
@@ -1224,13 +1233,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121781920}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.018119408, y: 0.84066445, z: 0.047914173}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 0.0026, y: 1.066, z: 0}
+  m_LocalScale: {x: 0.004, y: 0.004, z: 0.004}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 8046119262532659207}
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!1001 &7349928565115095077
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1388,12 +1397,20 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: b9282f3969e05184995f518a64ac1f4f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2743075432702046094, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2121781922}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 668987552827289047, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8046119262532659209}
   m_SourcePrefab: {fileID: 100100000, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
+--- !u!4 &8046119262532659207 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2743075432702046094, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
+  m_PrefabInstance: {fileID: 8046119262532659206}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8046119262532659208 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 668987552827289047, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
@@ -1433,6 +1450,5 @@ SceneRoots:
   - {fileID: 7349928565115095077}
   - {fileID: 452014062}
   - {fileID: 8046119262532659206}
-  - {fileID: 2121781922}
   - {fileID: 1650130471}
   - {fileID: 1097942398}

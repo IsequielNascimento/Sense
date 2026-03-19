@@ -1,97 +1,92 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
-
-// Classe para facilitar a associação de nomes (string) com Sprites no Inspector
-[System.Serializable]
-public class TelaDisplay
-{
-    public string nome;
-    public Sprite sprite;
-}
-
-// Classe para facilitar a associação de nomes (string) com GameObjects (VFX) no Inspector
-[System.Serializable]
-public class EfeitoVisual
-{
-    public string nome;
-    public GameObject vfxObject;
-}
+using UnityEngine;
 
 public class GerenciadorVisual : MonoBehaviour
 {
-    [Header("Referências do Display")]
-    public Image displayDoSensor; // Arraste aqui a UI Image do display do seu sensor
-    public List<TelaDisplay> telasDisponiveis; // Cadastre aqui os sprites do display
-
-    [Header("Referências de VFX")]
-    public List<EfeitoVisual> efeitosDisponiveis; // Cadastre aqui os prefabs/objetos de VFX
-
-    private Dictionary<string, Sprite> _dicionarioTelas;
-    private Dictionary<string, GameObject> _dicionarioVFX;
-
-    void Awake()
+    [System.Serializable]
+    public struct TelaSetup
     {
-        if (displayDoSensor == null)
-        {
-            displayDoSensor = GetComponentInChildren<Image>(); // Ou GetComponent<Image>() se estiver no mesmo GameObject
-            if (displayDoSensor == null)
-            {
-                Debug.LogError("❌ CRÍTICO: Image do display do sensor não encontrada em GerenciadorVisual ou seus filhos!");
-            }
-        }
-        // Converte as listas em dicionários para acesso rápido e eficiente
-        _dicionarioTelas = new Dictionary<string, Sprite>();
-        foreach (var tela in telasDisponiveis)
-        {
-            _dicionarioTelas[tela.nome] = tela.sprite;
-        }
-
-        _dicionarioVFX = new Dictionary<string, GameObject>();
-        foreach (var efeito in efeitosDisponiveis)
-        {
-            _dicionarioVFX[efeito.nome] = efeito.vfxObject;
-            // Garante que todos os efeitos comecem desativados
-            if (efeito.vfxObject != null)
-            {
-                efeito.vfxObject.SetActive(false);
-            }
-        }
+        public string Nome;
+        public Sprite Sprite;
     }
 
-    // Método principal que será chamado pelo GerenciarMontagem
-    public void AtualizarVisuais(string nomeTela, string nomeVFX)
+    [System.Serializable]
+    public struct VFXSetup
     {
-        Debug.Log($"[GerenciadorVisual] AtualizarVisuais chamado com nomeTela: {nomeTela}, nomeVFX: {nomeVFX}");
-        // 1. ATUALIZAR O DISPLAY
-        if (_dicionarioTelas.ContainsKey(nomeTela))
+        public string Nome;
+        public GameObject VfxObject;
+    }
+
+    [Header("Referências do Display")]
+    [Tooltip("Arraste o objeto Square (que agora usa SpriteRenderer) aqui")]
+    public SpriteRenderer displaySpriteRenderer; 
+    public List<TelaSetup> telasDisponiveis;
+
+    [Header("Referências de VFX")]
+    public List<VFXSetup> efeitosDisponiveis;
+
+    /// <summary>
+    /// Altera a imagem do display baseado no nome vindo do JSON.
+    /// </summary>
+    public void MudarSpriteDoSensor(string nomeTela)
+    {
+        if (displaySpriteRenderer == null) return;
+
+        // Se o JSON pedir "nenhum", o script desliga o ecrã virtual
+        if (string.IsNullOrEmpty(nomeTela) || nomeTela.ToLower() == "nenhum")
         {
-            displayDoSensor.sprite = _dicionarioTelas[nomeTela];
-            displayDoSensor.gameObject.SetActive(true);
-        }
-        else
-        {
-            // Se o nome da tela for "nenhum" ou inválido, desativa o display
-            displayDoSensor.gameObject.SetActive(false);
-            Debug.LogWarning($"Tela de display com nome '{nomeTela}' não encontrada.");
+            displaySpriteRenderer.gameObject.SetActive(false);
+            return;
         }
 
-        // 2. ATUALIZAR O VFX
-        // Primeiro, desativa todos os efeitos para garantir um estado limpo
-        foreach (var efeito in _dicionarioVFX.Values)
+        foreach (var tela in telasDisponiveis)
         {
-            if (efeito != null)
+            if (tela.Nome.ToLower() == nomeTela.ToLower())
             {
-                efeito.SetActive(false);
+                displaySpriteRenderer.sprite = tela.Sprite;
+                
+                // O Pulo do Gato: Garante que o objeto Square seja LIGADO na cena!
+                displaySpriteRenderer.gameObject.SetActive(true); 
+                
+                Debug.Log($"[Gerenciador Visual] Display atualizado para: {nomeTela}");
+                return;
+            }
+        }
+        
+        Debug.LogWarning($"[Gerenciador Visual] Tela '{nomeTela}' não encontrada na lista 'Telas Disponiveis'.");
+    }
+
+    /// <summary>
+    /// Ativa o GameObject/ParticleSystem correspondente e desativa os demais.
+    /// </summary>
+    public void AtivarEfeito(string nomeEfeito)
+    {
+        if (efeitosDisponiveis == null || efeitosDisponiveis.Count == 0) return;
+
+        bool efeitoEncontrado = false;
+
+        foreach (var efeito in efeitosDisponiveis)
+        {
+            if (efeito.VfxObject != null)
+            {
+                if (!string.IsNullOrEmpty(nomeEfeito) && 
+                    nomeEfeito.ToLower() != "nenhum" && 
+                    efeito.Nome.ToLower() == nomeEfeito.ToLower())
+                {
+                    efeito.VfxObject.SetActive(true);
+                    efeitoEncontrado = true;
+                    Debug.Log($"[Gerenciador Visual] VFX Ativado: {nomeEfeito}");
+                }
+                else
+                {
+                    efeito.VfxObject.SetActive(false);
+                }
             }
         }
 
-        // Depois, ativa apenas o efeito desejado (se não for "nenhum")
-        if (nomeVFX != "nenhum" && _dicionarioVFX.ContainsKey(nomeVFX))
+        if (!efeitoEncontrado && !string.IsNullOrEmpty(nomeEfeito) && nomeEfeito.ToLower() != "nenhum")
         {
-            _dicionarioVFX[nomeVFX].SetActive(true);
+            Debug.LogWarning($"[Gerenciador Visual] Efeito VFX '{nomeEfeito}' não encontrado na lista.");
         }
     }
 }
-
-

@@ -1,0 +1,32 @@
+{
+  "layer": "Problema 7",
+  "etapas": [
+    {
+      "tutorial": "Falha de atuação: o sistema elétrico não detecta a alimentação da solenóide (24 Vcc).",
+      "animacao": "A7_p1",
+      "telaDisplay": "erro_eletrico",
+      "vfx": "alerta_vermelho"
+    },
+    {
+      "tutorial": "Abra a tampa do compartimento de conexões elétricas.",
+      "animacao": "A7_p2",
+      "telaDisplay": "erro_eletrico",
+      "vfx": "destaque_tampa"
+    },
+    {
+      "tutorial": "Com o auxílio de um multímetro, verifique a tensão nos bornes. O valor correto é 24V.",
+      "animacao": "A7_p3",
+      "telaDisplay": "erro_eletrico",
+      "vfx": "multimetro_medindo"
+    },
+    {
+      "tutorial": "Reaperte os cabos rompidos ou frouxos. A conexão elétrica foi restabelecida com sucesso.",
+      "animacao": "A7_p4",
+      "telaDisplay": "menu",
+      "vfx": "nenhum"
+    }
+  ],
+  "tutorialInicial": "Posicione o objeto na superfície para iniciar a solução do problema.",
+  "popupInicialTexto1": "Aponte sua câmera para uma superfície plana e aguarde o fundo branco ser exibido.",
+  "popupInicialTexto2": "Após o fundo branco ser exibido, toque na tela para visualizar a peça."
+}

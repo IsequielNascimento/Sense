@@ -1,32 +1,32 @@
 {
-   "layer": "Problema 1",
+  "layer": "Problema 1",
   "etapas": [
     {
-      "tutorial": "Iniciando o processo de calibração...",
+      "tutorial": "O display indica o início da calibração automática (Auto Setup). Aguarde o processamento.",
       "animacao": "A1_p1",
       "telaDisplay": "autocal_50",
       "vfx": "nenhum"
     },
     {
-      "tutorial": "Tempo para calibração excedido. Ajuste o tempo configurado.",
+      "tutorial": "Erro de calibração: Curso insuficiente. A calibração foi abortada pelo sistema.",
       "animacao": "A1_p2",
       "telaDisplay": "autocal_50_abort",
-      "vfx": "nenhum"
+      "vfx": "alerta_vermelho"
     },
     {
-      "tutorial": "Ajuste o ângulo da válvula para mais de 30° para solucionar o problema.",
+      "tutorial": "Desacople ou force o eixo da válvula rotativa manualmente para garantir um giro superior a 30°.",
       "animacao": "A1_p3",
       "telaDisplay": "c6_tempo",
-      "vfx": "nenhum"
+      "vfx": "setas_rotacao"
     },
     {
-      "tutorial": "O ajuste foi concluído. O ângulo está acima de 30°.",
+      "tutorial": "Posição corrigida com sucesso. O LED verde confirma a abertura da válvula e o sistema está pronto.",
       "animacao": "A1_p4",
       "telaDisplay": "25",
-      "vfx": "nenhum"
+      "vfx": "piscar_led_verde"
     }
   ],
   "tutorialInicial": "Posicione o objeto na superfície para iniciar a solução do problema.",
-  "popupInicialTexto1": "Point your camera at a flat surface and wait for the white background to appear.",
-  "popupInicialTexto2": "Once it appears, tap the screen to view the object."
+  "popupInicialTexto1": "Aponte a sua câmera para uma superfície plana e aguarde o fundo branco ser exibido.",
+  "popupInicialTexto2": "Após o fundo branco ser exibido, toque na tela para visualizar a peça."
 }

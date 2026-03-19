@@ -1,0 +1,32 @@
+{
+  "layer": "Problema 6",
+  "etapas": [
+    {
+      "tutorial": "A válvula não está atuando. Verifique a pressão na entrada da válvula solenóide.",
+      "animacao": "A6_p1",
+      "telaDisplay": "alerta_pressao",
+      "vfx": "nenhum"
+    },
+    {
+      "tutorial": "Procure por vazamentos de ar nas conexões BSP/NPT do bloco de alumínio/inox.",
+      "animacao": "A6_p2",
+      "telaDisplay": "alerta_pressao",
+      "vfx": "vazamento_ar"
+    },
+    {
+      "tutorial": "Utilize a ferramenta adequada para apertar a conexão frouxa e estancar o vazamento.",
+      "animacao": "A6_p3",
+      "telaDisplay": "alerta_pressao",
+      "vfx": "animacao_chave_boca"
+    },
+    {
+      "tutorial": "A pressão pneumática foi restabelecida e a válvula está pronta para operar.",
+      "animacao": "A6_p4",
+      "telaDisplay": "menu",
+      "vfx": "nenhum"
+    }
+  ],
+  "tutorialInicial": "Posicione o objeto na superfície para iniciar a solução do problema.",
+  "popupInicialTexto1": "Aponte sua câmera para uma superfície plana e aguarde o fundo branco ser exibido.",
+  "popupInicialTexto2": "Após o fundo branco ser exibido, toque na tela para visualizar a peça."
+}
