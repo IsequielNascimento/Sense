@@ -1,11 +1,21 @@
-// Arquivo: PassoAPasso.cs
-
 [System.Serializable]
 public class PassoAPasso
 {
-    public string layer;
-    public EtapaProblema[] etapas; // O Unity vai encontrar a definição de EtapaProblema em outro arquivo
+    public string idProblema;
     public string tutorialInicial;
+    public string popupInicialTexto1;
+    public string popupInicialTexto2;
+    public Etapa[] etapas;
+    public string layer;
 }
 
-// A DEFINIÇÃO DA CLASSE EtapaProblema FOI REMOVIDA DESTE ARQUIVO.
+[System.Serializable]
+public class Etapa
+{
+    public string animacao;
+    public string tutorial;
+    
+    // AS DUAS LINHAS MÁGICAS QUE FALTAVAM:
+    public string telaDisplay; 
+    public string vfx;         
+}

@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UIElements; // Confirmação de que estamos no UI Toolkit
+using UnityEngine.UIElements; 
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
@@ -164,6 +164,7 @@ public class UIController : MonoBehaviour
         
         if (placeOnPlane != null && animacoes != null && passoAtual < animacoes.Length)
         {
+            // Pega o display e VFX de forma segura
             string telaAtual = (telasDisplay != null && passoAtual < telasDisplay.Length) ? telasDisplay[passoAtual] : "";
             string vfxAtual = (vfxs != null && passoAtual < vfxs.Length) ? vfxs[passoAtual] : "";
             
@@ -182,10 +183,7 @@ public class UIController : MonoBehaviour
             if (dados != null && dados.passos != null && dados.passos.Length > 0)
             {
                 passosTutoriais = dados.passos.Select(p => p.tutorial).ToArray();
-                
-                // --- LÓGICA BASEADA NO CANVAS: Respeita os números exatos do JSON (1, 4, 11...) ---
                 animacoes = dados.passos.Select(p => $"animacao_{p.numero}").ToArray();
-                
                 Debug.Log($"[AR Toolkit] Montagem Padrão carregada com {animacoes.Length} animações.");
             }
             else
@@ -217,6 +215,9 @@ public class UIController : MonoBehaviour
                     telasDisplay = dadosProblema.etapas.Select(e => e.telaDisplay).ToArray();
                     vfxs = dadosProblema.etapas.Select(e => e.vfx).ToArray();
                     layerAtual = !string.IsNullOrEmpty(dadosProblema.layer) ? dadosProblema.layer : "Base Layer";
+
+                    // LOG DE SEGURANÇA: Verifica se as variáveis foram puxadas do JSON
+                    Debug.Log($"[AR Toolkit] JSON Lido com sucesso. Primeira tela encontrada: '{telasDisplay[0]}', Primeiro VFX: '{vfxs[0]}'");
                 }
             }
             else
@@ -230,6 +231,7 @@ public class UIController : MonoBehaviour
         }
     }
 
+    // ... (restante dos métodos de botões inalterados)
     public void AvancarPasso(ClickEvent evt = null) 
     {
         if (!passosIniciados) return;
