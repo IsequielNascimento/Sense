@@ -70,7 +70,20 @@ public class UIController : MonoBehaviour
         grupoMontagem = root.Q<VisualElement>("GrupoMontagem");
         tutorialUI = root.Q<VisualElement>("Tutorial"); 
         textoTutorial = root.Q<Label>("TextoTutorial");
+        
+        // --- TESTE DE DIAGNÓSTICO DO BOTÃO SAIR ---
         botaoSair = root.Q<Button>("Sair");
+        
+        if (botaoSair == null) 
+        { 
+            Debug.LogError("🚨 ALERTA: O Unity NÃO ACHOU o botão Sair! Verifique se o nome no UI Builder é exatamente 'Sair' e se você salvou o arquivo .uxml."); 
+        } 
+        else 
+        { 
+            Debug.Log("✅ SUCESSO: O botão Sair foi encontrado no UI Builder e conectado ao script!"); 
+        }
+        // ------------------------------------------
+
         botaoProximo = root.Q<Button>("Proximo");
         botaoVoltar = root.Q<Button>("Voltar");
         botaoReplay = root.Q<Button>("Replay");
@@ -164,7 +177,6 @@ public class UIController : MonoBehaviour
         
         if (placeOnPlane != null && animacoes != null && passoAtual < animacoes.Length)
         {
-            // Pega o display e VFX de forma segura
             string telaAtual = (telasDisplay != null && passoAtual < telasDisplay.Length) ? telasDisplay[passoAtual] : "";
             string vfxAtual = (vfxs != null && passoAtual < vfxs.Length) ? vfxs[passoAtual] : "";
             
@@ -216,7 +228,6 @@ public class UIController : MonoBehaviour
                     vfxs = dadosProblema.etapas.Select(e => e.vfx).ToArray();
                     layerAtual = !string.IsNullOrEmpty(dadosProblema.layer) ? dadosProblema.layer : "Base Layer";
 
-                    // LOG DE SEGURANÇA: Verifica se as variáveis foram puxadas do JSON
                     Debug.Log($"[AR Toolkit] JSON Lido com sucesso. Primeira tela encontrada: '{telasDisplay[0]}', Primeiro VFX: '{vfxs[0]}'");
                 }
             }
@@ -231,7 +242,6 @@ public class UIController : MonoBehaviour
         }
     }
 
-    // ... (restante dos métodos de botões inalterados)
     public void AvancarPasso(ClickEvent evt = null) 
     {
         if (!passosIniciados) return;
@@ -282,7 +292,11 @@ public class UIController : MonoBehaviour
         AtualizarPasso();
     }
 
-    private void OnBotaoSairClicado(ClickEvent evt) { VoltarMenu(evt); }
+    private void OnBotaoSairClicado(ClickEvent evt) 
+    { 
+        Debug.Log("👆 CLICK REGISTRADO: O botão SAIR foi clicado e vai tentar carregar a cena 0.");
+        VoltarMenu(evt); 
+    }
 
     private void MostrarElemento(VisualElement elemento, bool mostrar)
     {

@@ -15,7 +15,6 @@ public class GerenciarUI : MonoBehaviour
     [Header("Referências UI")]
     public TMP_InputField campoDePesquisa;
     public GameObject painelDetalhes;
-    public GameObject backgroundBlur;
     public TMP_Text holderTitulosUI;
     public TMP_Text tituloProblema;
     public TMP_Text tituloTitulosUI;
@@ -30,7 +29,6 @@ public class GerenciarUI : MonoBehaviour
     public GameObject templateProblema;
     public Transform listaDeResultados;
 
-    private CanvasGroup blurCanvasGroup;
     private string idiomaAtual = "pt";
     private Problema problemaAtual;
 
@@ -40,13 +38,17 @@ public class GerenciarUI : MonoBehaviour
         campoDePesquisa.onValueChanged.AddListener(_ => Pesquisar());
 
         templateProblema.SetActive(false);
-        painelDetalhes.SetActive(false);
-
-        if (backgroundBlur != null)
+        
+        // Correção do Bug de Dois Cliques: 
+        // Em vez de desligar o objeto na força bruta, chamamos a função do PainelDeslizante.
+        PainelDeslizante painelScript = painelDetalhes.GetComponent<PainelDeslizante>();
+        if (painelScript != null)
         {
-            blurCanvasGroup = backgroundBlur.GetComponent<CanvasGroup>();
-            if (blurCanvasGroup != null) blurCanvasGroup.alpha = 0f;
-            backgroundBlur.SetActive(false);
+            painelScript.FecharInstantaneamente();
+        }
+        else
+        {
+            painelDetalhes.SetActive(false);
         }
 
         if (IdiomaManager.Instance != null)
@@ -76,7 +78,11 @@ public class GerenciarUI : MonoBehaviour
         {
             Debug.LogError($"Arquivo banco_de_dados_{idiomaAtual}.json não encontrado.");
         }
-        painelDetalhes.SetActive(false);
+        
+        // Garante que o painel fecha ao trocar de idioma
+        PainelDeslizante painelScript = painelDetalhes.GetComponent<PainelDeslizante>();
+        if (painelScript != null) painelScript.FecharInstantaneamente();
+        else painelDetalhes.SetActive(false);
     }
 
     public void Pesquisar()
@@ -121,18 +127,14 @@ public class GerenciarUI : MonoBehaviour
         solucao.text = problema.solucao2;
         textpasso.text = problema.botaopasso;
 
-        painelDetalhes.SetActive(true);
-
         PainelDeslizante painelScript = painelDetalhes.GetComponent<PainelDeslizante>();
         if (painelScript != null)
         {
             painelScript.Abrir();
         }
-
-        if (backgroundBlur != null)
+        else
         {
-            StopCoroutine("FadeIn");
-            StartCoroutine(FadeIn(0.4f));
+            painelDetalhes.SetActive(true);
         }
     }
 
@@ -148,12 +150,6 @@ public class GerenciarUI : MonoBehaviour
         {
             painelDetalhes.SetActive(false);
         }
-
-        if (backgroundBlur != null)
-        {
-            StopCoroutine("FadeOut");
-            StartCoroutine(FadeOut(0.4f));
-        }
     }
 
     public void VerPassoAPasso()
@@ -165,7 +161,6 @@ public class GerenciarUI : MonoBehaviour
             ControleDeCena.Instance.DefinirOrigem("problema");
         }
 
-        // CORREÇÃO APLICADA AQUI: Deixamos o Awake do componente instanciado gerenciar o Singleton
         if (ProblemaSelecionadoAR.Instance == null)
         {
             var selecionado = new GameObject("ProblemaSelecionadoAR");
@@ -179,35 +174,6 @@ public class GerenciarUI : MonoBehaviour
         }
 
         SceneManager.LoadScene(nomeCenaARCanvas);
-    }
-
-    IEnumerator FadeIn(float duracao)
-    {
-        backgroundBlur.SetActive(true);
-        float tempo = 0f;
-        while (tempo < duracao)
-        {
-            if (blurCanvasGroup != null)
-                blurCanvasGroup.alpha = Mathf.Lerp(0f, 1f, tempo / duracao);
-            tempo += Time.deltaTime;
-            yield return null;
-        }
-        if (blurCanvasGroup != null) blurCanvasGroup.alpha = 1f;
-    }
-
-    IEnumerator FadeOut(float duracao)
-    {
-        float tempo = 0f;
-        float inicio = (blurCanvasGroup != null) ? blurCanvasGroup.alpha : 1f;
-        while (tempo < duracao)
-        {
-            if (blurCanvasGroup != null)
-                blurCanvasGroup.alpha = Mathf.Lerp(inicio, 0f, tempo / duracao);
-            tempo += Time.deltaTime;
-            yield return null;
-        }
-        if (blurCanvasGroup != null) blurCanvasGroup.alpha = 0f;
-        backgroundBlur.SetActive(false);
     }
 
     [System.Serializable]

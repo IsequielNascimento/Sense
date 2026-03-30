@@ -2,224 +2,80 @@
   "titulos": {
     "titulo_cena": "Problèmes",
     "subtitulo": "Choisissez l’option qui correspond à votre problème",
-    "holder": "Saisissez le problème..."
+    "holder": "Rechercher un problème..."
   },
   "problemas": [
     {
-      "titulo": "Angle Minimum (A1)",
-      "descricao": "Alerte générée lorsque l’angle d’ouverture ou de fermeture de la vanne est inférieur à 30°.",
+      "titulo": "Échec de Calibrage (A1)",
+      "descricao": "Le blocage de l'axe a interrompu l'Auto Setup. Le système nécessite une libération manuelle de la vanne rotative.",
       "descricao2": "Description",
-      "solucao": "Vérifiez si l’angle formé entre le point d’ouverture et le point de fermeture est supérieur à 30°. Sinon, ajustez l’angle d’ouverture ou de fermeture de la vanne.",
+      "solucao": "Forcez l'axe manuellement avec une clé. Assurez une rotation supérieure à 30° pour confirmer la libération.",
       "solucao2": "Solution",
       "botaopasso": "Voir étape par étape",
       "imagem": "A1"
     },
     {
-      "titulo": "Limite de Temps (A2)",
-      "descricao": "Alerte lorsque le temps de calibration de la vanne dépasse la durée configurée dans le menu.",
+      "titulo": "Clé Magnétique (A2)",
+      "descricao": "Modification des paramètres sans ouvrir le couvercle de l'équipement, en respectant les restrictions de sécurité.",
       "descricao2": "Description",
-      "solucao": "Ajustez le temps configuré pour la calibration de la vanne dans le menu, en veillant à ne pas dépasser la limite maximale.",
+      "solucao": "Utilisez la clé sur B1 pendant 3s pour le menu Offline. Naviguez avec des touches sur B3 et sauvegardez sur B2.",
       "solucao2": "Solution",
       "botaopasso": "Voir étape par étape",
       "imagem": "A2"
     },
     {
-      "titulo": "Échec de l’Auto-calibrage (A3)",
-      "descricao": "Cette alerte survient lorsque les points d’ouverture et de fermeture enregistrés ne sont pas identiques pendant les cycles de calibration.",
+      "titulo": "Appairage Bluetooth (A3)",
+      "descricao": "Diagnostic avancé via application mobile. Il est nécessaire d'activer le module sans fil sur l'écran du M4.Smart.",
       "descricao2": "Description",
-      "solucao": "Vérifiez que les points d’ouverture et de fermeture sont correctement enregistrés. En cas d’erreur, répétez la procédure de calibration pour corriger le problème.",
+      "solucao": "Activez le Bluetooth dans le menu local. Approchez le smartphone et confirmez l'appairage sur l'écran.",
       "solucao2": "Solution",
       "botaopasso": "Voir étape par étape",
       "imagem": "A3"
     },
     {
-      "titulo": "Hors Plage (A4)",
-      "descricao": "Alerte lorsque l’angle d’ouverture ou de fermeture dépasse de 5° la zone de calibration.",
+      "titulo": "Jeu Mécanique (A4)",
+      "descricao": "Erreur de position due à la vibration continue de la ligne, qui a desserré les vis du support NAMUR.",
       "descricao2": "Description",
-      "solucao": "Vérifiez les points de calibration et ajustez l’ouverture ou la fermeture de la vanne de 5° pour rester dans la plage correcte.",
+      "solucao": "Vérifiez l'alerte sur l'écran. Utilisez une clé Allen pour resserrer les vis du support de l'axe.",
       "solucao2": "Solution",
       "botaopasso": "Voir étape par étape",
       "imagem": "A4"
     },
     {
-      "titulo": "Aucun Mouvement (A5)",
-      "descricao": "Alerte déclenchée en cas d’absence de mouvement de la vanne pendant la calibration.",
+      "titulo": "Erreur de Couple (A5)",
+      "descricao": "Le moteur s'est arrêté en raison d'un couple élevé. Indique un blocage par obstruction ou une défaillance des joints.",
       "descricao2": "Description",
-      "solucao": "Vérifiez si la vanne reçoit bien les commandes de mouvement. Sinon, inspectez les connexions pneumatiques et les commandes de calibration.",
+      "solucao": "Inspectez la tuyauterie et la vanne. Retirez toute obstruction physique pour libérer l'ensemble mécanique.",
       "solucao2": "Solution",
       "botaopasso": "Voir étape par étape",
       "imagem": "A5"
     },
     {
-      "titulo": "Échec de Commande (A6)",
-      "descricao": "Alerte lorsque la vanne n’exécute pas la commande envoyée à l’électrovanne.",
+      "titulo": "Fuite d'Air (A6)",
+      "descricao": "Alerte de basse pression pneumatique. Une fuite dans les connexions 1/4 NPT dépressurise le système.",
       "descricao2": "Description",
-      "solucao": "Vérifiez la vanne et les commandes de l’électrovanne pour vous assurer qu’elles répondent correctement.",
+      "solucao": "Identifiez le port qui fuit. Utilisez une clé plate pour resserrer la connexion métallique lâche.",
       "solucao2": "Solution",
       "botaopasso": "Voir étape par étape",
       "imagem": "A6"
     },
     {
-      "titulo": "Changement Inattendu (A7)",
-      "descricao": "Alerte générée lorsqu’un changement de position de la vanne est détecté sans commande envoyée.",
+      "titulo": "Échec de Signal (A7)",
+      "descricao": "Perte de signal 4-20mA avec le PLC. Cela peut être une rupture de câblage ou une panne d'alimentation.",
       "descricao2": "Description",
-      "solucao": "Inspectez le moniteur et la vanne pour identifier les changements inattendus. Ajustez le système si nécessaire.",
+      "solucao": "Ouvrez le compartiment électrique de l'équipement. Utilisez un multimètre pour tester la tension sur les bornes.",
       "solucao2": "Solution",
       "botaopasso": "Voir étape par étape",
       "imagem": "A7"
     },
     {
-      "titulo": "Mode Sécurisé (A8)",
-      "descricao": "Alerte lorsque le moniteur n’est pas en mode sécurisé.",
+      "titulo": "Maintenance (A8)",
+      "descricao": "Alerte de limite de cycles opérationnels atteinte. Le compteur de cycles nécessite une réinitialisation.",
       "descricao2": "Description",
-      "solucao": "Vérifiez la configuration du moniteur et assurez-vous qu’il fonctionne bien en mode sécurisé. Ajustez les paramètres si nécessaire.",
+      "solucao": "Après la maintenance physique, accédez au menu. Sélectionnez l'option 'Reset de Cycles' et confirmez.",
       "solucao2": "Solution",
       "botaopasso": "Voir étape par étape",
       "imagem": "A8"
-    },
-    {
-      "titulo": "Pression Maximale en Ligne (A9)",
-      "descricao": "Alerte générée lorsque la pression de la ligne dépasse 9 bars, ce qui peut endommager définitivement le moniteur.",
-      "descricao2": "Description",
-      "solucao": "Réduisez la pression de la ligne à un niveau inférieur à 9 bars. La pression maximale supportée par le moniteur est de 10 bars.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A9"
-    },
-    {
-      "titulo": "Compteur Partiel (A11)",
-      "descricao": "Alerte générée lorsque le compteur de cycles partiels atteint la valeur configurée.",
-      "descricao2": "Description",
-      "solucao": "Vérifiez la valeur du compteur de cycles partiels et ajustez l’alarme de maintenance préventive si nécessaire.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A11"
-    },
-    {
-      "titulo": "Compteur Total (A12)",
-      "descricao": "Alerte générée lorsque le compteur total de cycles atteint la valeur configurée.",
-      "descricao2": "Description",
-      "solucao": "Le compteur total de cycles ne doit pas être réinitialisé régulièrement. Ne le remettez à zéro que lorsque la vanne est remplacée.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A12"
-    },
-    {
-      "titulo": "Alerte Jours (A13)",
-      "descricao": "Alerte générée lorsque le nombre de jours de fonctionnement atteint la valeur configurée.",
-      "descricao2": "Description",
-      "solucao": "Ajustez le nombre de jours configuré dans le menu pour garantir que l’alerte se déclenche au bon moment.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A13"
-    },
-    {
-      "titulo": "Alerte Date (A14)",
-      "descricao": "Alerte générée lorsque la date configurée est atteinte.",
-      "descricao2": "Description",
-      "solucao": "Ajustez la date configurée pour que le moniteur génère l’alerte à la bonne date.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A14"
-    },
-    {
-      "titulo": "Temps d’Ouverture (A15)",
-      "descricao": "Alerte lorsque le temps d’ouverture de la vanne dépasse la limite configurée.",
-      "descricao2": "Description",
-      "solucao": "Ajustez le temps d’ouverture de la vanne dans le menu, en veillant à ne pas dépasser la limite maximale.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A15"
-    },
-    {
-      "titulo": "Temps de Fermeture (A16)",
-      "descricao": "Alerte lorsque le temps de fermeture de la vanne dépasse la limite configurée.",
-      "descricao2": "Description",
-      "solucao": "Ajustez le temps de fermeture de la vanne dans le menu pour qu’elle se ferme correctement dans l’intervalle spécifié.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A16"
-    },
-    {
-      "titulo": "Haute Pression (A17)",
-      "descricao": "Alerte lorsque la pression d’entrée de la vanne est supérieure à la plage spécifiée (20%).",
-      "descricao2": "Description",
-      "solucao": "Vérifiez la pression d’entrée et ajustez-la pour qu’elle reste dans la plage de fonctionnement spécifiée dans le manuel.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A17"
-    },
-    {
-      "titulo": "Basse Pression (A18)",
-      "descricao": "Alerte lorsque la pression d’entrée est inférieure à la plage spécifiée (20%).",
-      "descricao2": "Description",
-      "solucao": "Vérifiez si la pression d’entrée est dans la plage recommandée. Ajustez si nécessaire.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A18"
-    },
-    {
-      "titulo": "Tension d’Alimentation Élevée (A19)",
-      "descricao": "Alerte générée lorsque la tension d’alimentation dépasse 32 VCC pour AS-Interface et 10 % pour PNP et DeviceNet.",
-      "descricao2": "Description",
-      "solucao": "Vérifiez la source d’alimentation et ajustez la tension pour ne pas dépasser 32 VCC pour AS-Interface et 10 % pour PNP et DeviceNet.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A19"
-    },
-    {
-      "titulo": "Tension d’Alimentation Basse (A20)",
-      "descricao": "Alerte générée lorsque la tension d’alimentation est inférieure à 27 V pour AS-Interface et 22,8 V pour PNP et DeviceNet.",
-      "descricao2": "Description",
-      "solucao": "Ajustez la source d’alimentation pour que la tension soit supérieure à 27 V pour AS-Interface et 22,8 V pour PNP et DeviceNet.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A20"
-    },
-    {
-      "titulo": "Température Élevée (A21)",
-      "descricao": "Alerte lorsque la température interne du moniteur dépasse 70 °C.",
-      "descricao2": "Description",
-      "solucao": "Ajustez les conditions environnementales ou les systèmes de refroidissement pour garantir que la température interne du moniteur ne dépasse pas 70 °C.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A21"
-    },
-    {
-      "titulo": "Température Basse (A22)",
-      "descricao": "Alerte lorsque la température du moniteur est inférieure à -20 °C.",
-      "descricao2": "Description",
-      "solucao": "Vérifiez les conditions d’utilisation et ajustez l’environnement pour que la température interne ne descende pas en dessous de -20 °C.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A22"
-    },
-    {
-      "titulo": "Solénoïde Court-circuité (A23)",
-      "descricao": "Alerte générée lorsque la bobine du solénoïde présente un court-circuit.",
-      "descricao2": "Description",
-      "solucao": "Vérifiez la bobine du solénoïde pour détecter un court-circuit. Remplacez le solénoïde si nécessaire.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A23"
-    },
-    {
-      "titulo": "Solénoïde Ouverte (A24)",
-      "descricao": "Alerte générée lorsque la bobine du solénoïde ou le câble est cassé.",
-      "descricao2": "Description",
-      "solucao": "Vérifiez l’intégrité de la bobine du solénoïde et de ses câbles. Réparez ou remplacez si nécessaire.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A24"
-    },
-    {
-      "titulo": "Sortie en Court-circuit (A25)",
-      "descricao": "Alerte générée lorsque l’une des sorties PNP ou ses charges présente un court-circuit.",
-      "descricao2": "Description",
-      "solucao": "Vérifiez les sorties PNP et corrigez le court-circuit pour rétablir le fonctionnement normal.",
-      "solucao2": "Solution",
-      "botaopasso": "Voir étape par étape",
-      "imagem": "A25"
     }
   ]
 }

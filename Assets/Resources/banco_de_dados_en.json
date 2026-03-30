@@ -2,224 +2,80 @@
   "titulos": {
     "titulo_cena": "Issues",
     "subtitulo": "Choose the option that matches your issue",
-    "holder": "Type the problem..."
+    "holder": "Search issue..."
   },
   "problemas": [
     {
-      "titulo": "Minimum Angle (A1)",
-      "descricao": "Alert triggered when the valve opening or closing angle is less than 30°.",
+      "titulo": "Calibration Failure (A1)",
+      "descricao": "Axis lock interrupted the Auto Setup. The system requires manual release of the rotary valve.",
       "descricao2": "Description",
-      "solucao": "Check whether the angle formed between the opening and closing points is\nabove 30°. If not, adjust the opening or closing angle of the valve.",
+      "solucao": "Force the axis manually with a wrench. Ensure a rotation greater than 30° to confirm the release.",
       "solucao2": "Solution",
       "botaopasso": "View step by step",
       "imagem": "A1"
     },
     {
-      "titulo": "Time Limit (A2)",
-      "descricao": "Alert for calibration time exceeded according to the configuration in the menu.",
+      "titulo": "Magnetic Key (A2)",
+      "descricao": "Parameter modification without opening the equipment cover, respecting the area's safety restrictions.",
       "descricao2": "Description",
-      "solucao": "Adjust the configured time for valve calibration in the menu, ensuring that the\nmaximum calibration time is not exceeded.",
+      "solucao": "Use the magnetic key on B1 for 3s for the Offline menu. Navigate with short taps on B3 and save on B2.",
       "solucao2": "Solution",
       "botaopasso": "View step by step",
       "imagem": "A2"
     },
     {
-      "titulo": "Auto Calibration Failure (A3)",
-      "descricao": "Occurs when the stored open and closed points are not the same during calibration\ncycles.",
+      "titulo": "Bluetooth Pairing (A3)",
+      "descricao": "Advanced diagnostics via mobile app. It is necessary to activate the wireless module on the M4.Smart display.",
       "descricao2": "Description",
-      "solucao": "Check whether the open and closed points are stored correctly. If an error occurs,\nrepeat the calibration process to correct it.",
+      "solucao": "Activate Bluetooth in the local menu. Approach the smartphone and confirm pairing on the screen.",
       "solucao2": "Solution",
       "botaopasso": "View step by step",
       "imagem": "A3"
     },
     {
-      "titulo": "Out of Range (A4)",
-      "descricao": "Alert due to the valve opening or closing advancing 5° beyond the calibration.",
+      "titulo": "Mechanical Looseness (A4)",
+      "descricao": "Position error due to continuous line vibration, which loosened the NAMUR bracket screws.",
       "descricao2": "Description",
-      "solucao": "Check the calibration points and make a 5° adjustment in the valve opening or\nclosing to ensure it is within the correct range.",
+      "solucao": "Check the alert on the display. Use an Allen wrench to retighten the axis bracket screws.",
       "solucao2": "Solution",
       "botaopasso": "View step by step",
       "imagem": "A4"
     },
     {
-      "titulo": "No Movement (A5)",
-      "descricao": "Alert triggered by the lack of valve movement during calibration.",
+      "titulo": "Torque Error (A5)",
+      "descricao": "Motor stopped due to high torque. Indicates locking by obstruction in the pipe or valve seal failure.",
       "descricao2": "Description",
-      "solucao": "Check whether the valve is receiving movement commands. If not, inspect the\npneumatic connections and calibration commands.",
+      "solucao": "Inspect the pipe and valve. Remove any physical obstruction to release the mechanical assembly.",
       "solucao2": "Solution",
       "botaopasso": "View step by step",
       "imagem": "A5"
     },
     {
-      "titulo": "Command Failure (A6)",
-      "descricao": "Alert when the valve does not execute the solenoid command.",
+      "titulo": "Air Leak (A6)",
+      "descricao": "Low pneumatic pressure alert. A leak in the 1/4 NPT connections is depressurizing the system.",
       "descricao2": "Description",
-      "solucao": "Check the valve and solenoid commands to ensure that the valve is responding to\nthe solenoid command.",
+      "solucao": "Identify the leaking port. Use an open-end wrench to retighten the loose metal connection.",
       "solucao2": "Solution",
       "botaopasso": "View step by step",
       "imagem": "A6"
     },
     {
-      "titulo": "Unexpected Change (A7)",
-      "descricao": "Alert triggered due to an unexpected valve position change, regardless of the\nsolenoid command.",
+      "titulo": "Signal Failure (A7)",
+      "descricao": "Loss of 4-20mA signal with the PLC. Could be broken wiring or power supply failure.",
       "descricao2": "Description",
-      "solucao": "Inspect the monitor and valve to check if there were unexpected position changes\nwithout a command. Adjust the system as necessary.",
+      "solucao": "Open the equipment's electrical compartment. Use a multimeter to test the voltage on the internal terminals.",
       "solucao2": "Solution",
       "botaopasso": "View step by step",
       "imagem": "A7"
     },
     {
-      "titulo": "Safe Mode (A8)",
-      "descricao": "Alert when the monitor is not in safe mode.",
+      "titulo": "Maintenance (A8)",
+      "descricao": "Operational cycles limit reached alert. The cycle counter requires a reset for a new service life.",
       "descricao2": "Description",
-      "solucao": "Check the monitor configuration and ensure it is operating in safe mode. Adjust\nsettings as necessary.",
+      "solucao": "After physical maintenance, access the menu. Select the 'Cycle Reset' option and confirm to clear the alert.",
       "solucao2": "Solution",
       "botaopasso": "View step by step",
       "imagem": "A8"
-    },
-    {
-      "titulo": "Max. Line Pressure (A9)",
-      "descricao": "Alert triggered when the line pressure exceeds 9 bar, which can permanently\ndamage the monitor.",
-      "descricao2": "Description",
-      "solucao": "Adjust the line pressure to a value below 9 bar to avoid damage. The monitor's\nmaximum supported pressure is 10 bar.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A9"
-    },
-    {
-      "titulo": "Partial Counter (A11)",
-      "descricao": "Alert triggered when the partial cycle counter reaches the configured value.",
-      "descricao2": "Description",
-      "solucao": "Check the partial cycle counter value and adjust the preventive maintenance alarm\nas needed.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A11"
-    },
-    {
-      "titulo": "Total Counter (A12)",
-      "descricao": "Alert triggered when the total cycle counter reaches the configured value.",
-      "descricao2": "Description",
-      "solucao": "The total cycle counter should not be reset regularly. Only reset it when the valve\nis replaced.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A12"
-    },
-    {
-      "titulo": "Days Alert (A13)",
-      "descricao": "Alert triggered when the number of operating days reaches the configured value.",
-      "descricao2": "Description",
-      "solucao": "Adjust the number of days configured in the menu to ensure the alert is triggered\nat the correct time.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A13"
-    },
-    {
-      "titulo": "Date Alert (A14)",
-      "descricao": "Alert triggered when the configured date is reached.",
-      "descricao2": "Description",
-      "solucao": "Adjust the configured date to ensure the monitor triggers the alert according to the\nset date.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A14"
-    },
-    {
-      "titulo": "Opening Time (A15)",
-      "descricao": "Alert when the valve opening time exceeds the configured limit.",
-      "descricao2": "Description",
-      "solucao": "Adjust the valve opening time in the menu, ensuring it does not exceed the\nmaximum limit.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A15"
-    },
-    {
-      "titulo": "Closing Time (A16)",
-      "descricao": "Alert when the valve closing time exceeds the configured limit.",
-      "descricao2": "Description",
-      "solucao": "Adjust the valve closing time in the menu so that the valve closes correctly\nwithin the specified interval.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A16"
-    },
-    {
-      "titulo": "High Pressure (A17)",
-      "descricao": "Alert when the valve inlet pressure is above the specified range (20%).",
-      "descricao2": "Description",
-      "solucao": "Check the inlet pressure and adjust it to stay within the operational range\nspecified in the manual.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A17"
-    },
-    {
-      "titulo": "Low Pressure (A18)",
-      "descricao": "Alert when the inlet pressure is below the specified range (20%).",
-      "descricao2": "Description",
-      "solucao": "Check whether the inlet pressure is within the recommended range. Adjust as\nneeded.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A18"
-    },
-    {
-      "titulo": "High Supply Voltage (A19)",
-      "descricao": "Alert triggered when the supply voltage exceeds the 32VDC limit for AS-Interface\nand 10% for PNP and DeviceNet.",
-      "descricao2": "Description",
-      "solucao": "Check the power supply and adjust it so that the voltage does not exceed 32VDC for\nAS-Interface and 10% for PNP and DeviceNet.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A19"
-    },
-    {
-      "titulo": "Low Supply Voltage (A20)",
-      "descricao": "Alert triggered when the supply voltage is below 27V for AS-Interface and 22.8V for\nPNP and DeviceNet.",
-      "descricao2": "Description",
-      "solucao": "Adjust the power supply so that the voltage is above 27V for AS-Interface and\n22.8V for PNP and DeviceNet.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A20"
-    },
-    {
-      "titulo": "High Temperature (A21)",
-      "descricao": "Alert when the monitor’s internal temperature exceeds 70°C.",
-      "descricao2": "Description",
-      "solucao": "Adjust environmental conditions or cooling systems to ensure the monitor's internal\ntemperature does not exceed 70°C.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A21"
-    },
-    {
-      "titulo": "Low Temperature (A22)",
-      "descricao": "Alert when the monitor temperature is below -20°C.",
-      "descricao2": "Description",
-      "solucao": "Check the operating conditions and adjust the environment so that the internal\ntemperature does not fall below -20°C.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A22"
-    },
-    {
-      "titulo": "Solenoid Short (A23)",
-      "descricao": "Alert triggered when the solenoid coil shows a short circuit.",
-      "descricao2": "Description",
-      "solucao": "Check the solenoid coil for a short circuit. Replace the solenoid if necessary.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A23"
-    },
-    {
-      "titulo": "Solenoid Open (A24)",
-      "descricao": "Alert when the solenoid coil or cable is broken.",
-      "descricao2": "Description",
-      "solucao": "Check the integrity of the solenoid coil and its cables. Replace or repair as\nnecessary.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A24"
-    },
-    {
-      "titulo": "Output Short (A25)",
-      "descricao": "Alert triggered when any PNP outputs or their loads are shorted.",
-      "descricao2": "Description",
-      "solucao": "Check for short circuits on the PNP outputs. Make the necessary corrections to\nrestore proper operation.",
-      "solucao2": "Solution",
-      "botaopasso": "View step by step",
-      "imagem": "A25"
     }
   ]
 }
