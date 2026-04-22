@@ -8,13 +8,13 @@
       "vfx": "destaque_botoes"
     },
     {
-      "tutorial": "Mantenha o chaveiro no botão B1 por 3 segundos para acessar as Configurações Off-line.",
+      "tutorial": "Mantenha o chaveiro no botão B1 por 6 segundos para acessar as Configurações Off-line.",
       "animacao": "A2_p2",
       "telaDisplay": "menu_config",
       "vfx": "nenhum"
     },
     {
-      "tutorial": "Toque no botão B3 repetidamente com o chaveiro para navegar no menu até as opções de saída.",
+      "tutorial": "Toque no botão B3 com o chaveiro para navegar no menu até as opções de saída.",
       "animacao": "A2_p3",
       "telaDisplay": "opcoes_saida",
       "vfx": "nenhum"

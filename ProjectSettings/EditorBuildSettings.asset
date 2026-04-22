@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Montagem2.unity
     guid: 2646c439d1b11bb4c80914dbf7b016af
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ARMudanca.unity
     guid: b9d162543d788c043ace73069b9c6b34
   - enabled: 1

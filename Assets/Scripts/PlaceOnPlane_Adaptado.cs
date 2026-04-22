@@ -103,20 +103,29 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
 
     public void PlayAnimation(string animName, string camadaAlvo, string telaDisplay, string vfx)
     {
-        // NOVO: Define se o objeto sobe ou desce dependendo de qual menu o usuário abriu!
-        if (string.IsNullOrEmpty(camadaAlvo) || camadaAlvo == "Base Layer")
-        {
-            offsetAtual = alturaMontagem;
-        }
-        else
-        {
-            offsetAtual = alturaProblemas;
-        }
+        // Verifica se é a Montagem Padrão ou um Problema
+        bool isMontagem = string.IsNullOrEmpty(camadaAlvo) || camadaAlvo == "Base Layer";
 
-        // Se o objeto já estiver no cenário, atualiza a altura dele na mesma hora
-        if (spawnedObject != null && hasHit)
+        // Define se o objeto sobe ou desce dependendo de qual menu o usuário abriu
+        offsetAtual = isMontagem ? alturaMontagem : alturaProblemas;
+
+        // Atualiza a posição e APENAS liga/desliga o Animator Pai (Animação APK)
+        if (spawnedObject != null)
         {
-            spawnedObject.transform.position = lastHitPose.position + new Vector3(0, offsetAtual, 0);
+            if (hasHit) 
+            {
+                spawnedObject.transform.position = lastHitPose.position + new Vector3(0, offsetAtual, 0);
+            }
+
+            // >>> TRAVA DE SEGURANÇA <<<
+            // Pega especificamente o Animator do objeto raiz (Animação APK)
+            Animator animatorPai = spawnedObject.GetComponent<Animator>();
+            if (animatorPai != null)
+            {
+                // Se for Montagem, desliga o Animator raiz para não brigar com o chão.
+                // Se for Problemas, liga para as animações de VFX e chaves funcionarem.
+                animatorPai.enabled = !isMontagem; 
+            }
         }
 
         // 1. LÓGICA DE ANIMAÇÃO
@@ -128,6 +137,9 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
 
             foreach (var anim in animators)
             {
+                // IGNORA ANIMATORS DESLIGADOS para não causar erros no Console
+                if (!anim.enabled) continue;
+
                 int layerIndex = anim.GetLayerIndex(camadaAlvo);
                 if (layerIndex != -1 && anim.HasState(layerIndex, hashDaAnimacao))
                 {
@@ -149,7 +161,7 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"[AR Toolkit] ESTADO NÃO ENCONTRADO: O estado '{animName}' NÃO EXISTE na camada '{camadaAlvo}'.");
+                Debug.LogWarning($"[AR Toolkit] AVISO: O estado '{animName}' não foi encontrado nos Animators ATIVOS para a camada '{camadaAlvo}'.");
             }
         }
 
