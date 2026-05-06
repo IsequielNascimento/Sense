@@ -673,8 +673,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlaceOnPlane_Adaptado
   placedPrefab: {fileID: 8046119262532659208}
   arCamera: {fileID: 500483670}
-  alturaMontagem: 1
-  alturaProblemas: 0
+  alturaMontagem: 0
+  alturaProblemas: -1
   uiController: {fileID: 1609545332}
 --- !u!1 &1097942396
 GameObject:
@@ -1131,39 +1131,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 668987552827289047, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 733065508843839685, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1514705732031098596, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1926090525711631650, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1926090525711631650, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1926090525711631650, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1926090525711631650, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.0147
-      objectReference: {fileID: 0}
-    - target: {fileID: 1926090525711631650, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.8844
-      objectReference: {fileID: 0}
-    - target: {fileID: 1926090525711631650, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.002
       objectReference: {fileID: 0}
     - target: {fileID: 2743075432702046094, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1203,22 +1175,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2743075432702046094, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3958138576315920823, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3958138576315920823, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3958138576315920823, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8032398635433111979, guid: 47315933ba947ba4d9a13e371d2ec58d, type: 3}
-      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
