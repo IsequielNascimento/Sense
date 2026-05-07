@@ -19,13 +19,13 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
     [SerializeField] private float alturaProblemas = -1f;
 
     [Header("Conexão com UI Toolkit")]
-    [SerializeField] private UIController uiController; 
+    [SerializeField] private UIController uiController;
 
     private ARRaycastManager raycastManager;
     private GameObject spawnedObject;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
-    
-    private Animator[] animators; 
+
+    private Animator[] animators;
     private GerenciadorVisual gerenciadorVisual;
     private bool objectPlaced = false;
 
@@ -62,16 +62,17 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
             lastHitPose = hits[0].pose;
             hasHit = true;
 
-            // Calcula a posição usando o offset que estiver ativo no momento
             Vector3 posicaoFinal = lastHitPose.position + new Vector3(0, offsetAtual, 0);
 
             if (spawnedObject == null)
             {
                 spawnedObject = Instantiate(placedPrefab, posicaoFinal, lastHitPose.rotation);
-                spawnedObject.SetActive(true); 
+                spawnedObject.SetActive(true);
 
                 animators = spawnedObject.GetComponentsInChildren<Animator>();
                 gerenciadorVisual = spawnedObject.GetComponentInChildren<GerenciadorVisual>();
+
+                ForcarAtivacaoAtuador("após Instantiate");
 
                 if (animators == null || animators.Length == 0)
                 {
@@ -82,16 +83,17 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
                 foreach (var anim in animators)
                 {
                     anim.Rebind();
-                    anim.Update(0f); 
+                    anim.Update(0f);
                 }
+
+                ForcarAtivacaoAtuador("após Rebind/Update");
 
                 if (uiController != null && !objectPlaced)
                 {
-                    // IniciarPassos vai chamar o PlayAnimation, que ajustará a altura correta imediatamente!
                     uiController.IniciarPassos();
                 }
-                
-                objectPlaced = true; 
+
+                objectPlaced = true;
                 SetARPlanesActive(false);
             }
             else
@@ -103,28 +105,30 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
 
     public void PlayAnimation(string animName, string camadaAlvo, string telaDisplay, string vfx)
     {
-        // Verifica se é a Montagem Padrão ou um Problema
+        ForcarAtivacaoAtuador($"PlayAnimation('{animName}')");
+
         bool isMontagem = string.IsNullOrEmpty(camadaAlvo) || camadaAlvo == "Base Layer";
 
-        // Define se o objeto sobe ou desce dependendo de qual menu o usuário abriu
         offsetAtual = isMontagem ? alturaMontagem : alturaProblemas;
 
-        // Atualiza a posição e APENAS liga/desliga o Animator Pai (Animação APK)
         if (spawnedObject != null)
         {
-            if (hasHit) 
+            if (hasHit)
             {
                 spawnedObject.transform.position = lastHitPose.position + new Vector3(0, offsetAtual, 0);
             }
 
-            // >>> TRAVA DE SEGURANÇA <<<
-            // Pega especificamente o Animator do objeto raiz (Animação APK)
+            // Animator pai (Animação APK):
+            // - Em Montagem: DESLIGADO. Os clipes animacao_X mexeriam em transforms via "path: Atuador"
+            //   etc. mas com WriteDefaultValues=1 o estado Parado estava sobrescrevendo a posição/rotação
+            //   ajustadas no prefab. O Atuador continua visível porque é forçado ativo programaticamente
+            //   (ForcarAtivacaoAtuador), e os outros parts ficam nas posições do prefab (que você corrigiu).
+            // - Em Problemas: LIGADO. Necessário para os clipes Ax_pY animarem a Chave Verde N
+            //   (scale, posição, rotação) via "path: Chave Verde N" como filho direto da raiz.
             Animator animatorPai = spawnedObject.GetComponent<Animator>();
             if (animatorPai != null)
             {
-                // Se for Montagem, desliga o Animator raiz para não brigar com o chão.
-                // Se for Problemas, liga para as animações de VFX e chaves funcionarem.
-                animatorPai.enabled = !isMontagem; 
+                animatorPai.enabled = !isMontagem;
             }
         }
 
@@ -137,7 +141,6 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
 
             foreach (var anim in animators)
             {
-                // IGNORA ANIMATORS DESLIGADOS para não causar erros no Console
                 if (!anim.enabled) continue;
 
                 int layerIndex = anim.GetLayerIndex(camadaAlvo);
@@ -172,7 +175,29 @@ public class PlaceOnPlane_Adaptado : MonoBehaviour
             gerenciadorVisual.AtivarEfeito(vfx);
         }
     }
-    
+
+    private void ForcarAtivacaoAtuador(string contexto)
+    {
+        if (spawnedObject == null) return;
+
+        int ativados = 0;
+        int jaAtivos = 0;
+        foreach (var t in spawnedObject.GetComponentsInChildren<Transform>(true))
+        {
+            if (t.name != "Atuador") continue;
+            if (!t.gameObject.activeSelf)
+            {
+                t.gameObject.SetActive(true);
+                ativados++;
+            }
+            else
+            {
+                jaAtivos++;
+            }
+        }
+        Debug.Log($"[PlaceOnPlane] ForcarAtivacaoAtuador ({contexto}): {ativados} ativado(s), {jaAtivos} já ativo(s).");
+    }
+
     private void SetARPlanesActive(bool isActive)
     {
         ARPlaneManager planeManager = GetComponent<ARPlaneManager>();
