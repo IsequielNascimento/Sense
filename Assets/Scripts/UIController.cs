@@ -187,7 +187,9 @@ public class UIController : MonoBehaviour
     private void CarregarPassosDoProblemaOuMontagem()
     {
         string origem = ControleDeCena.Instance != null ? ControleDeCena.Instance.origemDaCena : "montagem";
-        string idioma = "pt"; 
+        string idioma = IdiomaManager.Instance != null
+            ? IdiomaManager.Instance.ObterIdioma()
+            : PlayerPrefs.GetString("idioma", "pt");
 
         if (origem == "montagem" || string.IsNullOrEmpty(origem))
         {
@@ -216,6 +218,13 @@ public class UIController : MonoBehaviour
 
             string caminhoDoJson = $"BancoDeDadosProblemas/{idioma}/{idDoProblema}";
             TextAsset json = Resources.Load<TextAsset>(caminhoDoJson);
+
+            if (json == null && idioma != "pt")
+            {
+                Debug.LogWarning($"[AR Toolkit] Tradução ausente em Resources/{caminhoDoJson}. Usando fallback pt.");
+                caminhoDoJson = $"BancoDeDadosProblemas/pt/{idDoProblema}";
+                json = Resources.Load<TextAsset>(caminhoDoJson);
+            }
 
             if (json != null)
             {
