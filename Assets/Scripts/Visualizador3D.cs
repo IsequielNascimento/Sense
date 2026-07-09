@@ -55,8 +55,9 @@ public class Visualizador3D : ExibidorDeModeloBase
         StartCoroutine(IniciarPassosNoProximoFrame());
     }
 
-    // Espera um frame para garantir que o Start de todos os objetos da cena
-    // (inclusive o UIController) já rodou antes de iniciar os passos.
+    // Espera um frame para garantir que o SeletorDeModo já atribuiu
+    // uiController.exibidor (a ativação deste objeto e a atribuição ocorrem
+    // no mesmo frame) antes de os passos dispararem PlayAnimation.
     private IEnumerator IniciarPassosNoProximoFrame()
     {
         yield return null;
@@ -110,7 +111,8 @@ public class Visualizador3D : ExibidorDeModeloBase
         }
 
         float scroll = Mouse.current.scroll.ReadValue().y;
-        if (Mathf.Abs(scroll) > 0.01f)
+        if (Mathf.Abs(scroll) > 0.01f &&
+            (EventSystem.current == null || !EventSystem.current.IsPointerOverGameObject()))
         {
             AplicarZoom(-Mathf.Sign(scroll) * velocidadeZoomScroll);
         }
@@ -131,10 +133,17 @@ public class Visualizador3D : ExibidorDeModeloBase
 
         if (primeiro != null && segundo == null)
         {
-            pincando = false;
             Vector2 posicao = primeiro.position.ReadValue();
 
-            if (primeiro.press.wasPressedThisFrame)
+            if (pincando)
+            {
+                // Fim da pinça com um dedo ainda na tela: retoma a órbita a partir
+                // daqui, sem exigir um novo toque.
+                pincando = false;
+                arrastando = true;
+                ultimaPosicaoArrasto = posicao;
+            }
+            else if (primeiro.press.wasPressedThisFrame)
             {
                 bool sobreUI = EventSystem.current != null &&
                                EventSystem.current.IsPointerOverGameObject(primeiro.touchId.ReadValue());
@@ -150,6 +159,14 @@ public class Visualizador3D : ExibidorDeModeloBase
         else if (primeiro != null && segundo != null)
         {
             arrastando = false;
+
+            if (!pincando && EventSystem.current != null &&
+                (EventSystem.current.IsPointerOverGameObject(primeiro.touchId.ReadValue()) ||
+                 EventSystem.current.IsPointerOverGameObject(segundo.touchId.ReadValue())))
+            {
+                return; // pinça começando sobre a UI: não inicia o zoom
+            }
+
             float distanciaAtualPinca = Vector2.Distance(primeiro.position.ReadValue(), segundo.position.ReadValue());
 
             if (pincando)
