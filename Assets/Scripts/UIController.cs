@@ -4,11 +4,13 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Serialization;
 
 public class UIController : MonoBehaviour
 {
     [Header("Conexão AR")]
-    public PlaceOnPlane_Adaptado placeOnPlane; 
+    [FormerlySerializedAs("placeOnPlane")]
+    public ExibidorDeModeloBase exibidor;
 
     private string[] passosTutoriais;
     private string[] animacoes;
@@ -109,16 +111,32 @@ public class UIController : MonoBehaviour
     void Start()
     {
         if (root == null) return;
-        if (placeOnPlane == null) placeOnPlane = Object.FindFirstObjectByType<PlaceOnPlane_Adaptado>();
-        
-        ConfigurarTextosIniciais(); 
-        
+        if (exibidor == null) exibidor = Object.FindFirstObjectByType<ExibidorDeModeloBase>();
+
+        ConfigurarTextosIniciais();
+
         MostrarElemento(grupoMontagem, false);
-        MostrarElemento(tutorialUI, false); 
+        MostrarElemento(tutorialUI, false);
         MostrarElemento(painelPopupFinal, false);
-        
+
+        // Em cena com SeletorDeModo, é ele quem decide mostrar ou pular o popup
+        // inicial (a decisão de modo é assíncrona). Sem seletor, comportamento antigo.
+        if (Object.FindFirstObjectByType<SeletorDeModo>() == null)
+        {
+            MostrarPopupInicial();
+        }
+    }
+
+    public void MostrarPopupInicial()
+    {
         StartCoroutine(Fade(painelPopup, 0, 1));
         StartCoroutine(Fade(blurBackground, 0, 1));
+    }
+
+    public void PularPopupInicial()
+    {
+        MostrarElemento(painelPopup, false);
+        MostrarElemento(blurBackground, false);
     }
 
     private void ConfigurarTextosIniciais()
@@ -175,12 +193,12 @@ public class UIController : MonoBehaviour
         bool ultimo = passoAtual == passosTutoriais.Length - 1;
         if (botaoProximo != null) botaoProximo.text = ultimo ? (dados != null ? dados.finalizar : "Finalizar") : (dados != null ? dados.proximo : "Próximo");
         
-        if (placeOnPlane != null && animacoes != null && passoAtual < animacoes.Length)
+        if (exibidor != null && animacoes != null && passoAtual < animacoes.Length)
         {
             string telaAtual = (telasDisplay != null && passoAtual < telasDisplay.Length) ? telasDisplay[passoAtual] : "";
             string vfxAtual = (vfxs != null && passoAtual < vfxs.Length) ? vfxs[passoAtual] : "";
-            
-            placeOnPlane.PlayAnimation(animacoes[passoAtual], layerAtual, telaAtual, vfxAtual);
+
+            exibidor.PlayAnimation(animacoes[passoAtual], layerAtual, telaAtual, vfxAtual);
         }
     }
 
