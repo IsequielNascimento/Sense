@@ -30,6 +30,13 @@ public class DadosMontagem
 
     // texto de orientação que fica depois do popup
     public string tutorialInicial;
+
+    // textos de erro do AR
+    public string arErroTitulo;
+    public string arErroSemSuporte;
+    public string arErroInicializacao;
+    public string arErroPermissaoCamera;
+    public string arErroBotaoMenu;
 }
 
 [System.Serializable]

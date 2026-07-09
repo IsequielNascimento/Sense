@@ -24,5 +24,10 @@
   "textoDe": "of",
   "tutorialInicial": "Tap on a surface to place the object.",
   "popupInicialTexto1": "Point your camera at a flat surface and wait for the white background to appear.",
-  "popupInicialTexto2": "Once it appears, tap the screen to view the object."
+  "popupInicialTexto2": "Once it appears, tap the screen to view the object.",
+  "arErroTitulo": "Unable to start augmented reality",
+  "arErroSemSuporte": "This device does not support augmented reality.",
+  "arErroInicializacao": "The augmented reality session could not be started. Return to the menu and try again.",
+  "arErroPermissaoCamera": "Camera permission was denied. Enable camera access in the system settings to use augmented reality.",
+  "arErroBotaoMenu": "Return to Menu"
 }
