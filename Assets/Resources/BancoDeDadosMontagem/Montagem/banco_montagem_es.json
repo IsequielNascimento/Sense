@@ -24,5 +24,10 @@
   "textoDe": "de",
   "tutorialInicial": "Toque una superficie para colocar el objeto.",
   "popupInicialTexto1": "Apunte su cámara a una superficie plana y espere que aparezca el fondo blanco.",
-  "popupInicialTexto2": "Una vez que aparezca, toque la pantalla para ver la pieza."
+  "popupInicialTexto2": "Una vez que aparezca, toque la pantalla para ver la pieza.",
+  "arErroTitulo": "No se pudo iniciar la realidad aumentada",
+  "arErroSemSuporte": "Este dispositivo no es compatible con realidad aumentada.",
+  "arErroInicializacao": "No se pudo iniciar la sesi\u00f3n de realidad aumentada. Vuelva al men\u00fa e int\u00e9ntelo de nuevo.",
+  "arErroPermissaoCamera": "Se deneg\u00f3 el permiso de la c\u00e1mara. Active el acceso a la c\u00e1mara en la configuraci\u00f3n del sistema para usar la realidad aumentada.",
+  "arErroBotaoMenu": "Volver al men\u00fa"
 }
