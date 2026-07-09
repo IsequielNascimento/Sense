@@ -1,17 +1,32 @@
 {
-  "layer": "Problema4",
+  "layer": "Problema 4",
   "etapas": [
     {
-      "tutorial": "Etapa 1: Verifique o sistema.",
-      "animacao": "animacao_1"
+      "tutorial": "Si el adaptador no encaja en el actuador, será necesario invertir la pieza hacia el eje mayor.",
+      "animacao": "A4_p1",
+      "telaDisplay": "alerta",
+      "vfx": "destaque_eixo"
     },
     {
-      "tutorial": "Etapa 2: Gire a válvula.",
-      "animacao": "animacao_2"
+      "tutorial": "Utilice una llave Allen para aflojar el tornillo central del adaptador.",
+      "animacao": "A4_p2",
+      "telaDisplay": "alerta",
+      "vfx": "animacao_chave"
     },
     {
-      "tutorial": "Etapa 3: Confirme o movimento.",
-      "animacao": "animacao_3"
+      "tutorial": "Retire la pieza, invierta el lado hacia el taladrado correcto (eje grande) y vuelva a colocarla.",
+      "animacao": "A4_p3",
+      "telaDisplay": "alerta",
+      "vfx": "nenhum"
+    },
+    {
+      "tutorial": "Reapriete el tornillo central fijando firmemente el adaptador al eje de la válvula.",
+      "animacao": "A4_p4",
+      "telaDisplay": "menu",
+      "vfx": "animacao_chave"
     }
-  ]
+  ],
+  "tutorialInicial": "Coloque el objeto sobre la superficie para iniciar la solución del problema.",
+  "popupInicialTexto1": "Apunte la cámara hacia una superficie plana y espere a que aparezca el fondo blanco.",
+  "popupInicialTexto2": "Cuando aparezca el fondo blanco, toque la pantalla para visualizar la pieza."
 }

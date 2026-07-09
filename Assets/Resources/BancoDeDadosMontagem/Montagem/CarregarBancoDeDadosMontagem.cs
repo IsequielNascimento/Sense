@@ -47,6 +47,9 @@ public class CarregarBancoDeDadosMontagem : MonoBehaviour
 {
     public static DadosMontagem Dados { get; private set; }
 
+    // Idioma do banco atualmente em Dados; usado para recarregar quando o usuário troca de idioma.
+    private static string idiomaCarregado;
+
     /// <summary>
     /// Carrega explicitamente o banco para um idioma (pt, en, es, fr).
     /// </summary>
@@ -62,33 +65,22 @@ public class CarregarBancoDeDadosMontagem : MonoBehaviour
             Debug.LogError($"Arquivo banco_montagem_{idioma}.json não encontrado em Resources/BancoDeDadosMontagem/Montagem/.");
             Dados = new DadosMontagem(); // evita null
         }
+        idiomaCarregado = idioma;
     }
 
     /// <summary>
-    /// Garante que o banco esteja carregado. Se ainda não estiver, tenta
-    /// descobrir o idioma atual e carrega. Usa IdiomaManager (se existir)
-    /// ou PlayerPrefs ("idioma"), caindo em 'pt' como padrão.
+    /// Garante que o banco esteja carregado no idioma atual. Usa IdiomaManager
+    /// (se existir) ou PlayerPrefs ("idioma"), caindo em 'pt' como padrão.
+    /// Recarrega se o idioma mudou desde a última carga.
     /// </summary>
     public static void GarantirBancoCarregado()
     {
-        if (Dados != null) return;
+        string idioma = IdiomaManager.Instance != null
+            ? IdiomaManager.Instance.ObterIdioma()
+            : PlayerPrefs.GetString("idioma", "pt");
 
-        string idioma = "pt";
-        // Usa IdiomaManager se existir
-        // if (IdiomaManager.Instance != null)
-        // {
-        //     idioma = IdiomaManager.Instance.ObterIdioma();
-        // }
-        // else
-        // {
-            // fallback por PlayerPrefs
-            idioma = PlayerPrefs.GetString("idioma", "pt");
-        // }
+        if (Dados != null && idiomaCarregado == idioma) return;
 
         Carregar(idioma);
     }
-    
-    // As classes DadosMontagem e PassoMontagem
-    // foram removidas daqui e colocadas acima,
-    // no escopo global do arquivo.
 }
