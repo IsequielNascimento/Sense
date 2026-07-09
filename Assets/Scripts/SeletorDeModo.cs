@@ -24,6 +24,8 @@ public class SeletorDeModo : MonoBehaviour
 
     IEnumerator Start()
     {
+        yield return null;
+
         bool arDisponivel = false;
 
         var verificacao = ARSession.CheckAvailability();
