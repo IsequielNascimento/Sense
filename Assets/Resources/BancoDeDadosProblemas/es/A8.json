@@ -1,0 +1,32 @@
+{
+  "layer": "Problema 8",
+  "etapas": [
+    {
+      "tutorial": "Se alcanzó el límite configurado de ciclos parciales. El equipo requiere inspección.",
+      "animacao": "A8_p1",
+      "telaDisplay": "alerta_manutencao",
+      "vfx": "piscar_led_laranja"
+    },
+    {
+      "tutorial": "Realice la lubricación de los engranajes y ejes según lo indicado por las marcas en el modelo.",
+      "animacao": "A8_p2",
+      "telaDisplay": "alerta_manutencao",
+      "vfx": "destaque_lubrificacao"
+    },
+    {
+      "tutorial": "Acceda al menú de Configuración Off-line utilizando el llavero magnético.",
+      "animacao": "A8_p3",
+      "telaDisplay": "menu_config",
+      "vfx": "destaque_botoes"
+    },
+    {
+      "tutorial": "Navegue hasta el menú de alertas y ponga a cero el 'Contador Parcial' para reiniciar el monitoreo.",
+      "animacao": "A8_p4",
+      "telaDisplay": "reset_ciclos",
+      "vfx": "piscar_led_verde"
+    }
+  ],
+  "tutorialInicial": "Coloque el objeto sobre la superficie para iniciar la solución del problema.",
+  "popupInicialTexto1": "Apunte la cámara hacia una superficie plana y espere a que aparezca el fondo blanco.",
+  "popupInicialTexto2": "Cuando aparezca el fondo blanco, toque la pantalla para visualizar la pieza."
+}

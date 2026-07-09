@@ -1,17 +1,32 @@
 {
-  "layer": "Problema2",
+  "layer": "Problema 2",
   "etapas": [
     {
-      "tutorial": "Etapa 1: Verifique o sistema.",
-      "animacao": "animacao_1"
+      "tutorial": "Acerque el llavero magnético a los sensores de la carcasa (B1, B2, B3) para operar sin abrir la tapa.",
+      "animacao": "A2_p1",
+      "telaDisplay": "menu",
+      "vfx": "destaque_botoes"
     },
     {
-      "tutorial": "Etapa 2: Gire a válvula.",
-      "animacao": "animacao_2"
+      "tutorial": "Mantenga el llavero sobre el botón B1 durante 6 segundos para acceder a la Configuración Off-line.",
+      "animacao": "A2_p2",
+      "telaDisplay": "menu_config",
+      "vfx": "nenhum"
     },
     {
-      "tutorial": "Etapa 3: Confirme o movimento.",
-      "animacao": "animacao_3"
+      "tutorial": "Toque el botón B3 con el llavero para navegar por el menú hasta las opciones de salida.",
+      "animacao": "A2_p3",
+      "telaDisplay": "opcoes_saida",
+      "vfx": "nenhum"
+    },
+    {
+      "tutorial": "Toque el botón B2 para confirmar y guardar la configuración. La configuración se ha aplicado.",
+      "animacao": "A2_p4",
+      "telaDisplay": "salvar",
+      "vfx": "piscar_led_verde"
     }
-  ]
+  ],
+  "tutorialInicial": "Coloque el objeto sobre la superficie para iniciar la solución del problema.",
+  "popupInicialTexto1": "Apunte la cámara hacia una superficie plana y espere a que aparezca el fondo blanco.",
+  "popupInicialTexto2": "Cuando aparezca el fondo blanco, toque la pantalla para visualizar la pieza."
 }

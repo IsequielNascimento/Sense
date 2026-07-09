@@ -1,17 +1,26 @@
 {
-  "layer": "Problema3",
+  "layer": "Problema 3",
   "etapas": [
     {
-      "tutorial": "Etapa 1: Verifique o sistema.",
-      "animacao": "animacao_1"
+      "tutorial": "Para conectar la aplicación, asegúrese de que el Bluetooth del M4.Smart esté activado.",
+      "animacao": "A3_p1",
+      "telaDisplay": "menu",
+      "vfx": "nenhum"
     },
     {
-      "tutorial": "Etapa 2: Gire a válvula.",
-      "animacao": "animacao_2"
+      "tutorial": "Use el botón magnético B2 para activar el emparejamiento. El icono comenzará a parpadear.",
+      "animacao": "A3_p2",
+      "telaDisplay": "bluetooth_piscando",
+      "vfx": "destaque_b2"
     },
     {
-      "tutorial": "Etapa 3: Confirme o movimento.",
-      "animacao": "animacao_3"
+      "tutorial": "Abra la aplicación en su smartphone y seleccione el dispositivo 'M4.Smart IO'.",
+      "animacao": "A3_p3",
+      "telaDisplay": "bluetooth_conectado",
+      "vfx": "destaque_celular"
     }
-  ]
+  ],
+  "tutorialInicial": "Coloque el objeto sobre la superficie para iniciar la solución del problema.",
+  "popupInicialTexto1": "Apunte la cámara hacia una superficie plana y espere a que aparezca el fondo blanco.",
+  "popupInicialTexto2": "Cuando aparezca el fondo blanco, toque la pantalla para visualizar la pieza."
 }

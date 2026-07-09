@@ -1,17 +1,32 @@
 {
-  "layer": "Problema4",
+  "layer": "Problema 4",
   "etapas": [
     {
-      "tutorial": "Etapa 1: Verifique o sistema.",
-      "animacao": "animacao_1"
+      "tutorial": "If the adapter does not fit the actuator, the part must be flipped to the larger shaft.",
+      "animacao": "A4_p1",
+      "telaDisplay": "alerta",
+      "vfx": "destaque_eixo"
     },
     {
-      "tutorial": "Etapa 2: Gire a válvula.",
-      "animacao": "animacao_2"
+      "tutorial": "Use an Allen key to loosen the adapter's center screw.",
+      "animacao": "A4_p2",
+      "telaDisplay": "alerta",
+      "vfx": "animacao_chave"
     },
     {
-      "tutorial": "Etapa 3: Confirme o movimento.",
-      "animacao": "animacao_3"
+      "tutorial": "Remove the part, flip it to the correct bore side (large shaft) and reposition it.",
+      "animacao": "A4_p3",
+      "telaDisplay": "alerta",
+      "vfx": "nenhum"
+    },
+    {
+      "tutorial": "Retighten the center screw, firmly securing the adapter to the valve shaft.",
+      "animacao": "A4_p4",
+      "telaDisplay": "menu",
+      "vfx": "animacao_chave"
     }
-  ]
+  ],
+  "tutorialInicial": "Place the object on the surface to begin the problem solution.",
+  "popupInicialTexto1": "Point your camera at a flat surface and wait for the white background to appear.",
+  "popupInicialTexto2": "Once it appears, tap the screen to view the object."
 }

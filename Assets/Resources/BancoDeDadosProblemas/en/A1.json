@@ -1,29 +1,29 @@
 {
-   "layer": "Problema 1",
+  "layer": "Problema 1",
   "etapas": [
     {
-      "tutorial": "Starting the calibration process...",
+      "tutorial": "The display indicates the start of the automatic calibration (Auto Setup). Wait for processing.",
       "animacao": "A1_p1",
       "telaDisplay": "autocal_50",
       "vfx": "nenhum"
     },
     {
-      "tutorial": "Calibration time exceeded. Adjust the configured time.",
+      "tutorial": "Calibration error: insufficient stroke. The calibration was aborted by the system.",
       "animacao": "A1_p2",
       "telaDisplay": "autocal_50_abort",
-      "vfx": "nenhum"
+      "vfx": "alerta_vermelho"
     },
     {
-      "tutorial": " Adjust the valve angle to more than 30° to solve the problem.",
+      "tutorial": "Uncouple or manually force the rotary valve shaft to ensure a rotation greater than 30°.",
       "animacao": "A1_p3",
       "telaDisplay": "c6_tempo",
-      "vfx": "nenhum"
+      "vfx": "setas_rotacao"
     },
     {
-      "tutorial": "The adjustment is complete. The angle is above 30°.",
+      "tutorial": "Position successfully corrected. The green LED confirms the valve opening and the system is ready.",
       "animacao": "A1_p4",
       "telaDisplay": "25",
-      "vfx": "nenhum"
+      "vfx": "piscar_led_verde"
     }
   ],
   "tutorialInicial": "Place the object on the surface to begin the problem solution.",
