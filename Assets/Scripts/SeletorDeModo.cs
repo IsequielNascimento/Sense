@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
 
 
 public class SeletorDeModo : MonoBehaviour
@@ -26,27 +25,22 @@ public class SeletorDeModo : MonoBehaviour
     {
         yield return null;
 
-        bool arDisponivel = false;
-
-        var verificacao = ARSession.CheckAvailability();
         float inicio = Time.realtimeSinceStartup;
+        StartCoroutine(ARSession.CheckAvailability());
 
-        // Promise<T> não tem IsDone: keepWaiting == true enquanto não completa
-        // (e consultá-lo a cada frame é o que faz o check progredir).
-        while (verificacao.keepWaiting && Time.realtimeSinceStartup - inicio < timeoutSegundos)
+        while ((ARSession.state == ARSessionState.None || ARSession.state == ARSessionState.CheckingAvailability)
+               && Time.realtimeSinceStartup - inicio < timeoutSegundos)
         {
             yield return null;
         }
 
-        if (!verificacao.keepWaiting)
-        {
-            SessionAvailability disponibilidade = verificacao.result;
-            arDisponivel = disponibilidade.IsSupported() && disponibilidade.IsInstalled();
-        }
+        bool arDisponivel = ARSession.state == ARSessionState.Ready
+            || ARSession.state == ARSessionState.SessionInitializing
+            || ARSession.state == ARSessionState.SessionTracking;
 
         ModoVisualizadorAtivo = !arDisponivel;
         Debug.Log($"[SeletorDeModo] Modo {(arDisponivel ? "AR" : "Visualizador 3D")} ativado " +
-                  $"(check em {Time.realtimeSinceStartup - inicio:F2}s).");
+                  $"(ARSession.state = {ARSession.state}, check em {Time.realtimeSinceStartup - inicio:F2}s).");
 
         if (arDisponivel)
         {
