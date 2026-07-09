@@ -20,6 +20,7 @@ public class UIController : MonoBehaviour
     private string layerAtual = "Base Layer"; 
     private int passoAtual = -1;
     private bool passosIniciados = false;
+    private bool popupInicialResolvido = false;
     private DadosMontagem dados;
     private VisualElement root;
     
@@ -125,16 +126,23 @@ public class UIController : MonoBehaviour
         {
             MostrarPopupInicial();
         }
+        else
+        {
+            MostrarElemento(painelPopup, false);
+            MostrarElemento(blurBackground, false);
+        }
     }
 
     public void MostrarPopupInicial()
     {
+        if (popupInicialResolvido) return;
         StartCoroutine(Fade(painelPopup, 0, 1));
         StartCoroutine(Fade(blurBackground, 0, 1));
     }
 
     public void PularPopupInicial()
     {
+        popupInicialResolvido = true;
         MostrarElemento(painelPopup, false);
         MostrarElemento(blurBackground, false);
     }
@@ -155,6 +163,7 @@ public class UIController : MonoBehaviour
 
     private void OnBotaoOkClicado(ClickEvent evt)
     {
+        popupInicialResolvido = true;
         StartCoroutine(Fade(painelPopup, 1, 0));
         StartCoroutine(Fade(blurBackground, 1, 0));
         MostrarElemento(tutorialUI, true);
