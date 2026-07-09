@@ -1,17 +1,26 @@
 {
-  "layer": "Problema3",
+  "layer": "Problema 3",
   "etapas": [
     {
-      "tutorial": "Etapa 1: Verifique o sistema.",
-      "animacao": "animacao_1"
+      "tutorial": "Pour connecter l'application, assurez-vous que le Bluetooth du M4.Smart est activé.",
+      "animacao": "A3_p1",
+      "telaDisplay": "menu",
+      "vfx": "nenhum"
     },
     {
-      "tutorial": "Etapa 2: Gire a válvula.",
-      "animacao": "animacao_2"
+      "tutorial": "Utilisez le bouton magnétique B2 pour activer l'appairage. L'icône commencera à clignoter.",
+      "animacao": "A3_p2",
+      "telaDisplay": "bluetooth_piscando",
+      "vfx": "destaque_b2"
     },
     {
-      "tutorial": "Etapa 3: Confirme o movimento.",
-      "animacao": "animacao_3"
+      "tutorial": "Ouvrez l'application sur votre smartphone et sélectionnez l'appareil 'M4.Smart IO'.",
+      "animacao": "A3_p3",
+      "telaDisplay": "bluetooth_conectado",
+      "vfx": "destaque_celular"
     }
-  ]
+  ],
+  "tutorialInicial": "Placez l'objet sur la surface pour commencer la résolution du problème.",
+  "popupInicialTexto1": "Pointez votre caméra vers une surface plane et attendez que le fond blanc s'affiche.",
+  "popupInicialTexto2": "Une fois le fond blanc affiché, touchez l'écran pour visualiser la pièce."
 }

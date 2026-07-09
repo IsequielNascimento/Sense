@@ -1,0 +1,32 @@
+{
+  "layer": "Problema 8",
+  "etapas": [
+    {
+      "tutorial": "The configured partial cycle limit has been reached. The equipment requires inspection.",
+      "animacao": "A8_p1",
+      "telaDisplay": "alerta_manutencao",
+      "vfx": "piscar_led_laranja"
+    },
+    {
+      "tutorial": "Lubricate the gears and shafts as indicated by the markings on the model.",
+      "animacao": "A8_p2",
+      "telaDisplay": "alerta_manutencao",
+      "vfx": "destaque_lubrificacao"
+    },
+    {
+      "tutorial": "Access the Off-line Settings menu using the magnetic key fob.",
+      "animacao": "A8_p3",
+      "telaDisplay": "menu_config",
+      "vfx": "destaque_botoes"
+    },
+    {
+      "tutorial": "Navigate to the alerts menu and reset the 'Partial Counter' to restart monitoring.",
+      "animacao": "A8_p4",
+      "telaDisplay": "reset_ciclos",
+      "vfx": "piscar_led_verde"
+    }
+  ],
+  "tutorialInicial": "Place the object on the surface to begin the problem solution.",
+  "popupInicialTexto1": "Point your camera at a flat surface and wait for the white background to appear.",
+  "popupInicialTexto2": "Once it appears, tap the screen to view the object."
+}

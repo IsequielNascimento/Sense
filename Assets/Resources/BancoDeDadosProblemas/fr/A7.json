@@ -1,0 +1,32 @@
+{
+  "layer": "Problema 7",
+  "etapas": [
+    {
+      "tutorial": "Défaut d'actionnement : le système électrique ne détecte pas l'alimentation du solénoïde (24 Vcc).",
+      "animacao": "A7_p1",
+      "telaDisplay": "erro_eletrico",
+      "vfx": "alerta_vermelho"
+    },
+    {
+      "tutorial": "Ouvrez le couvercle du compartiment des connexions électriques.",
+      "animacao": "A7_p2",
+      "telaDisplay": "erro_eletrico",
+      "vfx": "destaque_tampa"
+    },
+    {
+      "tutorial": "À l'aide d'un multimètre, vérifiez la tension aux bornes. La valeur correcte est 24V.",
+      "animacao": "A7_p3",
+      "telaDisplay": "erro_eletrico",
+      "vfx": "multimetro_medindo"
+    },
+    {
+      "tutorial": "Resserrez les câbles rompus ou desserrés. La connexion électrique a été rétablie avec succès.",
+      "animacao": "A7_p4",
+      "telaDisplay": "menu",
+      "vfx": "nenhum"
+    }
+  ],
+  "tutorialInicial": "Placez l'objet sur la surface pour commencer la résolution du problème.",
+  "popupInicialTexto1": "Pointez votre caméra vers une surface plane et attendez que le fond blanc s'affiche.",
+  "popupInicialTexto2": "Une fois le fond blanc affiché, touchez l'écran pour visualiser la pièce."
+}

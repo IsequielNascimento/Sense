@@ -1,31 +1,32 @@
 {
-   "layer": "Problema 1",
+  "layer": "Problema 1",
   "etapas": [
     {
-      "tutorial": "Iniciando o processo de calibração...",
+      "tutorial": "L'écran indique le début de la calibration automatique (Auto Setup). Attendez la fin du traitement.",
       "animacao": "A1_p1",
       "telaDisplay": "autocal_50",
       "vfx": "nenhum"
     },
     {
-      "tutorial": "Tempo para calibração excedido. Ajuste o tempo configurado.",
+      "tutorial": "Erreur de calibration : course insuffisante. La calibration a été interrompue par le système.",
       "animacao": "A1_p2",
       "telaDisplay": "autocal_50_abort",
-      "vfx": "nenhum"
+      "vfx": "alerta_vermelho"
     },
     {
-      "tutorial": "Ajuste o ângulo da válvula para mais de 30° para solucionar o problema.",
+      "tutorial": "Désaccouplez ou forcez manuellement l'axe de la vanne rotative pour garantir une rotation supérieure à 30°.",
       "animacao": "A1_p3",
       "telaDisplay": "c6_tempo",
-      "vfx": "nenhum"
+      "vfx": "setas_rotacao"
     },
     {
-      "tutorial": "O ajuste foi concluído. O ângulo está acima de 30°.",
+      "tutorial": "Position corrigée avec succès. La LED verte confirme l'ouverture de la vanne et le système est prêt.",
       "animacao": "A1_p4",
       "telaDisplay": "25",
-      "vfx": "nenhum"
+      "vfx": "piscar_led_verde"
     }
   ],
-  "popupInicialTexto1": "Point your camera at a flat surface and wait for the white background to appear.",
-  "popupInicialTexto2": "Once it appears, tap the screen to view the object."
+  "tutorialInicial": "Placez l'objet sur la surface pour commencer la résolution du problème.",
+  "popupInicialTexto1": "Pointez votre caméra vers une surface plane et attendez que le fond blanc s'affiche.",
+  "popupInicialTexto2": "Une fois le fond blanc affiché, touchez l'écran pour visualiser la pièce."
 }
