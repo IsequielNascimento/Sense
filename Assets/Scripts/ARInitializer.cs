@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.XR.ARFoundation;
@@ -7,13 +8,6 @@ using UnityEngine.XR.ARSubsystems;
 
 public class ARInitializer : MonoBehaviour
 {
-    private enum ARErrorType
-    {
-        Unsupported,
-        Initialization,
-        CameraPermission
-    }
-
     public ARSession arSession;
     public UIDocument uiDocument;
     public string menuSceneName = "Main-Menu";
@@ -24,6 +18,7 @@ public class ARInitializer : MonoBehaviour
     private Label arErrorMessage;
     private Button arErrorBackButton;
     private bool arErrorButtonRegistered;
+    private UIController uiController;
 
     private void Start()
     {
@@ -37,12 +32,18 @@ public class ARInitializer : MonoBehaviour
             uiDocument = FindObjectOfType<UIDocument>();
         }
 
+        uiController = uiDocument != null ? uiDocument.GetComponent<UIController>() : null;
+        if (uiController == null)
+        {
+            uiController = FindObjectOfType<UIController>();
+        }
+
         CacheErrorOverlay();
 
         if (arSession == null)
         {
-            Debug.LogError("ARSession nao encontrado na cena.");
-            ShowARError(ARErrorType.Initialization);
+            Debug.LogError("ARSession nao encontrado na cena. Iniciando modo 3D.");
+            IniciarModoSemAR();
             return;
         }
 
@@ -55,18 +56,6 @@ public class ARInitializer : MonoBehaviour
     {
         Debug.Log("Iniciando verificacao de suporte ao AR...");
 
-        if (!HasCameraPermission())
-        {
-            yield return RequestCameraPermission();
-        }
-
-        if (!HasCameraPermission())
-        {
-            Debug.LogError("Permissao da camera negada. A sessao AR nao pode ser iniciada.");
-            ShowARError(ARErrorType.CameraPermission);
-            yield break;
-        }
-
         if (ARSession.state == ARSessionState.None || ARSession.state == ARSessionState.CheckingAvailability)
         {
             yield return ARSession.CheckAvailability();
@@ -74,8 +63,8 @@ public class ARInitializer : MonoBehaviour
 
         if (ARSession.state == ARSessionState.Unsupported)
         {
-            Debug.LogError("Dispositivo nao suporta AR. Estado: " + ARSession.state);
-            ShowARError(ARErrorType.Unsupported);
+            Debug.Log("Dispositivo nao suporta AR. Iniciando modo 3D. Estado: " + ARSession.state);
+            IniciarModoSemAR();
             yield break;
         }
 
@@ -84,17 +73,22 @@ public class ARInitializer : MonoBehaviour
             yield return ARSession.Install();
         }
 
-        if (ARSession.state == ARSessionState.Unsupported)
+        if (ARSession.state == ARSessionState.Unsupported || ARSession.state == ARSessionState.NeedsInstall)
         {
-            Debug.LogError("Dispositivo nao suporta AR apos tentativa de instalacao. Estado: " + ARSession.state);
-            ShowARError(ARErrorType.Unsupported);
+            Debug.Log("Provedor AR indisponivel apos tentativa de instalacao. Iniciando modo 3D. Estado: " + ARSession.state);
+            IniciarModoSemAR();
             yield break;
         }
 
-        if (ARSession.state == ARSessionState.NeedsInstall)
+        if (!HasCameraPermission())
         {
-            Debug.LogError("Instalacao do provedor AR negada ou indisponivel. Estado: " + ARSession.state);
-            ShowARError(ARErrorType.Initialization);
+            yield return RequestCameraPermission();
+        }
+
+        if (!HasCameraPermission())
+        {
+            Debug.LogError("Permissao da camera negada. A sessao AR nao pode ser iniciada.");
+            ShowARError();
             yield break;
         }
 
@@ -105,21 +99,20 @@ public class ARInitializer : MonoBehaviour
             Debug.Log("Suporte AR encontrado. Ativando ARSession.");
             arSession.enabled = true;
 
+            if (uiController != null)
+            {
+                uiController.MostrarPopupInicial();
+            }
+
             float startTime = Time.realtimeSinceStartup;
             while (ARSession.state != ARSessionState.SessionTracking)
             {
-                if (ARSession.state == ARSessionState.Unsupported)
-                {
-                    Debug.LogError("ARSession ficou sem suporte durante a inicializacao. Estado: " + ARSession.state);
-                    ShowARError(ARErrorType.Unsupported);
-                    yield break;
-                }
-
-                if (ARSession.state == ARSessionState.NeedsInstall ||
+                if (ARSession.state == ARSessionState.Unsupported ||
+                    ARSession.state == ARSessionState.NeedsInstall ||
                     Time.realtimeSinceStartup - startTime > initializationTimeout)
                 {
-                    Debug.LogError("Falha ou timeout na inicializacao do ARSession. Estado: " + ARSession.state);
-                    ShowARError(ARErrorType.Initialization);
+                    Debug.Log("Falha ou timeout na inicializacao do ARSession. Iniciando modo 3D. Estado: " + ARSession.state);
+                    IniciarModoSemAR();
                     yield break;
                 }
 
@@ -131,8 +124,57 @@ public class ARInitializer : MonoBehaviour
             yield break;
         }
 
-        Debug.LogError("Falha na inicializacao do ARSession. Estado: " + ARSession.state);
-        ShowARError(ARErrorType.Initialization);
+        Debug.Log("Estado inesperado do ARSession. Iniciando modo 3D. Estado: " + ARSession.state);
+        IniciarModoSemAR();
+    }
+
+    private void IniciarModoSemAR()
+    {
+        if (arSession != null)
+        {
+            arSession.enabled = false;
+        }
+
+        SetARManagersActive(false);
+
+        var exibidorAR = FindObjectOfType<PlaceOnPlane_Adaptado>();
+        if (exibidorAR != null)
+        {
+            exibidorAR.enabled = false;
+        }
+
+        Camera camera = Camera.main;
+        if (camera != null)
+        {
+            var background = camera.GetComponent<ARCameraBackground>();
+            if (background != null)
+            {
+                background.enabled = false;
+            }
+
+            var poseDriver = camera.GetComponent<TrackedPoseDriver>();
+            if (poseDriver != null)
+            {
+                poseDriver.enabled = false;
+            }
+
+            camera.clearFlags = CameraClearFlags.SolidColor;
+            camera.backgroundColor = new Color(0.19f, 0.19f, 0.19f);
+        }
+
+        GameObject prefab = exibidorAR != null ? exibidorAR.PrefabDoModelo : null;
+        if (prefab == null || uiController == null || camera == null)
+        {
+            Debug.LogError("Modo 3D indisponivel: prefab, UIController ou camera nao encontrados.");
+            return;
+        }
+
+        Visualizador3D visualizador = gameObject.AddComponent<Visualizador3D>();
+        visualizador.Configurar(prefab, uiController, camera);
+        uiController.exibidor = visualizador;
+        uiController.PularPopupInicial();
+
+        Debug.Log("[ARInitializer] Modo 3D sem AR iniciado.");
     }
 
     private bool HasCameraPermission()
@@ -194,7 +236,7 @@ public class ARInitializer : MonoBehaviour
         }
     }
 
-    private void ShowARError(ARErrorType errorType)
+    private void ShowARError()
     {
         SetARManagersActive(false);
         if (arSession != null)
@@ -213,7 +255,7 @@ public class ARInitializer : MonoBehaviour
         DadosMontagem dados = CarregarBancoDeDadosMontagem.Dados;
 
         SetText(arErrorTitle, FirstFilled(dados?.arErroTitulo, "Nao foi possivel iniciar a realidade aumentada"));
-        SetText(arErrorMessage, GetErrorMessage(errorType, dados));
+        SetText(arErrorMessage, FirstFilled(dados?.arErroPermissaoCamera, "Permita o acesso a camera nas configuracoes do sistema para usar a realidade aumentada."));
         SetText(arErrorBackButton, FirstFilled(dados?.arErroBotaoMenu, dados?.popupFinalBotaoMenu, "Voltar ao menu"));
 
         HideElement("PainelPopup");
@@ -224,19 +266,6 @@ public class ARInitializer : MonoBehaviour
         arErrorPanel.style.display = DisplayStyle.Flex;
         arErrorPanel.style.opacity = 1;
         arErrorPanel.BringToFront();
-    }
-
-    private string GetErrorMessage(ARErrorType errorType, DadosMontagem dados)
-    {
-        switch (errorType)
-        {
-            case ARErrorType.Unsupported:
-                return FirstFilled(dados?.arErroSemSuporte, "Este dispositivo nao oferece suporte a realidade aumentada.");
-            case ARErrorType.CameraPermission:
-                return FirstFilled(dados?.arErroPermissaoCamera, "Permita o acesso a camera nas configuracoes do sistema para usar a realidade aumentada.");
-            default:
-                return FirstFilled(dados?.arErroInicializacao, "Nao foi possivel iniciar a sessao de realidade aumentada. Tente novamente mais tarde.");
-        }
     }
 
     private string FirstFilled(params string[] values)
