@@ -74,16 +74,38 @@ public class Visualizador3D : ExibidorDeModeloBase
     {
         yield return null;
         if (uiController != null) uiController.IniciarPassos();
+
+        yield return null;
+        pivo = CalcularCentroDoModelo();
+        AtualizarCamera();
     }
+
+    // Partes do template ficam "estacionadas" a ~1e13 do modelo (truque da cena
+    // para escondê-lo) até a primeira animação reposicioná-las; ignorá-las aqui.
+    private const float distanciaMaximaDoCentro = 100f;
 
     private Vector3 CalcularCentroDoModelo()
     {
-        var renderers = spawnedObject.GetComponentsInChildren<Renderer>();
-        if (renderers.Length == 0) return spawnedObject.transform.position;
+        Vector3 referencia = spawnedObject.transform.position;
+        Bounds bounds = new Bounds(referencia, Vector3.zero);
+        bool encontrou = false;
 
-        Bounds bounds = renderers[0].bounds;
-        foreach (var r in renderers) bounds.Encapsulate(r.bounds);
-        return bounds.center;
+        foreach (var r in spawnedObject.GetComponentsInChildren<Renderer>())
+        {
+            if (Vector3.Distance(r.bounds.center, referencia) > distanciaMaximaDoCentro) continue;
+
+            if (encontrou)
+            {
+                bounds.Encapsulate(r.bounds);
+            }
+            else
+            {
+                bounds = r.bounds;
+                encontrou = true;
+            }
+        }
+
+        return encontrou ? bounds.center : referencia;
     }
 
     void Update()
