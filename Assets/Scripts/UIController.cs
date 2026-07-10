@@ -120,9 +120,9 @@ public class UIController : MonoBehaviour
         MostrarElemento(tutorialUI, false);
         MostrarElemento(painelPopupFinal, false);
 
-        // Em cena com SeletorDeModo, é ele quem decide mostrar ou pular o popup
-        // inicial (a decisão de modo é assíncrona). Sem seletor, comportamento antigo.
-        if (Object.FindFirstObjectByType<SeletorDeModo>() == null)
+        // Em cena com ARInitializer, é ele quem decide mostrar ou pular o popup
+        // inicial (a decisão de modo é assíncrona). Sem inicializador, comportamento antigo.
+        if (Object.FindFirstObjectByType<ARInitializer>() == null)
         {
             MostrarPopupInicial();
         }
