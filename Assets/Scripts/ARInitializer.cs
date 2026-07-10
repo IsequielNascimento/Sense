@@ -54,6 +54,8 @@ public class ARInitializer : MonoBehaviour
 
     private IEnumerator InitializeARSessionManually()
     {
+        yield return null;
+
         Debug.Log("Iniciando verificacao de suporte ao AR...");
 
         if (ARSession.state == ARSessionState.None || ARSession.state == ARSessionState.CheckingAvailability)
