@@ -37,10 +37,24 @@ public class Visualizador3D : ExibidorDeModeloBase
     private bool pincando;
     private float ultimaDistanciaPinca;
 
+    public void Configurar(GameObject prefab, UIController ui, Camera cam)
+    {
+        placedPrefab = prefab;
+        uiController = ui;
+        cameraViewer = cam;
+    }
+
     void Start()
     {
         if (cameraViewer == null) cameraViewer = Camera.main;
         if (uiController == null) Debug.LogError("[Visualizador3D] O 'UI Controller' não foi arrastado no Inspector!");
+
+        if (placedPrefab == null)
+        {
+            Debug.LogError("[Visualizador3D] 'Placed Prefab' não configurado.");
+            enabled = false;
+            return;
+        }
 
         pitch = pitchInicial;
         distancia = distanciaInicial;
@@ -55,9 +69,7 @@ public class Visualizador3D : ExibidorDeModeloBase
         StartCoroutine(IniciarPassosNoProximoFrame());
     }
 
-    // Espera um frame para garantir que o SeletorDeModo já atribuiu
-    // uiController.exibidor (a ativação deste objeto e a atribuição ocorrem
-    // no mesmo frame) antes de os passos dispararem PlayAnimation.
+    // Espera um frame para garantir que uiController.exibidor já foi atribuído.
     private IEnumerator IniciarPassosNoProximoFrame()
     {
         yield return null;

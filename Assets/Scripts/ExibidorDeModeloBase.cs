@@ -14,6 +14,8 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
     [Header("Conexão com UI Toolkit")]
     [SerializeField] protected UIController uiController;
 
+    public GameObject PrefabDoModelo => placedPrefab;
+
     protected GameObject spawnedObject;
     protected Animator[] animators;
     protected GerenciadorVisual gerenciadorVisual;
