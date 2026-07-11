@@ -26,7 +26,7 @@ public class IdiomaDropdown : MonoBehaviour
         gerenciarMenu = FindObjectOfType<GerenciarMenu>();
 
         // 🟢 PEGA O IDIOMA SALVO GLOBALMENTE
-        idiomaAtual = IdiomaManager.Instance.ObterIdioma();
+        idiomaAtual = LocalizedDatabase.CurrentLanguage;
 
         foreach (var opcao in opcoes)
         {

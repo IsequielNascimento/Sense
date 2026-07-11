@@ -7,9 +7,6 @@ public class NavegarParaMontagemPadrao : MonoBehaviour
     {
         ControleDeCena.Instance.DefinirOrigem("montagem");
 
-        string idioma = IdiomaManager.Instance.ObterIdioma();
-        CarregarBancoDeDadosMontagem.Carregar(idioma);
-
         SceneManager.LoadScene("ARMudanca");
     }
 }

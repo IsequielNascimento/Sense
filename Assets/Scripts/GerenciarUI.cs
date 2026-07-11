@@ -29,7 +29,7 @@ public class GerenciarUI : MonoBehaviour
     public GameObject templateProblema;
     public Transform listaDeResultados;
 
-    private string idiomaAtual = "pt";
+    private List<Problema> problemas = new List<Problema>();
     private Problema problemaAtual;
 
     private void Start()
@@ -51,33 +51,21 @@ public class GerenciarUI : MonoBehaviour
             painelDetalhes.SetActive(false);
         }
 
-        if (IdiomaManager.Instance != null)
-        {
-            idiomaAtual = IdiomaManager.Instance.ObterIdioma();
-            TrocarIdioma(idiomaAtual);
-        }
+        TrocarIdioma(null);
     }
 
     public void TrocarIdioma(string novoIdioma)
     {
-        idiomaAtual = novoIdioma;
-        TextAsset arquivo = Resources.Load<TextAsset>($"banco_de_dados_{idiomaAtual}");
-        if (arquivo != null)
+        BancoProblemas banco = LocalizedDatabase.Load<BancoProblemas>(LocalizedDatabase.ProblemasPath);
+        if (banco.titulos != null)
         {
-            Wrapper wrapper = JsonUtility.FromJson<Wrapper>(arquivo.text);
-            if (wrapper.titulos != null)
-            {
-                tituloTitulosUI.text = wrapper.titulos.titulo_cena;
-                subtituloTitulosUI.text = wrapper.titulos.subtitulo;
-                holderTitulosUI.text = wrapper.titulos.holder;
-            }
-            CarregarBancoDeDados.Problemas = new List<Problema>(wrapper.problemas);
-            Pesquisar();
+            tituloTitulosUI.text = banco.titulos.titulo_cena;
+            subtituloTitulosUI.text = banco.titulos.subtitulo;
+            holderTitulosUI.text = banco.titulos.holder;
         }
-        else
-        {
-            Debug.LogError($"Arquivo banco_de_dados_{idiomaAtual}.json não encontrado.");
-        }
+
+        problemas = new List<Problema>(banco.problemas ?? new Problema[0]);
+        Pesquisar();
         
         // Garante que o painel fecha ao trocar de idioma
         PainelDeslizante painelScript = painelDetalhes.GetComponent<PainelDeslizante>();
@@ -92,15 +80,13 @@ public class GerenciarUI : MonoBehaviour
             if (filho != templateProblema.transform) Destroy(filho.gameObject);
         }
 
-        if (CarregarBancoDeDados.Problemas == null) return;
-
         string termo = campoDePesquisa.text.ToLower();
 
         List<Problema> resultados = string.IsNullOrEmpty(termo)
-            ? CarregarBancoDeDados.Problemas
-            : CarregarBancoDeDados.Problemas
+            ? problemas
+            : problemas
                 .Where(p => p.titulo.ToLower().StartsWith(termo))
-                .Concat(CarregarBancoDeDados.Problemas
+                .Concat(problemas
                     .Where(p => p.titulo.ToLower().Contains(termo) && !p.titulo.ToLower().StartsWith(termo)))
                 .ToList();
 
@@ -154,8 +140,6 @@ public class GerenciarUI : MonoBehaviour
 
     public void VerPassoAPasso()
     {
-        CarregarBancoDeDadosMontagem.GarantirBancoCarregado();
-        
         if (ControleDeCena.Instance != null)
         {
             ControleDeCena.Instance.DefinirOrigem("problema");
@@ -176,10 +160,4 @@ public class GerenciarUI : MonoBehaviour
         SceneManager.LoadScene(nomeCenaARCanvas);
     }
 
-    [System.Serializable]
-    private class Wrapper
-    {
-        public TitulosUI titulos;
-        public Problema[] problemas;
-    }
 }

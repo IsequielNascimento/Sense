@@ -10,10 +10,7 @@ public class GerenciarMontagem2 : MonoBehaviour
 
     void Start()
  {
-    string idioma = IdiomaManager.Instance.ObterIdioma();
-    CarregarBancoDeDadosMontagem2.Carregar(idioma);
-
-    var dados = CarregarBancoDeDadosMontagem2.Dados;
+    DadosMontagem2 dados = LocalizedDatabase.Load<DadosMontagem2>(LocalizedDatabase.Montagem2Path);
     if (dados == null)
     {
         Debug.LogError("Dados de montagem não carregados. Verifique o JSON.");

@@ -5,6 +5,7 @@ using System.Collections;
 
 public class ControladorPopup : MonoBehaviour
 {
+    private DadosMontagem dados;
     public CanvasGroup painelPopup;             // Painel laranja
     public CanvasGroup fundoBlur;               // Fundo com blur
     public GameObject textoOrientacaoInicial;   // Texto de orientação (visível depois do popup)
@@ -17,6 +18,7 @@ public class ControladorPopup : MonoBehaviour
 
     void Start()
     {
+        dados = LocalizedDatabase.Load<DadosMontagem>(LocalizedDatabase.MontagemPath);
         painelPopup.alpha = 0;
         fundoBlur.alpha = 0;
 
@@ -29,10 +31,8 @@ public class ControladorPopup : MonoBehaviour
         fundoBlur.blocksRaycasts = false;
 
         // ✅ Aplica os textos traduzidos
-        if (CarregarBancoDeDadosMontagem.Dados != null)
+        if (dados != null)
         {
-            var dados = CarregarBancoDeDadosMontagem.Dados;
-
             if (texto1 != null)
                 texto1.text = dados.popupInicialTexto1;
 
@@ -102,8 +102,8 @@ public class ControladorPopup : MonoBehaviour
         if (textoOrientacaoInicial != null)
         {
             TMP_Text txt = textoOrientacaoInicial.GetComponent<TMP_Text>();
-            if (txt != null && CarregarBancoDeDadosMontagem.Dados != null)
-                txt.text = CarregarBancoDeDadosMontagem.Dados.tutorialInicial;
+            if (txt != null && dados != null)
+                txt.text = dados.tutorialInicial;
 
             textoOrientacaoInicial.SetActive(true);
         }

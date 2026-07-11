@@ -26,10 +26,11 @@ public class GerenciarMontagem : MonoBehaviour
     private int passoAtual = -1;
     private bool passosIniciados = false;
     private PlaceOnPlane placeOnPlane;
+    private DadosMontagem dadosMontagem;
 
     void Start()
     {
-        CarregarBancoDeDadosMontagem.GarantirBancoCarregado();
+        dadosMontagem = LocalizedDatabase.Load<DadosMontagem>(LocalizedDatabase.MontagemPath);
         CarregarPassosDoProblemaOuMontagem();
 
         if (passosTutoriais == null || passosTutoriais.Length == 0)
@@ -43,7 +44,7 @@ public class GerenciarMontagem : MonoBehaviour
 
         if (textoTotalPassos != null)
         {
-            string deTraduzido = CarregarBancoDeDadosMontagem.Dados?.textoDe ?? "de";
+            string deTraduzido = dadosMontagem?.textoDe ?? "de";
             textoTotalPassos.text = $"{deTraduzido} {passosTutoriais.Length}";
         }
 
@@ -51,27 +52,25 @@ public class GerenciarMontagem : MonoBehaviour
             preenchimentoProgresso.fillAmount = 0f;
 
         var botaoSair = GameObject.Find("Sair")?.GetComponentInChildren<TMP_Text>();
-        if (botaoSair != null && CarregarBancoDeDadosMontagem.Dados != null)
-            botaoSair.text = CarregarBancoDeDadosMontagem.Dados.sair;
+        if (botaoSair != null && dadosMontagem != null)
+            botaoSair.text = dadosMontagem.sair;
     }
 
     private void CarregarPassosDoProblemaOuMontagem()
     {
         string origem = ControleDeCena.Instance?.origemDaCena ?? "montagem";
-        string idioma = IdiomaManager.Instance != null ? IdiomaManager.Instance.ObterIdioma() : "pt";
         string instrucaoInicial = "";
 
         if (origem == "montagem")
         {
-            CarregarBancoDeDadosMontagem.Carregar(idioma);
-            var dados = CarregarBancoDeDadosMontagem.Dados;
+            DadosMontagem dados = dadosMontagem;
 
             if (dados != null && dados.passos != null && dados.passos.Length > 0)
             {
                 passosTutoriais = dados.passos.Select(p => p.tutorial).ToArray();
                 animacoes = dados.passos.Select(p => $"animacao_{p.numero}").ToArray();
                 instrucaoInicial = dados.tutorialInicial;
-                Debug.Log($"✅ Passos carregados do banco padrão de montagem no idioma '{idioma}'.");
+                Debug.Log("✅ Passos carregados do banco padrão de montagem.");
             }
         }
         else
@@ -79,24 +78,20 @@ public class GerenciarMontagem : MonoBehaviour
             string id = ProblemaSelecionadoAR.Instance?.idProblema;
             if (!string.IsNullOrEmpty(id))
             {
-                string caminhoDoJson = $"BancoDeDadosProblemas/{idioma}/{id}";
-                TextAsset json = Resources.Load<TextAsset>(caminhoDoJson);
+                string caminhoDoJson = $"BancoDeDadosProblemas/{{language}}/{id}";
+                PassoAPasso dados = LocalizedDatabase.Load<PassoAPasso>(caminhoDoJson);
 
-                if (json != null)
+                if (dados.etapas != null && dados.etapas.Length > 0)
                 {
-                    var dados = JsonUtility.FromJson<PassoAPasso>(json.text);
-                    if (dados != null && dados.etapas != null && dados.etapas.Length > 0)
-                    {
-                        passosTutoriais = dados.etapas.Select(e => e.tutorial).ToArray();
-                        animacoes = dados.etapas.Select(e => e.animacao).ToArray();
-                        ProblemaSelecionadoAR.Instance.passoAPasso = dados;
-                        instrucaoInicial = dados.tutorialInicial;
-                        Debug.Log($"✅ PassoAPasso carregado para problema '{id}' no idioma '{idioma}'.");
-                    }
+                    passosTutoriais = dados.etapas.Select(e => e.tutorial).ToArray();
+                    animacoes = dados.etapas.Select(e => e.animacao).ToArray();
+                    ProblemaSelecionadoAR.Instance.passoAPasso = dados;
+                    instrucaoInicial = dados.tutorialInicial;
+                    Debug.Log($"✅ PassoAPasso carregado para problema '{id}'.");
                 }
                 else
                 {
-                    Debug.LogError($"❌ JSON para problema '{id}' no idioma '{idioma}' não encontrado em 'Resources/{caminhoDoJson}'!");
+                    Debug.LogError($"❌ O problema '{id}' não contém etapas.");
                     instrucaoInicial = "Arquivo de problema não encontrado.";
                 }
             }
@@ -106,7 +101,7 @@ public class GerenciarMontagem : MonoBehaviour
         {
             if (string.IsNullOrEmpty(instrucaoInicial))
             {
-                textoInstrucaoInicial.text = CarregarBancoDeDadosMontagem.Dados?.tutorialInicial ?? "Toque na superfície para posicionar o objeto.";
+                textoInstrucaoInicial.text = dadosMontagem?.tutorialInicial ?? "Toque na superfície para posicionar o objeto.";
             }
             else
             {
@@ -159,14 +154,14 @@ public class GerenciarMontagem : MonoBehaviour
         textoTutorial.text = passosTutoriais[passoAtual];
         textoNumero.text = (passoAtual + 1).ToString();
         textoNumeroProgresso.text = (passoAtual + 1).ToString();
-        textoTotalPassos.text = $"{CarregarBancoDeDadosMontagem.Dados?.textoDe ?? "de"} {passosTutoriais.Length}";
+        textoTotalPassos.text = $"{dadosMontagem?.textoDe ?? "de"} {passosTutoriais.Length}";
 
         preenchimentoProgresso.fillAmount = (float)(passoAtual + 1) / passosTutoriais.Length;
 
         bool ultimo = passoAtual == passosTutoriais.Length - 1;
         textoProximo.text = ultimo
-            ? CarregarBancoDeDadosMontagem.Dados?.finalizar ?? "Finalizar Montagem"
-            : CarregarBancoDeDadosMontagem.Dados?.proximo ?? "Próximo Passo";
+            ? dadosMontagem?.finalizar ?? "Finalizar Montagem"
+            : dadosMontagem?.proximo ?? "Próximo Passo";
         textoProximo.color = ultimo ? new Color32(245, 71, 3, 255) : Color.white;
         Button botao = textoProximo.GetComponentInParent<Button>();
         if (botao != null)

@@ -261,8 +261,7 @@ public class ARInitializer : MonoBehaviour
             return;
         }
 
-        CarregarBancoDeDadosMontagem.GarantirBancoCarregado();
-        DadosMontagem dados = CarregarBancoDeDadosMontagem.Dados;
+        DadosMontagem dados = LocalizedDatabase.Load<DadosMontagem>(LocalizedDatabase.MontagemPath);
 
         SetText(arErrorTitle, FirstFilled(dados?.arErroTitulo, "Nao foi possivel iniciar a realidade aumentada"));
         SetText(arErrorMessage, FirstFilled(dados?.arErroPermissaoCamera, "Permita o acesso a camera nas configuracoes do sistema para usar a realidade aumentada."));
