@@ -14,7 +14,7 @@ public class Visualizador3D : ExibidorDeModeloBase
 {
     [Header("Câmera e Enquadramento")]
     [SerializeField] private Camera cameraViewer;
-    [SerializeField] private float distanciaInicial = 2.5f;
+    [SerializeField] private float distanciaInicial = 1.5f;
     [SerializeField] private float distanciaMinima = 0.8f;
     [SerializeField] private float distanciaMaxima = 6f;
     [SerializeField] private float pitchInicial = 5f;
@@ -37,6 +37,7 @@ public class Visualizador3D : ExibidorDeModeloBase
     private bool pincando;
     private float ultimaDistanciaPinca;
     private Coroutine recentralizacaoPendente;
+    private Transform modeloPrincipal;
 
     public void Configurar(GameObject prefab, UIController ui, Camera cam)
     {
@@ -63,6 +64,7 @@ public class Visualizador3D : ExibidorDeModeloBase
         spawnedObject = Instantiate(placedPrefab, Vector3.zero, Quaternion.identity);
         spawnedObject.SetActive(true);
         ConfigurarModeloInstanciado();
+        modeloPrincipal = spawnedObject.transform.Find("M4_Smart_Final_Animado");
 
         pivo = CalcularCentroDoModelo();
         AtualizarCamera();
@@ -107,12 +109,18 @@ public class Visualizador3D : ExibidorDeModeloBase
 
     private Vector3 CalcularCentroDoModelo()
     {
-        Vector3 referencia = spawnedObject.transform.position;
+        Transform alvoDoEnquadramento = modeloPrincipal != null
+            ? modeloPrincipal
+            : spawnedObject.transform;
+        Vector3 referencia = alvoDoEnquadramento.position;
         Bounds bounds = new Bounds(referencia, Vector3.zero);
         bool encontrou = false;
 
-        foreach (var r in spawnedObject.GetComponentsInChildren<Renderer>())
+        foreach (var r in alvoDoEnquadramento.GetComponentsInChildren<Renderer>())
         {
+            // O foco deve usar apenas a malha fisica do M4. SpriteRenderers da
+            // tela e objetos auxiliares deslocavam o alvo da camera para cima.
+            if (!r.enabled || (!(r is MeshRenderer) && !(r is SkinnedMeshRenderer))) continue;
             if (Vector3.Distance(r.bounds.center, referencia) > distanciaMaximaDoCentro) continue;
 
             if (encontrou)
