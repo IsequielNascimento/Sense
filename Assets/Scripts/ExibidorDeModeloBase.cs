@@ -33,7 +33,7 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
 
         if (animators == null || animators.Length == 0)
         {
-            Debug.LogError($"[{GetType().Name}] CRÍTICO: Nenhum Animator encontrado no prefab instanciado!");
+            Debug.LogError($"[{GetType().Name}] Nenhum Animator encontrado no prefab instanciado.");
             return;
         }
 
@@ -105,11 +105,11 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
 
             if (tocouEmPeloMenosUm)
             {
-                Debug.Log($"[AR Toolkit] Sucesso: Animação '{animName}' tocada na camada '{camadaAlvo}'.");
+                DevelopmentLog.Log($"[ExibidorDeModeloBase] Animação '{animName}' iniciada na camada '{camadaAlvo}'.");
             }
             else
             {
-                Debug.LogWarning($"[AR Toolkit] AVISO: O estado '{animName}' não foi encontrado nos Animators ATIVOS para a camada '{camadaAlvo}'.");
+                Debug.LogWarning($"[ExibidorDeModeloBase] Estado '{animName}' não encontrado nos Animators ativos para a camada '{camadaAlvo}'.");
             }
         }
 
@@ -140,6 +140,6 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
                 jaAtivos++;
             }
         }
-        Debug.Log($"[{GetType().Name}] ForcarAtivacaoAtuador ({contexto}): {ativados} ativado(s), {jaAtivos} já ativo(s).");
+        DevelopmentLog.Log($"[{GetType().Name}] ForcarAtivacaoAtuador ({contexto}): {ativados} ativado(s), {jaAtivos} já ativo(s).");
     }
 }

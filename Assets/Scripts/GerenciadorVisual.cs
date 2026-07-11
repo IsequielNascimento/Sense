@@ -30,24 +30,24 @@ public class GerenciadorVisual : MonoBehaviour
     /// </summary>
     public void MudarSpriteDoSensor(string nomeTela)
     {
-        Debug.Log($"[Gerenciador Visual] TENTATIVA: Recebeu ordem do JSON para mostrar a tela -> '{nomeTela}'");
+        DevelopmentLog.Log($"[GerenciadorVisual] Aplicando sprite '{nomeTela}'.");
 
         if (displaySpriteRenderer == null)
         {
-            Debug.LogError("[Gerenciador Visual] ERRO CRÍTICO: O campo 'Display Sprite Renderer' está VAZIO! O script não sabe quem é o Square.");
+            Debug.LogError("[GerenciadorVisual] Referência 'Display Sprite Renderer' não configurada.");
             return;
         }
 
         if (string.IsNullOrEmpty(nomeTela) || nomeTela.ToLower() == "nenhum")
         {
             displaySpriteRenderer.gameObject.SetActive(false);
-            Debug.Log("[Gerenciador Visual] Comando vazio ou 'nenhum'. Desligando a tela virtual.");
+            DevelopmentLog.Log("[GerenciadorVisual] Sprite vazio ou 'nenhum'; display desativado.");
             return;
         }
 
         if (telasDisponiveis == null || telasDisponiveis.Count == 0)
         {
-            Debug.LogError("[Gerenciador Visual] ERRO CRÍTICO: A sua lista de 'Telas Disponiveis' (as 16 imagens) está VAZIA neste clone do Prefab!");
+            Debug.LogError("[GerenciadorVisual] Lista 'Telas Disponiveis' não configurada.");
             return;
         }
 
@@ -64,13 +64,13 @@ public class GerenciadorVisual : MonoBehaviour
                     displaySpriteRenderer.gameObject.SetActive(true); 
                     displaySpriteRenderer.enabled = true;
                     
-                    Debug.Log($"[Gerenciador Visual] SUCESSO ABSOLUTO: A tela '{nomeTela}' foi encontrada na lista e ativada no modelo!");
+                    DevelopmentLog.Log($"[GerenciadorVisual] Sprite '{nomeTela}' ativado.");
                     return;
                 }
             }
         }
         
-        Debug.LogWarning($"[Gerenciador Visual] AVISO: A tela chamada '{nomeTela}' chegou do JSON, mas NÃO FOI ENCONTRADA na sua lista. Verifique se os nomes estão idênticos.");
+        Debug.LogWarning($"[GerenciadorVisual] Sprite '{nomeTela}' não encontrado em 'Telas Disponiveis'.");
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ public class GerenciadorVisual : MonoBehaviour
                 {
                     efeito.VfxObject.SetActive(true);
                     efeitoEncontrado = true;
-                    Debug.Log($"[Gerenciador Visual] VFX Ativado: {nomeEfeito}");
+                    DevelopmentLog.Log($"[GerenciadorVisual] VFX '{nomeEfeito}' ativado.");
                 }
                 else
                 {
@@ -105,7 +105,7 @@ public class GerenciadorVisual : MonoBehaviour
 
         if (!efeitoEncontrado && !string.IsNullOrEmpty(nomeEfeito) && nomeEfeito.ToLower() != "nenhum")
         {
-            Debug.LogWarning($"[Gerenciador Visual] Efeito VFX '{nomeEfeito}' não encontrado na lista.");
+            Debug.LogWarning($"[GerenciadorVisual] VFX '{nomeEfeito}' não encontrado em 'Efeitos Disponiveis'.");
         }
     }
 }
