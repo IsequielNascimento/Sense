@@ -171,6 +171,14 @@ public class ARInitializer : MonoBehaviour
             return;
         }
 
+        // Nesta cena o campo placedPrefab aponta para uma instancia ja ativa na
+        // hierarquia. O visualizador cria sua propria instancia; ocultar a
+        // original evita que os dois modelos recebam as mesmas animacoes.
+        if (prefab.scene.IsValid())
+        {
+            prefab.SetActive(false);
+        }
+
         Visualizador3D visualizador = gameObject.AddComponent<Visualizador3D>();
         visualizador.Configurar(prefab, uiController, camera);
         uiController.exibidor = visualizador;
