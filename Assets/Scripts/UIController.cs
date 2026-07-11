@@ -74,18 +74,11 @@ public class UIController : MonoBehaviour
         tutorialUI = root.Q<VisualElement>("Tutorial"); 
         textoTutorial = root.Q<Label>("TextoTutorial");
         
-        // --- TESTE DE DIAGNÓSTICO DO BOTÃO SAIR ---
         botaoSair = root.Q<Button>("Sair");
-        
-        if (botaoSair == null) 
-        { 
-            Debug.LogError("🚨 ALERTA: O Unity NÃO ACHOU o botão Sair! Verifique se o nome no UI Builder é exatamente 'Sair' e se você salvou o arquivo .uxml."); 
-        } 
-        else 
-        { 
-            Debug.Log("✅ SUCESSO: O botão Sair foi encontrado no UI Builder e conectado ao script!"); 
+        if (botaoSair == null)
+        {
+            Debug.LogError("[UIController] Elemento UXML 'Sair' não encontrado.");
         }
-        // ------------------------------------------
 
         botaoProximo = root.Q<Button>("Proximo");
         botaoVoltar = root.Q<Button>("Voltar");
@@ -225,7 +218,7 @@ public class UIController : MonoBehaviour
             {
                 passosTutoriais = dados.passos.Select(p => p.tutorial).ToArray();
                 animacoes = dados.passos.Select(p => $"animacao_{p.numero}").ToArray();
-                Debug.Log($"[AR Toolkit] Montagem Padrão carregada com {animacoes.Length} animações.");
+                DevelopmentLog.Log($"[UIController] Montagem padrão carregada com {animacoes.Length} animações.");
             }
             else
             {
@@ -248,7 +241,7 @@ public class UIController : MonoBehaviour
 
             if (json == null && idioma != "pt")
             {
-                Debug.LogWarning($"[AR Toolkit] Tradução ausente em Resources/{caminhoDoJson}. Usando fallback pt.");
+                Debug.LogWarning($"[UIController] Tradução ausente em Resources/{caminhoDoJson}. Usando fallback pt.");
                 caminhoDoJson = $"BancoDeDadosProblemas/pt/{idDoProblema}";
                 json = Resources.Load<TextAsset>(caminhoDoJson);
             }
@@ -264,12 +257,12 @@ public class UIController : MonoBehaviour
                     vfxs = dadosProblema.etapas.Select(e => e.vfx).ToArray();
                     layerAtual = !string.IsNullOrEmpty(dadosProblema.layer) ? dadosProblema.layer : "Base Layer";
 
-                    Debug.Log($"[AR Toolkit] JSON Lido com sucesso. Primeira tela encontrada: '{telasDisplay[0]}', Primeiro VFX: '{vfxs[0]}'");
+                    DevelopmentLog.Log($"[UIController] JSON lido com sucesso. Primeira tela: '{telasDisplay[0]}'; primeiro VFX: '{vfxs[0]}'.");
                 }
             }
             else
             {
-                Debug.LogError($"[AR Toolkit] Erro: Arquivo JSON não encontrado em Resources/{caminhoDoJson}.");
+                Debug.LogError($"[UIController] Arquivo JSON não encontrado em Resources/{caminhoDoJson}.");
                 passosTutoriais = new string[0];
                 animacoes = new string[0];
                 telasDisplay = new string[0];
@@ -330,7 +323,6 @@ public class UIController : MonoBehaviour
 
     private void OnBotaoSairClicado(ClickEvent evt) 
     { 
-        Debug.Log("👆 CLICK REGISTRADO: O botão SAIR foi clicado e vai tentar carregar a cena 0.");
         VoltarMenu(evt); 
     }
 

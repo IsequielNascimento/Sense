@@ -31,7 +31,7 @@ public class PlaceOnPlane_Adaptado : ExibidorDeModeloBase
     {
         raycastManager = GetComponent<ARRaycastManager>();
         if (arCamera == null) arCamera = Camera.main;
-        if (uiController == null) Debug.LogError("[PlaceOnPlane] O 'UI Controller' não foi arrastado no Inspector!");
+        if (uiController == null) Debug.LogError("[PlaceOnPlane] Referência 'UI Controller' não configurada.");
     }
 
     void Update()
