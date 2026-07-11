@@ -9,5 +9,5 @@ public class Problema
     public string imagem;
     public string botaopasso;
 
-    public string id => imagem; // Atalho para manter consistência com outros scripts
+    public string id => imagem;
 }

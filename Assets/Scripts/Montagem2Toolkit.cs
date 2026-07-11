@@ -58,9 +58,7 @@ public class Montagem2Toolkit : MonoBehaviour
 
     void AtualizarTextos()
     {
-        string idioma = IdiomaManager.Instance.ObterIdioma();
-        CarregarDadosMontagem2Toolkit.Carregar(idioma);
-        var dados = CarregarDadosMontagem2Toolkit.Dados;
+        DadosMontagem2 dados = LocalizedDatabase.Load<DadosMontagem2>(LocalizedDatabase.Montagem2Path);
 
         if (dados != null)
         {
@@ -83,11 +81,7 @@ public class Montagem2Toolkit : MonoBehaviour
         Debug.Log("[Montagem2] Botão clicado! Carregando Banco de Dados e Cena AR...");
 
         // Pega o idioma atual
-        string idioma = IdiomaManager.Instance.ObterIdioma();
-
         // Carrega o banco de dados da montagem (sua lógica do NavegarParaMontagemPadrao.cs)
-        CarregarBancoDeDadosMontagem.Carregar(idioma);
-
         // Muda para a cena AR
         SceneManager.LoadScene("AR_Cena_UIToolkit");
     }

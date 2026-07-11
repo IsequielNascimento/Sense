@@ -9,8 +9,6 @@ public class Menu : MonoBehaviour
         {
             ControleDeCena.Instance.DefinirOrigem("montagem");
 
-            string idioma = IdiomaManager.Instance.ObterIdioma();
-            CarregarBancoDeDadosMontagem.Carregar(idioma);
         }
 
         SceneManager.LoadScene(cena);

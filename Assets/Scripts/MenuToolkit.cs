@@ -37,7 +37,7 @@ public class MenuToolkit : MonoBehaviour
         if (_btnGemeo != null) 
             _btnGemeo.clicked += () => CarregarCena("CenaGemeo", "gemeo");
 
-        AtualizarTextosUI(IdiomaManager.Instance.ObterIdioma());
+        AtualizarTextosUI();
     }
 
     private void CarregarCena(string nomeCena, string origem)
@@ -46,10 +46,9 @@ public class MenuToolkit : MonoBehaviour
         SceneManager.LoadScene(nomeCena);
     }
 
-    public void AtualizarTextosUI(string idioma)
+    public void AtualizarTextosUI()
     {
-        CarregarDadosMenuToolkit.Carregar(idioma);
-        var dados = CarregarDadosMenuToolkit.DadosMenu;
+        MenuTextos dados = LocalizedDatabase.Load<BancoMenu>(LocalizedDatabase.MenuPath).menu;
         if (dados != null) {
             if (_btnMontagem != null) _btnMontagem.text = dados.botao_iniciar;
             if (_btnProblemas != null) _btnProblemas.text = dados.botao_problemas;

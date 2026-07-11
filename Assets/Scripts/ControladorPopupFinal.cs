@@ -24,9 +24,9 @@ public class ControladorPopupFinal : MonoBehaviour
         painelPopupFinal.gameObject.SetActive(true);
         fundoBlurFinal.gameObject.SetActive(true);
 
-        if (CarregarBancoDeDadosMontagem.Dados != null)
+        DadosMontagem dados = LocalizedDatabase.Load<DadosMontagem>(LocalizedDatabase.MontagemPath);
+        if (dados != null)
         {
-            var dados = CarregarBancoDeDadosMontagem.Dados;
             TMP_Text titulo = painelPopupFinal.transform.Find("Parabens")?.GetComponent<TMP_Text>();
             TMP_Text voltar = painelPopupFinal.transform.Find("Botãovoltar/TextoVoltar")?.GetComponent<TMP_Text>();
             TMP_Text recomecar = painelPopupFinal.transform.Find("Recomeçar")?.GetComponent<TMP_Text>();

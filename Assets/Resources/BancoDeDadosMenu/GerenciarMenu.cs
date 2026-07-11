@@ -19,9 +19,7 @@ public class GerenciarMenu : MonoBehaviour
     public void TrocarIdioma(string novoIdioma)
     {
         idiomaAtual = novoIdioma;
-        CarregarBancoDeDadosMenu.Carregar(idiomaAtual);
-
-        var dados = CarregarBancoDeDadosMenu.DadosMenu;
+        MenuTextos dados = LocalizedDatabase.Load<BancoMenu>(LocalizedDatabase.MenuPath).menu;
         textoBotaoIniciar.text = dados.botao_iniciar;
         textoBotaoProblema.text = dados.botao_problemas;
         textoSubtitulo.text = dados.subtitulo;

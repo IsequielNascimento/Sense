@@ -53,8 +53,7 @@ public class UIController : MonoBehaviour
 
     void Awake()
     {
-        CarregarBancoDeDadosMontagem.GarantirBancoCarregado();
-        dados = CarregarBancoDeDadosMontagem.Dados;
+        dados = LocalizedDatabase.Load<DadosMontagem>(LocalizedDatabase.MontagemPath);
         CarregarPassosDoProblemaOuMontagem(); 
     }
 
@@ -207,10 +206,6 @@ public class UIController : MonoBehaviour
     private void CarregarPassosDoProblemaOuMontagem()
     {
         string origem = ControleDeCena.Instance != null ? ControleDeCena.Instance.origemDaCena : "montagem";
-        string idioma = IdiomaManager.Instance != null
-            ? IdiomaManager.Instance.ObterIdioma()
-            : PlayerPrefs.GetString("idioma", "pt");
-
         if (origem == "montagem" || string.IsNullOrEmpty(origem))
         {
             layerAtual = "Base Layer";
@@ -236,33 +231,22 @@ public class UIController : MonoBehaviour
                 idDoProblema = ProblemaSelecionadoAR.Instance.idProblema;
             }
 
-            string caminhoDoJson = $"BancoDeDadosProblemas/{idioma}/{idDoProblema}";
-            TextAsset json = Resources.Load<TextAsset>(caminhoDoJson);
+            string caminhoDoJson = $"BancoDeDadosProblemas/{{language}}/{idDoProblema}";
+            PassoAPasso dadosProblema = LocalizedDatabase.Load<PassoAPasso>(caminhoDoJson);
 
-            if (json == null && idioma != "pt")
+            if (dadosProblema.etapas != null && dadosProblema.etapas.Length > 0)
             {
-                Debug.LogWarning($"[UIController] Tradução ausente em Resources/{caminhoDoJson}. Usando fallback pt.");
-                caminhoDoJson = $"BancoDeDadosProblemas/pt/{idDoProblema}";
-                json = Resources.Load<TextAsset>(caminhoDoJson);
-            }
+                passosTutoriais = dadosProblema.etapas.Select(e => e.tutorial).ToArray();
+                animacoes = dadosProblema.etapas.Select(e => e.animacao).ToArray();
+                telasDisplay = dadosProblema.etapas.Select(e => e.telaDisplay).ToArray();
+                vfxs = dadosProblema.etapas.Select(e => e.vfx).ToArray();
+                layerAtual = !string.IsNullOrEmpty(dadosProblema.layer) ? dadosProblema.layer : "Base Layer";
 
-            if (json != null)
-            {
-                PassoAPasso dadosProblema = JsonUtility.FromJson<PassoAPasso>(json.text);
-                if (dadosProblema != null && dadosProblema.etapas != null && dadosProblema.etapas.Length > 0)
-                {
-                    passosTutoriais = dadosProblema.etapas.Select(e => e.tutorial).ToArray();
-                    animacoes = dadosProblema.etapas.Select(e => e.animacao).ToArray();
-                    telasDisplay = dadosProblema.etapas.Select(e => e.telaDisplay).ToArray();
-                    vfxs = dadosProblema.etapas.Select(e => e.vfx).ToArray();
-                    layerAtual = !string.IsNullOrEmpty(dadosProblema.layer) ? dadosProblema.layer : "Base Layer";
-
-                    DevelopmentLog.Log($"[UIController] JSON lido com sucesso. Primeira tela: '{telasDisplay[0]}'; primeiro VFX: '{vfxs[0]}'.");
-                }
+                DevelopmentLog.Log($"[UIController] JSON lido com sucesso. Primeira tela: '{telasDisplay[0]}'; primeiro VFX: '{vfxs[0]}'.");
             }
             else
             {
-                Debug.LogError($"[UIController] Arquivo JSON não encontrado em Resources/{caminhoDoJson}.");
+                Debug.LogError($"[UIController] O problema '{idDoProblema}' não contém etapas.");
                 passosTutoriais = new string[0];
                 animacoes = new string[0];
                 telasDisplay = new string[0];
