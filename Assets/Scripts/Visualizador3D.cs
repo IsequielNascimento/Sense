@@ -17,7 +17,7 @@ public class Visualizador3D : ExibidorDeModeloBase
     [SerializeField] private float distanciaInicial = 2.5f;
     [SerializeField] private float distanciaMinima = 0.8f;
     [SerializeField] private float distanciaMaxima = 6f;
-    [SerializeField] private float pitchInicial = 15f;
+    [SerializeField] private float pitchInicial = 5f;
 
     [Header("Gestos")]
     [Tooltip("Graus de rotação por pixel arrastado")]
@@ -36,6 +36,7 @@ public class Visualizador3D : ExibidorDeModeloBase
     private Vector2 ultimaPosicaoArrasto;
     private bool pincando;
     private float ultimaDistanciaPinca;
+    private Coroutine recentralizacaoPendente;
 
     public void Configurar(GameObject prefab, UIController ui, Camera cam)
     {
@@ -78,6 +79,26 @@ public class Visualizador3D : ExibidorDeModeloBase
         yield return null;
         pivo = CalcularCentroDoModelo();
         AtualizarCamera();
+    }
+
+    protected override void AjustarPosicaoParaPasso(bool isMontagem)
+    {
+        if (recentralizacaoPendente != null)
+        {
+            StopCoroutine(recentralizacaoPendente);
+        }
+
+        recentralizacaoPendente = StartCoroutine(RecentrarAposAnimacao());
+    }
+
+    private IEnumerator RecentrarAposAnimacao()
+    {
+        // Aguarda o Animator aplicar o estado do passo antes de medir os bounds.
+        yield return new WaitForEndOfFrame();
+
+        pivo = CalcularCentroDoModelo();
+        AtualizarCamera();
+        recentralizacaoPendente = null;
     }
 
     // Partes do template ficam "estacionadas" a ~1e13 do modelo (truque da cena
