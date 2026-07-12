@@ -10,6 +10,52 @@ public static class LocalizedDatabase
 
     public static string CurrentLanguage => ResolveCurrentLanguage();
 
+    public static ArExperienceData LoadArExperience(string source, string problemId = null)
+    {
+        DadosMontagem uiText = Load<DadosMontagem>(MontagemPath);
+        bool isAssembly = string.IsNullOrWhiteSpace(source) || source == "montagem";
+
+        if (isAssembly)
+        {
+            return new ArExperienceData(uiText, CreateAssemblySteps(uiText));
+        }
+
+        string resolvedProblemId = string.IsNullOrWhiteSpace(problemId) ? source : problemId;
+        string path = $"BancoDeDadosProblemas/{{language}}/{resolvedProblemId}";
+        PassoAPasso problem = Load<PassoAPasso>(path);
+
+        if (problem.etapas == null || problem.etapas.Length == 0)
+        {
+            Debug.LogError($"[LocalizedDatabase] O problema '{resolvedProblemId}' nao contem etapas.");
+            return new ArExperienceData(uiText, new StepSequenceData());
+        }
+
+        int count = problem.etapas.Length;
+        var steps = new string[count];
+        var animations = new string[count];
+        var displays = new string[count];
+        var vfx = new string[count];
+
+        for (int i = 0; i < count; i++)
+        {
+            Etapa stage = problem.etapas[i];
+            steps[i] = stage?.tutorial ?? string.Empty;
+            animations[i] = stage?.animacao ?? string.Empty;
+            displays[i] = stage?.telaDisplay ?? string.Empty;
+            vfx[i] = stage?.vfx ?? string.Empty;
+        }
+
+        var sequence = new StepSequenceData(
+            steps,
+            animations,
+            displays,
+            vfx,
+            string.IsNullOrWhiteSpace(problem.layer) ? "Base Layer" : problem.layer);
+
+        DevelopmentLog.Log($"[LocalizedDatabase] Problema '{resolvedProblemId}' carregado com {count} etapas.");
+        return new ArExperienceData(uiText, sequence);
+    }
+
     public static T Load<T>(string resourcePathPattern) where T : class, new()
     {
         string idioma = ResolveCurrentLanguage();
@@ -68,4 +114,65 @@ public static class LocalizedDatabase
             .Replace("{language}", language)
             .Replace("{0}", language);
     }
+
+    private static StepSequenceData CreateAssemblySteps(DadosMontagem data)
+    {
+        if (data?.passos == null || data.passos.Length == 0)
+        {
+            return new StepSequenceData();
+        }
+
+        int count = data.passos.Length;
+        var steps = new string[count];
+        var animations = new string[count];
+        var displays = new string[count];
+        var vfx = new string[count];
+
+        for (int i = 0; i < count; i++)
+        {
+            PassoMontagem step = data.passos[i];
+            steps[i] = step?.tutorial ?? string.Empty;
+            animations[i] = $"animacao_{step?.numero}";
+            displays[i] = string.Empty;
+            vfx[i] = string.Empty;
+        }
+
+        DevelopmentLog.Log($"[LocalizedDatabase] Montagem padrao carregada com {count} etapas.");
+        return new StepSequenceData(steps, animations, displays, vfx, "Base Layer");
+    }
+}
+
+public sealed class ArExperienceData
+{
+    public ArExperienceData(DadosMontagem uiText, StepSequenceData sequence)
+    {
+        UiText = uiText ?? new DadosMontagem();
+        Sequence = sequence ?? new StepSequenceData();
+    }
+
+    public DadosMontagem UiText { get; }
+    public StepSequenceData Sequence { get; }
+}
+
+public sealed class StepSequenceData
+{
+    public StepSequenceData(
+        string[] steps = null,
+        string[] animations = null,
+        string[] displays = null,
+        string[] vfx = null,
+        string layer = "Base Layer")
+    {
+        Steps = steps ?? Array.Empty<string>();
+        Animations = animations ?? Array.Empty<string>();
+        Displays = displays ?? Array.Empty<string>();
+        Vfx = vfx ?? Array.Empty<string>();
+        Layer = string.IsNullOrWhiteSpace(layer) ? "Base Layer" : layer;
+    }
+
+    public string[] Steps { get; }
+    public string[] Animations { get; }
+    public string[] Displays { get; }
+    public string[] Vfx { get; }
+    public string Layer { get; }
 }
