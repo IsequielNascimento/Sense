@@ -163,7 +163,6 @@ MonoBehaviour:
   m_EditorClassIdentifier:
   arSession: {fileID: 452014061}
   uiDocument: {fileID: 1609545330}
-  menuSceneName: Main-Menu
   initializationTimeout: 10
 --- !u!4 &452014062
 Transform:

@@ -5,8 +5,8 @@ public class NavegarParaMontagemPadrao : MonoBehaviour
 {
     public void CarregarMontagemPadrao()
     {
-        ControleDeCena.Instance.DefinirOrigem("montagem");
+        ControleDeCena.Instance.DefinirOrigem(OrigemCena.Montagem);
 
-        SceneManager.LoadScene("ARMudanca");
+        SceneManager.LoadScene(Scenes.ArLegacy);
     }
 }

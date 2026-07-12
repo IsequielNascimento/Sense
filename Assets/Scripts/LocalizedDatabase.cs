@@ -10,17 +10,22 @@ public static class LocalizedDatabase
 
     public static string CurrentLanguage => ResolveCurrentLanguage();
 
-    public static ArExperienceData LoadArExperience(string source, string problemId = null)
+    public static ArExperienceData LoadArExperience(OrigemCena source, string problemId = null)
     {
         DadosMontagem uiText = Load<DadosMontagem>(MontagemPath);
-        bool isAssembly = string.IsNullOrWhiteSpace(source) || source == "montagem";
+        bool isAssembly = source == OrigemCena.Montagem;
 
         if (isAssembly)
         {
             return new ArExperienceData(uiText, CreateAssemblySteps(uiText));
         }
 
-        string resolvedProblemId = string.IsNullOrWhiteSpace(problemId) ? source : problemId;
+        string resolvedProblemId = problemId;
+        if (string.IsNullOrWhiteSpace(resolvedProblemId))
+        {
+            Debug.LogError("[LocalizedDatabase] Nenhum problema foi selecionado para a experiência AR.");
+            return new ArExperienceData(uiText, new StepSequenceData());
+        }
         string path = $"BancoDeDadosProblemas/{{language}}/{resolvedProblemId}";
         PassoAPasso problem = Load<PassoAPasso>(path);
 
@@ -50,7 +55,7 @@ public static class LocalizedDatabase
             animations,
             displays,
             vfx,
-            string.IsNullOrWhiteSpace(problem.layer) ? "Base Layer" : problem.layer);
+            string.IsNullOrWhiteSpace(problem.layer) ? ArConstants.DefaultAnimatorLayer : problem.layer);
 
         DevelopmentLog.Log($"[LocalizedDatabase] Problema '{resolvedProblemId}' carregado com {count} etapas.");
         return new ArExperienceData(uiText, sequence);
@@ -132,13 +137,13 @@ public static class LocalizedDatabase
         {
             PassoMontagem step = data.passos[i];
             steps[i] = step?.tutorial ?? string.Empty;
-            animations[i] = $"animacao_{step?.numero}";
+            animations[i] = ArConstants.AssemblyAnimationName(step?.numero);
             displays[i] = string.Empty;
             vfx[i] = string.Empty;
         }
 
         DevelopmentLog.Log($"[LocalizedDatabase] Montagem padrao carregada com {count} etapas.");
-        return new StepSequenceData(steps, animations, displays, vfx, "Base Layer");
+        return new StepSequenceData(steps, animations, displays, vfx, ArConstants.DefaultAnimatorLayer);
     }
 }
 
@@ -161,13 +166,13 @@ public sealed class StepSequenceData
         string[] animations = null,
         string[] displays = null,
         string[] vfx = null,
-        string layer = "Base Layer")
+        string layer = ArConstants.DefaultAnimatorLayer)
     {
         Steps = steps ?? Array.Empty<string>();
         Animations = animations ?? Array.Empty<string>();
         Displays = displays ?? Array.Empty<string>();
         Vfx = vfx ?? Array.Empty<string>();
-        Layer = string.IsNullOrWhiteSpace(layer) ? "Base Layer" : layer;
+        Layer = string.IsNullOrWhiteSpace(layer) ? ArConstants.DefaultAnimatorLayer : layer;
     }
 
     public string[] Steps { get; }

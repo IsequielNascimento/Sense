@@ -57,7 +57,7 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
     {
         ForcarAtivacaoAtuador($"PlayAnimation('{animName}')");
 
-        bool isMontagem = string.IsNullOrEmpty(camadaAlvo) || camadaAlvo == "Base Layer";
+        bool isMontagem = string.IsNullOrEmpty(camadaAlvo) || camadaAlvo == ArConstants.DefaultAnimatorLayer;
 
         AjustarPosicaoParaPasso(isMontagem);
 
@@ -80,7 +80,7 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
         // 1. LÓGICA DE ANIMAÇÃO
         if (animators != null && animators.Length > 0)
         {
-            if (string.IsNullOrEmpty(camadaAlvo)) camadaAlvo = "Base Layer";
+            if (string.IsNullOrEmpty(camadaAlvo)) camadaAlvo = ArConstants.DefaultAnimatorLayer;
             int hashDaAnimacao = Animator.StringToHash(animName);
             bool tocouEmPeloMenosUm = false;
 
@@ -129,7 +129,7 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
         int jaAtivos = 0;
         foreach (var t in spawnedObject.GetComponentsInChildren<Transform>(true))
         {
-            if (t.name != "Atuador") continue;
+            if (t.name != ArConstants.ActuatorObjectName) continue;
             if (!t.gameObject.activeSelf)
             {
                 t.gameObject.SetActive(true);
