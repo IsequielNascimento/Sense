@@ -1,0 +1,16 @@
+{
+    "name": "Sense.EditModeTests",
+    "references": [
+        "Sense.StepSequence",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true
+}
