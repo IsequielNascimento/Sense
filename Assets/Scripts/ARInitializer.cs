@@ -10,7 +10,6 @@ public class ARInitializer : MonoBehaviour
 {
     public ARSession arSession;
     public UIDocument uiDocument;
-    public string menuSceneName = "Main-Menu";
     public float initializationTimeout = 10f;
 
     private VisualElement arErrorPanel;
@@ -322,7 +321,7 @@ public class ARInitializer : MonoBehaviour
 
     private void BackToMenu()
     {
-        SceneManager.LoadScene(menuSceneName);
+        SceneManager.LoadScene(Scenes.MainMenu);
     }
 
     private void SetARManagersActive(bool active)

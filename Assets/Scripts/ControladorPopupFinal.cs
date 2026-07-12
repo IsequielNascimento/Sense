@@ -45,7 +45,7 @@ public class ControladorPopupFinal : MonoBehaviour
     if (ProblemaSelecionadoAR.Instance != null)
         Destroy(ProblemaSelecionadoAR.Instance.gameObject);
 
-    SceneManager.LoadScene(0); // Ou a cena do menu principal
+    SceneManager.LoadScene(Scenes.MainMenu);
     }
 
 

@@ -26,14 +26,24 @@ public class ProblemasToolkit : MonoBehaviour
         // 1. Define qual problema foi escolhido
         if (ControleDeCena.Instance != null)
         {
-            ControleDeCena.Instance.DefinirOrigem(tipoProblema);
+            ControleDeCena.Instance.DefinirOrigem(OrigemCena.Problema);
         }
         else
         {
             Debug.LogWarning("[Unity AR] ControleDeCena não encontrado na cena atual.");
         }
 
+        if (ProblemaSelecionadoAR.Instance == null)
+        {
+            var selecionado = new GameObject(nameof(ProblemaSelecionadoAR));
+            selecionado.AddComponent<ProblemaSelecionadoAR>().idProblema = tipoProblema;
+        }
+        else
+        {
+            ProblemaSelecionadoAR.Instance.idProblema = tipoProblema;
+        }
+
         // 2. Manda para a cena intermediária (Montagem2) conforme solicitado
-        SceneManager.LoadScene("Montagem2");
+        SceneManager.LoadScene(Scenes.AssemblyWarning);
     }
 }

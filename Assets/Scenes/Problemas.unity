@@ -1414,7 +1414,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63750cad4ccbe347b011ac64fcd6190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nomeCenaARCanvas: AR_Cena_UIToolkit
   campoDePesquisa: {fileID: 1490866139}
   painelDetalhes: {fileID: 1125856559}
   backgroundBlur: {fileID: 0}

@@ -26,7 +26,7 @@ public class UIController : MonoBehaviour
 
     private void Awake()
     {
-        string source = ControleDeCena.Instance?.origemDaCena;
+        OrigemCena source = ControleDeCena.Instance?.OrigemDaCena ?? OrigemCena.Montagem;
         string problemId = ProblemaSelecionadoAR.Instance?.idProblema;
         ArExperienceData experience = LocalizedDatabase.LoadArExperience(source, problemId);
 
@@ -119,7 +119,7 @@ public class UIController : MonoBehaviour
 
     public void VoltarMenu(ClickEvent evt = null)
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(Scenes.MainMenu);
     }
 
     public void RecomecarMontagem(ClickEvent evt = null)

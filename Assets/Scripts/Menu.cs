@@ -5,9 +5,9 @@ public class Menu : MonoBehaviour
 {
     public void LoadScenes(string cena)
     {
-        if (cena == "ARMudanca")
+        if (cena == Scenes.ArLegacy)
         {
-            ControleDeCena.Instance.DefinirOrigem("montagem");
+            ControleDeCena.Instance.DefinirOrigem(OrigemCena.Montagem);
 
         }
 

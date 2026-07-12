@@ -73,7 +73,7 @@ public class Montagem2Toolkit : MonoBehaviour
 
     void VoltarParaMenu()
     {
-        SceneManager.LoadScene("Main-Menu");
+        SceneManager.LoadScene(Scenes.MainMenu);
     }
 
     void IrParaAR()
@@ -83,6 +83,6 @@ public class Montagem2Toolkit : MonoBehaviour
         // Pega o idioma atual
         // Carrega o banco de dados da montagem (sua lógica do NavegarParaMontagemPadrao.cs)
         // Muda para a cena AR
-        SceneManager.LoadScene("AR_Cena_UIToolkit");
+        SceneManager.LoadScene(Scenes.ArUiToolkit);
     }
 }

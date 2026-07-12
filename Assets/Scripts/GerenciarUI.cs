@@ -8,10 +8,6 @@ using UnityEngine.SceneManagement;
 
 public class GerenciarUI : MonoBehaviour
 {
-    [Header("Configuração de Cena")]
-    [Tooltip("Nome da cena AR com Canvas que será carregada")]
-    public string nomeCenaARCanvas = "ARMudanca";
-
     [Header("Referências UI")]
     public TMP_InputField campoDePesquisa;
     public GameObject painelDetalhes;
@@ -142,7 +138,7 @@ public class GerenciarUI : MonoBehaviour
     {
         if (ControleDeCena.Instance != null)
         {
-            ControleDeCena.Instance.DefinirOrigem("problema");
+            ControleDeCena.Instance.DefinirOrigem(OrigemCena.Problema);
         }
 
         if (ProblemaSelecionadoAR.Instance == null)
@@ -157,7 +153,7 @@ public class GerenciarUI : MonoBehaviour
             ProblemaSelecionadoAR.Instance.idProblema = problemaAtual.id;
         }
 
-        SceneManager.LoadScene(nomeCenaARCanvas);
+        SceneManager.LoadScene(Scenes.ArUiToolkit);
     }
 
 }

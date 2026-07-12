@@ -27,20 +27,20 @@ public class MenuToolkit : MonoBehaviour
         
         // 1. Iniciar Montagem -> Vai para Montagem2 (Aviso) -> Depois AR
         if (_btnMontagem != null) 
-            _btnMontagem.clicked += () => CarregarCena("Montagem2", "montagem");
+            _btnMontagem.clicked += () => CarregarCena(Scenes.AssemblyWarning, OrigemCena.Montagem);
 
         // 2. Problemas -> Vai para Seleção de Problemas -> Depois Montagem2 -> Depois AR
         if (_btnProblemas != null) 
-            _btnProblemas.clicked += () => CarregarCena("Problemas", "problema");
+            _btnProblemas.clicked += () => CarregarCena(Scenes.Problems, OrigemCena.Problema);
 
         // 3. Gemeo
         if (_btnGemeo != null) 
-            _btnGemeo.clicked += () => CarregarCena("CenaGemeo", "gemeo");
+            _btnGemeo.clicked += () => CarregarCena(Scenes.DigitalTwin, OrigemCena.Gemeo);
 
         AtualizarTextosUI();
     }
 
-    private void CarregarCena(string nomeCena, string origem)
+    private void CarregarCena(string nomeCena, OrigemCena origem)
     {
         ControleDeCena.Instance.DefinirOrigem(origem);
         SceneManager.LoadScene(nomeCena);

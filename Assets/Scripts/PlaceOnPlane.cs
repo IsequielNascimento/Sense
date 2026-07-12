@@ -106,12 +106,12 @@ public class PlaceOnPlane : MonoBehaviour
             return;
         }
 
-        string origem = ControleDeCena.Instance?.origemDaCena ?? "montagem";
-        string camadaAlvo = "Base Layer";
+        OrigemCena origem = ControleDeCena.Instance?.OrigemDaCena ?? OrigemCena.Montagem;
+        string camadaAlvo = ArConstants.DefaultAnimatorLayer;
 
-        if (origem != "montagem")
+        if (origem != OrigemCena.Montagem)
         {
-            camadaAlvo = ProblemaSelecionadoAR.Instance?.passoAPasso?.layer ?? "Base Layer";
+            camadaAlvo = ProblemaSelecionadoAR.Instance?.passoAPasso?.layer ?? ArConstants.DefaultAnimatorLayer;
         }
 
         int layerIndex = animator.GetLayerIndex(camadaAlvo);

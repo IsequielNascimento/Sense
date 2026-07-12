@@ -58,17 +58,17 @@ public class GerenciarMontagem : MonoBehaviour
 
     private void CarregarPassosDoProblemaOuMontagem()
     {
-        string origem = ControleDeCena.Instance?.origemDaCena ?? "montagem";
+        OrigemCena origem = ControleDeCena.Instance?.OrigemDaCena ?? OrigemCena.Montagem;
         string instrucaoInicial = "";
 
-        if (origem == "montagem")
+        if (origem == OrigemCena.Montagem)
         {
             DadosMontagem dados = dadosMontagem;
 
             if (dados != null && dados.passos != null && dados.passos.Length > 0)
             {
                 passosTutoriais = dados.passos.Select(p => p.tutorial).ToArray();
-                animacoes = dados.passos.Select(p => $"animacao_{p.numero}").ToArray();
+                animacoes = dados.passos.Select(p => ArConstants.AssemblyAnimationName(p.numero)).ToArray();
                 instrucaoInicial = dados.tutorialInicial;
                 Debug.Log("✅ Passos carregados do banco padrão de montagem.");
             }
