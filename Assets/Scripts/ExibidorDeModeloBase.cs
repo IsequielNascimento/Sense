@@ -29,8 +29,6 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
         animators = spawnedObject.GetComponentsInChildren<Animator>();
         gerenciadorVisual = spawnedObject.GetComponentInChildren<GerenciadorVisual>();
 
-        ForcarAtivacaoAtuador("após Instantiate");
-
         if (animators == null || animators.Length == 0)
         {
             Debug.LogError($"[{GetType().Name}] Nenhum Animator encontrado no prefab instanciado.");
@@ -43,7 +41,6 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
             anim.Update(0f);
         }
 
-        ForcarAtivacaoAtuador("após Rebind/Update");
     }
 
     /// <summary>
@@ -55,21 +52,15 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
 
     public void PlayAnimation(string animName, string camadaAlvo, string telaDisplay, string vfx)
     {
-        ForcarAtivacaoAtuador($"PlayAnimation('{animName}')");
-
         bool isMontagem = string.IsNullOrEmpty(camadaAlvo) || camadaAlvo == ArConstants.DefaultAnimatorLayer;
 
         AjustarPosicaoParaPasso(isMontagem);
 
         if (spawnedObject != null)
         {
-            // Animator pai (Animação APK):
-            // - Em Montagem: DESLIGADO. Os clipes animacao_X mexeriam em transforms via "path: Atuador"
-            //   etc. mas com WriteDefaultValues=1 o estado Parado estava sobrescrevendo a posição/rotação
-            //   ajustadas no prefab. O Atuador continua visível porque é forçado ativo programaticamente
-            //   (ForcarAtivacaoAtuador), e os outros parts ficam nas posições do prefab (que você corrigiu).
-            // - Em Problemas: LIGADO. Necessário para os clipes Ax_pY animarem a Chave Verde N
-            //   (scale, posição, rotação) via "path: Chave Verde N" como filho direto da raiz.
+            // O Animator da raiz pertence às sequências de problemas. Na montagem, o Animator
+            // do modelo aninhado é o único responsável pelos clips animacao_X. A visibilidade
+            // tutorial é propriedade dos clips; a visibilidade estrutural vem do prefab.
             Animator animatorPai = spawnedObject.GetComponent<Animator>();
             if (animatorPai != null)
             {
@@ -121,25 +112,4 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
         }
     }
 
-    protected void ForcarAtivacaoAtuador(string contexto)
-    {
-        if (spawnedObject == null) return;
-
-        int ativados = 0;
-        int jaAtivos = 0;
-        foreach (var t in spawnedObject.GetComponentsInChildren<Transform>(true))
-        {
-            if (t.name != ArConstants.ActuatorObjectName) continue;
-            if (!t.gameObject.activeSelf)
-            {
-                t.gameObject.SetActive(true);
-                ativados++;
-            }
-            else
-            {
-                jaAtivos++;
-            }
-        }
-        DevelopmentLog.Log($"[{GetType().Name}] ForcarAtivacaoAtuador ({contexto}): {ativados} ativado(s), {jaAtivos} já ativo(s).");
-    }
 }
