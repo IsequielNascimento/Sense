@@ -4,11 +4,6 @@ using System.Globalization;
 using TMPro;
 using UnityEngine;
 
-/// <summary>
-/// Controla o texto renderizado diretamente sobre o display 3D do M4.
-/// A referência pode ser atribuída pelo Inspector ou encontrada entre os
-/// filhos (e irmãos próximos) do objeto que possui este componente.
-/// </summary>
 public sealed class DisplayM4 : MonoBehaviour
 {
     private const string CaminhoFonteLCD = "M4Display/DSEG14Classic SDF";
@@ -53,8 +48,6 @@ public sealed class DisplayM4 : MonoBehaviour
 
     private void LateUpdate()
     {
-        // Alguns clips antigos ainda avaliam objetos do display legado. Manter a
-        // supressão no fim do frame impede que a textura reapareça sob o TMP.
         if ((textoOperacao != null && textoOperacao.gameObject.activeInHierarchy) ||
             (textoPercentual != null && textoPercentual.gameObject.activeInHierarchy) ||
             (textoBargraph != null && textoBargraph.gameObject.activeInHierarchy))
@@ -215,15 +208,11 @@ public sealed class DisplayM4 : MonoBehaviour
             texto = GetComponentInChildren<TMP_Text>(true);
         }
 
-        // Permite a estrutura criada no prefab em que DisplayM4 e Text (TMP)
-        // são filhos irmãos de DisplayDynamic.
         if (texto == null && transform.parent != null)
         {
             texto = transform.parent.GetComponentInChildren<TMP_Text>(true);
         }
 
-        // Fallback para o componente instalado no GerenciadorVisual do prefab.
-        // Restringe a busca ao grupo DisplayDynamic para não capturar textos da UI do app.
         if (texto == null)
         {
             texto = LocalizarTextoNaRaiz(transform.root);
