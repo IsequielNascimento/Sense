@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ public class GerenciadorVisual : MonoBehaviour
     {
         public string Nome;
         public Sprite Sprite;
+
+        [TextArea]
+        public string Texto;
     }
 
     [System.Serializable]
@@ -18,30 +22,34 @@ public class GerenciadorVisual : MonoBehaviour
     }
 
     [Header("Referências do Display")]
-    [Tooltip("Arraste o objeto Square (que agora usa SpriteRenderer) aqui")]
-    public SpriteRenderer displaySpriteRenderer; 
+    [Tooltip("Fallback legado: objeto Square que usa SpriteRenderer.")]
+    public SpriteRenderer displaySpriteRenderer;
+
+    [Tooltip("Display de texto 3D. Se vazio, será localizado automaticamente no prefab.")]
+    [SerializeField] private DisplayM4 displayTexto;
+
+    [Tooltip("Canvas antigo que exibe uma textura completa. É ocultado quando o texto dinâmico é usado.")]
+    [SerializeField] private GameObject canvasDisplayLegado;
+
     public List<TelaSetup> telasDisponiveis;
 
     [Header("Referências de VFX")]
     public List<VFXSetup> efeitosDisponiveis;
 
     /// <summary>
-    /// Altera a imagem do display baseado no nome vindo do JSON.
+    /// Aplica o estado do display baseado no identificador vindo do JSON.
+    /// O texto dinâmico tem prioridade; o Sprite é mantido como fallback.
     /// </summary>
     public void MudarSpriteDoSensor(string nomeTela)
     {
-        DevelopmentLog.Log($"[GerenciadorVisual] Aplicando sprite '{nomeTela}'.");
+        ResolverReferenciasDoDisplay();
+        DevelopmentLog.Log($"[GerenciadorVisual] Aplicando estado de display '{nomeTela}'.");
 
-        if (displaySpriteRenderer == null)
+        if (string.IsNullOrWhiteSpace(nomeTela) ||
+            string.Equals(nomeTela, "nenhum", StringComparison.OrdinalIgnoreCase))
         {
-            Debug.LogError("[GerenciadorVisual] Referência 'Display Sprite Renderer' não configurada.");
-            return;
-        }
-
-        if (string.IsNullOrEmpty(nomeTela) || nomeTela.ToLower() == "nenhum")
-        {
-            displaySpriteRenderer.gameObject.SetActive(false);
-            DevelopmentLog.Log("[GerenciadorVisual] Sprite vazio ou 'nenhum'; display desativado.");
+            DesativarDisplays();
+            DevelopmentLog.Log("[GerenciadorVisual] Estado vazio ou 'nenhum'; display desativado.");
             return;
         }
 
@@ -53,24 +61,77 @@ public class GerenciadorVisual : MonoBehaviour
 
         foreach (var tela in telasDisponiveis)
         {
-            // BLINDAGEM ADICIONADA: Só tenta ler se o Nome no Inspector não estiver vazio!
-            if (!string.IsNullOrEmpty(tela.Nome))
+            if (!string.IsNullOrEmpty(tela.Nome) &&
+                string.Equals(tela.Nome, nomeTela, StringComparison.OrdinalIgnoreCase))
             {
-                if (tela.Nome.ToLower() == nomeTela.ToLower())
+                if (!string.IsNullOrWhiteSpace(tela.Texto) &&
+                    displayTexto != null &&
+                    displayTexto.EstaConfigurado)
                 {
-                    displaySpriteRenderer.sprite = tela.Sprite;
-                    
-                    // Força o objeto e o componente a ligarem
-                    displaySpriteRenderer.gameObject.SetActive(true); 
-                    displaySpriteRenderer.enabled = true;
-                    
-                    DevelopmentLog.Log($"[GerenciadorVisual] Sprite '{nomeTela}' ativado.");
+                    DesativarDisplaysLegados();
+                    displayTexto.Mostrar(tela.Texto);
+                    DevelopmentLog.Log($"[GerenciadorVisual] Texto do estado '{nomeTela}' ativado.");
                     return;
                 }
+
+                if (displaySpriteRenderer != null && tela.Sprite != null)
+                {
+                    displayTexto?.Limpar();
+                    displaySpriteRenderer.sprite = tela.Sprite;
+                    displaySpriteRenderer.gameObject.SetActive(true);
+                    displaySpriteRenderer.enabled = true;
+                    DevelopmentLog.Log($"[GerenciadorVisual] Sprite legado '{nomeTela}' ativado como fallback.");
+                    return;
+                }
+
+                Debug.LogWarning(
+                    $"[GerenciadorVisual] Estado '{nomeTela}' encontrado, mas não possui texto dinâmico utilizável nem Sprite de fallback.",
+                    this);
+                return;
             }
         }
         
-        Debug.LogWarning($"[GerenciadorVisual] Sprite '{nomeTela}' não encontrado em 'Telas Disponiveis'.");
+        Debug.LogWarning($"[GerenciadorVisual] Estado '{nomeTela}' não encontrado em 'Telas Disponiveis'.");
+    }
+
+    private void ResolverReferenciasDoDisplay()
+    {
+        Transform raiz = transform.root;
+
+        if (displayTexto == null || !displayTexto.EstaConfigurado)
+        {
+            displayTexto = DisplayM4.LocalizarOuCriar(raiz);
+        }
+
+        if (canvasDisplayLegado != null) return;
+
+        foreach (Transform candidato in raiz.GetComponentsInChildren<Transform>(true))
+        {
+            if (candidato.name == "Canvas Display")
+            {
+                canvasDisplayLegado = candidato.gameObject;
+                break;
+            }
+        }
+    }
+
+    private void DesativarDisplaysLegados()
+    {
+        if (displaySpriteRenderer != null)
+        {
+            displaySpriteRenderer.gameObject.SetActive(false);
+        }
+
+        if (canvasDisplayLegado != null)
+        {
+            canvasDisplayLegado.SetActive(false);
+        }
+    }
+
+    private void DesativarDisplays()
+    {
+        displayTexto?.Limpar();
+        DesativarDisplaysLegados();
     }
 
     /// <summary>
