@@ -101,6 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8392072423799211837}
   - component: {fileID: 4445916060428251330}
+  - component: {fileID: 7052614470164929351}
   m_Layer: 0
   m_Name: GerenciadorVisual
   m_TagString: Untagged
@@ -133,42 +134,106 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17e32c23071f0de4190a88d0410b9597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   displaySpriteRenderer: {fileID: 600598681102790845}
+  displayTexto: {fileID: 7052614470164929351}
+  canvasDisplayLegado: {fileID: 0}
   telasDisponiveis:
   - Nome: autocal_50
-    Sprite: {fileID: 21300000, guid: fc044a9950570e2478251fa956e5f9e0, type: 3}
+    Sprite: {fileID: 21300000, guid: d5d16452c6b0c0644b900dbec2beb0dc, type: 3}
+    Texto: |-
+      50.0%
+      AUTO
   - Nome: autocal_50_abort
     Sprite: {fileID: 21300000, guid: 74607d5b0cdeebd44b4664fe316d3d2d, type: 3}
+    Texto: |-
+      50
+      ABORT
   - Nome: c6_tempo
     Sprite: {fileID: 21300000, guid: e418076ffe434d646b475032bfc3ca90, type: 3}
+    Texto: |-
+      C6
+      TEMPO
   - Nome: 25
     Sprite: {fileID: 21300000, guid: 7928ad2423039a74fa57b751cb734f65, type: 3}
+    Texto: 25
+  - Nome: autocal_00
+    Sprite: {fileID: 21300000, guid: 891b45b5d8da82c4fa975bc7e8862e09, type: 3}
+    Texto: |-
+      0.0%
+      AUTO
+  - Nome: aberta
+    Sprite: {fileID: 21300000, guid: 223eb02b10d7bc04c9ec4421229859ff, type: 3}
+    Texto: ABERTA
+  - Nome: fechada
+    Sprite: {fileID: 21300000, guid: 0d9639b15f53cff4a91c787ce6defea7, type: 3}
+    Texto: FECHADA
+  - Nome: 10
+    Sprite: {fileID: 21300000, guid: 474f8bd4986c0d14baaa18fb89941337, type: 3}
+    Texto: 10
+  - Nome: 50
+    Sprite: {fileID: 21300000, guid: fc044a9950570e2478251fa956e5f9e0, type: 3}
+    Texto: 50
+  - Nome: 75
+    Sprite: {fileID: 21300000, guid: 74d3b15aca124ce4d89e613e4a0a5887, type: 3}
+    Texto: 75
   - Nome: menu
     Sprite: {fileID: 21300000, guid: 9668f8dba256ea04ea009422f67cd62c, type: 3}
+    Texto: MENU
   - Nome: menu_config
     Sprite: {fileID: 21300000, guid: 00ddaff36608a474d961fa3e9fe0694b, type: 3}
+    Texto: |-
+      MENU
+      CONFIG
   - Nome: alerta
     Sprite: {fileID: 21300000, guid: 74607d5b0cdeebd44b4664fe316d3d2d, type: 3}
+    Texto: |-
+      A4
+      FORA
   - Nome: opcoes_saida
     Sprite: {fileID: 21300000, guid: 9668f8dba256ea04ea009422f67cd62c, type: 3}
+    Texto: |-
+      C12
+      SAIDA
   - Nome: salvar
     Sprite: {fileID: 21300000, guid: 223eb02b10d7bc04c9ec4421229859ff, type: 3}
+    Texto: CERTO
   - Nome: bluetooth_piscando
     Sprite: {fileID: 21300000, guid: 00ddaff36608a474d961fa3e9fe0694b, type: 3}
+    Texto: |-
+      C15
+      BLUETO
   - Nome: bluetooth_conectado
     Sprite: {fileID: 21300000, guid: 223eb02b10d7bc04c9ec4421229859ff, type: 3}
+    Texto: |-
+      C15
+      CONECT
   - Nome: erro_torque
     Sprite: {fileID: 21300000, guid: 74607d5b0cdeebd44b4664fe316d3d2d, type: 3}
+    Texto: |-
+      A5
+      SEMMOV
   - Nome: alerta_pressao
     Sprite: {fileID: 21300000, guid: 74607d5b0cdeebd44b4664fe316d3d2d, type: 3}
+    Texto: |-
+      A18
+      PRESS
   - Nome: erro_eletrico
     Sprite: {fileID: 21300000, guid: 74607d5b0cdeebd44b4664fe316d3d2d, type: 3}
+    Texto: |-
+      A20
+      ALIM B
   - Nome: alerta_manutencao
     Sprite: {fileID: 21300000, guid: e418076ffe434d646b475032bfc3ca90, type: 3}
+    Texto: |-
+      A11
+      CONT P
   - Nome: reset_ciclos
     Sprite: {fileID: 21300000, guid: 891b45b5d8da82c4fa975bc7e8862e09, type: 3}
+    Texto: |-
+      C18
+      RESET
   efeitosDisponiveis:
   - Nome: alerta_vermelho
     VfxObject: {fileID: 0}
@@ -202,6 +267,19 @@ MonoBehaviour:
     VfxObject: {fileID: 0}
   - Nome: destaque_lubrificacao
     VfxObject: {fileID: 0}
+--- !u!114 &7052614470164929351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6178281330561977385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d70e910a25b4e5c9248bb7bc5b66220, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  texto: {fileID: 0}
 --- !u!1 &6663444580435581319
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +296,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5968921252411660300
 Transform:
   m_ObjectHideFlags: 0

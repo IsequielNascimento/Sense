@@ -1,10 +1,17 @@
 using UnityEngine;
 
+public enum OrigemCena
+{
+    Montagem,
+    Problema,
+    Gemeo
+}
+
 public class ControleDeCena : MonoBehaviour
 {
     public static ControleDeCena Instance { get; private set; }
 
-    public string origemDaCena { get; private set; } = "";
+    public OrigemCena OrigemDaCena { get; private set; } = OrigemCena.Montagem;
 
     void Awake()
     {
@@ -18,8 +25,8 @@ public class ControleDeCena : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public void DefinirOrigem(string origem)
+    public void DefinirOrigem(OrigemCena origem)
     {
-        origemDaCena = origem;
+        OrigemDaCena = origem;
     }
 } 

@@ -619,7 +619,6 @@ GameObject:
   - component: {fileID: 554620738}
   - component: {fileID: 554620737}
   - component: {fileID: 554620741}
-  - component: {fileID: 554620743}
   - component: {fileID: 554620744}
   - component: {fileID: 554620742}
   m_Layer: 5
@@ -746,18 +745,6 @@ MonoBehaviour:
   textoSubtitulo: {fileID: 480937009}
   textoBotaoIniciar: {fileID: 1511913977}
   textoBotaoAviso: {fileID: 1394365603}
---- !u!114 &554620743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 554620736}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3be15a75bde827499121be0092dd99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &554620744
 MonoBehaviour:
   m_ObjectHideFlags: 0

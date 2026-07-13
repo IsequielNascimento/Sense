@@ -46,7 +46,7 @@ public class IdiomaDropdownToolkit : MonoBehaviour
         if (_painelOpcoes != null) _painelOpcoes.style.display = DisplayStyle.None;
         
         // Carrega ícone inicial
-        AtualizarIconeInicial(IdiomaManager.Instance.ObterIdioma());
+        AtualizarIconeInicial(LocalizedDatabase.CurrentLanguage);
     }
 
     private void AlternarPainel()
@@ -64,7 +64,7 @@ public class IdiomaDropdownToolkit : MonoBehaviour
             _iconeSelecionado.style.backgroundImage = new StyleBackground(bandeira);
 
         if (menuToolkitScript != null)
-            menuToolkitScript.AtualizarTextosUI(codigo);
+            menuToolkitScript.AtualizarTextosUI();
 
         // Garante que fecha o painel
         if (_painelOpcoes != null) _painelOpcoes.style.display = DisplayStyle.None;

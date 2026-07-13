@@ -1,336 +1,272 @@
-using UnityEngine;
-using UnityEngine.UIElements; 
-using UnityEngine.SceneManagement;
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 public class UIController : MonoBehaviour
 {
-    [Header("Conexão AR")]
-    public PlaceOnPlane_Adaptado placeOnPlane; 
-
-    private string[] passosTutoriais;
-    private string[] animacoes;
-    private string[] telasDisplay;
-    private string[] vfxs;
-    
-    private string layerAtual = "Base Layer"; 
-    private int passoAtual = -1;
-    private bool passosIniciados = false;
-    private DadosMontagem dados;
-    private VisualElement root;
-    
-    // Elementos do UI Toolkit
-    private VisualElement painelPopup; 
-    private VisualElement blurBackground;
-    private Label labelPopup1;
-    private Label labelPopup2; 
-    private Button botaoOK; 
-
-    private VisualElement grupoMontagem; 
-    private VisualElement tutorialUI; 
-    private Label textoTutorial; 
-    private Button botaoSair; 
-    private Button botaoProximo; 
-    private Button botaoVoltar; 
-    private Button botaoReplay; 
-    
-    private RadialProgress preenchimentoProgresso; 
-    private Label textoNumeroProgresso; 
-    private Label textoTotalPassos;     
-
-    private VisualElement painelPopupFinal; 
-    private VisualElement iconeCorreto; 
-    private Label labelTituloFinal; 
-    private Button botaoVoltarMenu; 
-    private Button botaoRecomecar;  
+    [Header("Conexao AR")]
+    [FormerlySerializedAs("placeOnPlane")]
+    public ExibidorDeModeloBase exibidor;
 
     public float duracaoFade = 0.5f;
 
-    void Awake()
+    private DadosMontagem text;
+    private StepSequenceData content;
+    private StepSequence sequence;
+    private bool popupInicialResolvido;
+    private VisualElement root;
+
+    private VisualElement painelPopup, blurBackground, grupoMontagem, tutorialUI, painelPopupFinal;
+    private Label labelPopup1, labelPopup2, textoTutorial, textoNumeroProgresso, textoTotalPassos, labelTituloFinal;
+    private Button botaoOK, botaoSair, botaoProximo, botaoVoltar, botaoReplay, botaoVoltarMenu, botaoRecomecar;
+    private RadialProgress preenchimentoProgresso;
+
+    private void Awake()
     {
-        CarregarBancoDeDadosMontagem.GarantirBancoCarregado();
-        dados = CarregarBancoDeDadosMontagem.Dados;
-        CarregarPassosDoProblemaOuMontagem(); 
+        OrigemCena source = ControleDeCena.Instance?.OrigemDaCena ?? OrigemCena.Montagem;
+        string problemId = ProblemaSelecionadoAR.Instance?.idProblema;
+        ArExperienceData experience = LocalizedDatabase.LoadArExperience(source, problemId);
+
+        text = experience.UiText;
+        content = experience.Sequence;
+        sequence = new StepSequence(content.Steps);
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
-        var uiDocument = GetComponent<UIDocument>();
-        if (uiDocument == null) return;
-        root = uiDocument.rootVisualElement;
+        UIDocument document = GetComponent<UIDocument>();
+        if (document == null) return;
 
+        root = document.rootVisualElement;
+        QueryView();
+        RegisterCallbacks();
+    }
+
+    private void Start()
+    {
+        if (root == null) return;
+        if (exibidor == null) exibidor = FindFirstObjectByType<ExibidorDeModeloBase>();
+
+        ConfigureText();
+        Show(grupoMontagem, false);
+        Show(tutorialUI, false);
+        Show(painelPopupFinal, false);
+
+        if (FindFirstObjectByType<ARInitializer>() == null) MostrarPopupInicial();
+        else
+        {
+            Show(painelPopup, false);
+            Show(blurBackground, false);
+        }
+    }
+
+    public void MostrarPopupInicial()
+    {
+        if (popupInicialResolvido) return;
+
+        StartCoroutine(Fade(painelPopup, 0, 1));
+        StartCoroutine(Fade(blurBackground, 0, 1));
+    }
+
+    public void PularPopupInicial()
+    {
+        popupInicialResolvido = true;
+        Show(painelPopup, false);
+        Show(blurBackground, false);
+    }
+
+    public void IniciarPassos()
+    {
+        if (!sequence.Start()) return;
+
+        RenderCurrentStep();
+        Show(grupoMontagem, true);
+        Show(tutorialUI, true);
+        tutorialUI.style.left = new Length(25, LengthUnit.Percent);
+    }
+
+    public void AvancarPasso(ClickEvent evt = null)
+    {
+        StepAdvanceResult result = sequence.Advance();
+        if (result == StepAdvanceResult.Completed)
+        {
+            ShowFinalPopup();
+        }
+        else if (result == StepAdvanceResult.Advanced)
+        {
+            RenderCurrentStep();
+        }
+    }
+
+    public void VoltarPasso(ClickEvent evt = null)
+    {
+        if (sequence.Back())
+        {
+            RenderCurrentStep();
+        }
+    }
+
+    public void RepetirPasso(ClickEvent evt = null)
+    {
+        if (sequence.IsStarted)
+        {
+            RenderCurrentStep();
+        }
+    }
+
+    public void VoltarMenu(ClickEvent evt = null)
+    {
+        SceneManager.LoadScene(Scenes.MainMenu);
+    }
+
+    public void RecomecarMontagem(ClickEvent evt = null)
+    {
+        StartCoroutine(Fade(painelPopupFinal, 1, 0));
+        StartCoroutine(Fade(blurBackground, 1, 0, RestartAndRender));
+    }
+
+    private void QueryView()
+    {
         blurBackground = root.Q<VisualElement>("FundoBlur");
         painelPopup = root.Q<VisualElement>("PainelPopup");
         labelPopup1 = root.Q<Label>("LabelTexto1");
         labelPopup2 = root.Q<Label>("LabelTexto2");
         botaoOK = root.Q<Button>("OK");
-
         grupoMontagem = root.Q<VisualElement>("GrupoMontagem");
-        tutorialUI = root.Q<VisualElement>("Tutorial"); 
+        tutorialUI = root.Q<VisualElement>("Tutorial");
         textoTutorial = root.Q<Label>("TextoTutorial");
-        
-        // --- TESTE DE DIAGNÓSTICO DO BOTÃO SAIR ---
         botaoSair = root.Q<Button>("Sair");
-        
-        if (botaoSair == null) 
-        { 
-            Debug.LogError("🚨 ALERTA: O Unity NÃO ACHOU o botão Sair! Verifique se o nome no UI Builder é exatamente 'Sair' e se você salvou o arquivo .uxml."); 
-        } 
-        else 
-        { 
-            Debug.Log("✅ SUCESSO: O botão Sair foi encontrado no UI Builder e conectado ao script!"); 
-        }
-        // ------------------------------------------
-
         botaoProximo = root.Q<Button>("Proximo");
         botaoVoltar = root.Q<Button>("Voltar");
         botaoReplay = root.Q<Button>("Replay");
-
         preenchimentoProgresso = root.Q<RadialProgress>("PreenchimentoProgresso");
         textoNumeroProgresso = root.Q<Label>("TextoNumeroProgresso");
-        textoTotalPassos = root.Q<Label>("NumeroTotal"); 
+        textoTotalPassos = root.Q<Label>("NumeroTotal");
         painelPopupFinal = root.Q<VisualElement>("PainelPopupFinal");
-        iconeCorreto = root.Q<VisualElement>("Correto");
-        labelTituloFinal = root.Q<Label>("Parabens"); 
-        botaoVoltarMenu = root.Q<Button>("BotaoVoltar"); 
-        botaoRecomecar = root.Q<Button>("Recomecar"); 
+        labelTituloFinal = root.Q<Label>("Parabens");
+        botaoVoltarMenu = root.Q<Button>("BotaoVoltar");
+        botaoRecomecar = root.Q<Button>("Recomecar");
 
-        RegistrarCallback(botaoOK, OnBotaoOkClicado);
-        RegistrarCallback(botaoSair, OnBotaoSairClicado);
-        RegistrarCallback(botaoProximo, AvancarPasso);
-        RegistrarCallback(botaoVoltar, VoltarPasso);
-        RegistrarCallback(botaoReplay, RepetirPasso);
-        RegistrarCallback(botaoVoltarMenu, VoltarMenu);
-        RegistrarCallback(botaoRecomecar, RecomecarMontagem);
+        if (botaoSair == null) Debug.LogError("[UIController] Elemento UXML 'Sair' nao encontrado.");
     }
 
-    void Start()
+    private void RegisterCallbacks()
     {
-        if (root == null) return;
-        if (placeOnPlane == null) placeOnPlane = Object.FindFirstObjectByType<PlaceOnPlane_Adaptado>();
-        
-        ConfigurarTextosIniciais(); 
-        
-        MostrarElemento(grupoMontagem, false);
-        MostrarElemento(tutorialUI, false); 
-        MostrarElemento(painelPopupFinal, false);
-        
-        StartCoroutine(Fade(painelPopup, 0, 1));
-        StartCoroutine(Fade(blurBackground, 0, 1));
+        Register(botaoOK, OnInitialPopupAccepted);
+        Register(botaoSair, VoltarMenu);
+        Register(botaoProximo, AvancarPasso);
+        Register(botaoVoltar, VoltarPasso);
+        Register(botaoReplay, RepetirPasso);
+        Register(botaoVoltarMenu, VoltarMenu);
+        Register(botaoRecomecar, RecomecarMontagem);
     }
 
-    private void ConfigurarTextosIniciais()
+    private void ConfigureText()
     {
-        if (dados == null) return;
-        SetText(labelPopup1, dados.popupInicialTexto1);
-        SetText(labelPopup2, dados.popupInicialTexto2);
-        SetText(botaoOK, dados.popupInicialBotao);
-        SetText(botaoSair, dados.sair);
-        if (textoTotalPassos != null && passosTutoriais != null) 
-            textoTotalPassos.text = $"{dados.textoDe} {passosTutoriais.Length}";
-        SetText(labelTituloFinal, dados.popupFinalTitulo);
-        SetText(botaoVoltarMenu, dados.popupFinalBotaoMenu);
-        SetText(botaoRecomecar, dados.popupFinalBotaoRecomecar);
+        SetText(labelPopup1, text.popupInicialTexto1);
+        SetText(labelPopup2, text.popupInicialTexto2);
+        SetText(botaoOK, text.popupInicialBotao);
+        SetText(botaoSair, text.sair);
+        SetText(textoTotalPassos, $"{text.textoDe} {sequence.Count}");
+        SetText(labelTituloFinal, text.popupFinalTitulo);
+        SetText(botaoVoltarMenu, text.popupFinalBotaoMenu);
+        SetText(botaoRecomecar, text.popupFinalBotaoRecomecar);
     }
 
-    private void OnBotaoOkClicado(ClickEvent evt)
+    private void OnInitialPopupAccepted(ClickEvent evt)
     {
+        popupInicialResolvido = true;
         StartCoroutine(Fade(painelPopup, 1, 0));
         StartCoroutine(Fade(blurBackground, 1, 0));
-        MostrarElemento(tutorialUI, true);
-        MostrarElemento(grupoMontagem, false); 
-        tutorialUI.style.left = 150; 
+        Show(tutorialUI, true);
+        Show(grupoMontagem, false);
+        tutorialUI.style.left = 150;
         tutorialUI.style.right = 0;
     }
 
-    public void IniciarPassos()
+    private void RenderCurrentStep()
     {
-        if (passosTutoriais == null || passosTutoriais.Length == 0) return;
-        
-        passoAtual = 0;
-        passosIniciados = true;
-        
-        AtualizarPasso();
-
-        MostrarElemento(grupoMontagem, true);
-        MostrarElemento(tutorialUI, true);
-        tutorialUI.style.left = new Length(25, LengthUnit.Percent); 
-    }
-
-    private void AtualizarPasso()
-    {
-        if (passoAtual < 0 || passoAtual >= passosTutoriais.Length) return;
-
-        SetText(textoTutorial, passosTutoriais[passoAtual]);
-        SetText(textoNumeroProgresso, (passoAtual + 1).ToString());
+        int index = sequence.CurrentIndex;
+        SetText(textoTutorial, sequence.Current);
+        SetText(textoNumeroProgresso, (index + 1).ToString());
 
         if (preenchimentoProgresso != null)
-        {
-            float porcentagem = (float)(passoAtual + 1) / passosTutoriais.Length;
-            preenchimentoProgresso.Progress = porcentagem; 
-        }
+            preenchimentoProgresso.Progress = (float)(index + 1) / sequence.Count;
 
-        bool ultimo = passoAtual == passosTutoriais.Length - 1;
-        if (botaoProximo != null) botaoProximo.text = ultimo ? (dados != null ? dados.finalizar : "Finalizar") : (dados != null ? dados.proximo : "Próximo");
-        
-        if (placeOnPlane != null && animacoes != null && passoAtual < animacoes.Length)
+        SetText(botaoProximo, sequence.IsLast ? text.finalizar : text.proximo);
+        if (exibidor != null)
         {
-            string telaAtual = (telasDisplay != null && passoAtual < telasDisplay.Length) ? telasDisplay[passoAtual] : "";
-            string vfxAtual = (vfxs != null && passoAtual < vfxs.Length) ? vfxs[passoAtual] : "";
-            
-            placeOnPlane.PlayAnimation(animacoes[passoAtual], layerAtual, telaAtual, vfxAtual);
+            exibidor.PlayAnimation(
+                ValueAt(content.Animations, index),
+                content.Layer,
+                ValueAt(content.Displays, index),
+                ValueAt(content.Vfx, index));
         }
     }
 
-    private void CarregarPassosDoProblemaOuMontagem()
+    private void ShowFinalPopup()
     {
-        string origem = ControleDeCena.Instance != null ? ControleDeCena.Instance.origemDaCena : "montagem";
-        string idioma = IdiomaManager.Instance != null
-            ? IdiomaManager.Instance.ObterIdioma()
-            : PlayerPrefs.GetString("idioma", "pt");
-
-        if (origem == "montagem" || string.IsNullOrEmpty(origem))
-        {
-            layerAtual = "Base Layer";
-            if (dados != null && dados.passos != null && dados.passos.Length > 0)
-            {
-                passosTutoriais = dados.passos.Select(p => p.tutorial).ToArray();
-                animacoes = dados.passos.Select(p => $"animacao_{p.numero}").ToArray();
-                Debug.Log($"[AR Toolkit] Montagem Padrão carregada com {animacoes.Length} animações.");
-            }
-            else
-            {
-                passosTutoriais = new string[0];
-                animacoes = new string[0];
-            }
-            telasDisplay = new string[0];
-            vfxs = new string[0];
-        }
-        else
-        {
-            string idDoProblema = origem;
-            if (ProblemaSelecionadoAR.Instance != null && !string.IsNullOrEmpty(ProblemaSelecionadoAR.Instance.idProblema))
-            {
-                idDoProblema = ProblemaSelecionadoAR.Instance.idProblema;
-            }
-
-            string caminhoDoJson = $"BancoDeDadosProblemas/{idioma}/{idDoProblema}";
-            TextAsset json = Resources.Load<TextAsset>(caminhoDoJson);
-
-            if (json == null && idioma != "pt")
-            {
-                Debug.LogWarning($"[AR Toolkit] Tradução ausente em Resources/{caminhoDoJson}. Usando fallback pt.");
-                caminhoDoJson = $"BancoDeDadosProblemas/pt/{idDoProblema}";
-                json = Resources.Load<TextAsset>(caminhoDoJson);
-            }
-
-            if (json != null)
-            {
-                PassoAPasso dadosProblema = JsonUtility.FromJson<PassoAPasso>(json.text);
-                if (dadosProblema != null && dadosProblema.etapas != null && dadosProblema.etapas.Length > 0)
-                {
-                    passosTutoriais = dadosProblema.etapas.Select(e => e.tutorial).ToArray();
-                    animacoes = dadosProblema.etapas.Select(e => e.animacao).ToArray();
-                    telasDisplay = dadosProblema.etapas.Select(e => e.telaDisplay).ToArray();
-                    vfxs = dadosProblema.etapas.Select(e => e.vfx).ToArray();
-                    layerAtual = !string.IsNullOrEmpty(dadosProblema.layer) ? dadosProblema.layer : "Base Layer";
-
-                    Debug.Log($"[AR Toolkit] JSON Lido com sucesso. Primeira tela encontrada: '{telasDisplay[0]}', Primeiro VFX: '{vfxs[0]}'");
-                }
-            }
-            else
-            {
-                Debug.LogError($"[AR Toolkit] Erro: Arquivo JSON não encontrado em Resources/{caminhoDoJson}.");
-                passosTutoriais = new string[0];
-                animacoes = new string[0];
-                telasDisplay = new string[0];
-                vfxs = new string[0];
-            }
-        }
-    }
-
-    public void AvancarPasso(ClickEvent evt = null) 
-    {
-        if (!passosIniciados) return;
-        if (passoAtual >= passosTutoriais.Length - 1) { MostrarPopupFinal(); return; }
-        passoAtual++;
-        AtualizarPasso();
-    }
-
-    public void VoltarPasso(ClickEvent evt)
-    {
-        if (!passosIniciados || passoAtual <= 0) return;
-        passoAtual--;
-        AtualizarPasso();
-    }
-
-    public void RepetirPasso(ClickEvent evt)
-    {
-        if (!passosIniciados) return;
-        AtualizarPasso(); 
-    }
-
-    private void MostrarPopupFinal()
-    {
-        MostrarElemento(grupoMontagem, false); 
-        MostrarElemento(tutorialUI, false);
+        Show(grupoMontagem, false);
+        Show(tutorialUI, false);
         StartCoroutine(Fade(painelPopupFinal, 0, 1));
-        StartCoroutine(Fade(blurBackground, 0, 1)); 
+        StartCoroutine(Fade(blurBackground, 0, 1));
     }
 
-    public void VoltarMenu(ClickEvent evt) { SceneManager.LoadScene(0); }
-
-    public void RecomecarMontagem(ClickEvent evt)
+    private void RestartAndRender()
     {
-        StartCoroutine(Fade(painelPopupFinal, 1, 0));
-        StartCoroutine(Fade(blurBackground, 1, 0, () => {
-            MostrarElemento(grupoMontagem, true); 
-            MostrarElemento(tutorialUI, true);
-            tutorialUI.style.left = new Length(25, LengthUnit.Percent);
-            ReiniciarMontagem();
-        }));
+        if (!sequence.Restart()) return;
+
+        Show(grupoMontagem, true);
+        Show(tutorialUI, true);
+        tutorialUI.style.left = new Length(25, LengthUnit.Percent);
+        RenderCurrentStep();
     }
 
-    private void ReiniciarMontagem()
+    private static string ValueAt(string[] values, int index)
     {
-        if (passosTutoriais == null || passosTutoriais.Length == 0) return;
-        passoAtual = 0;
-        passosIniciados = true;
-        AtualizarPasso();
+        return values != null && index >= 0 && index < values.Length ? values[index] : string.Empty;
     }
 
-    private void OnBotaoSairClicado(ClickEvent evt) 
-    { 
-        Debug.Log("👆 CLICK REGISTRADO: O botão SAIR foi clicado e vai tentar carregar a cena 0.");
-        VoltarMenu(evt); 
-    }
-
-    private void MostrarElemento(VisualElement elemento, bool mostrar)
+    private static void Show(VisualElement element, bool visible)
     {
-        if (elemento == null) return;
-        elemento.style.display = mostrar ? DisplayStyle.Flex : DisplayStyle.None;
+        if (element != null) element.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
     }
 
-    private void SetText(Label l, string s) { if (l != null) l.text = s; }
-    private void SetText(Button b, string s) { if (b != null) b.text = s; }
-    private void RegistrarCallback(Button b, EventCallback<ClickEvent> callback) { if (b != null) b.RegisterCallback(callback); }
-
-    private IEnumerator Fade(VisualElement elemento, float de, float para, System.Action aoConcluir = null)
+    private static void SetText(TextElement element, string value)
     {
-        if (elemento == null) { aoConcluir?.Invoke(); yield break; }
-        if (para > 0) MostrarElemento(elemento, true);
-        elemento.style.opacity = de;
-        float tempo = 0;
-        while (tempo < duracaoFade) {
-            float alpha = Mathf.Lerp(de, para, tempo / duracaoFade);
-            elemento.style.opacity = alpha;
-            tempo += Time.deltaTime;
+        if (element != null) element.text = value ?? string.Empty;
+    }
+
+    private static void Register(Button button, EventCallback<ClickEvent> callback)
+    {
+        button?.RegisterCallback(callback);
+    }
+
+    private IEnumerator Fade(VisualElement element, float from, float to, Action completed = null)
+    {
+        if (element == null)
+        {
+            completed?.Invoke();
+            yield break;
+        }
+
+        if (to > 0) Show(element, true);
+
+        element.style.opacity = from;
+        float elapsed = 0;
+        while (elapsed < duracaoFade)
+        {
+            element.style.opacity = Mathf.Lerp(from, to, elapsed / duracaoFade);
+            elapsed += Time.deltaTime;
             yield return null;
         }
-        elemento.style.opacity = para;
-        if (para == 0) MostrarElemento(elemento, false);
-        aoConcluir?.Invoke();
+
+        element.style.opacity = to;
+        if (to == 0) Show(element, false);
+
+        completed?.Invoke();
     }
 }

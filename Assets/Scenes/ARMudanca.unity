@@ -2003,7 +2003,6 @@ GameObject:
   - component: {fileID: 1026830249}
   - component: {fileID: 1026830248}
   - component: {fileID: 1026830252}
-  - component: {fileID: 1026830254}
   - component: {fileID: 1026830253}
   - component: {fileID: 1026830255}
   - component: {fileID: 1026830256}
@@ -2133,18 +2132,6 @@ MonoBehaviour:
   textoNumeroProgresso: {fileID: 1230913119}
   textoTotalPassos: {fileID: 536528041}
   popupFinal: {fileID: 1026830256}
---- !u!114 &1026830254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026830247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53ef8f13c09c19a4cb8d30cebf617a92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1026830255
 MonoBehaviour:
   m_ObjectHideFlags: 0

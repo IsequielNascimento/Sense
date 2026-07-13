@@ -5,11 +5,8 @@ public class NavegarParaMontagemPadrao : MonoBehaviour
 {
     public void CarregarMontagemPadrao()
     {
-        ControleDeCena.Instance.DefinirOrigem("montagem");
+        ControleDeCena.Instance.DefinirOrigem(OrigemCena.Montagem);
 
-        string idioma = IdiomaManager.Instance.ObterIdioma();
-        CarregarBancoDeDadosMontagem.Carregar(idioma);
-
-        SceneManager.LoadScene("ARMudanca");
+        SceneManager.LoadScene(Scenes.ArLegacy);
     }
 }

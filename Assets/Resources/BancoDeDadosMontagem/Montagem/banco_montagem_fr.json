@@ -24,5 +24,10 @@
   "textoDe": "sur",
   "tutorialInicial": "Touchez une surface pour placer l'objet.",
   "popupInicialTexto1": "Pointez votre caméra vers une surface plane et attendez que le fond blanc apparaisse.",
-  "popupInicialTexto2": "Une fois affiché, touchez l'écran pour voir l'objet."
+  "popupInicialTexto2": "Une fois affiché, touchez l'écran pour voir l'objet.",
+  "arErroTitulo": "Impossible de lancer la r\u00e9alit\u00e9 augment\u00e9e",
+  "arErroSemSuporte": "Cet appareil ne prend pas en charge la r\u00e9alit\u00e9 augment\u00e9e.",
+  "arErroInicializacao": "La session de r\u00e9alit\u00e9 augment\u00e9e n'a pas pu d\u00e9marrer. Revenez au menu et r\u00e9essayez.",
+  "arErroPermissaoCamera": "L'autorisation de la cam\u00e9ra a \u00e9t\u00e9 refus\u00e9e. Activez l'acc\u00e8s \u00e0 la cam\u00e9ra dans les r\u00e9glages du syst\u00e8me pour utiliser la r\u00e9alit\u00e9 augment\u00e9e.",
+  "arErroBotaoMenu": "Retour au menu"
 }
