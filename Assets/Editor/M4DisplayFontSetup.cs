@@ -18,7 +18,7 @@ public static class M4DisplayFontSetup
     private const string PrefabM4Path = "Assets/Prefab/M4 Prefabs/Animação APK.prefab";
 
     private const string CaracteresDoDisplay =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 .,%_-+/";
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 .,%_-+/|";
 
     private static bool configurando;
 
@@ -54,6 +54,8 @@ public static class M4DisplayFontSetup
             {
                 fontAsset = CriarFontAsset(fonteOriginal);
             }
+
+            GarantirCaracteres(fontAsset);
 
             Material materialPreset = AssetDatabase.LoadAssetAtPath<Material>(MaterialPresetPath);
             if (materialPreset == null)
@@ -106,6 +108,12 @@ public static class M4DisplayFontSetup
             AssetDatabase.AddObjectToAsset(materialBase, fontAsset);
         }
 
+        EditorUtility.SetDirty(fontAsset);
+        return fontAsset;
+    }
+
+    private static void GarantirCaracteres(TMP_FontAsset fontAsset)
+    {
         if (!fontAsset.TryAddCharacters(CaracteresDoDisplay, out string caracteresAusentes))
         {
             Debug.LogWarning(
@@ -114,7 +122,6 @@ public static class M4DisplayFontSetup
         }
 
         EditorUtility.SetDirty(fontAsset);
-        return fontAsset;
     }
 
     private static Material CriarMaterialPreset(TMP_FontAsset fontAsset)
