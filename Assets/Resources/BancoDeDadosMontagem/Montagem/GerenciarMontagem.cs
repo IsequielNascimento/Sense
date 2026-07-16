@@ -20,12 +20,12 @@ public class GerenciarMontagem : MonoBehaviour
 
     [Header("Referências")]
     public ControladorPopupFinal popupFinal;
+    [SerializeField] private PlaceOnPlane placeOnPlane;
 
     private string[] passosTutoriais;
     private string[] animacoes;
     private int passoAtual = -1;
     private bool passosIniciados = false;
-    private PlaceOnPlane placeOnPlane;
     private DadosMontagem dadosMontagem;
 
     void Start()
@@ -40,7 +40,18 @@ public class GerenciarMontagem : MonoBehaviour
             return;
         }
 
-        placeOnPlane = FindObjectOfType<PlaceOnPlane>();
+        if (placeOnPlane == null)
+        {
+            placeOnPlane = FindAnyObjectByType<PlaceOnPlane>(FindObjectsInactive.Exclude);
+            if (placeOnPlane != null)
+            {
+                Debug.LogWarning("[GerenciarMontagem] PlaceOnPlane nao atribuido no Inspector; usando fallback ativo.", this);
+            }
+            else
+            {
+                Debug.LogError("[GerenciarMontagem] PlaceOnPlane nao atribuido e nenhum objeto ativo foi encontrado; as animacoes da montagem ficarao indisponiveis.", this);
+            }
+        }
 
         if (textoTotalPassos != null)
         {

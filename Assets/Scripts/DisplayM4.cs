@@ -327,7 +327,7 @@ public sealed class DisplayM4 : MonoBehaviour
         campo.fontSizeMin = tamanhoMinimo;
         campo.fontSizeMax = tamanhoMaximo;
         campo.alignment = TextAlignmentOptions.Center;
-        campo.enableWordWrapping = false;
+        campo.textWrappingMode = TextWrappingModes.NoWrap;
         campo.overflowMode = TextOverflowModes.Truncate;
     }
 

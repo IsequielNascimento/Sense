@@ -8,8 +8,15 @@ using UnityEngine.XR.ARSubsystems;
 
 public class ARInitializer : MonoBehaviour
 {
-    public ARSession arSession;
-    public UIDocument uiDocument;
+    [Header("Dependencias da cena")]
+    [SerializeField] private ARSession arSession;
+    [SerializeField] private UIDocument uiDocument;
+    [SerializeField] private UIController uiController;
+    [SerializeField] private PlaceOnPlane_Adaptado exibidorAR;
+    [SerializeField] private ARCameraManager arCameraManager;
+    [SerializeField] private ARPlaneManager arPlaneManager;
+    [SerializeField] private ARRaycastManager arRaycastManager;
+
     public float initializationTimeout = 10f;
 
     private VisualElement arErrorPanel;
@@ -17,25 +24,9 @@ public class ARInitializer : MonoBehaviour
     private Label arErrorMessage;
     private Button arErrorBackButton;
     private bool arErrorButtonRegistered;
-    private UIController uiController;
-
     private void Start()
     {
-        if (arSession == null)
-        {
-            arSession = FindObjectOfType<ARSession>();
-        }
-
-        if (uiDocument == null)
-        {
-            uiDocument = FindObjectOfType<UIDocument>();
-        }
-
-        uiController = uiDocument != null ? uiDocument.GetComponent<UIController>() : null;
-        if (uiController == null)
-        {
-            uiController = FindObjectOfType<UIController>();
-        }
+        ResolveDependencies();
 
         CacheErrorOverlay();
 
@@ -138,7 +129,6 @@ public class ARInitializer : MonoBehaviour
 
         SetARManagersActive(false);
 
-        var exibidorAR = FindObjectOfType<PlaceOnPlane_Adaptado>();
         if (exibidorAR != null)
         {
             exibidorAR.enabled = false;
@@ -326,22 +316,70 @@ public class ARInitializer : MonoBehaviour
 
     private void SetARManagersActive(bool active)
     {
-        var arCameraManager = FindObjectOfType<ARCameraManager>();
         if (arCameraManager != null)
         {
             arCameraManager.enabled = active;
         }
 
-        var arPlaneManager = FindObjectOfType<ARPlaneManager>();
         if (arPlaneManager != null)
         {
             arPlaneManager.enabled = active;
         }
 
-        var arRaycastManager = FindObjectOfType<ARRaycastManager>();
         if (arRaycastManager != null)
         {
             arRaycastManager.enabled = active;
         }
+    }
+
+    private void ResolveDependencies()
+    {
+        arSession = ResolveAnyActive(arSession, nameof(arSession));
+        uiDocument = ResolveFirstActive(uiDocument, nameof(uiDocument));
+
+        if (uiController == null && uiDocument != null)
+        {
+            uiController = uiDocument.GetComponent<UIController>();
+        }
+
+        uiController = ResolveFirstActive(uiController, nameof(uiController));
+        exibidorAR = ResolveAnyActive(exibidorAR, nameof(exibidorAR));
+        arCameraManager = ResolveAnyActive(arCameraManager, nameof(arCameraManager));
+        arPlaneManager = ResolveAnyActive(arPlaneManager, nameof(arPlaneManager));
+        arRaycastManager = ResolveAnyActive(arRaycastManager, nameof(arRaycastManager));
+    }
+
+    private T ResolveAnyActive<T>(T reference, string fieldName) where T : Object
+    {
+        if (reference != null)
+        {
+            return reference;
+        }
+
+        T fallback = FindAnyObjectByType<T>(FindObjectsInactive.Exclude);
+        return ValidateFallback(fallback, fieldName);
+    }
+
+    private T ResolveFirstActive<T>(T reference, string fieldName) where T : Object
+    {
+        if (reference != null)
+        {
+            return reference;
+        }
+
+        T fallback = FindFirstObjectByType<T>(FindObjectsInactive.Exclude);
+        return ValidateFallback(fallback, fieldName);
+    }
+
+    private T ValidateFallback<T>(T fallback, string fieldName) where T : Object
+    {
+        if (fallback != null)
+        {
+            Debug.LogWarning($"[ARInitializer] Referencia '{fieldName}' nao atribuida no Inspector; usando fallback ativo '{fallback.name}'.", this);
+            return fallback;
+        }
+
+        Debug.LogError($"[ARInitializer] Referencia obrigatoria '{fieldName}' nao atribuida e nenhum objeto ativo compativel foi encontrado.", this);
+        return null;
     }
 }

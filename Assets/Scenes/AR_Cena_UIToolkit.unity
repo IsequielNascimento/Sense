@@ -183,6 +183,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arSession: {fileID: 452014061}
   uiDocument: {fileID: 1609545330}
+  uiController: {fileID: 1609545332}
+  exibidorAR: {fileID: 745130128}
+  arCameraManager: {fileID: 500483668}
+  arPlaneManager: {fileID: 745130124}
+  arRaycastManager: {fileID: 745130123}
   initializationTimeout: 10
 --- !u!1 &500483664
 GameObject:

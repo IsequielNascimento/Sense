@@ -2132,6 +2132,7 @@ MonoBehaviour:
   textoNumeroProgresso: {fileID: 1230913119}
   textoTotalPassos: {fileID: 536528041}
   popupFinal: {fileID: 1026830256}
+  placeOnPlane: {fileID: 1226740741}
 --- !u!114 &1026830255
 MonoBehaviour:
   m_ObjectHideFlags: 0
