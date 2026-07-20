@@ -1,26 +1,28 @@
 {
-  "layer": "Problema 3",
-  "etapas": [
-    {
-      "tutorial": "To connect the app, make sure the M4.Smart's Bluetooth is enabled.",
-      "animacao": "A3_p1",
-      "telaDisplay": "menu",
-      "vfx": "nenhum"
-    },
-    {
-      "tutorial": "Use magnetic button B2 to activate pairing. The icon will start blinking.",
-      "animacao": "A3_p2",
-      "telaDisplay": "bluetooth_piscando",
-      "vfx": "destaque_b2"
-    },
-    {
-      "tutorial": "Open the app on your smartphone and select the 'M4.Smart IO' device.",
-      "animacao": "A3_p3",
-      "telaDisplay": "bluetooth_conectado",
-      "vfx": "destaque_celular"
-    }
-  ],
-  "tutorialInicial": "Place the object on the surface to begin the problem solution.",
-  "popupInicialTexto1": "Point your camera at a flat surface and wait for the white background to appear.",
-  "popupInicialTexto2": "Once it appears, tap the screen to view the object."
+    "layer":  "Problema 3",
+    "etapas":  [
+                   {
+                       "tutorial":  "To connect the app, make sure the M4.Smart's Bluetooth is enabled.",
+                       "animacao":  "A3_p1",
+                       "telaDisplay":  "menu",
+                       "vfx":  "nenhum"
+                   },
+                   {
+                       "tutorial":  "Use magnetic button B2 to activate pairing. The icon will start blinking.",
+                       "animacao":  "A3_p2",
+                       "telaDisplay":  "bluetooth_piscando",
+                       "vfx":  "destaque_b2",
+                       "textoDisplay":  "C15\nBLUETO"
+                   },
+                   {
+                       "tutorial":  "Open the app on your smartphone and select the 'M4.Smart IO' device.",
+                       "animacao":  "A3_p3",
+                       "telaDisplay":  "bluetooth_conectado",
+                       "vfx":  "destaque_celular",
+                       "textoDisplay":  "C15\nCONECT"
+                   }
+               ],
+    "tutorialInicial":  "Place the object on the surface to begin the problem solution.",
+    "popupInicialTexto1":  "Point your camera at a flat surface and wait for the white background to appear.",
+    "popupInicialTexto2":  "Once it appears, tap the screen to view the object."
 }

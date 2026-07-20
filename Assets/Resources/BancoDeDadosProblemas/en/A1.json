@@ -1,32 +1,35 @@
 {
-  "layer": "Problema 1",
-  "etapas": [
-    {
-      "tutorial": "The display indicates the start of the automatic calibration (Auto Setup). Wait for processing.",
-      "animacao": "A1_p1",
-      "telaDisplay": "autocal_50",
-      "vfx": "nenhum"
-    },
-    {
-      "tutorial": "Calibration error: insufficient stroke. The calibration was aborted by the system.",
-      "animacao": "A1_p2",
-      "telaDisplay": "autocal_50_abort",
-      "vfx": "alerta_vermelho"
-    },
-    {
-      "tutorial": "Uncouple or manually force the rotary valve shaft to ensure a rotation greater than 30°.",
-      "animacao": "A1_p3",
-      "telaDisplay": "c6_tempo",
-      "vfx": "setas_rotacao"
-    },
-    {
-      "tutorial": "Position successfully corrected. The green LED confirms the valve opening and the system is ready.",
-      "animacao": "A1_p4",
-      "telaDisplay": "25",
-      "vfx": "piscar_led_verde"
-    }
-  ],
-  "tutorialInicial": "Place the object on the surface to begin the problem solution.",
-  "popupInicialTexto1": "Point your camera at a flat surface and wait for the white background to appear.",
-  "popupInicialTexto2": "Once it appears, tap the screen to view the object."
+    "layer":  "Problema 1",
+    "etapas":  [
+                   {
+                       "tutorial":  "The display indicates the start of the automatic calibration (Auto Setup). Wait for processing.",
+                       "animacao":  "A1_p1",
+                       "telaDisplay":  "autocal_50",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  "50.0%\nAUTO"
+                   },
+                   {
+                       "tutorial":  "Calibration error: insufficient stroke. The calibration was aborted by the system.",
+                       "animacao":  "A1_p2",
+                       "telaDisplay":  "autocal_50_abort",
+                       "vfx":  "alerta_vermelho",
+                       "textoDisplay":  "50\nABORT"
+                   },
+                   {
+                       "tutorial":  "Uncouple or manually force the rotary valve shaft to ensure a rotation greater than 30°.",
+                       "animacao":  "A1_p3",
+                       "telaDisplay":  "c6_tempo",
+                       "vfx":  "setas_rotacao",
+                       "textoDisplay":  "C6\nTEMPO"
+                   },
+                   {
+                       "tutorial":  "Position successfully corrected. The green LED confirms the valve opening and the system is ready.",
+                       "animacao":  "A1_p4",
+                       "telaDisplay":  "25",
+                       "vfx":  "piscar_led_verde"
+                   }
+               ],
+    "tutorialInicial":  "Place the object on the surface to begin the problem solution.",
+    "popupInicialTexto1":  "Point your camera at a flat surface and wait for the white background to appear.",
+    "popupInicialTexto2":  "Once it appears, tap the screen to view the object."
 }

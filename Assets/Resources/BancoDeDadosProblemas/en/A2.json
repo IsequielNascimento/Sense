@@ -1,32 +1,34 @@
 {
-  "layer": "Problema 2",
-  "etapas": [
-    {
-      "tutorial": "Bring the magnetic key fob close to the sensors on the housing (B1, B2, B3) to operate without opening the cover.",
-      "animacao": "A2_p1",
-      "telaDisplay": "menu",
-      "vfx": "destaque_botoes"
-    },
-    {
-      "tutorial": "Hold the key fob on button B1 for 6 seconds to access the Off-line Settings.",
-      "animacao": "A2_p2",
-      "telaDisplay": "menu_config",
-      "vfx": "nenhum"
-    },
-    {
-      "tutorial": "Tap button B3 with the key fob to navigate the menu to the output options.",
-      "animacao": "A2_p3",
-      "telaDisplay": "opcoes_saida",
-      "vfx": "nenhum"
-    },
-    {
-      "tutorial": "Tap button B2 to confirm and save the setting. The setting has been applied.",
-      "animacao": "A2_p4",
-      "telaDisplay": "salvar",
-      "vfx": "piscar_led_verde"
-    }
-  ],
-  "tutorialInicial": "Place the object on the surface to begin the problem solution.",
-  "popupInicialTexto1": "Point your camera at a flat surface and wait for the white background to appear.",
-  "popupInicialTexto2": "Once it appears, tap the screen to view the object."
+    "layer":  "Problema 2",
+    "etapas":  [
+                   {
+                       "tutorial":  "Bring the magnetic key fob close to the sensors on the housing (B1, B2, B3) to operate without opening the cover.",
+                       "animacao":  "A2_p1",
+                       "telaDisplay":  "menu",
+                       "vfx":  "destaque_botoes"
+                   },
+                   {
+                       "tutorial":  "Hold the key fob on button B1 for 6 seconds to access the Off-line Settings.",
+                       "animacao":  "A2_p2",
+                       "telaDisplay":  "menu_config",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  "MENU\nCONFIG"
+                   },
+                   {
+                       "tutorial":  "Tap button B3 with the key fob to navigate the menu to the output options.",
+                       "animacao":  "A2_p3",
+                       "telaDisplay":  "opcoes_saida",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  "C12\nSAIDA"
+                   },
+                   {
+                       "tutorial":  "Tap button B2 to confirm and save the setting. The setting has been applied.",
+                       "animacao":  "A2_p4",
+                       "telaDisplay":  "salvar",
+                       "vfx":  "piscar_led_verde"
+                   }
+               ],
+    "tutorialInicial":  "Place the object on the surface to begin the problem solution.",
+    "popupInicialTexto1":  "Point your camera at a flat surface and wait for the white background to appear.",
+    "popupInicialTexto2":  "Once it appears, tap the screen to view the object."
 }

@@ -1,32 +1,35 @@
 {
-  "layer": "Problema 7",
-  "etapas": [
-    {
-      "tutorial": "Actuation failure: the electrical system does not detect the solenoid power supply (24 VDC).",
-      "animacao": "A7_p1",
-      "telaDisplay": "erro_eletrico",
-      "vfx": "alerta_vermelho"
-    },
-    {
-      "tutorial": "Open the cover of the electrical connection compartment.",
-      "animacao": "A7_p2",
-      "telaDisplay": "erro_eletrico",
-      "vfx": "destaque_tampa"
-    },
-    {
-      "tutorial": "Using a multimeter, check the voltage at the terminals. The correct value is 24V.",
-      "animacao": "A7_p3",
-      "telaDisplay": "erro_eletrico",
-      "vfx": "multimetro_medindo"
-    },
-    {
-      "tutorial": "Refasten the broken or loose wires. The electrical connection has been successfully restored.",
-      "animacao": "A7_p4",
-      "telaDisplay": "menu",
-      "vfx": "nenhum"
-    }
-  ],
-  "tutorialInicial": "Place the object on the surface to begin the problem solution.",
-  "popupInicialTexto1": "Point your camera at a flat surface and wait for the white background to appear.",
-  "popupInicialTexto2": "Once it appears, tap the screen to view the object."
+    "layer":  "Problema 7",
+    "etapas":  [
+                   {
+                       "tutorial":  "Actuation failure: the electrical system does not detect the solenoid power supply (24 VDC).",
+                       "animacao":  "A7_p1",
+                       "telaDisplay":  "erro_eletrico",
+                       "vfx":  "alerta_vermelho",
+                       "textoDisplay":  "A20\nALIM B"
+                   },
+                   {
+                       "tutorial":  "Open the cover of the electrical connection compartment.",
+                       "animacao":  "A7_p2",
+                       "telaDisplay":  "erro_eletrico",
+                       "vfx":  "destaque_tampa",
+                       "textoDisplay":  "A20\nALIM B"
+                   },
+                   {
+                       "tutorial":  "Using a multimeter, check the voltage at the terminals. The correct value is 24V.",
+                       "animacao":  "A7_p3",
+                       "telaDisplay":  "erro_eletrico",
+                       "vfx":  "multimetro_medindo",
+                       "textoDisplay":  "A20\nALIM B"
+                   },
+                   {
+                       "tutorial":  "Refasten the broken or loose wires. The electrical connection has been successfully restored.",
+                       "animacao":  "A7_p4",
+                       "telaDisplay":  "menu",
+                       "vfx":  "nenhum"
+                   }
+               ],
+    "tutorialInicial":  "Place the object on the surface to begin the problem solution.",
+    "popupInicialTexto1":  "Point your camera at a flat surface and wait for the white background to appear.",
+    "popupInicialTexto2":  "Once it appears, tap the screen to view the object."
 }

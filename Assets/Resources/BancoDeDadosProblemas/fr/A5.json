@@ -1,32 +1,35 @@
 {
-  "layer": "Problema 5",
-  "etapas": [
-    {
-      "tutorial": "La vanne s'est bloquée avant la fin de sa course. Le système indique un défaut de couple.",
-      "animacao": "A5_p1",
-      "telaDisplay": "erro_torque",
-      "vfx": "alerta_vermelho"
-    },
-    {
-      "tutorial": "Coupez immédiatement l'alimentation en air comprimé par mesure de sécurité.",
-      "animacao": "A5_p2",
-      "telaDisplay": "erro_torque",
-      "vfx": "destaque_valvula_ar"
-    },
-    {
-      "tutorial": "Inspectez la tuyauterie et l'intérieur de la vanne mécanique à la recherche d'obstructions.",
-      "animacao": "A5_p3",
-      "telaDisplay": "erro_torque",
-      "vfx": "destaque_tubulacao"
-    },
-    {
-      "tutorial": "Après avoir éliminé l'obstruction, réactivez l'air comprimé et lancez un nouveau cycle de test.",
-      "animacao": "A5_p4",
-      "telaDisplay": "menu",
-      "vfx": "piscar_led_verde"
-    }
-  ],
-  "tutorialInicial": "Placez l'objet sur la surface pour commencer la résolution du problème.",
-  "popupInicialTexto1": "Pointez votre caméra vers une surface plane et attendez que le fond blanc s'affiche.",
-  "popupInicialTexto2": "Une fois le fond blanc affiché, touchez l'écran pour visualiser la pièce."
+    "layer":  "Problema 5",
+    "etapas":  [
+                   {
+                       "tutorial":  "La vanne s'est bloquée avant la fin de sa course. Le système indique un défaut de couple.",
+                       "animacao":  "A5_p1",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "alerta_vermelho",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "tutorial":  "Coupez immédiatement l'alimentation en air comprimé par mesure de sécurité.",
+                       "animacao":  "A5_p2",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "destaque_valvula_ar",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "tutorial":  "Inspectez la tuyauterie et l'intérieur de la vanne mécanique à la recherche d'obstructions.",
+                       "animacao":  "A5_p3",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "destaque_tubulacao",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "tutorial":  "Après avoir éliminé l'obstruction, réactivez l'air comprimé et lancez un nouveau cycle de test.",
+                       "animacao":  "A5_p4",
+                       "telaDisplay":  "menu",
+                       "vfx":  "piscar_led_verde"
+                   }
+               ],
+    "tutorialInicial":  "Placez l'objet sur la surface pour commencer la résolution du problème.",
+    "popupInicialTexto1":  "Pointez votre caméra vers une surface plane et attendez que le fond blanc s'affiche.",
+    "popupInicialTexto2":  "Une fois le fond blanc affiché, touchez l'écran pour visualiser la pièce."
 }
