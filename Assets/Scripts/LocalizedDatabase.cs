@@ -37,24 +37,18 @@ public static class LocalizedDatabase
 
         int count = problem.etapas.Length;
         var steps = new string[count];
-        var animations = new string[count];
-        var displays = new string[count];
-        var vfx = new string[count];
+        var etapas = new Etapa[count];
 
         for (int i = 0; i < count; i++)
         {
-            Etapa stage = problem.etapas[i];
-            steps[i] = stage?.tutorial ?? string.Empty;
-            animations[i] = stage?.animacao ?? string.Empty;
-            displays[i] = stage?.telaDisplay ?? string.Empty;
-            vfx[i] = stage?.vfx ?? string.Empty;
+            Etapa stage = problem.etapas[i] ?? new Etapa();
+            steps[i] = stage.tutorial ?? string.Empty;
+            etapas[i] = stage;
         }
 
         var sequence = new StepSequenceData(
             steps,
-            animations,
-            displays,
-            vfx,
+            etapas,
             string.IsNullOrWhiteSpace(problem.layer) ? ArConstants.DefaultAnimatorLayer : problem.layer);
 
         DevelopmentLog.Log($"[LocalizedDatabase] Problema '{resolvedProblemId}' carregado com {count} etapas.");
@@ -129,21 +123,21 @@ public static class LocalizedDatabase
 
         int count = data.passos.Length;
         var steps = new string[count];
-        var animations = new string[count];
-        var displays = new string[count];
-        var vfx = new string[count];
+        var etapas = new Etapa[count];
 
         for (int i = 0; i < count; i++)
         {
             PassoMontagem step = data.passos[i];
             steps[i] = step?.tutorial ?? string.Empty;
-            animations[i] = ArConstants.AssemblyAnimationName(step?.numero);
-            displays[i] = string.Empty;
-            vfx[i] = string.Empty;
+            etapas[i] = new Etapa
+            {
+                tutorial = steps[i],
+                animacao = ArConstants.AssemblyAnimationName(step?.numero),
+            };
         }
 
         DevelopmentLog.Log($"[LocalizedDatabase] Montagem padrao carregada com {count} etapas.");
-        return new StepSequenceData(steps, animations, displays, vfx, ArConstants.DefaultAnimatorLayer);
+        return new StepSequenceData(steps, etapas, ArConstants.DefaultAnimatorLayer);
     }
 }
 
@@ -163,21 +157,15 @@ public sealed class StepSequenceData
 {
     public StepSequenceData(
         string[] steps = null,
-        string[] animations = null,
-        string[] displays = null,
-        string[] vfx = null,
+        Etapa[] etapas = null,
         string layer = ArConstants.DefaultAnimatorLayer)
     {
         Steps = steps ?? Array.Empty<string>();
-        Animations = animations ?? Array.Empty<string>();
-        Displays = displays ?? Array.Empty<string>();
-        Vfx = vfx ?? Array.Empty<string>();
+        Etapas = etapas ?? Array.Empty<Etapa>();
         Layer = string.IsNullOrWhiteSpace(layer) ? ArConstants.DefaultAnimatorLayer : layer;
     }
 
     public string[] Steps { get; }
-    public string[] Animations { get; }
-    public string[] Displays { get; }
-    public string[] Vfx { get; }
+    public Etapa[] Etapas { get; }
     public string Layer { get; }
 }

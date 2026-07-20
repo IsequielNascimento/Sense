@@ -50,8 +50,10 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
     /// </summary>
     protected virtual void AjustarPosicaoParaPasso(bool isMontagem) { }
 
-    public void PlayAnimation(string animName, string camadaAlvo, string telaDisplay, string vfx)
+    public void PlayAnimation(Etapa etapa, string camadaAlvo)
     {
+        etapa ??= new Etapa();
+        string animName = etapa.animacao ?? string.Empty;
         bool isMontagem = string.IsNullOrEmpty(camadaAlvo) || camadaAlvo == ArConstants.DefaultAnimatorLayer;
 
         AjustarPosicaoParaPasso(isMontagem);
@@ -107,8 +109,9 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
         // 2. LÓGICA VISUAL
         if (gerenciadorVisual != null)
         {
-            gerenciadorVisual.MudarSpriteDoSensor(telaDisplay);
-            gerenciadorVisual.AtivarEfeito(vfx);
+            gerenciadorVisual.MudarSpriteDoSensor(etapa.telaDisplay);
+            gerenciadorVisual.AtivarEfeito(etapa.vfx);
+            gerenciadorVisual.AplicarCamadasDinamicas(etapa);
         }
     }
 
