@@ -79,7 +79,6 @@ public class PlaceOnPlane : MonoBehaviour
 
                 animator.Rebind();
                 animator.Update(0f);
-                DisplayM4.LocalizarOuCriar(spawnedObject.transform);
 
                 Debug.Log("✅ Prefab AR colocado e Animator reinicializado.");
 

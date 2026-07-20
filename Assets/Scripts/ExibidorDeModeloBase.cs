@@ -28,7 +28,6 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
     {
         animators = spawnedObject.GetComponentsInChildren<Animator>();
         gerenciadorVisual = spawnedObject.GetComponentInChildren<GerenciadorVisual>();
-        DisplayM4.LocalizarOuCriar(spawnedObject.transform);
 
         if (animators == null || animators.Length == 0)
         {
