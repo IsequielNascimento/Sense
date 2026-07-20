@@ -1,32 +1,36 @@
 {
-  "layer": "Problema 8",
-  "etapas": [
-    {
-      "tutorial": "La limite configurée de cycles partiels a été atteinte. L'équipement nécessite une inspection.",
-      "animacao": "A8_p1",
-      "telaDisplay": "alerta_manutencao",
-      "vfx": "piscar_led_laranja"
-    },
-    {
-      "tutorial": "Lubrifiez les engrenages et les axes comme indiqué par les repères sur le modèle.",
-      "animacao": "A8_p2",
-      "telaDisplay": "alerta_manutencao",
-      "vfx": "destaque_lubrificacao"
-    },
-    {
-      "tutorial": "Accédez au menu Réglages hors ligne à l'aide du badge magnétique.",
-      "animacao": "A8_p3",
-      "telaDisplay": "menu_config",
-      "vfx": "destaque_botoes"
-    },
-    {
-      "tutorial": "Naviguez jusqu'au menu des alertes et remettez à zéro le 'Compteur Partiel' pour relancer la surveillance.",
-      "animacao": "A8_p4",
-      "telaDisplay": "reset_ciclos",
-      "vfx": "piscar_led_verde"
-    }
-  ],
-  "tutorialInicial": "Placez l'objet sur la surface pour commencer la résolution du problème.",
-  "popupInicialTexto1": "Pointez votre caméra vers une surface plane et attendez que le fond blanc s'affiche.",
-  "popupInicialTexto2": "Une fois le fond blanc affiché, touchez l'écran pour visualiser la pièce."
+    "layer":  "Problema 8",
+    "etapas":  [
+                   {
+                       "tutorial":  "La limite configurée de cycles partiels a été atteinte. L'équipement nécessite une inspection.",
+                       "animacao":  "A8_p1",
+                       "telaDisplay":  "alerta_manutencao",
+                       "vfx":  "piscar_led_laranja",
+                       "textoDisplay":  "A11\nCONT P"
+                   },
+                   {
+                       "tutorial":  "Lubrifiez les engrenages et les axes comme indiqué par les repères sur le modèle.",
+                       "animacao":  "A8_p2",
+                       "telaDisplay":  "alerta_manutencao",
+                       "vfx":  "destaque_lubrificacao",
+                       "textoDisplay":  "A11\nCONT P"
+                   },
+                   {
+                       "tutorial":  "Accédez au menu Réglages hors ligne à l'aide du badge magnétique.",
+                       "animacao":  "A8_p3",
+                       "telaDisplay":  "menu_config",
+                       "vfx":  "destaque_botoes",
+                       "textoDisplay":  "MENU\nCONFIG"
+                   },
+                   {
+                       "tutorial":  "Naviguez jusqu'au menu des alertes et remettez à zéro le 'Compteur Partiel' pour relancer la surveillance.",
+                       "animacao":  "A8_p4",
+                       "telaDisplay":  "reset_ciclos",
+                       "vfx":  "piscar_led_verde",
+                       "textoDisplay":  "C18\nRESET"
+                   }
+               ],
+    "tutorialInicial":  "Placez l'objet sur la surface pour commencer la résolution du problème.",
+    "popupInicialTexto1":  "Pointez votre caméra vers une surface plane et attendez que le fond blanc s'affiche.",
+    "popupInicialTexto2":  "Une fois le fond blanc affiché, touchez l'écran pour visualiser la pièce."
 }

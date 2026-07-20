@@ -1,32 +1,35 @@
 {
-  "layer": "Problema 4",
-  "etapas": [
-    {
-      "tutorial": "Se o adaptador não encaixar no atuador, será necessário inverter a peça para o eixo maior.",
-      "animacao": "A4_p1",
-      "telaDisplay": "alerta",
-      "vfx": "destaque_eixo"
-    },
-    {
-      "tutorial": "Utilize uma chave allen para desapertar o parafuso central do adaptador.",
-      "animacao": "A4_p2",
-      "telaDisplay": "alerta",
-      "vfx": "animacao_chave"
-    },
-    {
-      "tutorial": "Remova a peça, inverta o lado para a furação correta (eixo grande) e reposicione.",
-      "animacao": "A4_p3",
-      "telaDisplay": "alerta",
-      "vfx": "nenhum"
-    },
-    {
-      "tutorial": "Reaperte o parafuso central fixando firmemente o adaptador ao eixo da válvula.",
-      "animacao": "A4_p4",
-      "telaDisplay": "menu",
-      "vfx": "animacao_chave"
-    }
-  ],
-  "tutorialInicial": "Posicione o objeto na superfície para iniciar a solução do problema.",
-  "popupInicialTexto1": "Aponte sua câmera para uma superfície plana e aguarde o fundo branco ser exibido.",
-  "popupInicialTexto2": "Após o fundo branco ser exibido, toque na tela para visualizar a peça."
+    "layer":  "Problema 4",
+    "etapas":  [
+                   {
+                       "tutorial":  "Se o adaptador não encaixar no atuador, será necessário inverter a peça para o eixo maior.",
+                       "animacao":  "A4_p1",
+                       "telaDisplay":  "alerta",
+                       "vfx":  "destaque_eixo",
+                       "textoDisplay":  "A4\nFORA"
+                   },
+                   {
+                       "tutorial":  "Utilize uma chave allen para desapertar o parafuso central do adaptador.",
+                       "animacao":  "A4_p2",
+                       "telaDisplay":  "alerta",
+                       "vfx":  "animacao_chave",
+                       "textoDisplay":  "A4\nFORA"
+                   },
+                   {
+                       "tutorial":  "Remova a peça, inverta o lado para a furação correta (eixo grande) e reposicione.",
+                       "animacao":  "A4_p3",
+                       "telaDisplay":  "alerta",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  "A4\nFORA"
+                   },
+                   {
+                       "tutorial":  "Reaperte o parafuso central fixando firmemente o adaptador ao eixo da válvula.",
+                       "animacao":  "A4_p4",
+                       "telaDisplay":  "menu",
+                       "vfx":  "animacao_chave"
+                   }
+               ],
+    "tutorialInicial":  "Posicione o objeto na superfície para iniciar a solução do problema.",
+    "popupInicialTexto1":  "Aponte sua câmera para uma superfície plana e aguarde o fundo branco ser exibido.",
+    "popupInicialTexto2":  "Após o fundo branco ser exibido, toque na tela para visualizar a peça."
 }

@@ -1,32 +1,34 @@
 {
-  "layer": "Problema 2",
-  "etapas": [
-    {
-      "tutorial": "Approchez le badge magnétique des capteurs du boîtier (B1, B2, B3) pour opérer sans ouvrir le couvercle.",
-      "animacao": "A2_p1",
-      "telaDisplay": "menu",
-      "vfx": "destaque_botoes"
-    },
-    {
-      "tutorial": "Maintenez le badge sur le bouton B1 pendant 6 secondes pour accéder aux Réglages hors ligne.",
-      "animacao": "A2_p2",
-      "telaDisplay": "menu_config",
-      "vfx": "nenhum"
-    },
-    {
-      "tutorial": "Touchez le bouton B3 avec le badge pour naviguer dans le menu jusqu'aux options de sortie.",
-      "animacao": "A2_p3",
-      "telaDisplay": "opcoes_saida",
-      "vfx": "nenhum"
-    },
-    {
-      "tutorial": "Touchez le bouton B2 pour confirmer et enregistrer le réglage. Le réglage a été appliqué.",
-      "animacao": "A2_p4",
-      "telaDisplay": "salvar",
-      "vfx": "piscar_led_verde"
-    }
-  ],
-  "tutorialInicial": "Placez l'objet sur la surface pour commencer la résolution du problème.",
-  "popupInicialTexto1": "Pointez votre caméra vers une surface plane et attendez que le fond blanc s'affiche.",
-  "popupInicialTexto2": "Une fois le fond blanc affiché, touchez l'écran pour visualiser la pièce."
+    "layer":  "Problema 2",
+    "etapas":  [
+                   {
+                       "tutorial":  "Approchez le badge magnétique des capteurs du boîtier (B1, B2, B3) pour opérer sans ouvrir le couvercle.",
+                       "animacao":  "A2_p1",
+                       "telaDisplay":  "menu",
+                       "vfx":  "destaque_botoes"
+                   },
+                   {
+                       "tutorial":  "Maintenez le badge sur le bouton B1 pendant 6 secondes pour accéder aux Réglages hors ligne.",
+                       "animacao":  "A2_p2",
+                       "telaDisplay":  "menu_config",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  "MENU\nCONFIG"
+                   },
+                   {
+                       "tutorial":  "Touchez le bouton B3 avec le badge pour naviguer dans le menu jusqu'aux options de sortie.",
+                       "animacao":  "A2_p3",
+                       "telaDisplay":  "opcoes_saida",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  "C12\nSAIDA"
+                   },
+                   {
+                       "tutorial":  "Touchez le bouton B2 pour confirmer et enregistrer le réglage. Le réglage a été appliqué.",
+                       "animacao":  "A2_p4",
+                       "telaDisplay":  "salvar",
+                       "vfx":  "piscar_led_verde"
+                   }
+               ],
+    "tutorialInicial":  "Placez l'objet sur la surface pour commencer la résolution du problème.",
+    "popupInicialTexto1":  "Pointez votre caméra vers une surface plane et attendez que le fond blanc s'affiche.",
+    "popupInicialTexto2":  "Une fois le fond blanc affiché, touchez l'écran pour visualiser la pièce."
 }

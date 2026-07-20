@@ -1,32 +1,35 @@
 {
-  "layer": "Problema 4",
-  "etapas": [
-    {
-      "tutorial": "If the adapter does not fit the actuator, the part must be flipped to the larger shaft.",
-      "animacao": "A4_p1",
-      "telaDisplay": "alerta",
-      "vfx": "destaque_eixo"
-    },
-    {
-      "tutorial": "Use an Allen key to loosen the adapter's center screw.",
-      "animacao": "A4_p2",
-      "telaDisplay": "alerta",
-      "vfx": "animacao_chave"
-    },
-    {
-      "tutorial": "Remove the part, flip it to the correct bore side (large shaft) and reposition it.",
-      "animacao": "A4_p3",
-      "telaDisplay": "alerta",
-      "vfx": "nenhum"
-    },
-    {
-      "tutorial": "Retighten the center screw, firmly securing the adapter to the valve shaft.",
-      "animacao": "A4_p4",
-      "telaDisplay": "menu",
-      "vfx": "animacao_chave"
-    }
-  ],
-  "tutorialInicial": "Place the object on the surface to begin the problem solution.",
-  "popupInicialTexto1": "Point your camera at a flat surface and wait for the white background to appear.",
-  "popupInicialTexto2": "Once it appears, tap the screen to view the object."
+    "layer":  "Problema 4",
+    "etapas":  [
+                   {
+                       "tutorial":  "If the adapter does not fit the actuator, the part must be flipped to the larger shaft.",
+                       "animacao":  "A4_p1",
+                       "telaDisplay":  "alerta",
+                       "vfx":  "destaque_eixo",
+                       "textoDisplay":  "A4\nFORA"
+                   },
+                   {
+                       "tutorial":  "Use an Allen key to loosen the adapter's center screw.",
+                       "animacao":  "A4_p2",
+                       "telaDisplay":  "alerta",
+                       "vfx":  "animacao_chave",
+                       "textoDisplay":  "A4\nFORA"
+                   },
+                   {
+                       "tutorial":  "Remove the part, flip it to the correct bore side (large shaft) and reposition it.",
+                       "animacao":  "A4_p3",
+                       "telaDisplay":  "alerta",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  "A4\nFORA"
+                   },
+                   {
+                       "tutorial":  "Retighten the center screw, firmly securing the adapter to the valve shaft.",
+                       "animacao":  "A4_p4",
+                       "telaDisplay":  "menu",
+                       "vfx":  "animacao_chave"
+                   }
+               ],
+    "tutorialInicial":  "Place the object on the surface to begin the problem solution.",
+    "popupInicialTexto1":  "Point your camera at a flat surface and wait for the white background to appear.",
+    "popupInicialTexto2":  "Once it appears, tap the screen to view the object."
 }

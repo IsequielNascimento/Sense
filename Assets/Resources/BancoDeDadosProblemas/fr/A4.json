@@ -1,32 +1,35 @@
 {
-  "layer": "Problema 4",
-  "etapas": [
-    {
-      "tutorial": "Si l'adaptateur ne s'emboîte pas sur l'actionneur, il faut retourner la pièce vers le plus grand axe.",
-      "animacao": "A4_p1",
-      "telaDisplay": "alerta",
-      "vfx": "destaque_eixo"
-    },
-    {
-      "tutorial": "Utilisez une clé Allen pour desserrer la vis centrale de l'adaptateur.",
-      "animacao": "A4_p2",
-      "telaDisplay": "alerta",
-      "vfx": "animacao_chave"
-    },
-    {
-      "tutorial": "Retirez la pièce, retournez-la vers le perçage correct (grand axe) et repositionnez-la.",
-      "animacao": "A4_p3",
-      "telaDisplay": "alerta",
-      "vfx": "nenhum"
-    },
-    {
-      "tutorial": "Resserrez la vis centrale en fixant fermement l'adaptateur à l'axe de la vanne.",
-      "animacao": "A4_p4",
-      "telaDisplay": "menu",
-      "vfx": "animacao_chave"
-    }
-  ],
-  "tutorialInicial": "Placez l'objet sur la surface pour commencer la résolution du problème.",
-  "popupInicialTexto1": "Pointez votre caméra vers une surface plane et attendez que le fond blanc s'affiche.",
-  "popupInicialTexto2": "Une fois le fond blanc affiché, touchez l'écran pour visualiser la pièce."
+    "layer":  "Problema 4",
+    "etapas":  [
+                   {
+                       "tutorial":  "Si l'adaptateur ne s'emboîte pas sur l'actionneur, il faut retourner la pièce vers le plus grand axe.",
+                       "animacao":  "A4_p1",
+                       "telaDisplay":  "alerta",
+                       "vfx":  "destaque_eixo",
+                       "textoDisplay":  "A4\nFORA"
+                   },
+                   {
+                       "tutorial":  "Utilisez une clé Allen pour desserrer la vis centrale de l'adaptateur.",
+                       "animacao":  "A4_p2",
+                       "telaDisplay":  "alerta",
+                       "vfx":  "animacao_chave",
+                       "textoDisplay":  "A4\nFORA"
+                   },
+                   {
+                       "tutorial":  "Retirez la pièce, retournez-la vers le perçage correct (grand axe) et repositionnez-la.",
+                       "animacao":  "A4_p3",
+                       "telaDisplay":  "alerta",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  "A4\nFORA"
+                   },
+                   {
+                       "tutorial":  "Resserrez la vis centrale en fixant fermement l'adaptateur à l'axe de la vanne.",
+                       "animacao":  "A4_p4",
+                       "telaDisplay":  "menu",
+                       "vfx":  "animacao_chave"
+                   }
+               ],
+    "tutorialInicial":  "Placez l'objet sur la surface pour commencer la résolution du problème.",
+    "popupInicialTexto1":  "Pointez votre caméra vers une surface plane et attendez que le fond blanc s'affiche.",
+    "popupInicialTexto2":  "Une fois le fond blanc affiché, touchez l'écran pour visualiser la pièce."
 }

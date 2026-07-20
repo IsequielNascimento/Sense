@@ -1,32 +1,35 @@
 {
-  "layer": "Problema 5",
-  "etapas": [
-    {
-      "tutorial": "A válvula travou antes de completar o curso. O sistema indica falha de torque.",
-      "animacao": "A5_p1",
-      "telaDisplay": "erro_torque",
-      "vfx": "alerta_vermelho"
-    },
-    {
-      "tutorial": "Feche a alimentação de ar comprimido imediatamente por medidas de segurança.",
-      "animacao": "A5_p2",
-      "telaDisplay": "erro_torque",
-      "vfx": "destaque_valvula_ar"
-    },
-    {
-      "tutorial": "Inspecione a tubulação e a parte interna da válvula mecânica em busca de obstruções.",
-      "animacao": "A5_p3",
-      "telaDisplay": "erro_torque",
-      "vfx": "destaque_tubulacao"
-    },
-    {
-      "tutorial": "Após a limpeza da obstrução, reative o ar comprimido e inicie um novo ciclo de teste.",
-      "animacao": "A5_p4",
-      "telaDisplay": "menu",
-      "vfx": "piscar_led_verde"
-    }
-  ],
-  "tutorialInicial": "Posicione o objeto na superfície para iniciar a solução do problema.",
-  "popupInicialTexto1": "Aponte sua câmera para uma superfície plana e aguarde o fundo branco ser exibido.",
-  "popupInicialTexto2": "Após o fundo branco ser exibido, toque na tela para visualizar a peça."
+    "layer":  "Problema 5",
+    "etapas":  [
+                   {
+                       "tutorial":  "A válvula travou antes de completar o curso. O sistema indica falha de torque.",
+                       "animacao":  "A5_p1",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "alerta_vermelho",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "tutorial":  "Feche a alimentação de ar comprimido imediatamente por medidas de segurança.",
+                       "animacao":  "A5_p2",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "destaque_valvula_ar",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "tutorial":  "Inspecione a tubulação e a parte interna da válvula mecânica em busca de obstruções.",
+                       "animacao":  "A5_p3",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "destaque_tubulacao",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "tutorial":  "Após a limpeza da obstrução, reative o ar comprimido e inicie um novo ciclo de teste.",
+                       "animacao":  "A5_p4",
+                       "telaDisplay":  "menu",
+                       "vfx":  "piscar_led_verde"
+                   }
+               ],
+    "tutorialInicial":  "Posicione o objeto na superfície para iniciar a solução do problema.",
+    "popupInicialTexto1":  "Aponte sua câmera para uma superfície plana e aguarde o fundo branco ser exibido.",
+    "popupInicialTexto2":  "Após o fundo branco ser exibido, toque na tela para visualizar a peça."
 }

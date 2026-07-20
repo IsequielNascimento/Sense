@@ -1,32 +1,35 @@
 {
-  "layer": "Problema 6",
-  "etapas": [
-    {
-      "tutorial": "La vanne n'actionne pas. Vérifiez la pression à l'entrée de l'électrovanne.",
-      "animacao": "A6_p1",
-      "telaDisplay": "alerta_pressao",
-      "vfx": "nenhum"
-    },
-    {
-      "tutorial": "Recherchez des fuites d'air aux raccords BSP/NPT du bloc en aluminium/inox.",
-      "animacao": "A6_p2",
-      "telaDisplay": "alerta_pressao",
-      "vfx": "vazamento_ar"
-    },
-    {
-      "tutorial": "Utilisez l'outil approprié pour serrer le raccord desserré et stopper la fuite.",
-      "animacao": "A6_p3",
-      "telaDisplay": "alerta_pressao",
-      "vfx": "animacao_chave_boca"
-    },
-    {
-      "tutorial": "La pression pneumatique a été rétablie et la vanne est prête à fonctionner.",
-      "animacao": "A6_p4",
-      "telaDisplay": "menu",
-      "vfx": "nenhum"
-    }
-  ],
-  "tutorialInicial": "Placez l'objet sur la surface pour commencer la résolution du problème.",
-  "popupInicialTexto1": "Pointez votre caméra vers une surface plane et attendez que le fond blanc s'affiche.",
-  "popupInicialTexto2": "Une fois le fond blanc affiché, touchez l'écran pour visualiser la pièce."
+    "layer":  "Problema 6",
+    "etapas":  [
+                   {
+                       "tutorial":  "La vanne n'actionne pas. Vérifiez la pression à l'entrée de l'électrovanne.",
+                       "animacao":  "A6_p1",
+                       "telaDisplay":  "alerta_pressao",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  "A18\nPRESS"
+                   },
+                   {
+                       "tutorial":  "Recherchez des fuites d'air aux raccords BSP/NPT du bloc en aluminium/inox.",
+                       "animacao":  "A6_p2",
+                       "telaDisplay":  "alerta_pressao",
+                       "vfx":  "vazamento_ar",
+                       "textoDisplay":  "A18\nPRESS"
+                   },
+                   {
+                       "tutorial":  "Utilisez l'outil approprié pour serrer le raccord desserré et stopper la fuite.",
+                       "animacao":  "A6_p3",
+                       "telaDisplay":  "alerta_pressao",
+                       "vfx":  "animacao_chave_boca",
+                       "textoDisplay":  "A18\nPRESS"
+                   },
+                   {
+                       "tutorial":  "La pression pneumatique a été rétablie et la vanne est prête à fonctionner.",
+                       "animacao":  "A6_p4",
+                       "telaDisplay":  "menu",
+                       "vfx":  "nenhum"
+                   }
+               ],
+    "tutorialInicial":  "Placez l'objet sur la surface pour commencer la résolution du problème.",
+    "popupInicialTexto1":  "Pointez votre caméra vers une surface plane et attendez que le fond blanc s'affiche.",
+    "popupInicialTexto2":  "Une fois le fond blanc affiché, touchez l'écran pour visualiser la pièce."
 }

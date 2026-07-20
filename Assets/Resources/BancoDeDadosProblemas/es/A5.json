@@ -1,32 +1,35 @@
 {
-  "layer": "Problema 5",
-  "etapas": [
-    {
-      "tutorial": "La válvula se bloqueó antes de completar la carrera. El sistema indica un fallo de par (torque).",
-      "animacao": "A5_p1",
-      "telaDisplay": "erro_torque",
-      "vfx": "alerta_vermelho"
-    },
-    {
-      "tutorial": "Cierre la alimentación de aire comprimido inmediatamente como medida de seguridad.",
-      "animacao": "A5_p2",
-      "telaDisplay": "erro_torque",
-      "vfx": "destaque_valvula_ar"
-    },
-    {
-      "tutorial": "Inspeccione la tubería y el interior de la válvula mecánica en busca de obstrucciones.",
-      "animacao": "A5_p3",
-      "telaDisplay": "erro_torque",
-      "vfx": "destaque_tubulacao"
-    },
-    {
-      "tutorial": "Tras limpiar la obstrucción, reactive el aire comprimido e inicie un nuevo ciclo de prueba.",
-      "animacao": "A5_p4",
-      "telaDisplay": "menu",
-      "vfx": "piscar_led_verde"
-    }
-  ],
-  "tutorialInicial": "Coloque el objeto sobre la superficie para iniciar la solución del problema.",
-  "popupInicialTexto1": "Apunte la cámara hacia una superficie plana y espere a que aparezca el fondo blanco.",
-  "popupInicialTexto2": "Cuando aparezca el fondo blanco, toque la pantalla para visualizar la pieza."
+    "layer":  "Problema 5",
+    "etapas":  [
+                   {
+                       "tutorial":  "La válvula se bloqueó antes de completar la carrera. El sistema indica un fallo de par (torque).",
+                       "animacao":  "A5_p1",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "alerta_vermelho",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "tutorial":  "Cierre la alimentación de aire comprimido inmediatamente como medida de seguridad.",
+                       "animacao":  "A5_p2",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "destaque_valvula_ar",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "tutorial":  "Inspeccione la tubería y el interior de la válvula mecánica en busca de obstrucciones.",
+                       "animacao":  "A5_p3",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "destaque_tubulacao",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "tutorial":  "Tras limpiar la obstrucción, reactive el aire comprimido e inicie un nuevo ciclo de prueba.",
+                       "animacao":  "A5_p4",
+                       "telaDisplay":  "menu",
+                       "vfx":  "piscar_led_verde"
+                   }
+               ],
+    "tutorialInicial":  "Coloque el objeto sobre la superficie para iniciar la solución del problema.",
+    "popupInicialTexto1":  "Apunte la cámara hacia una superficie plana y espere a que aparezca el fondo blanco.",
+    "popupInicialTexto2":  "Cuando aparezca el fondo blanco, toque la pantalla para visualizar la pieza."
 }
