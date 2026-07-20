@@ -199,11 +199,7 @@ public class UIController : MonoBehaviour
         SetText(botaoProximo, sequence.IsLast ? text.finalizar : text.proximo);
         if (exibidor != null)
         {
-            exibidor.PlayAnimation(
-                ValueAt(content.Animations, index),
-                content.Layer,
-                ValueAt(content.Displays, index),
-                ValueAt(content.Vfx, index));
+            exibidor.PlayAnimation(EtapaAt(index), content.Layer);
         }
     }
 
@@ -225,9 +221,11 @@ public class UIController : MonoBehaviour
         RenderCurrentStep();
     }
 
-    private static string ValueAt(string[] values, int index)
+    private Etapa EtapaAt(int index)
     {
-        return values != null && index >= 0 && index < values.Length ? values[index] : string.Empty;
+        return content.Etapas != null && index >= 0 && index < content.Etapas.Length
+            ? content.Etapas[index]
+            : new Etapa();
     }
 
     private static void Show(VisualElement element, bool visible)
