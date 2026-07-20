@@ -25,6 +25,8 @@ public class GerenciadorVisual : MonoBehaviour
     [Header("Referências de VFX")]
     public List<VFXSetup> efeitosDisponiveis;
 
+    private TelaM4 telaM4;
+
     public void MudarSpriteDoSensor(string nomeTela)
     {
         if (displaySpriteRenderer == null)
@@ -57,6 +59,27 @@ public class GerenciadorVisual : MonoBehaviour
         }
 
         Debug.LogWarning($"[GerenciadorVisual] Tela '{nomeTela}' não encontrada em 'telasDisponiveis'.", this);
+    }
+
+    public void AplicarCamadasDinamicas(Etapa etapa)
+    {
+        if (displaySpriteRenderer == null) return;
+
+        bool temConteudo = TelaM4.EtapaTemConteudo(etapa);
+
+        if (telaM4 == null)
+        {
+            if (!temConteudo) return;
+            telaM4 = TelaM4.CriarEm(displaySpriteRenderer);
+        }
+
+        if (temConteudo && !displaySpriteRenderer.gameObject.activeSelf)
+        {
+            displaySpriteRenderer.gameObject.SetActive(true);
+            displaySpriteRenderer.enabled = false;
+        }
+
+        telaM4.Aplicar(etapa);
     }
 
     public void AtivarEfeito(string nomeEfeito)
