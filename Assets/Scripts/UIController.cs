@@ -27,7 +27,7 @@ public class UIController : MonoBehaviour
     private void Awake()
     {
         OrigemCena source = ControleDeCena.Instance?.OrigemDaCena ?? OrigemCena.Montagem;
-        string problemId = ProblemaSelecionadoAR.Instance?.idProblema;
+        string problemId = ProblemaSelecionadoAR.Instance?.ChaveDoRecurso;
         ArExperienceData experience = LocalizedDatabase.LoadArExperience(source, problemId);
 
         text = experience.UiText;

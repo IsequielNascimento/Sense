@@ -75,7 +75,7 @@ public class GerenciarMontagem : MonoBehaviour
         }
         else
         {
-            string id = ProblemaSelecionadoAR.Instance?.idProblema;
+            string id = ProblemaSelecionadoAR.Instance?.ChaveDoRecurso;
             if (!string.IsNullOrEmpty(id))
             {
                 string caminhoDoJson = $"BancoDeDadosProblemas/{{language}}/{id}";
