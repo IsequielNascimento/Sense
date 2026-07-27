@@ -1,0 +1,30 @@
+{
+    "scenarioId":  "A2",
+    "layer":  "Problema 2",
+    "etapas":  [
+                   {
+                       "animacao":  "A2_p1",
+                       "telaDisplay":  "menu",
+                       "vfx":  "destaque_botoes",
+                       "textoDisplay":  null
+                   },
+                   {
+                       "animacao":  "A2_p2",
+                       "telaDisplay":  "menu_config",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  "MENU\nCONFIG"
+                   },
+                   {
+                       "animacao":  "A2_p3",
+                       "telaDisplay":  "opcoes_saida",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  "C12\nSAIDA"
+                   },
+                   {
+                       "animacao":  "A2_p4",
+                       "telaDisplay":  "salvar",
+                       "vfx":  "piscar_led_verde",
+                       "textoDisplay":  null
+                   }
+               ]
+}

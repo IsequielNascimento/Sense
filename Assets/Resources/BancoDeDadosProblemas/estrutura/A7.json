@@ -1,0 +1,30 @@
+{
+    "scenarioId":  "A7",
+    "layer":  "Problema 7",
+    "etapas":  [
+                   {
+                       "animacao":  "A7_p1",
+                       "telaDisplay":  "erro_eletrico",
+                       "vfx":  "alerta_vermelho",
+                       "textoDisplay":  "A20\nALIM B"
+                   },
+                   {
+                       "animacao":  "A7_p2",
+                       "telaDisplay":  "erro_eletrico",
+                       "vfx":  "destaque_tampa",
+                       "textoDisplay":  "A20\nALIM B"
+                   },
+                   {
+                       "animacao":  "A7_p3",
+                       "telaDisplay":  "erro_eletrico",
+                       "vfx":  "multimetro_medindo",
+                       "textoDisplay":  "A20\nALIM B"
+                   },
+                   {
+                       "animacao":  "A7_p4",
+                       "telaDisplay":  "menu",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  null
+                   }
+               ]
+}
