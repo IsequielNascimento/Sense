@@ -1,13 +1,9 @@
 using UnityEngine;
 
-/// <summary>
-/// Lógica comum de exibição do modelo M4, compartilhada entre o modo AR
-/// (PlaceOnPlane_Adaptado) e o modo visualizador 3D (Visualizador3D):
-/// referências ao prefab/UIController, inicialização dos Animators e do
-/// GerenciadorVisual do modelo instanciado e reprodução das animações dos passos.
-/// </summary>
 public abstract class ExibidorDeModeloBase : MonoBehaviour
 {
+    #region MARK - Referências
+
     [Header("Modelo")]
     [SerializeField] protected GameObject placedPrefab;
 
@@ -20,10 +16,10 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
     protected Animator[] animators;
     protected GerenciadorVisual gerenciadorVisual;
 
-    /// <summary>
-    /// Configura o modelo recém-instanciado (Animators, GerenciadorVisual, atuador).
-    /// Chamar logo após atribuir spawnedObject via Instantiate.
-    /// </summary>
+    #endregion
+
+    #region MARK - Ciclo de vida do modelo
+
     protected void ConfigurarModeloInstanciado()
     {
         animators = spawnedObject.GetComponentsInChildren<Animator>();
@@ -43,12 +39,11 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// Ajuste de posição específico do modo antes de tocar a animação do passo.
-    /// O AR reposiciona o modelo sobre o plano detectado; o visualizador não
-    /// precisa ajustar nada (modelo fixo na origem).
-    /// </summary>
     protected virtual void AjustarPosicaoParaPasso(bool isMontagem) { }
+
+    #endregion
+
+    #region MARK - Reprodução de etapa
 
     public void PlayAnimation(Etapa etapa, string camadaAlvo)
     {
@@ -60,9 +55,6 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
 
         if (spawnedObject != null)
         {
-            // O Animator da raiz pertence às sequências de problemas. Na montagem, o Animator
-            // do modelo aninhado é o único responsável pelos clips animacao_X. A visibilidade
-            // tutorial é propriedade dos clips; a visibilidade estrutural vem do prefab.
             Animator animatorPai = spawnedObject.GetComponent<Animator>();
             if (animatorPai != null)
             {
@@ -70,7 +62,6 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
             }
         }
 
-        // 1. LÓGICA DE ANIMAÇÃO
         if (animators != null && animators.Length > 0)
         {
             if (string.IsNullOrEmpty(camadaAlvo)) camadaAlvo = ArConstants.DefaultAnimatorLayer;
@@ -82,18 +73,20 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
                 if (!anim.enabled) continue;
 
                 int layerIndex = anim.GetLayerIndex(camadaAlvo);
-                if (layerIndex != -1 && anim.HasState(layerIndex, hashDaAnimacao))
+                bool estadoExiste = layerIndex != PlanoDeCamadas.CamadaInexistente
+                    && anim.HasState(layerIndex, hashDaAnimacao);
+                int camadaComEstado = PlanoDeCamadas.CamadaComEstado(layerIndex, estadoExiste);
+
+                for (int i = PlanoDeCamadas.PrimeiraCamadaDeProblema; i < anim.layerCount; i++)
                 {
-                    anim.speed = 1f;
-
-                    for (int i = 1; i < anim.layerCount; i++)
-                    {
-                        anim.SetLayerWeight(i, (i == layerIndex) ? 1f : 0f);
-                    }
-
-                    anim.Play(hashDaAnimacao, layerIndex, 0f);
-                    tocouEmPeloMenosUm = true;
+                    anim.SetLayerWeight(i, PlanoDeCamadas.PesoDaCamadaDeProblema(i, camadaComEstado));
                 }
+
+                if (!estadoExiste) continue;
+
+                anim.speed = 1f;
+                anim.Play(hashDaAnimacao, layerIndex, 0f);
+                tocouEmPeloMenosUm = true;
             }
 
             if (tocouEmPeloMenosUm)
@@ -106,7 +99,6 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
             }
         }
 
-        // 2. LÓGICA VISUAL
         if (gerenciadorVisual != null)
         {
             gerenciadorVisual.MudarSpriteDoSensor(etapa.telaDisplay);
@@ -115,4 +107,5 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
         }
     }
 
+    #endregion
 }
