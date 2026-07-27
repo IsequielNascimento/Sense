@@ -1,5 +1,9 @@
 {
     "scenarioId":  "A3",
+    "primaryCode":  "",
+    "relatedCodes":  [
+                         "C15"
+                     ],
     "layer":  "Problema 3",
     "etapas":  [
                    {
