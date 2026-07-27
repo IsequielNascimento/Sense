@@ -198,7 +198,7 @@ MonoBehaviour:
     VfxObject: {fileID: 0}
   - Nome: animacao_chave
     VfxObject: {fileID: 0}
-  - Nome: animacao_valvula_ar
+  - Nome: destaque_valvula_ar
     VfxObject: {fileID: 0}
   - Nome: destaque_tubulacao
     VfxObject: {fileID: 0}
@@ -208,7 +208,7 @@ MonoBehaviour:
     VfxObject: {fileID: 0}
   - Nome: destaque_tampa
     VfxObject: {fileID: 0}
-  - Nome: multimentro_medindo
+  - Nome: multimetro_medindo
     VfxObject: {fileID: 0}
   - Nome: piscar_led_laranja
     VfxObject: {fileID: 0}
