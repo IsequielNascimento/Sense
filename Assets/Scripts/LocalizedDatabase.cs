@@ -7,6 +7,7 @@ public static class LocalizedDatabase
     public const string MenuPath = "BancoDeDadosMenu/banco_menu_{language}";
     public const string MontagemPath = "BancoDeDadosMontagem/Montagem/banco_montagem_{language}";
     public const string Montagem2Path = "BancoDeDadosMontagem2/banco_montagem2_{language}";
+    public const string EstruturaDeProblemasPath = "BancoDeDadosProblemas/estrutura";
 
     public static string CurrentLanguage => ResolveCurrentLanguage();
 
@@ -35,24 +36,54 @@ public static class LocalizedDatabase
             return new ArExperienceData(uiText, new StepSequenceData());
         }
 
-        int count = problem.etapas.Length;
+        EstruturaCenario estrutura = LoadEstrutura(resolvedProblemId);
+        MesclaDeCenario.Resultado mescla =
+            MesclaDeCenario.Mesclar(estrutura, problem.etapas, problem.layer);
+
+        if (mescla.TemDivergencia)
+        {
+            Debug.LogWarning(
+                $"[LocalizedDatabase] Topologia divergente em '{resolvedProblemId}': {mescla.Divergencia}.");
+        }
+
+        int count = mescla.Etapas.Length;
         var steps = new string[count];
-        var etapas = new Etapa[count];
 
         for (int i = 0; i < count; i++)
         {
-            Etapa stage = problem.etapas[i] ?? new Etapa();
-            steps[i] = stage.tutorial ?? string.Empty;
-            etapas[i] = stage;
+            steps[i] = mescla.Etapas[i].tutorial ?? string.Empty;
         }
 
         var sequence = new StepSequenceData(
             steps,
-            etapas,
-            string.IsNullOrWhiteSpace(problem.layer) ? ArConstants.DefaultAnimatorLayer : problem.layer);
+            mescla.Etapas,
+            string.IsNullOrWhiteSpace(mescla.Layer) ? ArConstants.DefaultAnimatorLayer : mescla.Layer);
 
-        DevelopmentLog.Log($"[LocalizedDatabase] Problema '{resolvedProblemId}' carregado com {count} etapas.");
+        string origem = mescla.UsouEstrutura ? "estrutura + traducao" : "somente traducao";
+        DevelopmentLog.Log(
+            $"[LocalizedDatabase] Problema '{resolvedProblemId}' carregado com {count} etapas ({origem}).");
         return new ArExperienceData(uiText, sequence);
+    }
+
+    public static EstruturaCenario LoadEstrutura(string scenarioResourceKey)
+    {
+        if (string.IsNullOrWhiteSpace(scenarioResourceKey)) return null;
+
+        string caminho = $"{EstruturaDeProblemasPath}/{scenarioResourceKey}";
+        TextAsset arquivo = Resources.Load<TextAsset>(caminho);
+
+        if (arquivo == null) return null;
+
+        try
+        {
+            return JsonUtility.FromJson<EstruturaCenario>(arquivo.text);
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError(
+                $"[LocalizedDatabase] Falha ao desserializar Resources/{caminho}: {exception.Message}");
+            return null;
+        }
     }
 
     public static T Load<T>(string resourcePathPattern) where T : class, new()

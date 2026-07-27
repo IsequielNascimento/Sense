@@ -1,0 +1,30 @@
+{
+    "scenarioId":  "A6",
+    "layer":  "Problema 6",
+    "etapas":  [
+                   {
+                       "animacao":  "A6_p1",
+                       "telaDisplay":  "alerta_pressao",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  "A18\nPRESS"
+                   },
+                   {
+                       "animacao":  "A6_p2",
+                       "telaDisplay":  "alerta_pressao",
+                       "vfx":  "vazamento_ar",
+                       "textoDisplay":  "A18\nPRESS"
+                   },
+                   {
+                       "animacao":  "A6_p3",
+                       "telaDisplay":  "alerta_pressao",
+                       "vfx":  "animacao_chave_boca",
+                       "textoDisplay":  "A18\nPRESS"
+                   },
+                   {
+                       "animacao":  "A6_p4",
+                       "telaDisplay":  "menu",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  null
+                   }
+               ]
+}
