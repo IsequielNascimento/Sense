@@ -1,5 +1,10 @@
 {
     "scenarioId":  "A1",
+    "primaryCode":  "A1",
+    "relatedCodes":  [
+                         "A1",
+                         "C6"
+                     ],
     "layer":  "Problema 1",
     "etapas":  [
                    {
