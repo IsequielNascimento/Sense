@@ -143,14 +143,14 @@ public class GerenciarUI : MonoBehaviour
 
         if (ProblemaSelecionadoAR.Instance == null)
         {
-            var selecionado = new GameObject("ProblemaSelecionadoAR");
+            var selecionado = new GameObject(nameof(ProblemaSelecionadoAR));
             var holder = selecionado.AddComponent<ProblemaSelecionadoAR>();
-            holder.idProblema = problemaAtual.id; 
+            holder.Selecionar(problemaAtual.ResourceKey, problemaAtual.ScenarioId);
             DontDestroyOnLoad(selecionado);
         }
         else
         {
-            ProblemaSelecionadoAR.Instance.idProblema = problemaAtual.id;
+            ProblemaSelecionadoAR.Instance.Selecionar(problemaAtual.ResourceKey, problemaAtual.ScenarioId);
         }
 
         SceneManager.LoadScene(Scenes.ArUiToolkit);
