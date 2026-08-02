@@ -30,6 +30,7 @@ public static class CatalogoDeAlertas
 
         Dictionary<string, AlertaEstrutural> porCodigo = IndexarEstrutura(estrutura.alertas);
         Dictionary<string, TextoDeAlerta> porCodigoTraduzido = IndexarTextos(textos.alertas);
+        Dictionary<string, List<AvisoOficial>> avisosPorCodigo = IndexarAvisos(estrutura.avisos, textos.avisos);
 
         var catalogo = new List<AlertaOficial>(CodigosOficiais.Alertas.Count);
 
@@ -41,12 +42,15 @@ public static class CatalogoDeAlertas
 
             string nota = CodigosComNotaDeDiagnostico.Contains(codigo) ? textos.notaAlertasDiagnostico : string.Empty;
 
+            avisosPorCodigo.TryGetValue(codigo, out List<AvisoOficial> avisos);
+
             catalogo.Add(new AlertaOficial(
                 dados,
                 texto,
                 estrutura.paginaTabelaCodigos,
                 estrutura.paginaTabelaResolucao,
-                nota));
+                nota,
+                avisos));
         }
 
         return catalogo;
@@ -146,6 +150,55 @@ public static class CatalogoDeAlertas
             if (item == null || string.IsNullOrWhiteSpace(item.codigo)) continue;
 
             indice[item.codigo.Trim()] = item;
+        }
+
+        return indice;
+    }
+
+    private static Dictionary<string, List<AvisoOficial>> IndexarAvisos(
+        AvisoEstrutural[] estruturas,
+        TextoDeAviso[] textos)
+    {
+        var indice = new Dictionary<string, List<AvisoOficial>>(StringComparer.Ordinal);
+
+        if (estruturas == null) return indice;
+
+        var textoPorId = new Dictionary<string, string>(StringComparer.Ordinal);
+
+        if (textos != null)
+        {
+            foreach (TextoDeAviso item in textos)
+            {
+                if (item == null || string.IsNullOrWhiteSpace(item.id)) continue;
+
+                textoPorId[item.id.Trim()] = item.texto;
+            }
+        }
+
+        foreach (AvisoEstrutural estrutura in estruturas)
+        {
+            if (estrutura == null || string.IsNullOrWhiteSpace(estrutura.id)) continue;
+
+            textoPorId.TryGetValue(estrutura.id.Trim(), out string texto);
+
+            var aviso = new AvisoOficial(estrutura, texto);
+
+            if (estrutura.codigos == null) continue;
+
+            foreach (string codigo in estrutura.codigos)
+            {
+                if (string.IsNullOrWhiteSpace(codigo)) continue;
+
+                string chave = codigo.Trim();
+
+                if (!indice.TryGetValue(chave, out List<AvisoOficial> lista))
+                {
+                    lista = new List<AvisoOficial>();
+                    indice[chave] = lista;
+                }
+
+                lista.Add(aviso);
+            }
         }
 
         return indice;
