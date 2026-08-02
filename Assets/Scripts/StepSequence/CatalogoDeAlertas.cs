@@ -81,20 +81,19 @@ public static class CatalogoDeAlertas
 
     public static TextosDoCatalogoDeAlertas CarregarTextos(string idioma)
     {
-        string escolhido = string.IsNullOrWhiteSpace(idioma)
-            ? IdiomaPadrao
-            : idioma.Trim().ToLowerInvariant();
+        string aprovado = RevisaoDeIdiomasTecnicos.ResolverIdiomaTecnico(idioma);
 
-        var textos = Desserializar<TextosDoCatalogoDeAlertas>($"{PastaDeRecursos}/{escolhido}");
+        TextAsset arquivo = Resources.Load<TextAsset>($"{PastaDeRecursos}/{aprovado}");
 
-        bool temConteudo = textos.alertas != null && textos.alertas.Length > 0;
+        if (arquivo == null || string.IsNullOrWhiteSpace(arquivo.text))
+        {
+            if (!string.Equals(aprovado, IdiomaPadrao, StringComparison.Ordinal))
+            {
+                return Desserializar<TextosDoCatalogoDeAlertas>($"{PastaDeRecursos}/{IdiomaPadrao}");
+            }
+        }
 
-        if (temConteudo || escolhido == IdiomaPadrao) return textos;
-
-        Debug.LogWarning(
-            $"[CatalogoDeAlertas] Sem conteudo para '{escolhido}'. Usando '{IdiomaPadrao}'.");
-
-        return Desserializar<TextosDoCatalogoDeAlertas>($"{PastaDeRecursos}/{IdiomaPadrao}");
+        return Desserializar<TextosDoCatalogoDeAlertas>($"{PastaDeRecursos}/{aprovado}");
     }
 
     private static T Desserializar<T>(string caminho) where T : class, new()
