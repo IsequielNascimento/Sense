@@ -4,6 +4,7 @@
     "relatedCodes":  [
                          "C12"
                      ],
+    "dominio":  "Configuracao",
     "layer":  "Problema 2",
     "etapas":  [
                    {

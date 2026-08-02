@@ -45,6 +45,22 @@ public class CodigosOficiaisTests
         Assert.That(CodigosOficiais.EhAlerta("C18"), Is.False);
     }
 
+    [Test]
+    public void EhConfiguracao_DistingueConfiguracoesDeAlertas()
+    {
+        Assert.That(CodigosOficiais.EhConfiguracao("C18"), Is.True);
+        Assert.That(CodigosOficiais.EhConfiguracao("A18"), Is.False);
+    }
+
+    [TestCase("A26")]
+    [TestCase("C24")]
+    [TestCase("")]
+    [TestCase(null)]
+    public void EhConfiguracao_ForaDaTabela_EInvalido(string codigo)
+    {
+        Assert.That(CodigosOficiais.EhConfiguracao(codigo), Is.False);
+    }
+
     #endregion
 
     #region MARK - Códigos gravados na estrutura

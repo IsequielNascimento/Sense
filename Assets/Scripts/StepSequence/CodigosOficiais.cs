@@ -35,6 +35,11 @@ public static class CodigosOficiais
         return EhValido(codigo) && codigo.Trim().StartsWith("A", StringComparison.Ordinal);
     }
 
+    public static bool EhConfiguracao(string codigo)
+    {
+        return EhValido(codigo) && codigo.Trim().StartsWith("C", StringComparison.Ordinal);
+    }
+
     private static HashSet<string> CriarIndice()
     {
         var indice = new HashSet<string>(StringComparer.Ordinal);
