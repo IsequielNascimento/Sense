@@ -7,14 +7,14 @@ public class IdiomaDropdownToolkit : MonoBehaviour
     public UIDocument uiDocument;
     public MenuToolkit menuToolkitScript;
 
-    [Header("Sprites das Bandeiras")] // Arraste os Sprites aqui! (Você já fez isso, ótimo!)
+    [Header("Sprites das Bandeiras")]
     public Sprite flagPT;
     public Sprite flagEN;
     public Sprite flagES;
     public Sprite flagFR;
 
     private VisualElement _painelOpcoes;      
-    private VisualElement _iconeSelecionado;  // Vamos clicar AQUI para abrir
+    private VisualElement _iconeSelecionado;
 
     private void OnEnable()
     {
@@ -23,15 +23,12 @@ public class IdiomaDropdownToolkit : MonoBehaviour
 
         var root = uiDocument.rootVisualElement;
 
-        // Buscando elementos
         _painelOpcoes = root.Q<VisualElement>("painelOpcoes");
         _iconeSelecionado = root.Q<VisualElement>("idiomaSelecionado");
 
-        // --- CORREÇÃO AQUI: Clique no ícone, não no container todo ---
         if (_iconeSelecionado != null)
             _iconeSelecionado.RegisterCallback<ClickEvent>(evt => AlternarPainel());
 
-        // Botões de Idioma
         var btnPT = root.Q<Button>("botaoPortugues");
         var btnEN = root.Q<Button>("botaoIngles");
         var btnES = root.Q<Button>("botaoEspanhol");
@@ -42,10 +39,8 @@ public class IdiomaDropdownToolkit : MonoBehaviour
         if (btnES != null) btnES.clicked += () => SelecionarIdioma("es", flagES);
         if (btnFR != null) btnFR.clicked += () => SelecionarIdioma("fr", flagFR);
 
-        // Começa fechado
         if (_painelOpcoes != null) _painelOpcoes.style.display = DisplayStyle.None;
         
-        // Carrega ícone inicial
         AtualizarIconeInicial(LocalizedDatabase.CurrentLanguage);
     }
 
@@ -66,7 +61,6 @@ public class IdiomaDropdownToolkit : MonoBehaviour
         if (menuToolkitScript != null)
             menuToolkitScript.AtualizarTextosUI();
 
-        // Garante que fecha o painel
         if (_painelOpcoes != null) _painelOpcoes.style.display = DisplayStyle.None;
     }
     

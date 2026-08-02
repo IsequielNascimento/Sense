@@ -14,7 +14,6 @@ public class SideMenu : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     public enum Side { top, bottom}
     public Side side;
 
-    // Start is called before the first frame update
     void Start() {
         height = Screen.height;
     }

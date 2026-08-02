@@ -4,12 +4,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
-/// <summary>
-/// Modo de exibição sem AR: instancia o modelo M4 na origem, diante de uma
-/// câmera dedicada que orbita ao redor do modelo (1 dedo arrasta = órbita,
-/// pinça = zoom; no editor: mouse arrasta = órbita, scroll = zoom).
-/// Usa a mesma UI/fluxo de passos do modo AR via ExibidorDeModeloBase.
-/// </summary>
 public class Visualizador3D : ExibidorDeModeloBase
 {
     [Header("Câmera e Enquadramento")]
@@ -72,7 +66,6 @@ public class Visualizador3D : ExibidorDeModeloBase
         StartCoroutine(IniciarPassosNoProximoFrame());
     }
 
-    // Espera um frame para garantir que uiController.exibidor já foi atribuído.
     private IEnumerator IniciarPassosNoProximoFrame()
     {
         yield return null;
@@ -95,7 +88,6 @@ public class Visualizador3D : ExibidorDeModeloBase
 
     private IEnumerator RecentrarAposAnimacao()
     {
-        // Aguarda o Animator aplicar o estado do passo antes de medir os bounds.
         yield return new WaitForEndOfFrame();
 
         pivo = CalcularCentroDoModelo();
@@ -103,8 +95,6 @@ public class Visualizador3D : ExibidorDeModeloBase
         recentralizacaoPendente = null;
     }
 
-    // Partes do template ficam "estacionadas" a ~1e13 do modelo (truque da cena
-    // para escondê-lo) até a primeira animação reposicioná-las; ignorá-las aqui.
     private const float distanciaMaximaDoCentro = 100f;
 
     private Vector3 CalcularCentroDoModelo()
@@ -118,8 +108,6 @@ public class Visualizador3D : ExibidorDeModeloBase
 
         foreach (var r in alvoDoEnquadramento.GetComponentsInChildren<Renderer>())
         {
-            // O foco deve usar apenas a malha fisica do M4. SpriteRenderers da
-            // tela e objetos auxiliares deslocavam o alvo da camera para cima.
             if (!r.enabled || (!(r is MeshRenderer) && !(r is SkinnedMeshRenderer))) continue;
             if (Vector3.Distance(r.bounds.center, referencia) > distanciaMaximaDoCentro) continue;
 
@@ -200,8 +188,6 @@ public class Visualizador3D : ExibidorDeModeloBase
 
             if (pincando)
             {
-                // Fim da pinça com um dedo ainda na tela: retoma a órbita a partir
-                // daqui, sem exigir um novo toque.
                 pincando = false;
                 arrastando = true;
                 ultimaPosicaoArrasto = posicao;
@@ -227,7 +213,7 @@ public class Visualizador3D : ExibidorDeModeloBase
                 (EventSystem.current.IsPointerOverGameObject(primeiro.touchId.ReadValue()) ||
                  EventSystem.current.IsPointerOverGameObject(segundo.touchId.ReadValue())))
             {
-                return; // pinça começando sobre a UI: não inicia o zoom
+                return;
             }
 
             float distanciaAtualPinca = Vector2.Distance(primeiro.position.ReadValue(), segundo.position.ReadValue());

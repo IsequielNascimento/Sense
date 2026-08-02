@@ -22,7 +22,6 @@ public class PlaceOnPlane_Adaptado : ExibidorDeModeloBase
 
     private bool objectPlaced = false;
 
-    // Variáveis de controle de posição
     private float offsetAtual = 0f;
     private Pose lastHitPose;
     private bool hasHit = false;
