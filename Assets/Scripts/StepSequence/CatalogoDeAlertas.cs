@@ -12,6 +12,15 @@ public static class CatalogoDeAlertas
 
     #endregion
 
+    #region MARK: Nota normativa
+
+    private static readonly HashSet<string> CodigosComNotaDeDiagnostico = new HashSet<string>(StringComparer.Ordinal)
+    {
+        "A19", "A20", "A21", "A22", "A23", "A24", "A25",
+    };
+
+    #endregion
+
     #region MARK: Consulta
 
     public static IReadOnlyList<AlertaOficial> Carregar(string idioma = IdiomaPadrao)
@@ -30,11 +39,14 @@ public static class CatalogoDeAlertas
 
             porCodigoTraduzido.TryGetValue(codigo, out TextoDeAlerta texto);
 
+            string nota = CodigosComNotaDeDiagnostico.Contains(codigo) ? textos.notaAlertasDiagnostico : string.Empty;
+
             catalogo.Add(new AlertaOficial(
                 dados,
                 texto,
                 estrutura.paginaTabelaCodigos,
-                estrutura.paginaTabelaResolucao));
+                estrutura.paginaTabelaResolucao,
+                nota));
         }
 
         return catalogo;

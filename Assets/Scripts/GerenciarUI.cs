@@ -33,6 +33,9 @@ public class GerenciarUI : MonoBehaviour
         templateProblema.SetActive(false);
         AtualizarDisponibilidadeDoPassoAPasso(false);
 
+        HabilitarAutoSizing(descricaoProblema);
+        HabilitarAutoSizing(solucaoProblema);
+
         PainelDeslizante painelScript = painelDetalhes.GetComponent<PainelDeslizante>();
         if (painelScript != null)
         {
@@ -89,11 +92,11 @@ public class GerenciarUI : MonoBehaviour
     {
         alertaAtual = alerta;
 
-        tituloProblema.text = $"{alerta.Codigo} - {alerta.Nome}";
-        descricaoProblema.text = alerta.OQueE;
-        descricao.text = alerta.QuandoOcorre;
-        solucaoProblema.text = string.Join("\n", alerta.Acoes);
-        solucao.text = string.Join("\n", alerta.Locais);
+        DetalheDeAlertaFormatado detalhe = FormatadorDeDetalheDeAlerta.Formatar(alerta);
+
+        tituloProblema.text = detalhe.Titulo;
+        descricaoProblema.text = detalhe.Descricao;
+        solucaoProblema.text = detalhe.Solucao;
 
         PainelDeslizante painelScript = painelDetalhes.GetComponent<PainelDeslizante>();
         if (painelScript != null)
@@ -124,6 +127,12 @@ public class GerenciarUI : MonoBehaviour
     {
         if (alertaAtual == null) return;
         if (!PossuiVinculoEstruturalComExperienciaAr(alertaAtual)) return;
+    }
+
+    private static void HabilitarAutoSizing(TMP_Text campo)
+    {
+        campo.fontSizeMax = campo.fontSize;
+        campo.enableAutoSizing = true;
     }
 
     #region MARK: Vinculo com experiencia AR

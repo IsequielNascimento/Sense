@@ -39,6 +39,7 @@ public class TextoDeAlerta
 [Serializable]
 public class TextosDoCatalogoDeAlertas
 {
+    public string notaAlertasDiagnostico = string.Empty;
     public TextoDeAlerta[] alertas = new TextoDeAlerta[0];
 }
 
@@ -52,7 +53,8 @@ public sealed class AlertaOficial
         AlertaEstrutural estrutura,
         TextoDeAlerta texto,
         int paginaTabelaCodigos,
-        int paginaTabelaResolucao)
+        int paginaTabelaResolucao,
+        string nota = "")
     {
         if (estrutura == null) throw new ArgumentNullException(nameof(estrutura));
 
@@ -67,6 +69,7 @@ public sealed class AlertaOficial
         OQueE = texto?.oQueE ?? string.Empty;
         QuandoOcorre = texto?.quandoOcorre ?? string.Empty;
         Padrao = texto?.padrao ?? string.Empty;
+        Nota = nota ?? string.Empty;
         Acoes = Array.AsReadOnly(texto?.acoes ?? Array.Empty<string>());
         Locais = Array.AsReadOnly(texto?.locais ?? Array.Empty<string>());
     }
@@ -96,6 +99,7 @@ public sealed class AlertaOficial
     public IReadOnlyList<string> Acoes { get; }
     public IReadOnlyList<string> Locais { get; }
     public string Padrao { get; }
+    public string Nota { get; }
 
     public int QuantidadeDeAcoesEsperada { get; }
     public int QuantidadeDeLocaisEsperada { get; }
