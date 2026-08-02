@@ -674,6 +674,79 @@ public class CatalogoDeAlertasTests
 
     #endregion
 
+    #region MARK: Idiomas tecnicos pendentes de revisao
+
+    private static readonly string[] IdiomasTecnicos = { "pt", "en", "es", "fr" };
+
+    private static readonly string[] IdiomasPendentes = { "en", "es", "fr" };
+
+    [TestCaseSource(nameof(IdiomasPendentes))]
+    public void CarregarComIdiomaPendente_ResolveParaOMesmoConteudoDoPt(string idioma)
+    {
+        IReadOnlyList<AlertaOficial> catalogoPt = CatalogoDeAlertas.Carregar("pt");
+        IReadOnlyList<AlertaOficial> catalogoPendente = CatalogoDeAlertas.Carregar(idioma);
+
+        Assert.That(catalogoPendente.Select(alerta => alerta.Codigo),
+            Is.EqualTo(catalogoPt.Select(alerta => alerta.Codigo)));
+
+        for (int i = 0; i < catalogoPt.Count; i++)
+        {
+            AlertaOficial esperado = catalogoPt[i];
+            AlertaOficial obtido = catalogoPendente[i];
+
+            Assert.That(obtido.Categoria, Is.EqualTo(esperado.Categoria), $"{esperado.Codigo}: categoria.");
+            Assert.That(obtido.Nome, Is.EqualTo(esperado.Nome), $"{esperado.Codigo}: nome.");
+            Assert.That(obtido.OQueE, Is.EqualTo(esperado.OQueE), $"{esperado.Codigo}: 'O que e'.");
+            Assert.That(obtido.QuandoOcorre, Is.EqualTo(esperado.QuandoOcorre), $"{esperado.Codigo}: 'Quando ocorre'.");
+            Assert.That(obtido.Acoes, Is.EqualTo(esperado.Acoes), $"{esperado.Codigo}: 'O que fazer'.");
+            Assert.That(obtido.Locais, Is.EqualTo(esperado.Locais), $"{esperado.Codigo}: 'Onde'.");
+            Assert.That(obtido.QuantidadeDeAcoesEsperada, Is.EqualTo(esperado.QuantidadeDeAcoesEsperada), $"{esperado.Codigo}: quantidade de acoes esperada.");
+            Assert.That(obtido.QuantidadeDeLocaisEsperada, Is.EqualTo(esperado.QuantidadeDeLocaisEsperada), $"{esperado.Codigo}: quantidade de locais esperada.");
+            Assert.That(obtido.Padrao, Is.EqualTo(esperado.Padrao), $"{esperado.Codigo}: 'Padrao'.");
+            Assert.That(obtido.Nota, Is.EqualTo(esperado.Nota), $"{esperado.Codigo}: nota.");
+            Assert.That(obtido.PaginaTabelaCodigos, Is.EqualTo(esperado.PaginaTabelaCodigos), $"{esperado.Codigo}: pagina tabela codigos.");
+            Assert.That(obtido.PaginaTabelaResolucao, Is.EqualTo(esperado.PaginaTabelaResolucao), $"{esperado.Codigo}: pagina tabela resolucao.");
+
+            Assert.That(obtido.Avisos.Count, Is.EqualTo(esperado.Avisos.Count), $"{esperado.Codigo}: quantidade de avisos.");
+
+            for (int j = 0; j < esperado.Avisos.Count; j++)
+            {
+                AvisoOficial avisoEsperado = esperado.Avisos[j];
+                AvisoOficial avisoObtido = obtido.Avisos[j];
+
+                Assert.That(avisoObtido.Id, Is.EqualTo(avisoEsperado.Id), $"{esperado.Codigo}: aviso[{j}].Id.");
+                Assert.That(avisoObtido.Nivel, Is.EqualTo(avisoEsperado.Nivel), $"{esperado.Codigo}: aviso[{j}].Nivel.");
+                Assert.That(avisoObtido.Pagina, Is.EqualTo(avisoEsperado.Pagina), $"{esperado.Codigo}: aviso[{j}].Pagina.");
+                Assert.That(avisoObtido.Texto, Is.EqualTo(avisoEsperado.Texto), $"{esperado.Codigo}: aviso[{j}].Texto.");
+            }
+        }
+    }
+
+    [TestCaseSource(nameof(IdiomasTecnicos))]
+    public void Carregar_RetornaVinteEQuatroCodigosParaTodoIdiomaTecnico(string idioma)
+    {
+        Assert.That(CatalogoDeAlertas.Carregar(idioma).Count, Is.EqualTo(24));
+    }
+
+    [Test]
+    public void ArquivosDeIdiomaPendente_NaoExistemEmCatalogoDeAlertas()
+    {
+        foreach (string idioma in IdiomasPendentes)
+        {
+            string caminho = $"{PastaDeAssets}/{idioma}.json";
+            Assert.That(AssetDatabase.LoadAssetAtPath<TextAsset>(caminho), Is.Null,
+                $"{caminho} nao deveria existir; {idioma} esta pendente de revisao.");
+        }
+    }
+
+    [Test]
+    public void UnicoIdiomaPresenteEmCatalogoDeAlertas_EPt()
+    {
+        Assert.That(IdiomasPresentes().ToArray(), Is.EqualTo(new[] { "pt" }));
+    }
+
+    #endregion
+
     #region MARK: Auxiliares
 
     private AlertaOficial Buscar(string codigo)
