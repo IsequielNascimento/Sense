@@ -3,10 +3,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.TextCore.LowLevel;
 
-/// <summary>
-/// Gera automaticamente o Font Asset e o Material Preset usados pelo LCD do M4.
-/// A fonte DSEG14 imita o display alfanumérico de 14 segmentos do equipamento.
-/// </summary>
 public static class M4DisplayFontSetup
 {
     private const string SourceFontPath =

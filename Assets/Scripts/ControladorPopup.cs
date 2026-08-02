@@ -6,13 +6,13 @@ using System.Collections;
 public class ControladorPopup : MonoBehaviour
 {
     private DadosMontagem dados;
-    public CanvasGroup painelPopup;             // Painel laranja
-    public CanvasGroup fundoBlur;               // Fundo com blur
-    public GameObject textoOrientacaoInicial;   // Texto de orientação (visível depois do popup)
+    public CanvasGroup painelPopup;
+    public CanvasGroup fundoBlur;
+    public GameObject textoOrientacaoInicial;
 
-    public TMP_Text texto1;     // Texto 1 dentro do popup
-    public TMP_Text texto2;     // Texto 2 dentro do popup
-    public TMP_Text botaoOK;    // Texto do botão OK
+    public TMP_Text texto1;
+    public TMP_Text texto2;
+    public TMP_Text botaoOK;
 
     public float duracaoFade = 0.5f;
 
@@ -30,7 +30,6 @@ public class ControladorPopup : MonoBehaviour
         fundoBlur.interactable = false;
         fundoBlur.blocksRaycasts = false;
 
-        // ✅ Aplica os textos traduzidos
         if (dados != null)
         {
             if (texto1 != null)
@@ -98,7 +97,6 @@ public class ControladorPopup : MonoBehaviour
         painelPopup.gameObject.SetActive(false);
         fundoBlur.gameObject.SetActive(false);
 
-        // ✅ Ativa o painel de orientação com tradução
         if (textoOrientacaoInicial != null)
         {
             TMP_Text txt = textoOrientacaoInicial.GetComponent<TMP_Text>();

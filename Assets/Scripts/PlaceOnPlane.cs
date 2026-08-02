@@ -67,7 +67,6 @@ public class PlaceOnPlane : MonoBehaviour
             {
                 spawnedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation);
 
-                // ✅ Garante que mesmo que o prefab esteja desativado no Inspector, ele será ativado aqui
                 spawnedObject.SetActive(true);
 
                 animator = spawnedObject.GetComponentInChildren<Animator>();

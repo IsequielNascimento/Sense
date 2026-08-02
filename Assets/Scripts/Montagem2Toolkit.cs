@@ -6,8 +6,6 @@ public class Montagem2Toolkit : MonoBehaviour
 {
     public UIDocument uiDocument;
 
-    // --- Elementos da UI ---
-    // Note que _btnIniciar e _btnVoltar agora são VisualElement
     private Label _lblTitulo;
     private Label _lblSubtitulo;
     private Label _lblAvisoTexto;
@@ -20,7 +18,6 @@ public class Montagem2Toolkit : MonoBehaviour
         if (uiDocument == null) uiDocument = GetComponent<UIDocument>();
         var root = uiDocument.rootVisualElement;
 
-        // 1. Buscando os Elementos (Agora buscando como VisualElement)
         _lblTitulo = root.Q<Label>("Titulo");
         _lblSubtitulo = root.Q<Label>("subtitulo");
         
@@ -35,7 +32,6 @@ public class Montagem2Toolkit : MonoBehaviour
             _lblTextoBotaoIniciar = _btnIniciar.Q<Label>("texto");
 
 
-        // 2. Configurando Cliques (Usando RegisterCallback para VisualElements)
         if (_btnVoltar != null)
         {
             _btnVoltar.RegisterCallback<ClickEvent>(evt => VoltarParaMenu());
@@ -52,7 +48,6 @@ public class Montagem2Toolkit : MonoBehaviour
         }
 
 
-        // 3. Atualizar Textos
         AtualizarTextos();
     }
 
@@ -80,9 +75,6 @@ public class Montagem2Toolkit : MonoBehaviour
     {
         Debug.Log("[Montagem2] Botão clicado! Carregando Banco de Dados e Cena AR...");
 
-        // Pega o idioma atual
-        // Carrega o banco de dados da montagem (sua lógica do NavegarParaMontagemPadrao.cs)
-        // Muda para a cena AR
         SceneManager.LoadScene(Scenes.ArUiToolkit);
     }
 }
