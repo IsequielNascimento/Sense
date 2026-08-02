@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
@@ -98,6 +99,8 @@ public class GerenciarUI : MonoBehaviour
         descricaoProblema.text = detalhe.Descricao;
         solucaoProblema.text = detalhe.Solucao;
 
+        AtualizarDisponibilidadeDoPassoAPasso(alerta != null);
+
         PainelDeslizante painelScript = painelDetalhes.GetComponent<PainelDeslizante>();
         if (painelScript != null)
         {
@@ -126,7 +129,21 @@ public class GerenciarUI : MonoBehaviour
     public void VerPassoAPasso()
     {
         if (alertaAtual == null) return;
-        if (!PossuiVinculoEstruturalComExperienciaAr(alertaAtual)) return;
+
+        ControleDeCena.Instance?.DefinirOrigem(OrigemCena.Problema);
+
+        ProblemaSelecionadoAR selecao = ProblemaSelecionadoAR.ObterOuCriar();
+
+        if (alertaAtual.PossuiCenarioAnimado)
+        {
+            selecao.Selecionar(alertaAtual.ScenarioResourceKey, alertaAtual.ScenarioResourceKey);
+        }
+        else
+        {
+            selecao.SelecionarAlertaOficial(alertaAtual.Codigo);
+        }
+
+        SceneManager.LoadScene(Scenes.ArUiToolkit);
     }
 
     private static void HabilitarAutoSizing(TMP_Text campo)
@@ -135,18 +152,13 @@ public class GerenciarUI : MonoBehaviour
         campo.enableAutoSizing = true;
     }
 
-    #region MARK: Vinculo com experiencia AR
-
-    private static bool PossuiVinculoEstruturalComExperienciaAr(AlertaOficial alerta)
-    {
-        return false;
-    }
+    #region MARK: Botao da experiencia AR
 
     private void AtualizarDisponibilidadeDoPassoAPasso(bool disponivel)
     {
         if (textpasso == null) return;
 
-        Button botao = textpasso.GetComponentInParent<Button>();
+        Button botao = textpasso.GetComponentInParent<Button>(true);
         if (botao != null) botao.gameObject.SetActive(disponivel);
     }
 

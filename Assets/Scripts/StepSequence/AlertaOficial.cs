@@ -10,6 +10,7 @@ public class AlertaEstrutural
     public string categoria;
     public int quantidadeDeAcoes;
     public int quantidadeDeLocais;
+    public string scenarioResourceKey;
 }
 
 [Serializable]
@@ -67,6 +68,7 @@ public sealed class AlertaOficial
         QuantidadeDeLocaisEsperada = estrutura.quantidadeDeLocais;
         PaginaTabelaCodigos = paginaTabelaCodigos;
         PaginaTabelaResolucao = paginaTabelaResolucao;
+        ScenarioResourceKey = IdentidadeDoCenario.Resolver(estrutura.scenarioResourceKey);
 
         Nome = texto?.nome ?? string.Empty;
         OQueE = texto?.oQueE ?? string.Empty;
@@ -92,6 +94,14 @@ public sealed class AlertaOficial
 
     public const string CategoriaFuncional = "Funcional";
     public const string CategoriaOperacional = "Operacional";
+
+    #endregion
+
+    #region MARK: Vinculo com cenario animado
+
+    public string ScenarioResourceKey { get; }
+
+    public bool PossuiCenarioAnimado => IdentidadeDoCenario.EstaDefinida(ScenarioResourceKey);
 
     #endregion
 

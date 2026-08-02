@@ -65,6 +65,36 @@ public static class LocalizedDatabase
         return new ArExperienceData(uiText, sequence);
     }
 
+    public static ArExperienceData LoadArExperienceParaAlertaOficial(string codigoOficial)
+    {
+        DadosMontagem uiText = Load<DadosMontagem>(MontagemPath);
+
+        AlertaOficial alerta = CatalogoDeAlertas.Obter(codigoOficial, CurrentLanguage);
+
+        if (alerta == null)
+        {
+            Debug.LogError($"[LocalizedDatabase] Alerta oficial '{codigoOficial}' nao encontrado no catalogo.");
+            return new ArExperienceData(uiText, new StepSequenceData());
+        }
+
+        Etapa[] etapas = EtapasGuiadasDeAlerta.Criar(alerta);
+
+        if (etapas.Length == 0)
+        {
+            Debug.LogError($"[LocalizedDatabase] O alerta oficial '{alerta.Codigo}' nao contem acoes.");
+            return new ArExperienceData(uiText, new StepSequenceData());
+        }
+
+        var sequence = new StepSequenceData(
+            EtapasGuiadasDeAlerta.Tutoriais(etapas),
+            etapas,
+            ArConstants.DefaultAnimatorLayer);
+
+        DevelopmentLog.Log(
+            $"[LocalizedDatabase] Alerta oficial '{alerta.Codigo}' carregado com {etapas.Length} etapas guiadas.");
+        return new ArExperienceData(uiText, sequence);
+    }
+
     public static EstruturaCenario LoadEstrutura(string scenarioResourceKey)
     {
         if (string.IsNullOrWhiteSpace(scenarioResourceKey)) return null;

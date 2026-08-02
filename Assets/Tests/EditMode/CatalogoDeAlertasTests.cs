@@ -747,6 +747,20 @@ public class CatalogoDeAlertasTests
 
     #endregion
 
+    #region MARK: Vinculo com cenario animado
+
+    [Test]
+    public void NenhumAlertaOficial_PossuiCenarioAnimadoSemMapeamentoValidado()
+    {
+        foreach (AlertaOficial alerta in catalogo)
+        {
+            Assert.That(alerta.ScenarioResourceKey, Is.Empty, $"{alerta.Codigo}: chave de cenario deveria ser vazia.");
+            Assert.That(alerta.PossuiCenarioAnimado, Is.False, $"{alerta.Codigo}: nao deveria ter cenario animado.");
+        }
+    }
+
+    #endregion
+
     #region MARK: Auxiliares
 
     private AlertaOficial Buscar(string codigo)
