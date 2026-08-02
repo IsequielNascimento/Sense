@@ -116,8 +116,8 @@ public class GerenciarUIFluxoTests
         Assert.That(detalhe.Solucao, Does.Contain("Manual, p. 5"));
         Assert.That(
             botaoPassoAPasso.activeSelf,
-            Is.False,
-            $"O alerta {CodigoDoAlerta} nao tem vinculo com a experiencia AR e o botao deveria seguir oculto.");
+            Is.True,
+            $"O detalhe do alerta {CodigoDoAlerta} deveria liberar o botao de ver passo a passo.");
 
         Invocar("OcultarPainelDetalhes");
 

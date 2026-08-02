@@ -49,7 +49,8 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
     {
         etapa ??= new Etapa();
         string animName = etapa.animacao ?? string.Empty;
-        bool isMontagem = string.IsNullOrEmpty(camadaAlvo) || camadaAlvo == ArConstants.DefaultAnimatorLayer;
+        bool possuiAnimacao = DecisaoDeEtapaAr.PossuiAnimacao(animName);
+        bool isMontagem = DecisaoDeEtapaAr.EhMontagem(animName, camadaAlvo, ArConstants.DefaultAnimatorLayer);
 
         AjustarPosicaoParaPasso(isMontagem);
 
@@ -65,7 +66,7 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
         if (animators != null && animators.Length > 0)
         {
             if (string.IsNullOrEmpty(camadaAlvo)) camadaAlvo = ArConstants.DefaultAnimatorLayer;
-            int hashDaAnimacao = Animator.StringToHash(animName);
+            int hashDaAnimacao = possuiAnimacao ? Animator.StringToHash(animName) : 0;
             bool tocouEmPeloMenosUm = false;
 
             foreach (var anim in animators)
@@ -73,7 +74,8 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
                 if (!anim.enabled) continue;
 
                 int layerIndex = anim.GetLayerIndex(camadaAlvo);
-                bool estadoExiste = layerIndex != PlanoDeCamadas.CamadaInexistente
+                bool estadoExiste = possuiAnimacao
+                    && layerIndex != PlanoDeCamadas.CamadaInexistente
                     && anim.HasState(layerIndex, hashDaAnimacao);
                 int camadaComEstado = PlanoDeCamadas.CamadaComEstado(layerIndex, estadoExiste);
 
@@ -89,13 +91,16 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
                 tocouEmPeloMenosUm = true;
             }
 
-            if (tocouEmPeloMenosUm)
+            if (possuiAnimacao)
             {
-                DevelopmentLog.Log($"[ExibidorDeModeloBase] Animação '{animName}' iniciada na camada '{camadaAlvo}'.");
-            }
-            else
-            {
-                Debug.LogWarning($"[ExibidorDeModeloBase] Estado '{animName}' não encontrado nos Animators ativos para a camada '{camadaAlvo}'.");
+                if (tocouEmPeloMenosUm)
+                {
+                    DevelopmentLog.Log($"[ExibidorDeModeloBase] Animação '{animName}' iniciada na camada '{camadaAlvo}'.");
+                }
+                else
+                {
+                    Debug.LogWarning($"[ExibidorDeModeloBase] Estado '{animName}' não encontrado nos Animators ativos para a camada '{camadaAlvo}'.");
+                }
             }
         }
 
