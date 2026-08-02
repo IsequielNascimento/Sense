@@ -1,10 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine.SceneManagement; 
 
 public class GerenciarUI : MonoBehaviour
 {
@@ -20,13 +17,13 @@ public class GerenciarUI : MonoBehaviour
     public TMP_Text solucao;
     public TMP_Text solucaoProblema;
     public TMP_Text textpasso;
-    
+
     [Header("Resultados")]
     public GameObject templateProblema;
     public Transform listaDeResultados;
 
-    private List<Problema> problemas = new List<Problema>();
-    private Problema problemaAtual;
+    private IReadOnlyList<AlertaOficial> alertas = new List<AlertaOficial>();
+    private AlertaOficial alertaAtual;
 
     private void Start()
     {
@@ -34,9 +31,8 @@ public class GerenciarUI : MonoBehaviour
         campoDePesquisa.onValueChanged.AddListener(_ => Pesquisar());
 
         templateProblema.SetActive(false);
-        
-        // Correção do Bug de Dois Cliques: 
-        // Em vez de desligar o objeto na força bruta, chamamos a função do PainelDeslizante.
+        AtualizarDisponibilidadeDoPassoAPasso(false);
+
         PainelDeslizante painelScript = painelDetalhes.GetComponent<PainelDeslizante>();
         if (painelScript != null)
         {
@@ -60,10 +56,9 @@ public class GerenciarUI : MonoBehaviour
             holderTitulosUI.text = banco.titulos.holder;
         }
 
-        problemas = new List<Problema>(banco.problemas ?? new Problema[0]);
+        alertas = CatalogoDeAlertas.Carregar(LocalizedDatabase.CurrentLanguage);
         Pesquisar();
-        
-        // Garante que o painel fecha ao trocar de idioma
+
         PainelDeslizante painelScript = painelDetalhes.GetComponent<PainelDeslizante>();
         if (painelScript != null) painelScript.FecharInstantaneamente();
         else painelDetalhes.SetActive(false);
@@ -76,38 +71,29 @@ public class GerenciarUI : MonoBehaviour
             if (filho != templateProblema.transform) Destroy(filho.gameObject);
         }
 
-        string termo = campoDePesquisa.text.ToLower();
+        IReadOnlyList<AlertaOficial> resultados = BuscaDeAlertas.Buscar(alertas, campoDePesquisa.text);
 
-        List<Problema> resultados = string.IsNullOrEmpty(termo)
-            ? problemas
-            : problemas
-                .Where(p => p.titulo.ToLower().StartsWith(termo))
-                .Concat(problemas
-                    .Where(p => p.titulo.ToLower().Contains(termo) && !p.titulo.ToLower().StartsWith(termo)))
-                .ToList();
-
-        foreach (var problema in resultados)
+        foreach (AlertaOficial alerta in resultados)
         {
             GameObject item = Instantiate(templateProblema, listaDeResultados);
             item.SetActive(true);
-            item.GetComponentInChildren<TMP_Text>().text = problema.titulo;
+            item.GetComponentInChildren<TMP_Text>().text = $"{alerta.Codigo} - {alerta.Nome}";
 
             Button botao = item.GetComponent<Button>();
             botao.onClick.RemoveAllListeners();
-            botao.onClick.AddListener(() => MostrarDetalhes(problema));
+            botao.onClick.AddListener(() => MostrarDetalhes(alerta));
         }
     }
 
-    void MostrarDetalhes(Problema problema)
+    void MostrarDetalhes(AlertaOficial alerta)
     {
-        problemaAtual = problema;
+        alertaAtual = alerta;
 
-        tituloProblema.text = problema.titulo;
-        descricaoProblema.text = problema.descricao;
-        descricao.text = problema.descricao2;
-        solucaoProblema.text = problema.solucao;
-        solucao.text = problema.solucao2;
-        textpasso.text = problema.botaopasso;
+        tituloProblema.text = $"{alerta.Codigo} - {alerta.Nome}";
+        descricaoProblema.text = alerta.OQueE;
+        descricao.text = alerta.QuandoOcorre;
+        solucaoProblema.text = string.Join("\n", alerta.Acoes);
+        solucao.text = string.Join("\n", alerta.Locais);
 
         PainelDeslizante painelScript = painelDetalhes.GetComponent<PainelDeslizante>();
         if (painelScript != null)
@@ -123,10 +109,10 @@ public class GerenciarUI : MonoBehaviour
     public void OcultarPainelDetalhes()
     {
         PainelDeslizante painelScript = painelDetalhes.GetComponent<PainelDeslizante>();
-        
+
         if (painelScript != null)
         {
-            painelScript.Fechar(); 
+            painelScript.Fechar();
         }
         else
         {
@@ -136,24 +122,24 @@ public class GerenciarUI : MonoBehaviour
 
     public void VerPassoAPasso()
     {
-        if (ControleDeCena.Instance != null)
-        {
-            ControleDeCena.Instance.DefinirOrigem(OrigemCena.Problema);
-        }
-
-        if (ProblemaSelecionadoAR.Instance == null)
-        {
-            var selecionado = new GameObject(nameof(ProblemaSelecionadoAR));
-            var holder = selecionado.AddComponent<ProblemaSelecionadoAR>();
-            holder.Selecionar(problemaAtual.ResourceKey, problemaAtual.ScenarioId);
-            DontDestroyOnLoad(selecionado);
-        }
-        else
-        {
-            ProblemaSelecionadoAR.Instance.Selecionar(problemaAtual.ResourceKey, problemaAtual.ScenarioId);
-        }
-
-        SceneManager.LoadScene(Scenes.ArUiToolkit);
+        if (alertaAtual == null) return;
+        if (!PossuiVinculoEstruturalComExperienciaAr(alertaAtual)) return;
     }
 
+    #region MARK: Vinculo com experiencia AR
+
+    private static bool PossuiVinculoEstruturalComExperienciaAr(AlertaOficial alerta)
+    {
+        return false;
+    }
+
+    private void AtualizarDisponibilidadeDoPassoAPasso(bool disponivel)
+    {
+        if (textpasso == null) return;
+
+        Button botao = textpasso.GetComponentInParent<Button>();
+        if (botao != null) botao.gameObject.SetActive(disponivel);
+    }
+
+    #endregion
 }
