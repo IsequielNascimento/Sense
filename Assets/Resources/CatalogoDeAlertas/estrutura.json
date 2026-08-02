@@ -1,0 +1,30 @@
+{
+    "paginaTabelaCodigos": 11,
+    "paginaTabelaResolucao": 76,
+    "alertas": [
+        { "codigo": "A1", "categoria": "Funcional", "quantidadeDeAcoes": 2, "quantidadeDeLocais": 2 },
+        { "codigo": "A2", "categoria": "Funcional", "quantidadeDeAcoes": 2, "quantidadeDeLocais": 2 },
+        { "codigo": "A3", "categoria": "Funcional", "quantidadeDeAcoes": 2, "quantidadeDeLocais": 2 },
+        { "codigo": "A4", "categoria": "Funcional", "quantidadeDeAcoes": 1, "quantidadeDeLocais": 1 },
+        { "codigo": "A5", "categoria": "Funcional", "quantidadeDeAcoes": 2, "quantidadeDeLocais": 2 },
+        { "codigo": "A6", "categoria": "Funcional", "quantidadeDeAcoes": 2, "quantidadeDeLocais": 2 },
+        { "codigo": "A7", "categoria": "Funcional", "quantidadeDeAcoes": 2, "quantidadeDeLocais": 1 },
+        { "codigo": "A8", "categoria": "Funcional", "quantidadeDeAcoes": 1, "quantidadeDeLocais": 1 },
+        { "codigo": "A9", "categoria": "Funcional", "quantidadeDeAcoes": 1, "quantidadeDeLocais": 1 },
+        { "codigo": "A11", "categoria": "Operacional", "quantidadeDeAcoes": 2, "quantidadeDeLocais": 2 },
+        { "codigo": "A12", "categoria": "Operacional", "quantidadeDeAcoes": 2, "quantidadeDeLocais": 2 },
+        { "codigo": "A13", "categoria": "Operacional", "quantidadeDeAcoes": 2, "quantidadeDeLocais": 2 },
+        { "codigo": "A14", "categoria": "Operacional", "quantidadeDeAcoes": 2, "quantidadeDeLocais": 2 },
+        { "codigo": "A15", "categoria": "Operacional", "quantidadeDeAcoes": 3, "quantidadeDeLocais": 3 },
+        { "codigo": "A16", "categoria": "Operacional", "quantidadeDeAcoes": 3, "quantidadeDeLocais": 3 },
+        { "codigo": "A17", "categoria": "Operacional", "quantidadeDeAcoes": 2, "quantidadeDeLocais": 2 },
+        { "codigo": "A18", "categoria": "Operacional", "quantidadeDeAcoes": 2, "quantidadeDeLocais": 2 },
+        { "codigo": "A19", "categoria": "Operacional", "quantidadeDeAcoes": 1, "quantidadeDeLocais": 1 },
+        { "codigo": "A20", "categoria": "Operacional", "quantidadeDeAcoes": 1, "quantidadeDeLocais": 1 },
+        { "codigo": "A21", "categoria": "Operacional", "quantidadeDeAcoes": 1, "quantidadeDeLocais": 1 },
+        { "codigo": "A22", "categoria": "Operacional", "quantidadeDeAcoes": 1, "quantidadeDeLocais": 1 },
+        { "codigo": "A23", "categoria": "Operacional", "quantidadeDeAcoes": 1, "quantidadeDeLocais": 1 },
+        { "codigo": "A24", "categoria": "Operacional", "quantidadeDeAcoes": 1, "quantidadeDeLocais": 1 },
+        { "codigo": "A25", "categoria": "Operacional", "quantidadeDeAcoes": 1, "quantidadeDeLocais": 2 }
+    ]
+}
