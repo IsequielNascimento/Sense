@@ -1,4 +1,5 @@
 {
+    "notaAlertasDiagnostico": "Ao desabilitar os alertas de 19 a 25, apenas as notificações no aplicativo serão desabilitadas. A indicação física no monitor, continua funcionando normalmente.",
     "alertas": [
         {
             "codigo": "A1",

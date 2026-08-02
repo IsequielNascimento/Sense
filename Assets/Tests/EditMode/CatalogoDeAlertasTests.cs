@@ -592,6 +592,48 @@ public class CatalogoDeAlertasTests
 
     #endregion
 
+    #region MARK: Nota normativa
+
+    private const string NotaEsperada =
+        "Ao desabilitar os alertas de 19 a 25, apenas as notificações no aplicativo serão desabilitadas. A indicação física no monitor, continua funcionando normalmente.";
+
+    private static readonly string[] AlertasComNota =
+    {
+        "A19", "A20", "A21", "A22", "A23", "A24", "A25"
+    };
+
+    [TestCaseSource(nameof(AlertasComNota))]
+    public void AlertasDeDiagnostico_RecebemANotaLiteral(string codigo)
+    {
+        Assert.That(Buscar(codigo).Nota, Is.EqualTo(NotaEsperada));
+    }
+
+    [Test]
+    public void AlertasQueNaoSaoDeDiagnostico_NaoRecebemNota()
+    {
+        foreach (string codigo in Funcionais.Concat(Operacionais.Except(AlertasComNota)))
+        {
+            Assert.That(Buscar(codigo).Nota, Is.Empty, $"{codigo} nao deveria ter nota.");
+        }
+    }
+
+    [Test]
+    public void NotaNormativa_EUmCampoGlobalUnicoEmPt()
+    {
+        string conteudo = LerAsset("pt");
+
+        Assert.That(conteudo.Split(new[] { "\"notaAlertasDiagnostico\"" }, System.StringSplitOptions.None).Length,
+            Is.EqualTo(2), "pt.json deve declarar a nota uma unica vez.");
+    }
+
+    [Test]
+    public void NotaNormativa_NaoFicaNaEstruturaNemNosRegistrosDoIdioma()
+    {
+        Assert.That(LerAsset("estrutura"), Does.Not.Contain("notaAlertasDiagnostico"));
+    }
+
+    #endregion
+
     #region MARK: Auxiliares
 
     private AlertaOficial Buscar(string codigo)
