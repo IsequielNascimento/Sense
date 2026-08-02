@@ -189,4 +189,47 @@ public class FormatadorDeDetalheDeAlertaTests
     }
 
     #endregion
+
+    #region MARK: Aviso do manual
+
+    private const string TextoDoAvisoA9 =
+        "Alertamos para o risco de danos ao equipamento caso a pressão da linha exceda 9 bar (130,5 psi).”";
+
+    [Test]
+    public void Formatar_A9_TrazNivelTextoEOrigemDoAvisoNaSolucao()
+    {
+        AlertaOficial alerta = Buscar("A9");
+        DetalheDeAlertaFormatado detalhe = FormatadorDeDetalheDeAlerta.Formatar(alerta);
+
+        Assert.That(detalhe.Solucao, Does.Contain("<b>IMPORTANTE</b>"));
+        Assert.That(detalhe.Solucao, Does.Contain(TextoDoAvisoA9));
+        Assert.That(detalhe.Solucao, Does.Contain("Manual, p. 5"));
+    }
+
+    [Test]
+    public void Formatar_A9_NaoUsaRotuloDePerigoParaOAviso()
+    {
+        AlertaOficial alerta = Buscar("A9");
+        DetalheDeAlertaFormatado detalhe = FormatadorDeDetalheDeAlerta.Formatar(alerta);
+
+        Assert.That(detalhe.Solucao, Does.Not.Contain("PERIGO"));
+    }
+
+    [TestCaseSource(nameof(Codigos))]
+    public void Formatar_ApenasA9_TrazBlocoDeAvisoNaSolucao(string codigo)
+    {
+        AlertaOficial alerta = Buscar(codigo);
+        DetalheDeAlertaFormatado detalhe = FormatadorDeDetalheDeAlerta.Formatar(alerta);
+
+        if (codigo == "A9")
+        {
+            Assert.That(detalhe.Solucao, Does.Contain("<b>IMPORTANTE</b>"));
+        }
+        else
+        {
+            Assert.That(detalhe.Solucao, Does.Not.Contain("<b>IMPORTANTE</b>"));
+        }
+    }
+
+    #endregion
 }

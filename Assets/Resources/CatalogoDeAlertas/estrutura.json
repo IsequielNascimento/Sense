@@ -26,5 +26,8 @@
         { "codigo": "A23", "categoria": "Operacional", "quantidadeDeAcoes": 1, "quantidadeDeLocais": 1 },
         { "codigo": "A24", "categoria": "Operacional", "quantidadeDeAcoes": 1, "quantidadeDeLocais": 1 },
         { "codigo": "A25", "categoria": "Operacional", "quantidadeDeAcoes": 1, "quantidadeDeLocais": 2 }
+    ],
+    "avisos": [
+        { "id": "aviso-a9-max-pressao-linha", "nivel": "IMPORTANTE", "pagina": 5, "codigos": ["A9"] }
     ]
 }

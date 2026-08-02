@@ -18,6 +18,7 @@ public class EstruturaDoCatalogoDeAlertas
     public int paginaTabelaCodigos;
     public int paginaTabelaResolucao;
     public AlertaEstrutural[] alertas = new AlertaEstrutural[0];
+    public AvisoEstrutural[] avisos = new AvisoEstrutural[0];
 }
 
 #endregion
@@ -41,6 +42,7 @@ public class TextosDoCatalogoDeAlertas
 {
     public string notaAlertasDiagnostico = string.Empty;
     public TextoDeAlerta[] alertas = new TextoDeAlerta[0];
+    public TextoDeAviso[] avisos = new TextoDeAviso[0];
 }
 
 #endregion
@@ -54,7 +56,8 @@ public sealed class AlertaOficial
         TextoDeAlerta texto,
         int paginaTabelaCodigos,
         int paginaTabelaResolucao,
-        string nota = "")
+        string nota = "",
+        IReadOnlyList<AvisoOficial> avisos = null)
     {
         if (estrutura == null) throw new ArgumentNullException(nameof(estrutura));
 
@@ -72,6 +75,7 @@ public sealed class AlertaOficial
         Nota = nota ?? string.Empty;
         Acoes = Array.AsReadOnly(texto?.acoes ?? Array.Empty<string>());
         Locais = Array.AsReadOnly(texto?.locais ?? Array.Empty<string>());
+        Avisos = avisos ?? Array.Empty<AvisoOficial>();
     }
 
     #endregion
@@ -100,6 +104,7 @@ public sealed class AlertaOficial
     public IReadOnlyList<string> Locais { get; }
     public string Padrao { get; }
     public string Nota { get; }
+    public IReadOnlyList<AvisoOficial> Avisos { get; }
 
     public int QuantidadeDeAcoesEsperada { get; }
     public int QuantidadeDeLocaisEsperada { get; }

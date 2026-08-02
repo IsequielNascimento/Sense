@@ -25,6 +25,7 @@ public static class FormatadorDeDetalheDeAlerta
     public const string RotuloOnde = "Onde";
     public const string RotuloPadrao = "Padrão";
     public const string RotuloNota = "Nota";
+    public const string OrigemManual = "Manual";
 
     #endregion
 
@@ -61,7 +62,17 @@ public static class FormatadorDeDetalheDeAlerta
         if (!string.IsNullOrEmpty(alerta.Padrao)) AdicionarBloco(construtor, RotuloPadrao, alerta.Padrao);
         if (!string.IsNullOrEmpty(alerta.Nota)) AdicionarBloco(construtor, RotuloNota, alerta.Nota);
 
+        foreach (AvisoOficial aviso in alerta.Avisos)
+        {
+            AdicionarBloco(construtor, aviso.Nivel.RotuloExibicao(), FormatarAviso(aviso));
+        }
+
         return construtor.ToString();
+    }
+
+    private static string FormatarAviso(AvisoOficial aviso)
+    {
+        return $"{aviso.Texto}\n{OrigemManual}, p. {aviso.Pagina}";
     }
 
     private static string Numerar(IReadOnlyList<string> itens)

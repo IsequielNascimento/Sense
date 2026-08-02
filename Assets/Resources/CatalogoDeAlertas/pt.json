@@ -345,5 +345,11 @@
             ],
             "padrao": "habilitado"
         }
+    ],
+    "avisos": [
+        {
+            "id": "aviso-a9-max-pressao-linha",
+            "texto": "Alertamos para o risco de danos ao equipamento caso a pressão da linha exceda 9 bar (130,5 psi).”"
+        }
     ]
 }

@@ -634,6 +634,46 @@ public class CatalogoDeAlertasTests
 
     #endregion
 
+    #region MARK: Avisos do manual
+
+    private const string TextoDoAvisoA9 =
+        "Alertamos para o risco de danos ao equipamento caso a pressão da linha exceda 9 bar (130,5 psi).”";
+
+    private static readonly string[] AlertasBloqueadosParaAvisos =
+    {
+        "A6", "A19", "A20", "A23", "A24", "A25"
+    };
+
+    [Test]
+    public void A9_RecebeExatamenteUmAvisoImportanteDaPagina5ComOTextoLiteral()
+    {
+        AlertaOficial a9 = Buscar("A9");
+
+        Assert.That(a9.Avisos.Count, Is.EqualTo(1));
+        Assert.That(a9.Avisos[0].Nivel, Is.EqualTo(NivelDeAviso.Importante));
+        Assert.That(a9.Avisos[0].Pagina, Is.EqualTo(5));
+        Assert.That(a9.Avisos[0].Texto, Is.EqualTo(TextoDoAvisoA9));
+    }
+
+    [Test]
+    public void OsOutrosVinteETresAlertas_NaoRecebemAviso()
+    {
+        foreach (AlertaOficial alerta in catalogo)
+        {
+            if (alerta.Codigo == "A9") continue;
+
+            Assert.That(alerta.Avisos, Is.Empty, $"{alerta.Codigo} nao deveria ter aviso.");
+        }
+    }
+
+    [TestCaseSource(nameof(AlertasBloqueadosParaAvisos))]
+    public void AlertasBloqueados_NaoRecebemAvisoPorInferencia(string codigo)
+    {
+        Assert.That(Buscar(codigo).Avisos, Is.Empty, $"{codigo} nao pode receber aviso sem aprovacao tecnica.");
+    }
+
+    #endregion
+
     #region MARK: Auxiliares
 
     private AlertaOficial Buscar(string codigo)
