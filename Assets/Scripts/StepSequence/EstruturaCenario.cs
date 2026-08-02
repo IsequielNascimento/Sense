@@ -19,6 +19,7 @@ public class EstruturaCenario
     public string scenarioId;
     public string primaryCode;
     public string[] relatedCodes = new string[0];
+    public string dominio;
     public string layer;
     public EtapaEstrutural[] etapas = new EtapaEstrutural[0];
 }

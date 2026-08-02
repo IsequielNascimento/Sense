@@ -4,6 +4,7 @@
     "relatedCodes":  [
                          "C15"
                      ],
+    "dominio":  "Configuracao",
     "layer":  "Problema 3",
     "etapas":  [
                    {

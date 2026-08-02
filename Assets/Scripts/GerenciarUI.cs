@@ -51,7 +51,7 @@ public class GerenciarUI : MonoBehaviour
 
     public void TrocarIdioma(string novoIdioma)
     {
-        BancoProblemas banco = LocalizedDatabase.Load<BancoProblemas>(LocalizedDatabase.ProblemasPath);
+        TitulosUIBanco banco = LocalizedDatabase.Load<TitulosUIBanco>(LocalizedDatabase.ProblemasPath);
         if (banco.titulos != null)
         {
             tituloTitulosUI.text = banco.titulos.titulo_cena;
