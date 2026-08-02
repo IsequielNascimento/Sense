@@ -1,0 +1,348 @@
+{
+    "alertas": [
+        {
+            "codigo": "A1",
+            "nome": "ÂNGULO MÍNIMO",
+            "oQueE": "a válvula não atingiu o ângulo de operação mínimo necessário",
+            "quandoOcorre": "alerta devido ao ângulo formado entre o ponto de abertura e o ponto de fechamento inferior a 30°",
+            "acoes": [
+                "Verificar o fornecimento de ar comprimido",
+                "Verificar possíveis avarias no conjunto válvula / atuador"
+            ],
+            "locais": [
+                "gerador de ar comprimido",
+                "em campo"
+            ],
+            "padrao": "sempre ligado"
+        },
+        {
+            "codigo": "A2",
+            "nome": "TEMPO LIMITE",
+            "oQueE": "o tempo para realização da calibração automática é monitorado",
+            "quandoOcorre": "alerta por tempo excedente para calibração da válvula de acordo com o configurado no menu",
+            "acoes": [
+                "Aumentar tempo limite",
+                "Verificar possíveis avarias no conjunto válvula / atuador"
+            ],
+            "locais": [
+                "menu tempo max. cal",
+                "em campo"
+            ],
+            "padrao": "sempre ligado"
+        },
+        {
+            "codigo": "A3",
+            "nome": "FALHA NA AUTO CALIBRAÇÃO",
+            "oQueE": "o deslocamento do eixo é monitorado durante o processo de calibração e armazena o tempo e as posições de aberto e fechado",
+            "quandoOcorre": "alerta devido ao armazenamento dos pontos de aberto e fechado não serem iguais nos ciclos de calibração",
+            "acoes": [
+                "Verificar o fornecimento de ar comprimido",
+                "Verificar possíveis avarias no conjunto válvula / atuador"
+            ],
+            "locais": [
+                "gerador de ar comprimido",
+                "em campo"
+            ],
+            "padrao": "sempre ligado"
+        },
+        {
+            "codigo": "A4",
+            "nome": "FORA DE FAIXA",
+            "oQueE": "a pressão de alimentação está superior a utilizada no processo de calibração",
+            "quandoOcorre": "alerta devido ao avanço do ponto de abertura ou fechamento da válvula aprendido na calibração em 5°",
+            "acoes": [
+                "Verificar fornecimento de ar comprimido"
+            ],
+            "locais": [
+                "gerador de ar comprimido"
+            ],
+            "padrao": "sempre ligado"
+        },
+        {
+            "codigo": "A5",
+            "nome": "SEM MOVIMENTO",
+            "oQueE": "o deslocamento do eixo é monitorado durante o processo de calibração",
+            "quandoOcorre": "alerta devido a falta de movimento da válvula durante a calibração",
+            "acoes": [
+                "Verificar o fornecimento de ar comprimido",
+                "Verificar possíveis avarias no conjunto válvula / atuador"
+            ],
+            "locais": [
+                "gerador de ar comprimido",
+                "em campo"
+            ],
+            "padrao": "sempre ligado"
+        },
+        {
+            "codigo": "A6",
+            "nome": "FALHA DE COMANDO",
+            "oQueE": "o comando para solenoide é monitorado",
+            "quandoOcorre": "alerta quando a válvula não executa o comando da solenoide",
+            "acoes": [
+                "Verifica se a solenoide está com defeito",
+                "Verificar a falta sinal elétrico para solenoide"
+            ],
+            "locais": [
+                "solenoide",
+                "em campo"
+            ],
+            "padrao": "sempre ligado"
+        },
+        {
+            "codigo": "A7",
+            "nome": "MUDANÇA INESPERADA",
+            "oQueE": "a posição da válvula é continuamente monitorada",
+            "quandoOcorre": "alerta devido a uma mudança de posição não esperada, independente do comando da solenoide",
+            "acoes": [
+                "Verificar acionamento manual da válvula",
+                "Verificar conexões pneumáticas"
+            ],
+            "locais": [
+                "em campo"
+            ],
+            "padrao": "sempre ligado"
+        },
+        {
+            "codigo": "A8",
+            "nome": "MODO SEGURO",
+            "oQueE": "monitor não esta no modo segurado podendo ser acessado indevidamente",
+            "quandoOcorre": "quando o monitor não está no modo seguro",
+            "acoes": [
+                "Colocar o monitor no modo seguro"
+            ],
+            "locais": [
+                "menu modo seguro"
+            ],
+            "padrao": "sempre ligado"
+        },
+        {
+            "codigo": "A9",
+            "nome": "MÁX. PRESSÃO NA LINHA",
+            "oQueE": "a pressão da linha é monitorada",
+            "quandoOcorre": "alerta devido a pressão máxima da linha ultrapassar 9 bar",
+            "acoes": [
+                "Verificar o fornecimento de ar comprimido"
+            ],
+            "locais": [
+                "gerador de ar comprimido"
+            ],
+            "padrao": "sempre ligado"
+        },
+        {
+            "codigo": "A11",
+            "nome": "CONTADO PARCIAL",
+            "oQueE": "contador aumenta toda vez que a válvula atingir a posição aberta",
+            "quandoOcorre": "quando a contagem parcial é atingida",
+            "acoes": [
+                "Aumentar número de ciclos ou resetar o contador",
+                "Desligar alerta"
+            ],
+            "locais": [
+                "em campo",
+                "menu contador parcial"
+            ],
+            "padrao": "desabilitado"
+        },
+        {
+            "codigo": "A12",
+            "nome": "CONTADOR TOTAL",
+            "oQueE": "contador aumenta toda vez que a válvula atingir a posição aberta",
+            "quandoOcorre": "quando a contagem total é atingida",
+            "acoes": [
+                "Resetar o contador",
+                "Desligar o alerta"
+            ],
+            "locais": [
+                "em campo",
+                "menu contador total"
+            ],
+            "padrao": "desabilitado"
+        },
+        {
+            "codigo": "A13",
+            "nome": "ALERTA DIAS",
+            "oQueE": "monitor acumula número de dias desde que foi energizado",
+            "quandoOcorre": "quando o dia ajustado é atingido",
+            "acoes": [
+                "Resetar alerta",
+                "Desligar alerta"
+            ],
+            "locais": [
+                "em campo",
+                "menu alerta dias"
+            ],
+            "padrao": "desabilitado"
+        },
+        {
+            "codigo": "A14",
+            "nome": "ALERTA DATA",
+            "oQueE": "alerta para uma data especifica",
+            "quandoOcorre": "quando a data ajustada é atingida",
+            "acoes": [
+                "Definir nova data",
+                "Desligar alerta"
+            ],
+            "locais": [
+                "em campo",
+                "menu alerta data"
+            ],
+            "padrao": "desabilitado"
+        },
+        {
+            "codigo": "A15",
+            "nome": "TEMPO ABERTURA",
+            "oQueE": "monitor aprende o tempo de abertura da válvula durante o processo de calibração",
+            "quandoOcorre": "quando o tempo de abertura é ultrapassado",
+            "acoes": [
+                "Verificar o fornecimento de ar comprimido",
+                "Verificar possíveis avarias no conjunto válvula / atuador",
+                "Desligar o alerta"
+            ],
+            "locais": [
+                "gerador de ar comprimido",
+                "em campo",
+                "menu tempo abertura"
+            ],
+            "padrao": "desabilitado"
+        },
+        {
+            "codigo": "A16",
+            "nome": "TEMPO FECHAMENTO",
+            "oQueE": "monitor aprende o tempo de fechamento da válvula durante o processo de calibração",
+            "quandoOcorre": "quando o tempo de fechamento é ultrapassado",
+            "acoes": [
+                "Verificar o fornecimento de ar comprimido",
+                "Verificar possíveis avarias no conjunto válvula / atuador",
+                "Desligar o alerta"
+            ],
+            "locais": [
+                "gerador de ar comprimido",
+                "em campo",
+                "menu tempo fechamento"
+            ],
+            "padrao": "desabilitado"
+        },
+        {
+            "codigo": "A17",
+            "nome": "ALTA PRESSÃO",
+            "oQueE": "a pressão da linha é monitorada",
+            "quandoOcorre": "quando a pressão de entrada está acima da faixa especificada",
+            "acoes": [
+                "Verificar fornecimento de ar comprimido",
+                "Desligar alerta"
+            ],
+            "locais": [
+                "gerador de ar comprimido",
+                "menu alta pressão"
+            ],
+            "padrao": "20%"
+        },
+        {
+            "codigo": "A18",
+            "nome": "BAIXA PRESSÃO",
+            "oQueE": "a pressão da linha é monitorada",
+            "quandoOcorre": "quando a pressão de entrada está abaixo da faixa especificada",
+            "acoes": [
+                "Verificar fornecimento de ar comprimido",
+                "Desligar alerta"
+            ],
+            "locais": [
+                "gerador de ar comprimido",
+                "menu baixa pressão"
+            ],
+            "padrao": "20%"
+        },
+        {
+            "codigo": "A19",
+            "nome": "ALIMENTAÇÃO ALTA",
+            "oQueE": "a tensão de alimentação é monitorada",
+            "quandoOcorre": "tensão acima 32Vcc para rede AS-Interface e 10% para PNP e DeviceNet",
+            "acoes": [
+                "Verificar fonte de alimentação"
+            ],
+            "locais": [
+                "painel de controle"
+            ],
+            "padrao": "habilitado"
+        },
+        {
+            "codigo": "A20",
+            "nome": "ALIMENTAÇÃO BAIXA",
+            "oQueE": "a tensão de alimentação é monitorada",
+            "quandoOcorre": "tensão abaixo de 27V para AS-Interface e 22,8V DeviceNet e PNP",
+            "acoes": [
+                "Verificar fonte de alimentação"
+            ],
+            "locais": [
+                "painel de controle"
+            ],
+            "padrao": "habilitado"
+        },
+        {
+            "codigo": "A21",
+            "nome": "TEMPERATURA ALTA",
+            "oQueE": "a temperatura interna é monitorada",
+            "quandoOcorre": "quando a temperatura do monitor está acima de 70°",
+            "acoes": [
+                "Verificar temperatura do processo"
+            ],
+            "locais": [
+                "em campo"
+            ],
+            "padrao": "habilitado"
+        },
+        {
+            "codigo": "A22",
+            "nome": "TEMPERATURA BAIXA",
+            "oQueE": "a temperatura interna é monitorada",
+            "quandoOcorre": "quando a temperatura do monitor está abaixo de -20°C",
+            "acoes": [
+                "Verificar temperatura do processo"
+            ],
+            "locais": [
+                "em campo"
+            ],
+            "padrao": "habilitado"
+        },
+        {
+            "codigo": "A23",
+            "nome": "SOLENOIDE CURTO",
+            "oQueE": "a bobina solenoide é monitorada",
+            "quandoOcorre": "quando a bobina da solenoide esta em curto circuito",
+            "acoes": [
+                "Verificar os fios da solenoide"
+            ],
+            "locais": [
+                "em campo"
+            ],
+            "padrao": "habilitado"
+        },
+        {
+            "codigo": "A24",
+            "nome": "SOLENOIDE ABERTA",
+            "oQueE": "monitora a quebra do cabo da bobina solenoide",
+            "quandoOcorre": "quando a bobina da solenoide ou seu cabo está quebrado",
+            "acoes": [
+                "Verificar os fios da solenoide"
+            ],
+            "locais": [
+                "em campo"
+            ],
+            "padrao": "habilitado"
+        },
+        {
+            "codigo": "A25",
+            "nome": "SAÍDA CURTO",
+            "oQueE": "as saídas PNP são monitoradas",
+            "quandoOcorre": "quando qualquer uma das saídas PNP ou suas cargas estiverem em curto",
+            "acoes": [
+                "Verificar conexão das saídas"
+            ],
+            "locais": [
+                "em campo",
+                "painel de controle"
+            ],
+            "padrao": "habilitado"
+        }
+    ]
+}
