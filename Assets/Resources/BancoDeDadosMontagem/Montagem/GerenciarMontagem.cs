@@ -75,7 +75,7 @@ public class GerenciarMontagem : MonoBehaviour
         }
         else
         {
-            string id = ProblemaSelecionadoAR.Instance?.idProblema;
+            string id = ProblemaSelecionadoAR.Instance?.ChaveDoRecurso;
             if (!string.IsNullOrEmpty(id))
             {
                 string caminhoDoJson = $"BancoDeDadosProblemas/{{language}}/{id}";
@@ -110,7 +110,6 @@ public class GerenciarMontagem : MonoBehaviour
         }
     }
 
-    // O restante do script permanece inalterado
     public void IniciarPassos()
     {
         if (passosTutoriais == null || passosTutoriais.Length == 0) return;

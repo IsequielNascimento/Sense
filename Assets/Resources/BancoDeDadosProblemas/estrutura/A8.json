@@ -1,0 +1,36 @@
+{
+    "scenarioId":  "A8",
+    "primaryCode":  "A11",
+    "relatedCodes":  [
+                         "A11",
+                         "C18"
+                     ],
+    "dominio":  "Manutencao",
+    "layer":  "Problema 8",
+    "etapas":  [
+                   {
+                       "animacao":  "A8_p1",
+                       "telaDisplay":  "alerta_manutencao",
+                       "vfx":  "piscar_led_laranja",
+                       "textoDisplay":  "A11\nCONT P"
+                   },
+                   {
+                       "animacao":  "A8_p2",
+                       "telaDisplay":  "alerta_manutencao",
+                       "vfx":  "destaque_lubrificacao",
+                       "textoDisplay":  "A11\nCONT P"
+                   },
+                   {
+                       "animacao":  "A8_p3",
+                       "telaDisplay":  "menu_config",
+                       "vfx":  "destaque_botoes",
+                       "textoDisplay":  "MENU\nCONFIG"
+                   },
+                   {
+                       "animacao":  "A8_p4",
+                       "telaDisplay":  "reset_ciclos",
+                       "vfx":  "piscar_led_verde",
+                       "textoDisplay":  "C18\nRESET"
+                   }
+               ]
+}

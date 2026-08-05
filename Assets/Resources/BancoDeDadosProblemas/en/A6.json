@@ -1,32 +1,35 @@
 {
-  "layer": "Problema 6",
-  "etapas": [
-    {
-      "tutorial": "The valve is not actuating. Check the pressure at the solenoid valve inlet.",
-      "animacao": "A6_p1",
-      "telaDisplay": "alerta_pressao",
-      "vfx": "nenhum"
-    },
-    {
-      "tutorial": "Look for air leaks at the BSP/NPT connections of the aluminum/stainless steel block.",
-      "animacao": "A6_p2",
-      "telaDisplay": "alerta_pressao",
-      "vfx": "vazamento_ar"
-    },
-    {
-      "tutorial": "Use the proper tool to tighten the loose connection and stop the leak.",
-      "animacao": "A6_p3",
-      "telaDisplay": "alerta_pressao",
-      "vfx": "animacao_chave_boca"
-    },
-    {
-      "tutorial": "Pneumatic pressure has been restored and the valve is ready to operate.",
-      "animacao": "A6_p4",
-      "telaDisplay": "menu",
-      "vfx": "nenhum"
-    }
-  ],
-  "tutorialInicial": "Place the object on the surface to begin the problem solution.",
-  "popupInicialTexto1": "Point your camera at a flat surface and wait for the white background to appear.",
-  "popupInicialTexto2": "Once it appears, tap the screen to view the object."
+    "layer":  "Problema 6",
+    "etapas":  [
+                   {
+                       "tutorial":  "The valve is not actuating. Check the pressure at the solenoid valve inlet.",
+                       "animacao":  "A6_p1",
+                       "telaDisplay":  "alerta_pressao",
+                       "vfx":  "nenhum",
+                       "textoDisplay":  "A18\nPRESS"
+                   },
+                   {
+                       "tutorial":  "Look for air leaks at the BSP/NPT connections of the aluminum/stainless steel block.",
+                       "animacao":  "A6_p2",
+                       "telaDisplay":  "alerta_pressao",
+                       "vfx":  "vazamento_ar",
+                       "textoDisplay":  "A18\nPRESS"
+                   },
+                   {
+                       "tutorial":  "Use the proper tool to tighten the loose connection and stop the leak.",
+                       "animacao":  "A6_p3",
+                       "telaDisplay":  "alerta_pressao",
+                       "vfx":  "animacao_chave_boca",
+                       "textoDisplay":  "A18\nPRESS"
+                   },
+                   {
+                       "tutorial":  "Pneumatic pressure has been restored and the valve is ready to operate.",
+                       "animacao":  "A6_p4",
+                       "telaDisplay":  "menu",
+                       "vfx":  "nenhum"
+                   }
+               ],
+    "tutorialInicial":  "Place the object on the surface to begin the problem solution.",
+    "popupInicialTexto1":  "Point your camera at a flat surface and wait for the white background to appear.",
+    "popupInicialTexto2":  "Once it appears, tap the screen to view the object."
 }

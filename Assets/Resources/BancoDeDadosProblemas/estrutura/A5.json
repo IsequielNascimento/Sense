@@ -1,0 +1,35 @@
+{
+    "scenarioId":  "A5",
+    "primaryCode":  "A5",
+    "relatedCodes":  [
+                         "A5"
+                     ],
+    "dominio":  "Treinamento",
+    "layer":  "Problema 5",
+    "etapas":  [
+                   {
+                       "animacao":  "A5_p1",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "alerta_vermelho",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "animacao":  "A5_p2",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "destaque_valvula_ar",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "animacao":  "A5_p3",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "destaque_tubulacao",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "animacao":  "A5_p4",
+                       "telaDisplay":  "menu",
+                       "vfx":  "piscar_led_verde",
+                       "textoDisplay":  null
+                   }
+               ]
+}

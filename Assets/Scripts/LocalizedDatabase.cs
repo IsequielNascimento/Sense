@@ -7,6 +7,7 @@ public static class LocalizedDatabase
     public const string MenuPath = "BancoDeDadosMenu/banco_menu_{language}";
     public const string MontagemPath = "BancoDeDadosMontagem/Montagem/banco_montagem_{language}";
     public const string Montagem2Path = "BancoDeDadosMontagem2/banco_montagem2_{language}";
+    public const string EstruturaDeProblemasPath = "BancoDeDadosProblemas/estrutura";
 
     public static string CurrentLanguage => ResolveCurrentLanguage();
 
@@ -35,30 +36,84 @@ public static class LocalizedDatabase
             return new ArExperienceData(uiText, new StepSequenceData());
         }
 
-        int count = problem.etapas.Length;
+        EstruturaCenario estrutura = LoadEstrutura(resolvedProblemId);
+        MesclaDeCenario.Resultado mescla =
+            MesclaDeCenario.Mesclar(estrutura, problem.etapas, problem.layer);
+
+        if (mescla.TemDivergencia)
+        {
+            Debug.LogWarning(
+                $"[LocalizedDatabase] Topologia divergente em '{resolvedProblemId}': {mescla.Divergencia}.");
+        }
+
+        int count = mescla.Etapas.Length;
         var steps = new string[count];
-        var animations = new string[count];
-        var displays = new string[count];
-        var vfx = new string[count];
 
         for (int i = 0; i < count; i++)
         {
-            Etapa stage = problem.etapas[i];
-            steps[i] = stage?.tutorial ?? string.Empty;
-            animations[i] = stage?.animacao ?? string.Empty;
-            displays[i] = stage?.telaDisplay ?? string.Empty;
-            vfx[i] = stage?.vfx ?? string.Empty;
+            steps[i] = mescla.Etapas[i].tutorial ?? string.Empty;
         }
 
         var sequence = new StepSequenceData(
             steps,
-            animations,
-            displays,
-            vfx,
-            string.IsNullOrWhiteSpace(problem.layer) ? ArConstants.DefaultAnimatorLayer : problem.layer);
+            mescla.Etapas,
+            string.IsNullOrWhiteSpace(mescla.Layer) ? ArConstants.DefaultAnimatorLayer : mescla.Layer);
 
-        DevelopmentLog.Log($"[LocalizedDatabase] Problema '{resolvedProblemId}' carregado com {count} etapas.");
+        string origem = mescla.UsouEstrutura ? "estrutura + traducao" : "somente traducao";
+        DevelopmentLog.Log(
+            $"[LocalizedDatabase] Problema '{resolvedProblemId}' carregado com {count} etapas ({origem}).");
         return new ArExperienceData(uiText, sequence);
+    }
+
+    public static ArExperienceData LoadArExperienceParaAlertaOficial(string codigoOficial)
+    {
+        DadosMontagem uiText = Load<DadosMontagem>(MontagemPath);
+
+        AlertaOficial alerta = CatalogoDeAlertas.Obter(codigoOficial, CurrentLanguage);
+
+        if (alerta == null)
+        {
+            Debug.LogError($"[LocalizedDatabase] Alerta oficial '{codigoOficial}' nao encontrado no catalogo.");
+            return new ArExperienceData(uiText, new StepSequenceData());
+        }
+
+        Etapa[] etapas = EtapasGuiadasDeAlerta.Criar(alerta);
+
+        if (etapas.Length == 0)
+        {
+            Debug.LogError($"[LocalizedDatabase] O alerta oficial '{alerta.Codigo}' nao contem acoes.");
+            return new ArExperienceData(uiText, new StepSequenceData());
+        }
+
+        var sequence = new StepSequenceData(
+            EtapasGuiadasDeAlerta.Tutoriais(etapas),
+            etapas,
+            ArConstants.DefaultAnimatorLayer);
+
+        DevelopmentLog.Log(
+            $"[LocalizedDatabase] Alerta oficial '{alerta.Codigo}' carregado com {etapas.Length} etapas guiadas.");
+        return new ArExperienceData(uiText, sequence);
+    }
+
+    public static EstruturaCenario LoadEstrutura(string scenarioResourceKey)
+    {
+        if (string.IsNullOrWhiteSpace(scenarioResourceKey)) return null;
+
+        string caminho = $"{EstruturaDeProblemasPath}/{scenarioResourceKey}";
+        TextAsset arquivo = Resources.Load<TextAsset>(caminho);
+
+        if (arquivo == null) return null;
+
+        try
+        {
+            return JsonUtility.FromJson<EstruturaCenario>(arquivo.text);
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError(
+                $"[LocalizedDatabase] Falha ao desserializar Resources/{caminho}: {exception.Message}");
+            return null;
+        }
     }
 
     public static T Load<T>(string resourcePathPattern) where T : class, new()
@@ -129,21 +184,21 @@ public static class LocalizedDatabase
 
         int count = data.passos.Length;
         var steps = new string[count];
-        var animations = new string[count];
-        var displays = new string[count];
-        var vfx = new string[count];
+        var etapas = new Etapa[count];
 
         for (int i = 0; i < count; i++)
         {
             PassoMontagem step = data.passos[i];
             steps[i] = step?.tutorial ?? string.Empty;
-            animations[i] = ArConstants.AssemblyAnimationName(step?.numero);
-            displays[i] = string.Empty;
-            vfx[i] = string.Empty;
+            etapas[i] = new Etapa
+            {
+                tutorial = steps[i],
+                animacao = ArConstants.AssemblyAnimationName(step?.numero),
+            };
         }
 
         DevelopmentLog.Log($"[LocalizedDatabase] Montagem padrao carregada com {count} etapas.");
-        return new StepSequenceData(steps, animations, displays, vfx, ArConstants.DefaultAnimatorLayer);
+        return new StepSequenceData(steps, etapas, ArConstants.DefaultAnimatorLayer);
     }
 }
 
@@ -163,21 +218,15 @@ public sealed class StepSequenceData
 {
     public StepSequenceData(
         string[] steps = null,
-        string[] animations = null,
-        string[] displays = null,
-        string[] vfx = null,
+        Etapa[] etapas = null,
         string layer = ArConstants.DefaultAnimatorLayer)
     {
         Steps = steps ?? Array.Empty<string>();
-        Animations = animations ?? Array.Empty<string>();
-        Displays = displays ?? Array.Empty<string>();
-        Vfx = vfx ?? Array.Empty<string>();
+        Etapas = etapas ?? Array.Empty<Etapa>();
         Layer = string.IsNullOrWhiteSpace(layer) ? ArConstants.DefaultAnimatorLayer : layer;
     }
 
     public string[] Steps { get; }
-    public string[] Animations { get; }
-    public string[] Displays { get; }
-    public string[] Vfx { get; }
+    public Etapa[] Etapas { get; }
     public string Layer { get; }
 }

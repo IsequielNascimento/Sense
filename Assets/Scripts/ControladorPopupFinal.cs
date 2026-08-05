@@ -41,7 +41,6 @@ public class ControladorPopupFinal : MonoBehaviour
 
     public void VoltarMenu()
     {
-    // Limpa os dados do problema selecionado, se houver
     if (ProblemaSelecionadoAR.Instance != null)
         Destroy(ProblemaSelecionadoAR.Instance.gameObject);
 

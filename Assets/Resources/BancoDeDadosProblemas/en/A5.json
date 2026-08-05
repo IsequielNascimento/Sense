@@ -1,32 +1,35 @@
 {
-  "layer": "Problema 5",
-  "etapas": [
-    {
-      "tutorial": "The valve jammed before completing its stroke. The system indicates a torque failure.",
-      "animacao": "A5_p1",
-      "telaDisplay": "erro_torque",
-      "vfx": "alerta_vermelho"
-    },
-    {
-      "tutorial": "Shut off the compressed air supply immediately as a safety measure.",
-      "animacao": "A5_p2",
-      "telaDisplay": "erro_torque",
-      "vfx": "destaque_valvula_ar"
-    },
-    {
-      "tutorial": "Inspect the piping and the inside of the mechanical valve for obstructions.",
-      "animacao": "A5_p3",
-      "telaDisplay": "erro_torque",
-      "vfx": "destaque_tubulacao"
-    },
-    {
-      "tutorial": "After clearing the obstruction, reactivate the compressed air and start a new test cycle.",
-      "animacao": "A5_p4",
-      "telaDisplay": "menu",
-      "vfx": "piscar_led_verde"
-    }
-  ],
-  "tutorialInicial": "Place the object on the surface to begin the problem solution.",
-  "popupInicialTexto1": "Point your camera at a flat surface and wait for the white background to appear.",
-  "popupInicialTexto2": "Once it appears, tap the screen to view the object."
+    "layer":  "Problema 5",
+    "etapas":  [
+                   {
+                       "tutorial":  "The valve jammed before completing its stroke. The system indicates a torque failure.",
+                       "animacao":  "A5_p1",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "alerta_vermelho",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "tutorial":  "Shut off the compressed air supply immediately as a safety measure.",
+                       "animacao":  "A5_p2",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "destaque_valvula_ar",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "tutorial":  "Inspect the piping and the inside of the mechanical valve for obstructions.",
+                       "animacao":  "A5_p3",
+                       "telaDisplay":  "erro_torque",
+                       "vfx":  "destaque_tubulacao",
+                       "textoDisplay":  "A5\nSEMMOV"
+                   },
+                   {
+                       "tutorial":  "After clearing the obstruction, reactivate the compressed air and start a new test cycle.",
+                       "animacao":  "A5_p4",
+                       "telaDisplay":  "menu",
+                       "vfx":  "piscar_led_verde"
+                   }
+               ],
+    "tutorialInicial":  "Place the object on the surface to begin the problem solution.",
+    "popupInicialTexto1":  "Point your camera at a flat surface and wait for the white background to appear.",
+    "popupInicialTexto2":  "Once it appears, tap the screen to view the object."
 }
