@@ -438,7 +438,7 @@ Transform:
   m_GameObject: {fileID: 300382845}
   serializedVersion: 2
   m_LocalRotation: {x: 0.28945008, y: -0.6565296, z: 0.30290982, w: 0.6272426}
-  m_LocalPosition: {x: 5.194, y: -8.406, z: 0.673}
+  m_LocalPosition: {x: 0.205, y: 0.371, z: 0.015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -587,7 +587,7 @@ PrefabInstance:
     - target: {fileID: 3230788542528231556, guid: 4db4073cdc6432f439e7f363faaeba5a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 8ee6038b0364d9f42bfd4e6e74360bac, type: 2}
+      objectReference: {fileID: 2100000, guid: 497f69db9e1b2df488dad3723d4951b9, type: 2}
     - target: {fileID: 3230788542528231556, guid: 4db4073cdc6432f439e7f363faaeba5a, type: 3}
       propertyPath: 'm_BlendShapeWeights.Array.data[0]'
       value: 100
@@ -635,6 +635,11 @@ PrefabInstance:
 --- !u!4 &420521552 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4db4073cdc6432f439e7f363faaeba5a, type: 3}
+  m_PrefabInstance: {fileID: 420521551}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &420521553 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3230788542528231556, guid: 4db4073cdc6432f439e7f363faaeba5a, type: 3}
   m_PrefabInstance: {fileID: 420521551}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &547655265
@@ -727,6 +732,7 @@ GameObject:
   - component: {fileID: 1860999340}
   - component: {fileID: 1860999342}
   - component: {fileID: 1860999341}
+  - component: {fileID: 1860999343}
   m_Layer: 0
   m_Name: DisplayDynamic
   m_TagString: Untagged
@@ -780,6 +786,76 @@ MonoBehaviour:
   sortingOrderBase: 10
   deviceNetHabilitado: 0
   iniciarNoMenu: 1
+  estadoLeds: 1
+--- !u!114 &1860999343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860999339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c675b168225ba47ac5b8b467d7780b, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Sense.Display::ControladorLedsM4
+  rendererLeds: {fileID: 420521553}
+  estadoInicial: 1
+  indicacaoVisual: 0
+  corVerde: {r: 0.05, g: 1, b: 0.12, a: 1}
+  corLaranja: {r: 1, g: 0.24, b: 0.015, a: 1}
+  corVermelha: {r: 1, g: 0.025, b: 0.01, a: 1}
+  intensidadeEmissao: 8
+  intervaloPiscar: 0.35
+--- !u!1 &1945091203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1945091205}
+  - component: {fileID: 1945091204}
+  m_Layer: 0
+  m_Name: M4 Bloom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1945091204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945091203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 10
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 22369266c8217b248b8189d31d00632d, type: 2}
+--- !u!4 &1945091205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945091203}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -788,3 +864,4 @@ SceneRoots:
   - {fileID: 420521551}
   - {fileID: 300382850}
   - {fileID: 547655268}
+  - {fileID: 1945091205}

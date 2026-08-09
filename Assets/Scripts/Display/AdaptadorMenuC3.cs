@@ -11,6 +11,7 @@ public class AdaptadorMenuC3 : MonoBehaviour
     [SerializeField] private int sortingOrderBase;
     [SerializeField] private bool deviceNetHabilitado;
     [SerializeField] private bool iniciarNoMenu = true;
+    [SerializeField] private EstadoLedsM4 estadoLeds = EstadoLedsM4.Aberto;
 
     #endregion
 
@@ -58,7 +59,11 @@ public class AdaptadorMenuC3 : MonoBehaviour
     private void Renderizar()
     {
         if (tela == null) return;
-        tela.Aplicar(new Etapa { textoDisplay = menu.TextoDisplayAtual });
+        tela.Aplicar(new Etapa
+        {
+            textoDisplay = menu.TextoDisplayAtual,
+            leds = estadoLeds.ToString()
+        });
     }
 
     #region MARK - Comandos públicos (B1/B2/B3)
@@ -96,6 +101,12 @@ public class AdaptadorMenuC3 : MonoBehaviour
     public void AtualizarValorRun<T>(T valor, Func<T, string> formatador)
     {
         menu.AtualizarValorRun(valor, formatador);
+        Renderizar();
+    }
+
+    public void AtualizarEstadoLeds(EstadoLedsM4 estado)
+    {
+        estadoLeds = estado;
         Renderizar();
     }
 

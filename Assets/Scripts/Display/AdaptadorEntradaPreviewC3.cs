@@ -21,5 +21,8 @@ public class AdaptadorEntradaPreviewC3 : MonoBehaviour
         if (teclado.leftArrowKey.wasPressedThisFrame) adaptador.AnteriorB1();
         if (teclado.enterKey.wasPressedThisFrame || teclado.numpadEnterKey.wasPressedThisFrame) adaptador.ConfirmarB2();
         if (teclado.escapeKey.wasPressedThisFrame) adaptador.CancelarSair();
+        if (teclado.digit1Key.wasPressedThisFrame) adaptador.AtualizarEstadoLeds(EstadoLedsM4.Aberto);
+        if (teclado.digit2Key.wasPressedThisFrame) adaptador.AtualizarEstadoLeds(EstadoLedsM4.Fechado);
+        if (teclado.digit3Key.wasPressedThisFrame) adaptador.AtualizarEstadoLeds(EstadoLedsM4.Alerta);
     }
 }

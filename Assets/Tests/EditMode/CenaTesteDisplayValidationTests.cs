@@ -3,11 +3,13 @@ using TMPro;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class CenaTesteDisplayValidationTests
 {
-    private const string CaminhoCena = "Assets/teste.unity";
+    private const string CaminhoCena = "Assets/Scenes/teste.unity";
     private const string GuidFbxOriginal = "4db4073cdc6432f439e7f363faaeba5a";
 
     private Scene cena;
@@ -119,6 +121,35 @@ public class CenaTesteDisplayValidationTests
 
         var so = new SerializedObject(entradaPreview);
         Assert.That(so.FindProperty("adaptador").objectReferenceValue, Is.EqualTo(adaptador));
+    }
+
+    [Test]
+    public void ControladorLeds_ReferenciaOMeshDeLedsDoModelo()
+    {
+        var modelo = EncontrarNaCena("M4SMARTTeste");
+        var ancora = modelo.transform.Find("DisplayDynamic");
+        var controlador = ancora.GetComponent<ControladorLedsM4>();
+
+        Assert.That(controlador, Is.Not.Null);
+        Assert.That(controlador.RendererLeds, Is.EqualTo(modelo.transform.Find("LEDS").GetComponent<Renderer>()));
+        Assert.That(controlador.EstadoAtual, Is.EqualTo(EstadoLedsM4.Aberto));
+    }
+
+    #endregion
+
+    #region MARK - Pós-processamento dos LEDs
+
+    [Test]
+    public void Cena_UsaPerfilGlobalComBloomAtivo()
+    {
+        var volume = EncontrarNaCena("M4 Bloom").GetComponent<Volume>();
+
+        Assert.That(volume.isGlobal, Is.True);
+        Assert.That(volume.sharedProfile, Is.Not.Null);
+        Assert.That(volume.sharedProfile.TryGet(out Bloom bloom), Is.True);
+        Assert.That(bloom.active, Is.True);
+        Assert.That(bloom.intensity.overrideState, Is.True);
+        Assert.That(bloom.intensity.value, Is.GreaterThan(0f));
     }
 
     #endregion

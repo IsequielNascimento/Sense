@@ -11,6 +11,7 @@ public class TelaM4 : MonoBehaviour
     private float barraLargura;
 
     private SpriteRenderer led;
+    private ControladorLedsM4 controladorLeds;
 
     private GameObject alertaContainer;
     private TextMeshPro alertaTexto;
@@ -38,6 +39,7 @@ public class TelaM4 : MonoBehaviour
     private static readonly Color CorAlertaFundo = new Color(0.72f, 0.11f, 0.11f, 0.92f);
     private static readonly Color CorAnguloFundo = new Color(1f, 1f, 1f, 0.95f);
     private static readonly Color CorLedVerde = new Color(0.2f, 0.9f, 0.25f);
+    private static readonly Color CorLedLaranja = new Color(1f, 0.38f, 0.04f);
     private static readonly Color CorLedVermelho = new Color(0.95f, 0.15f, 0.12f);
 
     public static TelaM4 CriarEm(SpriteRenderer display)
@@ -167,6 +169,12 @@ public class TelaM4 : MonoBehaviour
         if (rotinaPiscar != null) { StopCoroutine(rotinaPiscar); rotinaPiscar = null; }
         led.enabled = true;
 
+        if (controladorLeds != null && controladorLeds.Aplicar(estado))
+        {
+            led.gameObject.SetActive(false);
+            return;
+        }
+
         if (string.IsNullOrEmpty(estado) || estado.ToLower() == "nenhum")
         {
             led.gameObject.SetActive(false);
@@ -176,12 +184,18 @@ public class TelaM4 : MonoBehaviour
         string e = estado.ToLower();
         led.gameObject.SetActive(true);
 
-        if (!e.StartsWith("verde") && !e.StartsWith("vermelho"))
+        if (e.StartsWith("abert")) e = "verde";
+        else if (e.StartsWith("fechad")) e = "laranja";
+        else if (e.StartsWith("alert")) e = "vermelho_piscando";
+
+        if (!e.StartsWith("verde") && !e.StartsWith("laranja") && !e.StartsWith("vermelho"))
         {
             Debug.LogWarning($"[TelaM4] Estado de LED '{estado}' não reconhecido; usando verde.");
         }
 
-        led.color = e.StartsWith("vermelho") ? CorLedVermelho : CorLedVerde;
+        if (e.StartsWith("vermelho")) led.color = CorLedVermelho;
+        else if (e.StartsWith("laranja")) led.color = CorLedLaranja;
+        else led.color = CorLedVerde;
 
         if (e.EndsWith("piscando") && gameObject.activeInHierarchy)
         {
@@ -208,6 +222,7 @@ public class TelaM4 : MonoBehaviour
     private void Construir(Vector2 dimensoes, int layerId, int ordemBase)
     {
         var layout = new TelaM4Layout(dimensoes);
+        controladorLeds = GetComponentInParent<ControladorLedsM4>();
 
         textoPrincipal = CriarTexto("TextoPrincipal",
             layout.TextoPrincipalPosicao, layout.TextoPrincipalTamanho,
