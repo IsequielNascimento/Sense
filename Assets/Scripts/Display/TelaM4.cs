@@ -21,18 +21,22 @@ public class TelaM4 : MonoBehaviour
     private Coroutine rotinaProgresso;
     private Coroutine rotinaPiscar;
 
-    private float largura = 0.1f;
-    private float altura = 0.06f;
-
     private static Sprite spriteBranco;
     private static Sprite spriteCirculo;
 
+    private static TMP_FontAsset fonteLcdAsset;
+    private static Material materialLcd;
+    private static bool fonteLcdCarregada;
+
+    private const string CaminhoFonteLcd = "M4Display/DSEG14Classic SDF";
+    private const string CaminhoMaterialLcd = "M4Display/DSEG14Classic M4 LCD";
+
     private static readonly Color CorTexto = Color.white;
+    private static readonly Color CorTextoLcd = new Color32(8, 8, 8, 255);
     private static readonly Color CorBarraFundo = new Color(0f, 0f, 0f, 0.55f);
     private static readonly Color CorBarraPreenchimento = new Color(1f, 0.54f, 0f);
     private static readonly Color CorAlertaFundo = new Color(0.72f, 0.11f, 0.11f, 0.92f);
     private static readonly Color CorAnguloFundo = new Color(1f, 1f, 1f, 0.95f);
-    private static readonly Color CorAnguloTexto = new Color(0.13f, 0.13f, 0.13f);
     private static readonly Color CorLedVerde = new Color(0.2f, 0.9f, 0.25f);
     private static readonly Color CorLedVermelho = new Color(0.95f, 0.15f, 0.12f);
 
@@ -44,14 +48,29 @@ public class TelaM4 : MonoBehaviour
             return null;
         }
 
+        Vector2 dimensoes = display.sprite != null
+            ? (Vector2)display.sprite.bounds.size
+            : new Vector2(0.1f, 0.06f);
+
+        return CriarEm(display.transform, dimensoes, display.sortingLayerID, display.sortingOrder);
+    }
+
+    public static TelaM4 CriarEm(Transform ancora, Vector2 dimensoes, int sortingLayerID, int sortingOrderBase)
+    {
+        if (ancora == null)
+        {
+            Debug.LogError("[TelaM4] 'ancora' não pode ser nula.");
+            return null;
+        }
+
         var go = new GameObject("TelaM4 (dinâmica)");
-        go.transform.SetParent(display.transform, false);
+        go.transform.SetParent(ancora, false);
         go.transform.localPosition = Vector3.zero;
         go.transform.localRotation = Quaternion.identity;
         go.transform.localScale = Vector3.one;
 
         var tela = go.AddComponent<TelaM4>();
-        tela.Construir(display);
+        tela.Construir(dimensoes, sortingLayerID, sortingOrderBase);
         return tela;
     }
 
@@ -186,58 +205,48 @@ public class TelaM4 : MonoBehaviour
         if (tem) alertaTexto.text = mensagem;
     }
 
-    private void Construir(SpriteRenderer display)
+    private void Construir(Vector2 dimensoes, int layerId, int ordemBase)
     {
-        if (display.sprite != null)
-        {
-            largura = display.sprite.bounds.size.x;
-            altura = display.sprite.bounds.size.y;
-        }
-
-        int ordemBase = display.sortingOrder;
-        int layerId = display.sortingLayerID;
+        var layout = new TelaM4Layout(dimensoes);
 
         textoPrincipal = CriarTexto("TextoPrincipal",
-            new Vector3(0f, altura * 0.12f, 0f),
-            new Vector2(largura * 0.9f, altura * 0.5f),
-            CorTexto, layerId, ordemBase + 3);
+            layout.TextoPrincipalPosicao, layout.TextoPrincipalTamanho,
+            CorTextoLcd, layerId, ordemBase + 3, fonteLcd: true);
 
-        barraLargura = largura * 0.8f;
-        float barraAlturaLocal = altura * 0.1f;
+        barraLargura = layout.BarraLargura;
         barraContainer = new GameObject("BarraProgresso");
         barraContainer.transform.SetParent(transform, false);
-        barraContainer.transform.localPosition = new Vector3(0f, -altura * 0.32f, 0f);
+        barraContainer.transform.localPosition = layout.BarraContainerPosicao;
 
         CriarRetangulo("Fundo", barraContainer.transform, Vector3.zero,
-            new Vector2(barraLargura, barraAlturaLocal), CorBarraFundo, layerId, ordemBase + 1);
+            new Vector2(layout.BarraLargura, layout.BarraAltura), CorBarraFundo, layerId, ordemBase + 1);
         barraPreenchimento = CriarRetangulo("Preenchimento", barraContainer.transform, Vector3.zero,
-            new Vector2(barraLargura, barraAlturaLocal * 0.7f), CorBarraPreenchimento, layerId, ordemBase + 2);
+            new Vector2(layout.BarraLargura, layout.BarraAltura * 0.7f), CorBarraPreenchimento, layerId, ordemBase + 2);
 
-        led = CriarLed(new Vector3(largura * 0.42f, altura * 0.38f, 0f),
-            altura * 0.12f, layerId, ordemBase + 6);
+        led = CriarLed(layout.LedPosicao, layout.LedDiametro, layerId, ordemBase + 6);
 
         alertaContainer = new GameObject("Alerta");
         alertaContainer.transform.SetParent(transform, false);
         CriarRetangulo("Fundo", alertaContainer.transform, Vector3.zero,
-            new Vector2(largura * 0.94f, altura * 0.42f), CorAlertaFundo, layerId, ordemBase + 4);
+            layout.AlertaFundoTamanho, CorAlertaFundo, layerId, ordemBase + 4);
         alertaTexto = CriarTexto("Texto",
-            Vector3.zero, new Vector2(largura * 0.88f, altura * 0.38f),
-            CorTexto, layerId, ordemBase + 5, alertaContainer.transform);
+            Vector3.zero, layout.AlertaTextoTamanho,
+            CorTexto, layerId, ordemBase + 5, fonteLcd: false, pai: alertaContainer.transform);
 
         anguloContainer = new GameObject("CaixaAngulo");
         anguloContainer.transform.SetParent(transform, false);
-        anguloContainer.transform.localPosition = new Vector3(0f, -altura * 0.75f, 0f);
+        anguloContainer.transform.localPosition = layout.AnguloContainerPosicao;
         CriarRetangulo("Fundo", anguloContainer.transform, Vector3.zero,
-            new Vector2(largura * 0.96f, altura * 0.32f), CorAnguloFundo, layerId, ordemBase + 4);
+            layout.AnguloFundoTamanho, CorAnguloFundo, layerId, ordemBase + 4);
         anguloTexto = CriarTexto("Texto",
-            Vector3.zero, new Vector2(largura * 0.9f, altura * 0.28f),
-            CorAnguloTexto, layerId, ordemBase + 5, anguloContainer.transform);
+            Vector3.zero, layout.AnguloTextoTamanho,
+            CorTextoLcd, layerId, ordemBase + 5, fonteLcd: true, pai: anguloContainer.transform);
 
         LimparTudo();
     }
 
     private TextMeshPro CriarTexto(string nome, Vector3 posicaoLocal, Vector2 tamanho,
-        Color cor, int layerId, int ordem, Transform pai = null)
+        Color cor, int layerId, int ordem, bool fonteLcd, Transform pai = null)
     {
         var go = new GameObject(nome);
         go.transform.SetParent(pai != null ? pai : transform, false);
@@ -250,7 +259,16 @@ public class TelaM4 : MonoBehaviour
         tmp.enableAutoSizing = true;
         tmp.fontSizeMin = 0.01f;
         tmp.fontSizeMax = 8f;
-        tmp.textWrappingMode = TextWrappingModes.Normal;
+        tmp.textWrappingMode = fonteLcd ? TextWrappingModes.NoWrap : TextWrappingModes.Normal;
+        tmp.overflowMode = TextOverflowModes.Truncate;
+        tmp.maxVisibleLines = 2;
+
+        if (fonteLcd)
+        {
+            CarregarFonteLcd();
+            if (fonteLcdAsset != null) tmp.font = fonteLcdAsset;
+            if (materialLcd != null) tmp.fontSharedMaterial = materialLcd;
+        }
 
         var renderer = go.GetComponent<MeshRenderer>();
         renderer.sortingLayerID = layerId;
@@ -286,6 +304,24 @@ public class TelaM4 : MonoBehaviour
         sr.sortingLayerID = layerId;
         sr.sortingOrder = ordem;
         return sr;
+    }
+
+    private static void CarregarFonteLcd()
+    {
+        if (fonteLcdCarregada) return;
+        fonteLcdCarregada = true;
+
+        fonteLcdAsset = Resources.Load<TMP_FontAsset>(CaminhoFonteLcd);
+        if (fonteLcdAsset == null)
+        {
+            Debug.LogError($"[TelaM4] Fonte LCD não encontrada em 'Resources/{CaminhoFonteLcd}'.");
+        }
+
+        materialLcd = Resources.Load<Material>(CaminhoMaterialLcd);
+        if (materialLcd == null)
+        {
+            Debug.LogError($"[TelaM4] Material LCD não encontrado em 'Resources/{CaminhoMaterialLcd}'.");
+        }
     }
 
     private static Sprite ObterSpriteBranco()
@@ -329,7 +365,6 @@ public class TelaM4 : MonoBehaviour
 
     private static string ObterIdioma()
     {
-        if (IdiomaManager.Instance != null) return IdiomaManager.Instance.ObterIdioma();
         return PlayerPrefs.GetString("idioma", "pt");
     }
 
