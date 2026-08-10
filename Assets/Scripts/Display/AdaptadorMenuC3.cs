@@ -13,6 +13,12 @@ public class AdaptadorMenuC3 : MonoBehaviour
     [SerializeField] private bool iniciarNoMenu = true;
     [SerializeField] private EstadoLedsM4 estadoLeds = EstadoLedsM4.Aberto;
 
+    [Header("Preview estático")]
+    [SerializeField] private bool usarEstadoPreview;
+    [SerializeField, TextArea(2, 2)] private string textoPreview = "50.0%\nAUTO";
+    [SerializeField] private string ledsPreview = "vermelho";
+    [SerializeField, Range(0f, 1f)] private float progressoPreview = 0.5f;
+
     #endregion
 
     #region MARK - Estado
@@ -59,6 +65,13 @@ public class AdaptadorMenuC3 : MonoBehaviour
     private void Renderizar()
     {
         if (tela == null) return;
+
+        if (usarEstadoPreview)
+        {
+            tela.AplicarPreview(textoPreview, ledsPreview, progressoPreview);
+            return;
+        }
+
         tela.Aplicar(new Etapa
         {
             textoDisplay = menu.TextoDisplayAtual,
@@ -70,42 +83,49 @@ public class AdaptadorMenuC3 : MonoBehaviour
 
     public void EntrarMenu()
     {
+        usarEstadoPreview = false;
         menu.Entrar();
         Renderizar();
     }
 
     public void ProximoB3()
     {
+        usarEstadoPreview = false;
         menu.ProximoB3();
         Renderizar();
     }
 
     public void AnteriorB1()
     {
+        usarEstadoPreview = false;
         menu.AnteriorB1();
         Renderizar();
     }
 
     public void ConfirmarB2()
     {
+        usarEstadoPreview = false;
         menu.ConfirmarB2();
         Renderizar();
     }
 
     public void CancelarSair()
     {
+        usarEstadoPreview = false;
         menu.CancelarSair();
         Renderizar();
     }
 
     public void AtualizarValorRun<T>(T valor, Func<T, string> formatador)
     {
+        usarEstadoPreview = false;
         menu.AtualizarValorRun(valor, formatador);
         Renderizar();
     }
 
     public void AtualizarEstadoLeds(EstadoLedsM4 estado)
     {
+        usarEstadoPreview = false;
         estadoLeds = estado;
         Renderizar();
     }

@@ -119,6 +119,28 @@ public class TelaM4 : MonoBehaviour
         if (temAngulo) anguloTexto.text = etapa.textoAngulo;
     }
 
+    /// <summary>
+    /// Exibe um estado estático do display para inspeção e captura no Unity.
+    /// Diferente de <see cref="Aplicar"/>, a barra não anima e permanece na
+    /// fração informada.
+    /// </summary>
+    public void AplicarPreview(string textoDisplay, string estadoLeds, float progresso)
+    {
+        PararRotinas();
+
+        bool temTexto = !string.IsNullOrEmpty(textoDisplay);
+        textoPrincipal.gameObject.SetActive(temTexto);
+        if (temTexto) textoPrincipal.text = textoDisplay;
+
+        AplicarLed(estadoLeds);
+        MostrarAlerta(null);
+
+        barraContainer.SetActive(true);
+        DefinirProgresso(progresso);
+
+        anguloContainer.SetActive(false);
+    }
+
     private void LimparTudo()
     {
         textoPrincipal.gameObject.SetActive(false);

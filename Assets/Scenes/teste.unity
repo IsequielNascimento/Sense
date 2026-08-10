@@ -787,6 +787,12 @@ MonoBehaviour:
   deviceNetHabilitado: 0
   iniciarNoMenu: 1
   estadoLeds: 1
+  usarEstadoPreview: 1
+  textoPreview: '50.0%
+
+    AUTO'
+  ledsPreview: vermelho
+  progressoPreview: 0.5
 --- !u!114 &1860999343
 MonoBehaviour:
   m_ObjectHideFlags: 0

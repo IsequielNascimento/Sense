@@ -110,6 +110,21 @@ public class CenaTesteDisplayValidationTests
     }
 
     [Test]
+    public void AdaptadorMenuC3_ComecaNoPreviewDeCalibracaoEmCinquentaPorCento()
+    {
+        var modelo = EncontrarNaCena("M4SMARTTeste");
+        var ancora = modelo.transform.Find("DisplayDynamic");
+        var adaptador = ancora.GetComponent<AdaptadorMenuC3>();
+
+        var so = new SerializedObject(adaptador);
+
+        Assert.That(so.FindProperty("usarEstadoPreview").boolValue, Is.True);
+        Assert.That(so.FindProperty("textoPreview").stringValue, Is.EqualTo("50.0%\nAUTO"));
+        Assert.That(so.FindProperty("ledsPreview").stringValue, Is.EqualTo("vermelho"));
+        Assert.That(so.FindProperty("progressoPreview").floatValue, Is.EqualTo(0.5f));
+    }
+
+    [Test]
     public void AdaptadorEntradaPreviewC3_EstaPresenteEReferenciaOAdaptador()
     {
         var modelo = EncontrarNaCena("M4SMARTTeste");
