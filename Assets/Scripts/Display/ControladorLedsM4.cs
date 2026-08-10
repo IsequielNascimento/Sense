@@ -28,6 +28,8 @@ public class ControladorLedsM4 : MonoBehaviour
     private EstadoLedsM4 estadoAtual;
     private CorLedsM4? corDiretaAtual;
     private bool emitir = true;
+    private bool possuiEstadoAplicado;
+    private bool piscarEstadoAtual;
 
     #endregion
 
@@ -38,7 +40,13 @@ public class ControladorLedsM4 : MonoBehaviour
     private void OnEnable()
     {
         ResolverRenderer();
-        Aplicar(estadoInicial);
+        if (!possuiEstadoAplicado)
+        {
+            Aplicar(estadoInicial);
+            return;
+        }
+
+        ReaplicarEstadoAtual();
     }
 
     private void OnDisable()
@@ -54,13 +62,15 @@ public class ControladorLedsM4 : MonoBehaviour
 
     public void Aplicar(EstadoLedsM4 estado)
     {
+        possuiEstadoAplicado = true;
         estadoAtual = estado;
         corDiretaAtual = null;
+        piscarEstadoAtual = estado == EstadoLedsM4.Alerta;
         PararPiscar();
         emitir = true;
         AtualizarMaterial();
 
-        if (estado == EstadoLedsM4.Alerta && Application.isPlaying && isActiveAndEnabled)
+        if (piscarEstadoAtual && Application.isPlaying && isActiveAndEnabled)
         {
             rotinaPiscar = StartCoroutine(Piscar());
         }
@@ -126,7 +136,9 @@ public class ControladorLedsM4 : MonoBehaviour
 
     private void AplicarCorDireta(CorLedsM4 cor, bool piscar)
     {
+        possuiEstadoAplicado = true;
         corDiretaAtual = cor;
+        piscarEstadoAtual = piscar;
         PararPiscar();
         emitir = true;
         AtualizarMaterial(cor);
@@ -134,6 +146,18 @@ public class ControladorLedsM4 : MonoBehaviour
         if (piscar && Application.isPlaying && isActiveAndEnabled)
         {
             rotinaPiscar = StartCoroutine(Piscar(cor));
+        }
+    }
+
+    private void ReaplicarEstadoAtual()
+    {
+        PararPiscar();
+        emitir = true;
+        AtualizarMaterial(corDiretaAtual);
+
+        if (piscarEstadoAtual && Application.isPlaying && isActiveAndEnabled)
+        {
+            rotinaPiscar = StartCoroutine(Piscar(corDiretaAtual));
         }
     }
 

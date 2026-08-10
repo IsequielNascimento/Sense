@@ -85,6 +85,18 @@ public class ControladorLedsM4Tests
     }
 
     [Test]
+    public void OnEnable_NaoSobrescreveVermelhoAplicadoAntesDaAtivacao()
+    {
+        raiz.SetActive(false);
+
+        controlador.Aplicar("vermelho");
+        raiz.SetActive(true);
+
+        var emissao = ObterEmissao();
+        Assert.That(emissao.r, Is.GreaterThan(emissao.g * 5f));
+    }
+
+    [Test]
     public void Desligado_RemoveEmissao()
     {
         controlador.Aplicar(EstadoLedsM4.Desligado);
