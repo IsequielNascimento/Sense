@@ -58,7 +58,14 @@ public class PlaceOnPlane_Adaptado : ExibidorDeModeloBase
 
             if (spawnedObject == null)
             {
-                spawnedObject = Instantiate(placedPrefab, posicaoFinal, lastHitPose.rotation);
+                GameObject prefab = ResolverPrefabDoModelo();
+                if (prefab == null)
+                {
+                    Debug.LogError("[PlaceOnPlane] Nenhum prefab configurado para o cenário selecionado.");
+                    return;
+                }
+
+                spawnedObject = Instantiate(prefab, posicaoFinal, lastHitPose.rotation);
                 spawnedObject.SetActive(true);
 
                 ConfigurarModeloInstanciado();

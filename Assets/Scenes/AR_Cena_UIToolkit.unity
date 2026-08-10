@@ -706,6 +706,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlaceOnPlane_Adaptado
   placedPrefab: {fileID: 8046119262532659208}
+  modelosPorCenario:
+  - cenario: A1
+    prefab: {fileID: 2890924970170058457, guid: 29b8f118c472d3f4e9c0607eb7bcf12e, type: 3}
   uiController: {fileID: 1609545332}
   arCamera: {fileID: 500483670}
   alturaMontagem: 1
