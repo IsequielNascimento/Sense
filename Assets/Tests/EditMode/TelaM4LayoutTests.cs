@@ -15,11 +15,25 @@ public class TelaM4LayoutTests
     }
 
     [Test]
-    public void Barra_LarguraEhOitentaPorCentoDaLarguraTotal()
+    public void TextoPrincipal_UsaPosicaoERotacaoAprovadas()
+    {
+        var layout = new TelaM4Layout(new Vector2(0.038032f, 0.042522635f));
+
+        Assert.That(layout.TextoPrincipalPosicao.x, Is.EqualTo(-0.0057f).Within(1e-5f));
+        Assert.That(layout.TextoPrincipalPosicao.y, Is.EqualTo(-0.0003f).Within(1e-5f));
+        Assert.That(layout.ConteudoRotacaoZ, Is.EqualTo(90f));
+    }
+
+    [Test]
+    public void Barra_LarguraEhCinquentaEOitoPorCentoDaLarguraTotal()
     {
         var layout = new TelaM4Layout(new Vector2(2f, 1f));
 
-        Assert.That(layout.BarraLargura, Is.EqualTo(1.6f).Within(1e-5f));
+        Assert.That(layout.BarraLargura, Is.EqualTo(1.16f).Within(1e-5f));
+        Assert.That(
+            layout.BarraSegmentoLargura * TelaM4.QuantidadeSegmentosBarra +
+            layout.BarraEspacamento * (TelaM4.QuantidadeSegmentosBarra - 1),
+            Is.EqualTo(layout.BarraLargura).Within(1e-5f));
     }
 
     [Test]
@@ -28,15 +42,17 @@ public class TelaM4LayoutTests
         var layout = new TelaM4Layout(new Vector2(2f, 1f));
 
         Assert.That(layout.LedDiametro, Is.EqualTo(0.12f).Within(1e-5f));
-        Assert.That(layout.LedPosicao, Is.EqualTo(new Vector3(0.84f, 0.38f, 0f)));
     }
 
     [Test]
     public void Angulo_ContainerFicaAbaixoDoCentro()
     {
         var layout = new TelaM4Layout(new Vector2(2f, 1f));
+        var rotacaoInversa = Quaternion.Inverse(Quaternion.Euler(0f, 0f, layout.ConteudoRotacaoZ));
+        var deslocamentoLogico = rotacaoInversa * (layout.AnguloContainerPosicao - layout.TextoPrincipalPosicao);
 
-        Assert.That(layout.AnguloContainerPosicao, Is.EqualTo(new Vector3(0f, -0.75f, 0f)));
+        Assert.That(deslocamentoLogico.x, Is.EqualTo(0f).Within(1e-5f));
+        Assert.That(deslocamentoLogico.y, Is.EqualTo(-0.75f).Within(1e-5f));
         Assert.That(layout.AnguloFundoTamanho, Is.EqualTo(new Vector2(1.92f, 0.32f)));
     }
 

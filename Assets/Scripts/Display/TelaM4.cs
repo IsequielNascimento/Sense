@@ -7,8 +7,7 @@ public class TelaM4 : MonoBehaviour
     private TextMeshPro textoPrincipal;
 
     private GameObject barraContainer;
-    private SpriteRenderer barraPreenchimento;
-    private float barraLargura;
+    private SpriteRenderer[] segmentosBarra;
 
     private SpriteRenderer led;
     private ControladorLedsM4 controladorLeds;
@@ -34,13 +33,14 @@ public class TelaM4 : MonoBehaviour
 
     private static readonly Color CorTexto = Color.white;
     private static readonly Color CorTextoLcd = new Color32(8, 8, 8, 255);
-    private static readonly Color CorBarraFundo = new Color(0f, 0f, 0f, 0.55f);
-    private static readonly Color CorBarraPreenchimento = new Color(1f, 0.54f, 0f);
+    private static readonly Color CorBarra = new Color32(18, 18, 18, 255);
     private static readonly Color CorAlertaFundo = new Color(0.72f, 0.11f, 0.11f, 0.92f);
     private static readonly Color CorAnguloFundo = new Color(1f, 1f, 1f, 0.95f);
     private static readonly Color CorLedVerde = new Color(0.2f, 0.9f, 0.25f);
     private static readonly Color CorLedLaranja = new Color(1f, 0.38f, 0.04f);
     private static readonly Color CorLedVermelho = new Color(0.95f, 0.15f, 0.12f);
+
+    public const int QuantidadeSegmentosBarra = 10;
 
     public static TelaM4 CriarEm(SpriteRenderer display)
     {
@@ -156,12 +156,18 @@ public class TelaM4 : MonoBehaviour
         }
     }
 
-    private void DefinirProgresso(float fracao)
+    public void DefinirProgresso(float fracao)
     {
-        fracao = Mathf.Clamp01(fracao);
-        var t = barraPreenchimento.transform;
-        t.localScale = new Vector3(barraLargura * fracao, t.localScale.y, 1f);
-        t.localPosition = new Vector3(-barraLargura * 0.5f + barraLargura * fracao * 0.5f, 0f, 0f);
+        int ativos = CalcularSegmentosAtivos(fracao);
+        for (int i = 0; i < segmentosBarra.Length; i++)
+        {
+            segmentosBarra[i].enabled = i < ativos;
+        }
+    }
+
+    public static int CalcularSegmentosAtivos(float fracao)
+    {
+        return Mathf.CeilToInt(Mathf.Clamp01(fracao) * QuantidadeSegmentosBarra);
     }
 
     private void AplicarLed(string estado)
@@ -227,21 +233,21 @@ public class TelaM4 : MonoBehaviour
         textoPrincipal = CriarTexto("TextoPrincipal",
             layout.TextoPrincipalPosicao, layout.TextoPrincipalTamanho,
             CorTextoLcd, layerId, ordemBase + 3, fonteLcd: true);
+        textoPrincipal.transform.localRotation = Quaternion.Euler(0f, 0f, layout.ConteudoRotacaoZ);
 
-        barraLargura = layout.BarraLargura;
         barraContainer = new GameObject("BarraProgresso");
         barraContainer.transform.SetParent(transform, false);
         barraContainer.transform.localPosition = layout.BarraContainerPosicao;
-
-        CriarRetangulo("Fundo", barraContainer.transform, Vector3.zero,
-            new Vector2(layout.BarraLargura, layout.BarraAltura), CorBarraFundo, layerId, ordemBase + 1);
-        barraPreenchimento = CriarRetangulo("Preenchimento", barraContainer.transform, Vector3.zero,
-            new Vector2(layout.BarraLargura, layout.BarraAltura * 0.7f), CorBarraPreenchimento, layerId, ordemBase + 2);
+        barraContainer.transform.localRotation = Quaternion.Euler(0f, 0f, layout.ConteudoRotacaoZ);
+        ConstruirBarraSegmentada(layout, layerId, ordemBase + 2);
+        DefinirProgresso(0f);
 
         led = CriarLed(layout.LedPosicao, layout.LedDiametro, layerId, ordemBase + 6);
 
         alertaContainer = new GameObject("Alerta");
         alertaContainer.transform.SetParent(transform, false);
+        alertaContainer.transform.localPosition = layout.AlertaContainerPosicao;
+        alertaContainer.transform.localRotation = Quaternion.Euler(0f, 0f, layout.ConteudoRotacaoZ);
         CriarRetangulo("Fundo", alertaContainer.transform, Vector3.zero,
             layout.AlertaFundoTamanho, CorAlertaFundo, layerId, ordemBase + 4);
         alertaTexto = CriarTexto("Texto",
@@ -251,6 +257,7 @@ public class TelaM4 : MonoBehaviour
         anguloContainer = new GameObject("CaixaAngulo");
         anguloContainer.transform.SetParent(transform, false);
         anguloContainer.transform.localPosition = layout.AnguloContainerPosicao;
+        anguloContainer.transform.localRotation = Quaternion.Euler(0f, 0f, layout.ConteudoRotacaoZ);
         CriarRetangulo("Fundo", anguloContainer.transform, Vector3.zero,
             layout.AnguloFundoTamanho, CorAnguloFundo, layerId, ordemBase + 4);
         anguloTexto = CriarTexto("Texto",
@@ -258,6 +265,25 @@ public class TelaM4 : MonoBehaviour
             CorTextoLcd, layerId, ordemBase + 5, fonteLcd: true, pai: anguloContainer.transform);
 
         LimparTudo();
+    }
+
+    private void ConstruirBarraSegmentada(TelaM4Layout layout, int layerId, int ordem)
+    {
+        segmentosBarra = new SpriteRenderer[QuantidadeSegmentosBarra];
+        float passo = layout.BarraSegmentoLargura + layout.BarraEspacamento;
+        float inicio = -layout.BarraLargura * 0.5f + layout.BarraSegmentoLargura * 0.5f;
+
+        for (int i = 0; i < QuantidadeSegmentosBarra; i++)
+        {
+            segmentosBarra[i] = CriarRetangulo(
+                $"Segmento {i + 1:00}",
+                barraContainer.transform,
+                new Vector3(inicio + passo * i, 0f, 0f),
+                new Vector2(layout.BarraSegmentoLargura, layout.BarraAltura),
+                CorBarra,
+                layerId,
+                ordem);
+        }
     }
 
     private TextMeshPro CriarTexto(string nome, Vector3 posicaoLocal, Vector2 tamanho,
