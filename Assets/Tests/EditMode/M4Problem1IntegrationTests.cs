@@ -1,9 +1,12 @@
+using System;
 using System.Linq;
+using System.Reflection;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class M4Problem1IntegrationTests
 {
@@ -11,6 +14,7 @@ public class M4Problem1IntegrationTests
 
     private const string ModelPath = "Assets/Prefab/Teste/M4SMARTTeste.fbx";
     private const string PrefabPath = "Assets/Resources/M4Problem1/M4SMARTTesteProblema1.prefab";
+    private const string DefaultPrefabPath = "Assets/Prefab/M4 Prefabs/Animação APK.prefab";
     private const string ScenePath = "Assets/Scenes/AR_Cena_UIToolkit.unity";
 
     [Test]
@@ -69,11 +73,36 @@ public class M4Problem1IntegrationTests
         SerializedProperty modelos = serializado.FindProperty("modelosPorCenario");
 
         Assert.That(scene.IsValid(), Is.True);
+        Assert.That(AssetDatabase.GetAssetPath(serializado.FindProperty("placedPrefab").objectReferenceValue),
+            Is.EqualTo(DefaultPrefabPath));
+        Assert.That(scene.GetRootGameObjects().Any(root => root.name == "Animação APK"), Is.False);
         Assert.That(modelos.arraySize, Is.EqualTo(1));
         Assert.That(modelos.GetArrayElementAtIndex(0).FindPropertyRelative("cenario").stringValue,
             Is.EqualTo("A1"));
         Assert.That(AssetDatabase.GetAssetPath(modelos.GetArrayElementAtIndex(0)
             .FindPropertyRelative("prefab").objectReferenceValue), Is.EqualTo(PrefabPath));
+    }
+
+    [Test]
+    public void SelecaoA1ResolvePrefabNovoEmRuntime()
+    {
+        EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        MonoBehaviour exibidor = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
+            .First(component => component.GetType().Name == "PlaceOnPlane_Adaptado");
+        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Assembly-CSharp");
+        var objetoSelecao = new GameObject("Selecao A1 Teste");
+        Component selecao = objetoSelecao.AddComponent(tipoSelecao);
+        PropertyInfo instancia = tipoSelecao.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
+        instancia.SetValue(null, selecao);
+
+        tipoSelecao.GetMethod("Selecionar").Invoke(selecao, new object[] { "A1", "A1" });
+        var prefabResolvido = exibidor.GetType().BaseType
+            .GetProperty("PrefabDoModelo")
+            .GetValue(exibidor) as GameObject;
+
+        Assert.That(AssetDatabase.GetAssetPath(prefabResolvido), Is.EqualTo(PrefabPath));
+        instancia.SetValue(null, null);
+        Object.DestroyImmediate(objetoSelecao);
     }
 
     #endregion

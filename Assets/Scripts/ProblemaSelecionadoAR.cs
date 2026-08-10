@@ -44,6 +44,11 @@ public class ProblemaSelecionadoAR : MonoBehaviour
         }
     }
 
+    void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+    }
+
     public void Selecionar(string chaveDoRecurso, string identificadorDoCenario)
     {
         idProblema = chaveDoRecurso;
