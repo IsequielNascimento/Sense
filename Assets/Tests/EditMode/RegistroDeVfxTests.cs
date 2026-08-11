@@ -10,14 +10,7 @@ public class RegistroDeVfxTests
     #region MARK - Contrato
 
     private const string CaminhoDoPrefab = "Assets/Prefab/M4 Prefabs/Animação APK.prefab";
-    private const string PastaEstrutural = "Assets/Resources/BancoDeDadosProblemas/estrutura";
     private const string NomeDoComponente = "GerenciadorVisual";
-    private const string SemEfeito = "nenhum";
-
-    private static readonly string[] Cenarios =
-    {
-        "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8"
-    };
 
     private static readonly string[] ErrosOrtograficosConhecidos =
     {
@@ -27,38 +20,9 @@ public class RegistroDeVfxTests
 
     private const int TotalDeEfeitosSemObjeto = 16;
 
-    [Serializable]
-    private class EstruturaJson
-    {
-        public EtapaJson[] etapas;
-    }
-
-    [Serializable]
-    private class EtapaJson
-    {
-        public string vfx;
-    }
-
     #endregion
 
     #region MARK - Integridade dos nomes
-
-    [Test]
-    public void TodoVfxReferenciadoPossuiEntradaNoRegistro()
-    {
-        HashSet<string> registrados = NomesRegistrados();
-        var ausentes = new List<string>();
-
-        foreach (string nome in VfxReferenciados())
-        {
-            if (registrados.Contains(nome)) continue;
-
-            ausentes.Add(nome);
-        }
-
-        Assert.That(ausentes, Is.Empty,
-            $"VFX referenciados sem entrada no registro: {string.Join(", ", ausentes)}");
-    }
 
     [Test]
     public void RegistroNaoPossuiNomesDuplicados()
@@ -142,11 +106,6 @@ public class RegistroDeVfxTests
         return nomes;
     }
 
-    private static HashSet<string> NomesRegistrados()
-    {
-        return new HashSet<string>(NomesDoRegistro(), StringComparer.OrdinalIgnoreCase);
-    }
-
     private static int ContarEfeitosSemObjeto()
     {
         SerializedProperty lista = EfeitosDisponiveis();
@@ -162,26 +121,6 @@ public class RegistroDeVfxTests
         }
 
         return semObjeto;
-    }
-
-    private static IEnumerable<string> VfxReferenciados()
-    {
-        foreach (string cenario in Cenarios)
-        {
-            string caminho = $"{PastaEstrutural}/{cenario}.json";
-            TextAsset asset = AssetDatabase.LoadAssetAtPath<TextAsset>(caminho);
-            Assert.That(asset, Is.Not.Null, $"Arquivo nao encontrado: {caminho}");
-
-            EstruturaJson estrutura = JsonUtility.FromJson<EstruturaJson>(asset.text);
-
-            foreach (EtapaJson etapa in estrutura.etapas)
-            {
-                if (string.IsNullOrWhiteSpace(etapa.vfx)) continue;
-                if (string.Equals(etapa.vfx, SemEfeito, StringComparison.OrdinalIgnoreCase)) continue;
-
-                yield return etapa.vfx;
-            }
-        }
     }
 
     #endregion

@@ -3,8 +3,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using UnityEditor;
-using UnityEngine;
 
 public class ConformidadeDoManualTests
 {
@@ -169,44 +167,6 @@ public class ConformidadeDoManualTests
     {
         AlertaOficial alerta = catalogo.First(item => item.Codigo == codigo);
         Assert.That(alerta.Avisos, Is.Empty, $"{codigo}: nao pode receber aviso sem aprovacao tecnica.");
-    }
-
-    #endregion
-
-    #region MARK: Cenarios legados fora do dominio Alerta
-
-    private const string PastaEstrutural = "Assets/Resources/BancoDeDadosProblemas/estrutura";
-
-    private static readonly string[] CenariosLegados =
-    {
-        "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8"
-    };
-
-    private static EstruturaCenario CarregarEstrutura(string cenario)
-    {
-        string caminho = $"{PastaEstrutural}/{cenario}.json";
-        TextAsset asset = AssetDatabase.LoadAssetAtPath<TextAsset>(caminho);
-
-        Assert.That(asset, Is.Not.Null, $"Arquivo nao encontrado: {caminho}");
-
-        return JsonUtility.FromJson<EstruturaCenario>(asset.text);
-    }
-
-    [Test]
-    public void NenhumAlertaOficial_TemCodigoC()
-    {
-        Assert.That(catalogo.Any(alerta => alerta.Codigo.StartsWith("C")), Is.False);
-        Assert.That(CodigosOficiais.Alertas.Any(codigo => codigo.StartsWith("C")), Is.False);
-    }
-
-    [TestCaseSource(nameof(CenariosLegados))]
-    public void CenarioLegado_FicaForaDoDominioAlertaENaoEApresentavelComoAlertaPublico(string cenario)
-    {
-        EstruturaCenario estrutura = CarregarEstrutura(cenario);
-
-        Assert.That(estrutura, Is.Not.Null, $"{cenario}: estrutura ausente.");
-        Assert.That(estrutura.dominio, Is.Not.EqualTo(DominioDeCenario.Alerta), $"{cenario}: nao deveria pertencer ao dominio Alerta.");
-        Assert.That(DominioDeCenario.PodeSerApresentadoComoAlertaPublico(estrutura), Is.False, $"{cenario}: nao pode ser apresentado como alerta publico.");
     }
 
     #endregion

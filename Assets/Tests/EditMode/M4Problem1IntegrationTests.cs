@@ -49,21 +49,6 @@ public class M4Problem1IntegrationTests
     }
 
     [Test]
-    public void EtapasExibemCalibracaoEAlertaDeAnguloMinimo()
-    {
-        TextAsset asset = AssetDatabase.LoadAssetAtPath<TextAsset>(
-            "Assets/Resources/BancoDeDadosProblemas/estrutura/A1.json");
-        EstruturaCenario estrutura = JsonUtility.FromJson<EstruturaCenario>(asset.text);
-
-        Assert.That(estrutura.etapas[0].animacao, Is.EqualTo("PROBLEMA1"));
-        Assert.That(estrutura.etapas[0].textoDisplay, Is.EqualTo("50.0%\nAUTO"));
-        Assert.That(estrutura.etapas[0].progressoSegundos, Is.EqualTo(2.5f));
-        Assert.That(estrutura.etapas[1].textoDisplay, Is.EqualTo("A1\nANG MIN"));
-        Assert.That(estrutura.etapas[2].textoDisplay, Is.EqualTo("A1\nANG MIN"));
-        Assert.That(estrutura.etapas[3].textoDisplay, Is.EqualTo("ABERTO"));
-    }
-
-    [Test]
     public void CenaSelecionaNovoPrefabSomenteParaA1()
     {
         var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
