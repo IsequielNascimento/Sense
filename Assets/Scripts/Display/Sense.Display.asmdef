@@ -1,0 +1,9 @@
+{
+    "name": "Sense.Display",
+    "rootNamespace": "",
+    "references": [
+        "Sense.StepSequence",
+        "Unity.TextMeshPro",
+        "Unity.InputSystem"
+    ]
+}
