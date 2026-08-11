@@ -1,20 +1,54 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ExibidorDeModeloBase : MonoBehaviour
 {
+    [Serializable]
+    private sealed class ModeloPorCenario
+    {
+        public string cenario;
+        public GameObject prefab;
+    }
+
     #region MARK - Referências
 
     [Header("Modelo")]
     [SerializeField] protected GameObject placedPrefab;
+    [SerializeField] private List<ModeloPorCenario> modelosPorCenario = new();
 
     [Header("Conexão com UI Toolkit")]
     [SerializeField] protected UIController uiController;
 
-    public GameObject PrefabDoModelo => placedPrefab;
+    public GameObject PrefabDoModelo => ResolverPrefabDoModelo();
 
     protected GameObject spawnedObject;
     protected Animator[] animators;
     protected GerenciadorVisual gerenciadorVisual;
+
+    #endregion
+
+    #region MARK - Seleção do modelo
+
+    protected GameObject ResolverPrefabDoModelo()
+    {
+        ProblemaSelecionadoAR selecao = ProblemaSelecionadoAR.Instance;
+        string cenario = IdentidadeDoCenario.Resolver(selecao?.scenarioId, selecao?.ChaveDoRecurso);
+
+        if (!string.IsNullOrEmpty(cenario) && modelosPorCenario != null)
+        {
+            foreach (ModeloPorCenario modelo in modelosPorCenario)
+            {
+                if (modelo?.prefab != null &&
+                    string.Equals(modelo.cenario, cenario, StringComparison.OrdinalIgnoreCase))
+                {
+                    return modelo.prefab;
+                }
+            }
+        }
+
+        return placedPrefab;
+    }
 
     #endregion
 

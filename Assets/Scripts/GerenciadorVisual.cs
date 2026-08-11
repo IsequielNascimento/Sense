@@ -21,6 +21,10 @@ public class GerenciadorVisual : MonoBehaviour
     [Header("Referências do Display")]
     public SpriteRenderer displaySpriteRenderer;
     public List<TelaSetup> telasDisponiveis;
+    [SerializeField] private Transform ancoraDisplayDinamico;
+    [SerializeField] private Vector2 dimensoesDisplayDinamico = new Vector2(0.038032f, 0.042522635f);
+    [SerializeField] private string sortingLayerDisplayDinamico = "Default";
+    [SerializeField] private int sortingOrderDisplayDinamico = 10;
 
     [Header("Referências de VFX")]
     public List<VFXSetup> efeitosDisponiveis;
@@ -31,6 +35,7 @@ public class GerenciadorVisual : MonoBehaviour
     {
         if (displaySpriteRenderer == null)
         {
+            if (ancoraDisplayDinamico != null) return;
             Debug.LogError("[GerenciadorVisual] 'displaySpriteRenderer' não configurado.", this);
             return;
         }
@@ -63,17 +68,23 @@ public class GerenciadorVisual : MonoBehaviour
 
     public void AplicarCamadasDinamicas(Etapa etapa)
     {
-        if (displaySpriteRenderer == null) return;
+        if (displaySpriteRenderer == null && ancoraDisplayDinamico == null) return;
 
         bool temConteudo = TelaM4.EtapaTemConteudo(etapa);
 
         if (telaM4 == null)
         {
             if (!temConteudo) return;
-            telaM4 = TelaM4.CriarEm(displaySpriteRenderer);
+            telaM4 = displaySpriteRenderer != null
+                ? TelaM4.CriarEm(displaySpriteRenderer)
+                : TelaM4.CriarEm(
+                    ancoraDisplayDinamico,
+                    dimensoesDisplayDinamico,
+                    SortingLayer.NameToID(sortingLayerDisplayDinamico),
+                    sortingOrderDisplayDinamico);
         }
 
-        if (temConteudo && !displaySpriteRenderer.gameObject.activeSelf)
+        if (displaySpriteRenderer != null && temConteudo && !displaySpriteRenderer.gameObject.activeSelf)
         {
             displaySpriteRenderer.gameObject.SetActive(true);
             displaySpriteRenderer.enabled = false;

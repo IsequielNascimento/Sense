@@ -62,5 +62,31 @@ public class TelaM4BarraTests
         Assert.That(segmentos.Count(segmento => segmento.enabled), Is.EqualTo(esperados));
     }
 
+    [Test]
+    public void AplicarPreview_MantemCincoBlocosVisiveisEmCinquentaPorCento()
+    {
+        tela.AplicarPreview("50.0%\nAUTO", "vermelho", 0.5f);
+
+        var barra = tela.transform.Find("BarraProgresso");
+        var segmentos = barra.GetComponentsInChildren<SpriteRenderer>(true);
+
+        Assert.That(barra.gameObject.activeSelf, Is.True);
+        Assert.That(segmentos.Count(segmento => segmento.enabled), Is.EqualTo(5));
+    }
+
+    [Test]
+    public void AplicarPreview_ExibeTextoELedVermelhoFixos()
+    {
+        tela.AplicarPreview("50.0%\nAUTO", "vermelho", 0.5f);
+
+        var texto = tela.transform.Find("TextoPrincipal");
+        var led = tela.transform.Find("Led").GetComponent<SpriteRenderer>();
+
+        Assert.That(texto.GetComponent<TMPro.TextMeshPro>().text, Is.EqualTo("50.0%\nAUTO"));
+        Assert.That(texto.gameObject.activeSelf, Is.True);
+        Assert.That(led.gameObject.activeSelf, Is.True);
+        Assert.That(led.color.r, Is.GreaterThan(led.color.g));
+    }
+
     #endregion
 }

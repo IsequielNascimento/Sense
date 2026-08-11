@@ -11,7 +11,11 @@ public class IntegridadeDeEtapasTests
     #region MARK - Contrato de dados
 
     private const string PastaDeProblemas = "Assets/Resources/BancoDeDadosProblemas";
-    private const string ControllerDeProblemas = "Assets/Prefab/M4 Prefabs/Animação APK.controller";
+    private static readonly string[] ControllersDeProblemas =
+    {
+        "Assets/Prefab/M4 Prefabs/Animação APK.controller",
+        "Assets/Resources/M4Problem1/M4SMARTTesteProblema1.controller"
+    };
 
     private static readonly string[] Idiomas = { "pt", "en", "es", "fr" };
 
@@ -63,8 +67,7 @@ public class IntegridadeDeEtapasTests
     [Test]
     public void AnimacoesAusentes_CorrespondemExatamenteAsLacunasConhecidas()
     {
-        AnimatorController controller = CarregarController();
-        HashSet<string> estados = EstadosDoController(controller);
+        HashSet<string> estados = EstadosDosControllers();
 
         List<string> ausentes = new List<string>();
 
@@ -72,7 +75,8 @@ public class IntegridadeDeEtapasTests
         {
             foreach (EtapaJson etapa in CarregarCenario("pt", cenario).etapas)
             {
-                if (string.IsNullOrWhiteSpace(etapa.animacao)) continue;
+                if (string.IsNullOrWhiteSpace(etapa.animacao) ||
+                    etapa.animacao.Equals("nenhum", StringComparison.OrdinalIgnoreCase)) continue;
                 if (estados.Contains(etapa.animacao)) continue;
 
                 ausentes.Add(etapa.animacao);
@@ -143,11 +147,25 @@ public class IntegridadeDeEtapasTests
     private static AnimatorController CarregarController()
     {
         AnimatorController controller =
-            AssetDatabase.LoadAssetAtPath<AnimatorController>(ControllerDeProblemas);
+            AssetDatabase.LoadAssetAtPath<AnimatorController>(ControllersDeProblemas[0]);
 
-        Assert.That(controller, Is.Not.Null, $"Controller nao encontrado: {ControllerDeProblemas}");
+        Assert.That(controller, Is.Not.Null, $"Controller nao encontrado: {ControllersDeProblemas[0]}");
 
         return controller;
+    }
+
+    private static HashSet<string> EstadosDosControllers()
+    {
+        var estados = new HashSet<string>(StringComparer.Ordinal);
+
+        foreach (string caminho in ControllersDeProblemas)
+        {
+            AnimatorController controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(caminho);
+            Assert.That(controller, Is.Not.Null, $"Controller nao encontrado: {caminho}");
+            estados.UnionWith(EstadosDoController(controller));
+        }
+
+        return estados;
     }
 
     private static HashSet<string> EstadosDoController(AnimatorController controller)
