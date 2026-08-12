@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class EtapasComDisplayDeAlerta
@@ -22,12 +23,33 @@ public static class EtapasComDisplayDeAlerta
 
         if (etapas.Length != perfil.QuantidadeDeEtapasOficiais) return etapas;
 
+        var passosGuiados = new List<Etapa>();
+
         for (int i = 0; i < etapas.Length; i++)
         {
-            perfil.EtapaOficial(i).Primeiro.Aplicar(etapas[i]);
+            Etapa etapaOficial = etapas[i];
+            SequenciaDeQuadrosM4 sequencia = perfil.EtapaOficial(i);
+
+            foreach (QuadroDeDisplayM4 quadro in sequencia.Quadros)
+            {
+                Etapa passo = Copiar(etapaOficial);
+                quadro.Aplicar(passo);
+                passosGuiados.Add(passo);
+            }
         }
 
-        return etapas;
+        return passosGuiados.ToArray();
+    }
+
+    private static Etapa Copiar(Etapa origem)
+    {
+        return new Etapa
+        {
+            tutorial = origem?.tutorial ?? string.Empty,
+            animacao = origem?.animacao ?? string.Empty,
+            telaDisplay = origem?.telaDisplay,
+            vfx = origem?.vfx,
+        };
     }
 
     #endregion

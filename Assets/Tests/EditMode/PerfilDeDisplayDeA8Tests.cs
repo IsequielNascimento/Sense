@@ -8,6 +8,8 @@ public class PerfilDeDisplayDeA8Tests
     private const string CodigoA8 = "A8";
     private const string AcaoOficialDeA8 = "Colocar o monitor no modo seguro";
     private const string LocalOficialDeA8 = "menu modo seguro";
+    private const int QuantidadeDePassosGuiados = 9;
+    private const int IndiceDaConfirmacao = 7;
 
     private AlertaOficial a8;
     private PerfilDeDisplayDeAlerta perfil;
@@ -66,19 +68,29 @@ public class PerfilDeDisplayDeA8Tests
     #region MARK: Quadros do LCD
 
     [Test]
-    public void EtapaOficialDeA8_ComecaIdentificandoOCodigoETerminaNoModoSeguro()
+    public void EtapaOficialDeA8_ReproduzOsQuadrosDaRotaLocalPorSenha()
     {
-        Assert.That(EtapaUnica.Primeiro.TextoLcd, Is.EqualTo("A8"));
-        Assert.That(EtapaUnica.Em(1).TextoLcd, Is.EqualTo("MODO SEGURO"));
-        Assert.That(EtapaUnica.Em(2).TextoLcd, Is.EqualTo("C16"));
-        Assert.That(EtapaUnica.Ultimo.TextoLcd, Is.EqualTo("MODO SEGURO"));
+        string[] quadros = EtapaUnica.Quadros.Select(quadro => quadro.TextoLcd).ToArray();
+
+        Assert.That(quadros, Is.EqualTo(new[]
+        {
+            "A8",
+            "MENU",
+            "MENU\nCONFIG",
+            "C16\nMODO S",
+            "SENHA",
+            "HABILI",
+            "1234",
+            "C16\nMODO S",
+            "SAIR",
+        }));
     }
 
     [Test]
     public void QuadrosDeA8_NaoAlteramConfiguracaoAlemDeC16()
     {
         string[] configuracoes = EtapaUnica.Quadros
-            .Select(quadro => quadro.TextoLcd)
+            .Select(quadro => quadro.TextoLcd.Split('\n')[0])
             .Where(CodigosOficiais.EhConfiguracao)
             .Distinct()
             .ToArray();
@@ -96,6 +108,29 @@ public class PerfilDeDisplayDeA8Tests
         }
     }
 
+    [Test]
+    public void CadaQuadroDeA8_TemInstrucaoPraticaAutossuficiente()
+    {
+        Assert.That(EtapaUnica.Quantidade, Is.EqualTo(QuantidadeDePassosGuiados));
+
+        foreach (QuadroDeDisplayM4 quadro in EtapaUnica.Quadros)
+        {
+            Assert.That(quadro.Instrucao, Is.Not.Null.And.Not.Empty);
+            Assert.That(quadro.Instrucao, Is.EqualTo(quadro.Instrucao.Trim()));
+        }
+    }
+
+    [Test]
+    public void EntradaNoMenu_UsaB2PorSeisSegundosEBargraph()
+    {
+        QuadroDeDisplayM4 entrada = EtapaUnica.Em(1);
+
+        Assert.That(entrada.TextoLcd, Is.EqualTo("MENU"));
+        Assert.That(entrada.Instrucao, Does.Contain("B2"));
+        Assert.That(entrada.Instrucao, Does.Contain("6 segundos"));
+        Assert.That(entrada.ProgressoSegundos, Is.EqualTo(6f));
+    }
+
     #endregion
 
     #region MARK: LED conforme a Nota 4 da pagina 53
@@ -103,7 +138,7 @@ public class PerfilDeDisplayDeA8Tests
     [Test]
     public void LedDeA8_PiscaVermelhoAteAConfirmacaoDoModoSeguro()
     {
-        for (int i = 0; i < EtapaUnica.Quantidade - 1; i++)
+        for (int i = 0; i < IndiceDaConfirmacao; i++)
         {
             QuadroDeDisplayM4 quadro = EtapaUnica.Em(i);
 
@@ -114,11 +149,16 @@ public class PerfilDeDisplayDeA8Tests
     }
 
     [Test]
-    public void LedDeA8_ParaDePiscarSomenteNaConfirmacao()
+    public void LedDeA8_ParaDePiscarNaConfirmacaoEPermaneceApagadoNaSaida()
     {
-        Assert.That(EtapaUnica.Ultimo.Leds, Is.EqualTo(EstadoLedsM4.Desligado));
-        Assert.That(EtapaUnica.Ultimo.LedPiscando, Is.False);
-        Assert.That(EtapaUnica.Ultimo.EstadoDeLedDaEtapa(), Is.EqualTo(QuadroDeDisplayM4.LedApagado));
+        for (int i = IndiceDaConfirmacao; i < EtapaUnica.Quantidade; i++)
+        {
+            QuadroDeDisplayM4 quadro = EtapaUnica.Em(i);
+
+            Assert.That(quadro.Leds, Is.EqualTo(EstadoLedsM4.Desligado));
+            Assert.That(quadro.LedPiscando, Is.False);
+            Assert.That(quadro.EstadoDeLedDaEtapa(), Is.EqualTo(QuadroDeDisplayM4.LedApagado));
+        }
     }
 
     [Test]
@@ -130,21 +170,19 @@ public class PerfilDeDisplayDeA8Tests
 
     #endregion
 
-    #region MARK: Decisao pendente de produto
+    #region MARK: Mecanismo local documentado na Figura 105
 
     [Test]
-    public void PerfilDeA8_NaoAfirmaMecanismoDeAtivacao()
+    public void PerfilDeA8_UsaSenhaLocalDocumentadaNoFluxograma()
     {
-        Assert.That(perfil.MecanismoDeAtivacaoConfirmado, Is.False);
+        Assert.That(perfil.MecanismoDeAtivacaoConfirmado, Is.True);
 
-        foreach (QuadroDeDisplayM4 quadro in EtapaUnica.Quadros)
-        {
-            string texto = quadro.TextoLcd.ToUpperInvariant();
+        string[] textos = EtapaUnica.Quadros.Select(quadro => quadro.TextoLcd).ToArray();
 
-            Assert.That(texto, Does.Not.Contain("SENHA"));
-            Assert.That(texto, Does.Not.Contain("GRUPO"));
-            Assert.That(texto, Does.Not.Match(@"\d{4}"));
-        }
+        Assert.That(textos, Does.Contain("SENHA"));
+        Assert.That(textos, Does.Contain("HABILI"));
+        Assert.That(textos, Does.Contain("1234"));
+        Assert.That(EtapaUnica.Em(6).Instrucao, Does.Contain("apenas o exemplo do manual"));
     }
 
     #endregion
@@ -250,16 +288,19 @@ public class PerfilDeDisplayDeA8Tests
     #region MARK: Composicao sobre as etapas guiadas
 
     [Test]
-    public void EtapasDeA8_RecebemODisplaySemMudarAQuantidadeOficial()
+    public void EtapasDeA8_ExpandemAAcaoOficialEmPassosPraticos()
     {
         Etapa[] etapas = EtapasComDisplayDeAlerta.Aplicar(a8, EtapasGuiadasDeAlerta.Criar(a8));
 
-        Assert.That(etapas.Length, Is.EqualTo(1));
-        Assert.That(etapas[0].tutorial, Is.EqualTo(AcaoOficialDeA8));
-        Assert.That(etapas[0].animacao, Is.Empty);
-        Assert.That(etapas[0].textoDisplay, Is.EqualTo("A8"));
-        Assert.That(etapas[0].leds, Is.EqualTo(QuadroDeDisplayM4.LedVermelhoPiscando));
-        Assert.That(TelaM4.EtapaTemConteudo(etapas[0]), Is.True);
+        Assert.That(a8.Acoes, Has.Count.EqualTo(1));
+        Assert.That(etapas, Has.Length.EqualTo(QuantidadeDePassosGuiados));
+        Assert.That(etapas.Select(etapa => etapa.textoDisplay), Is.EqualTo(
+            EtapaUnica.Quadros.Select(quadro => quadro.TextoLcd)));
+        Assert.That(etapas.All(etapa => !string.IsNullOrWhiteSpace(etapa.tutorial)), Is.True);
+        Assert.That(etapas.All(etapa => string.IsNullOrEmpty(etapa.animacao)), Is.True);
+        Assert.That(etapas.All(TelaM4.EtapaTemConteudo), Is.True);
+        Assert.That(etapas[1].progressoSegundos, Is.EqualTo(6f));
+        Assert.That(etapas[IndiceDaConfirmacao].leds, Is.EqualTo(QuadroDeDisplayM4.LedApagado));
     }
 
     [Test]

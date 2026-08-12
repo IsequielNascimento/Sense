@@ -14,7 +14,12 @@ public sealed class QuadroDeDisplayM4
 
     #region MARK: Construcao
 
-    public QuadroDeDisplayM4(string textoLcd, EstadoLedsM4 leds, bool ledPiscando = false)
+    public QuadroDeDisplayM4(
+        string textoLcd,
+        EstadoLedsM4 leds,
+        bool ledPiscando = false,
+        string instrucao = null,
+        float progressoSegundos = 0f)
     {
         if (string.IsNullOrWhiteSpace(textoLcd))
         {
@@ -26,9 +31,16 @@ public sealed class QuadroDeDisplayM4
             throw new ArgumentException("Somente o estado de alerta pisca no M4.", nameof(ledPiscando));
         }
 
+        if (progressoSegundos < 0f)
+        {
+            throw new ArgumentOutOfRangeException(nameof(progressoSegundos));
+        }
+
         TextoLcd = textoLcd;
         Leds = leds;
         LedPiscando = ledPiscando;
+        Instrucao = instrucao;
+        ProgressoSegundos = progressoSegundos;
     }
 
     #endregion
@@ -38,6 +50,8 @@ public sealed class QuadroDeDisplayM4
     public string TextoLcd { get; }
     public EstadoLedsM4 Leds { get; }
     public bool LedPiscando { get; }
+    public string Instrucao { get; }
+    public float ProgressoSegundos { get; }
 
     #endregion
 
@@ -58,12 +72,13 @@ public sealed class QuadroDeDisplayM4
     {
         if (etapa == null) return;
 
+        if (!string.IsNullOrWhiteSpace(Instrucao)) etapa.tutorial = Instrucao;
         etapa.textoDisplay = TextoLcd;
         etapa.leds = EstadoDeLedDaEtapa();
         etapa.alerta = string.Empty;
         etapa.textoAngulo = string.Empty;
         etapa.alertaTempoExcedido = string.Empty;
-        etapa.progressoSegundos = 0f;
+        etapa.progressoSegundos = ProgressoSegundos;
         etapa.progressoEstoura = false;
     }
 

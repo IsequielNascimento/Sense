@@ -6,6 +6,8 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using Object = UnityEngine.Object;
 
 public class M4Problem1IntegrationTests
@@ -16,6 +18,8 @@ public class M4Problem1IntegrationTests
     private const string PrefabPath = "Assets/Resources/M4Problem1/M4SMARTTesteProblema1.prefab";
     private const string DefaultPrefabPath = "Assets/Prefab/M4 Prefabs/Animação APK.prefab";
     private const string ScenePath = "Assets/Scenes/AR_Cena_UIToolkit.unity";
+    private const string LedMaterialPath = "Assets/Materials/M4 LEDs Bloom.mat";
+    private const string BloomProfilePath = "Assets/Settings/M4DisplayBloomProfile.asset";
 
     [Test]
     public void FbxForneceAnimacaoProblema1DoCopo()
@@ -46,6 +50,32 @@ public class M4Problem1IntegrationTests
         AnimatorControllerLayer layer = controller.layers.Single(item => item.name == "Problema 1");
         AnimatorState state = layer.stateMachine.states.Single(item => item.state.name == "PROBLEMA1").state;
         Assert.That(state.motion.name, Is.EqualTo("COPO|PROBLEMA1"));
+    }
+
+    [Test]
+    public void PrefabUsaMaterialEmissivoNoRendererDeLeds()
+    {
+        GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
+        Renderer rendererLeds = prefab.GetComponentsInChildren<Renderer>(true)
+            .Single(renderer => renderer.name == "LEDS");
+
+        Assert.That(AssetDatabase.GetAssetPath(rendererLeds.sharedMaterial), Is.EqualTo(LedMaterialPath));
+    }
+
+    [Test]
+    public void CenaArHabilitaPosProcessamentoEBloomDosLeds()
+    {
+        EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        Camera camera = Object.FindFirstObjectByType<Camera>();
+        UniversalAdditionalCameraData dadosDaCamera = camera.GetComponent<UniversalAdditionalCameraData>();
+        Volume volume = Object.FindObjectsByType<Volume>(FindObjectsSortMode.None)
+            .Single(item => item.name == "M4 Bloom");
+
+        Assert.That(dadosDaCamera.renderPostProcessing, Is.True);
+        Assert.That(volume.isGlobal, Is.True);
+        Assert.That(AssetDatabase.GetAssetPath(volume.sharedProfile), Is.EqualTo(BloomProfilePath));
+        Assert.That(volume.sharedProfile.TryGet(out Bloom bloom), Is.True);
+        Assert.That(bloom.active, Is.True);
     }
 
     [Test]
