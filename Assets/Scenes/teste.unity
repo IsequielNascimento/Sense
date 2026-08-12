@@ -598,15 +598,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8262349972702783490, guid: 4db4073cdc6432f439e7f363faaeba5a, type: 3}
       propertyPath: m_AABB.m_Center.x
-      value: 0.00022837706
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8262349972702783490, guid: 4db4073cdc6432f439e7f363faaeba5a, type: 3}
       propertyPath: m_AABB.m_Center.y
-      value: 0.09954207
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8262349972702783490, guid: 4db4073cdc6432f439e7f363faaeba5a, type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: 0.0011365674
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8262349972702783490, guid: 4db4073cdc6432f439e7f363faaeba5a, type: 3}
       propertyPath: m_AABB.m_Extent.x
