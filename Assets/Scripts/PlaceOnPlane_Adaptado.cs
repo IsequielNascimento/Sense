@@ -38,6 +38,7 @@ public class PlaceOnPlane_Adaptado : ExibidorDeModeloBase
         Vector2 screenPosition;
 
 #if UNITY_EDITOR
+        if (Mouse.current == null) return;
         if (!Mouse.current.leftButton.wasPressedThisFrame) return;
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
         screenPosition = Mouse.current.position.ReadValue();

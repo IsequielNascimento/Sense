@@ -49,7 +49,7 @@ public class M4Problem1IntegrationTests
     }
 
     [Test]
-    public void CenaSelecionaNovoPrefabSomenteParaA1()
+    public void CenaMantemMapeamentoSerializadoSomenteParaA1()
     {
         var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
         MonoBehaviour exibidor = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
@@ -88,6 +88,81 @@ public class M4Problem1IntegrationTests
         Assert.That(AssetDatabase.GetAssetPath(prefabResolvido), Is.EqualTo(PrefabPath));
         instancia.SetValue(null, null);
         Object.DestroyImmediate(objetoSelecao);
+    }
+
+    [Test]
+    public void SelecaoA8ResolveM4SmartTesteComDisplayELeds()
+    {
+        EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        MonoBehaviour exibidor = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
+            .First(component => component.GetType().Name == "PlaceOnPlane_Adaptado");
+        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Assembly-CSharp");
+        var objetoSelecao = new GameObject("Selecao A8 Teste");
+        Component selecao = objetoSelecao.AddComponent(tipoSelecao);
+        PropertyInfo instancia = tipoSelecao.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
+
+        try
+        {
+            instancia.SetValue(null, selecao);
+            tipoSelecao.GetMethod("SelecionarAlertaOficial").Invoke(selecao, new object[] { "A8" });
+            var prefabResolvido = exibidor.GetType().BaseType
+                .GetProperty("PrefabDoModelo")
+                .GetValue(exibidor) as GameObject;
+
+            Assert.That(AssetDatabase.GetAssetPath(prefabResolvido), Is.EqualTo(PrefabPath));
+            Assert.That(AssetDatabase.GetDependencies(PrefabPath), Does.Contain(ModelPath));
+            Assert.That(prefabResolvido.GetComponentsInChildren<Transform>(true)
+                .Any(item => item.name == "DISPLAY"), Is.True);
+            Assert.That(prefabResolvido.GetComponentsInChildren<Transform>(true)
+                .Any(item => item.name == "DisplayDynamic"), Is.True);
+            Assert.That(prefabResolvido.GetComponentInChildren<ControladorLedsM4>(true), Is.Not.Null);
+        }
+        finally
+        {
+            instancia.SetValue(null, null);
+            Object.DestroyImmediate(objetoSelecao);
+        }
+    }
+
+    [Test]
+    public void ModeloDeA8DesabilitaAnimacaoMecanicaLegada()
+    {
+        EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        MonoBehaviour exibidor = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
+            .First(component => component.GetType().Name == "PlaceOnPlane_Adaptado");
+        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Assembly-CSharp");
+        var objetoSelecao = new GameObject("Selecao A8 Teste");
+        Component selecao = objetoSelecao.AddComponent(tipoSelecao);
+        PropertyInfo instancia = tipoSelecao.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
+        GameObject modeloInstanciado = null;
+
+        try
+        {
+            instancia.SetValue(null, selecao);
+            tipoSelecao.GetMethod("SelecionarAlertaOficial").Invoke(selecao, new object[] { "A8" });
+
+            Type tipoBase = exibidor.GetType().BaseType;
+            var prefabResolvido = tipoBase.GetProperty("PrefabDoModelo").GetValue(exibidor) as GameObject;
+            modeloInstanciado = PrefabUtility.InstantiatePrefab(prefabResolvido) as GameObject;
+            tipoBase.GetField("spawnedObject", BindingFlags.Instance | BindingFlags.NonPublic)
+                .SetValue(exibidor, modeloInstanciado);
+            tipoBase.GetMethod("ConfigurarModeloInstanciado", BindingFlags.Instance | BindingFlags.NonPublic)
+                .Invoke(exibidor, null);
+
+            Animator[] animadores = modeloInstanciado.GetComponentsInChildren<Animator>(true);
+            Assert.That(animadores, Is.Not.Empty);
+            Assert.That(animadores.All(animator => !animator.enabled), Is.True);
+        }
+        finally
+        {
+            if (modeloInstanciado != null)
+            {
+                Object.DestroyImmediate(modeloInstanciado);
+            }
+
+            instancia.SetValue(null, null);
+            Object.DestroyImmediate(objetoSelecao);
+        }
     }
 
     #endregion

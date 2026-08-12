@@ -45,9 +45,10 @@ public class Visualizador3D : ExibidorDeModeloBase
         if (cameraViewer == null) cameraViewer = Camera.main;
         if (uiController == null) Debug.LogError("[Visualizador3D] O 'UI Controller' não foi arrastado no Inspector!");
 
-        if (placedPrefab == null)
+        GameObject prefabDoModelo = ResolverPrefabDoModelo();
+        if (prefabDoModelo == null)
         {
-            Debug.LogError("[Visualizador3D] 'Placed Prefab' não configurado.");
+            Debug.LogError("[Visualizador3D] Nenhum prefab foi resolvido para o cenário selecionado.");
             enabled = false;
             return;
         }
@@ -55,10 +56,14 @@ public class Visualizador3D : ExibidorDeModeloBase
         pitch = pitchInicial;
         distancia = distanciaInicial;
 
-        spawnedObject = Instantiate(placedPrefab, Vector3.zero, Quaternion.identity);
+        spawnedObject = Instantiate(prefabDoModelo, Vector3.zero, Quaternion.identity);
         spawnedObject.SetActive(true);
         ConfigurarModeloInstanciado();
         modeloPrincipal = spawnedObject.transform.Find("M4_Smart_Final_Animado");
+        if (modeloPrincipal == null)
+        {
+            modeloPrincipal = spawnedObject.transform;
+        }
 
         pivo = CalcularCentroDoModelo();
         AtualizarCamera();
