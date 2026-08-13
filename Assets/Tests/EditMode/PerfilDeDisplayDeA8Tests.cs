@@ -61,7 +61,12 @@ public class PerfilDeDisplayDeA8Tests
         Assert.That(PerfisDeDisplayDeAlerta.Obter("A24"), Is.Null);
         Assert.That(
             PerfisDeDisplayDeAlerta.CodigosComPerfil,
-            Is.EquivalentTo(new[] { CodigoA8, PerfisDeDisplayDeAlerta.CodigoA11 }));
+            Is.EquivalentTo(new[]
+            {
+                CodigoA8,
+                PerfisDeDisplayDeAlerta.CodigoA11,
+                PerfisDeDisplayDeAlerta.CodigoA12,
+            }));
     }
 
     #endregion

@@ -8,12 +8,14 @@ public static class ModeloDeAlertaDisplay
 
     public const string CodigoA8 = "A8";
     public const string CodigoA11 = "A11";
+    public const string CodigoA12 = "A12";
 
     private static readonly IReadOnlyDictionary<string, string> RecursoPorCodigo =
         new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             { CodigoA8, "M4Problem1/M4SMARTTesteProblema1" },
             { CodigoA11, "M4Problem11/M4SMARTTesteProblema11" },
+            { CodigoA12, "M4Problem12/M4SMARTTesteProblema12" },
         };
 
     #endregion
