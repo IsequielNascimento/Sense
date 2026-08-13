@@ -354,67 +354,67 @@ public static class PerfisDeDisplayDeAlerta
             new QuadroDeDisplayM4(
                 CodigoA14,
                 EstadoLedsM4.Desligado,
-                instrucao: "Confirme o alerta A14: a data ajustada para a manutenção preventiva foi atingida. Para que esse alerta funcione, o relógio interno precisa estar corretamente ajustado em C13."),
+                instrucao: "Alerta A14: a data ajustada foi atingida. Depende do relógio C13 ajustado."),
             new QuadroDeDisplayM4(
                 Menu,
                 EstadoLedsM4.Desligado,
-                instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
+                instrucao: "Encoste o polo Sul do chaveiro em B2 por 6 segundos.",
                 progressoSegundos: 6f),
             new QuadroDeDisplayM4(
                 MenuConfig,
                 EstadoLedsM4.Desligado,
-                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Use B3 para avançar até MENU ALERTA."),
+                instrucao: "Avance com B3 até MENU ALERTA."),
             new QuadroDeDisplayM4(
                 MenuAlerta,
                 EstadoLedsM4.Desligado,
-                instrucao: "Em MENU ALERTA, pressione B2 para entrar no menu de alertas."),
+                instrucao: "Pressione B2 para entrar."),
             new QuadroDeDisplayM4(
                 MenuAlertaData,
                 EstadoLedsM4.Desligado,
-                instrucao: "Use B3 para avançar até A14 ALERTA DATA e B2 para entrar na opção do alerta."),
+                instrucao: "Avance com B3 até A14 e pressione B2."),
             new QuadroDeDisplayM4(
                 Habilitar,
                 EstadoLedsM4.Desligado,
-                instrucao: "Selecione HABILITAR com B1 ou B3 e pressione B2 para editar a data do alerta."),
+                instrucao: "Selecione HABILITAR com B3 e pressione B2."),
             new QuadroDeDisplayM4(
                 ExemploDeData,
                 EstadoLedsM4.Desligado,
-                instrucao: "Ajuste dia, mês e ano: B1 decrementa, B3 incrementa e B2 seleciona o dígito. Mantenha B2 por mais de 3 segundos para confirmar. 31 12 2023 é apenas o exemplo da Figura 108; a data real é escolhida pelo usuário."),
+                instrucao: "Ajuste a data da manutenção. B1 diminui, B3 aumenta, B2 troca de dígito. Segure B2 por 3 segundos para confirmar."),
             new QuadroDeDisplayM4(
                 MenuAlertaData,
                 EstadoLedsM4.Desligado,
-                instrucao: "Verifique a confirmação: a nova data foi salva e o alerta A14 foi eliminado. Se você sair com B1 por mais de 3 segundos antes de confirmar, nenhuma alteração parcial é salva."));
+                instrucao: "Data salva e alerta A14 encerrado. Sair com B1 antes de confirmar não salva nada."));
 
         var desligarAlerta = new SequenciaDeQuadrosM4(
             new QuadroDeDisplayM4(
                 CodigoA14,
                 EstadoLedsM4.Desligado,
-                instrucao: "Identifique A14 no menu de alertas. Esta ação apenas desliga o alerta, sem definir uma nova data."),
+                instrucao: "Alerta A14 ativo. Aqui você só desliga o alerta, sem definir nova data."),
             new QuadroDeDisplayM4(
                 Menu,
                 EstadoLedsM4.Desligado,
-                instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
+                instrucao: "Encoste o polo Sul do chaveiro em B2 por 6 segundos.",
                 progressoSegundos: 6f),
             new QuadroDeDisplayM4(
                 MenuConfig,
                 EstadoLedsM4.Desligado,
-                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Use B3 para avançar até MENU ALERTA."),
+                instrucao: "Avance com B3 até MENU ALERTA."),
             new QuadroDeDisplayM4(
                 MenuAlerta,
                 EstadoLedsM4.Desligado,
-                instrucao: "Em MENU ALERTA, pressione B2 para entrar no menu de alertas."),
+                instrucao: "Pressione B2 para entrar."),
             new QuadroDeDisplayM4(
                 MenuAlertaData,
                 EstadoLedsM4.Desligado,
-                instrucao: "Use B3 para avançar até A14 ALERTA DATA e B2 para entrar na opção do alerta."),
+                instrucao: "Avance com B3 até A14 e pressione B2."),
             new QuadroDeDisplayM4(
                 Desabilitar,
                 EstadoLedsM4.Desligado,
-                instrucao: "Selecione DESABILITAR com B1 ou B3 e pressione B2 para desligar o alerta A14."),
+                instrucao: "Selecione DESABILITAR com B3 e pressione B2."),
             new QuadroDeDisplayM4(
                 MenuAlertaData,
                 EstadoLedsM4.Desligado,
-                instrucao: "Verifique a confirmação: o alerta A14 foi desligado. O relógio C13 não é alterado e continua com a data e a hora ajustadas."));
+                instrucao: "Alerta A14 desligado. O relógio C13 não é alterado."));
 
         return new PerfilDeDisplayDeAlerta(
             CodigoA14,

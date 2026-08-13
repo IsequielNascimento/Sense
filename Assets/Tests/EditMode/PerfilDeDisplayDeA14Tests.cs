@@ -14,6 +14,7 @@ public class PerfilDeDisplayDeA14Tests
     private const int QuantidadeDeQuadrosDefinirNovaData = 8;
     private const int QuantidadeDeQuadrosDesligarAlerta = 7;
     private const string ExemploDeData = "31 12\n2023";
+    private const int LimiteDeCaracteresDaInstrucao = 120;
     private const string ModelPath = "Assets/Prefab/Teste/M4SMARTTeste.fbx";
     private const string PrefabPath = "Assets/Resources/M4Problem1/M4SMARTTesteProblema1.prefab";
 
@@ -98,6 +99,41 @@ public class PerfilDeDisplayDeA14Tests
     }
 
     [Test]
+    public void Instrucoes_CabemNaCaixaDeTextoDoPassoAPasso()
+    {
+        foreach (SequenciaDeQuadrosM4 etapa in new[] { EtapaDefinirNovaData, EtapaDesligarAlerta })
+        {
+            foreach (QuadroDeDisplayM4 quadro in etapa.Quadros)
+            {
+                Assert.That(
+                    quadro.Instrucao.Length,
+                    Is.LessThanOrEqualTo(LimiteDeCaracteresDaInstrucao),
+                    $"Instrução longa demais no quadro '{quadro.TextoLcd}'.");
+            }
+        }
+    }
+
+    [Test]
+    public void Instrucoes_NaoCitamOManualNemJustificamEscolhas()
+    {
+        string[] termosProibidos = { "Figura", "manual", "página", "exemplo" };
+
+        foreach (SequenciaDeQuadrosM4 etapa in new[] { EtapaDefinirNovaData, EtapaDesligarAlerta })
+        {
+            foreach (QuadroDeDisplayM4 quadro in etapa.Quadros)
+            {
+                foreach (string termo in termosProibidos)
+                {
+                    Assert.That(
+                        quadro.Instrucao,
+                        Does.Not.Contain(termo).IgnoreCase,
+                        $"Instrução do quadro '{quadro.TextoLcd}' cita '{termo}'.");
+                }
+            }
+        }
+    }
+
+    [Test]
     public void EntradaNoMenu_UsaB2PorSeisSegundosEmAmbasAsEtapas()
     {
         QuadroDeDisplayM4 entradaDefinirNovaData = EtapaDefinirNovaData.Em(1);
@@ -153,13 +189,11 @@ public class PerfilDeDisplayDeA14Tests
     }
 
     [Test]
-    public void DataDoManual_ApareceApenasComoExemploEEmUmUnicoQuadro()
+    public void DataDoManual_NaoEApresentadaComoDadoDeProducao()
     {
         QuadroDeDisplayM4 edicao = EtapaDefinirNovaData.Em(6);
 
-        Assert.That(edicao.Instrucao, Does.Contain("exemplo"));
-        Assert.That(edicao.Instrucao, Does.Contain("Figura 108"));
-        Assert.That(edicao.Instrucao, Does.Contain("escolhida pelo usuário"));
+        Assert.That(edicao.Instrucao, Does.Contain("data da manutenção"));
 
         int quadrosComData = EtapaDefinirNovaData.Quadros
             .Concat(EtapaDesligarAlerta.Quadros)
@@ -175,9 +209,9 @@ public class PerfilDeDisplayDeA14Tests
 
         Assert.That(confirmacao.TextoLcd, Is.EqualTo("A14\nALERTA"));
         Assert.That(confirmacao.Leds, Is.EqualTo(EstadoLedsM4.Desligado));
-        Assert.That(confirmacao.Instrucao, Does.Contain("nova data foi salva"));
+        Assert.That(confirmacao.Instrucao, Does.Contain("Data salva"));
         Assert.That(confirmacao.Instrucao, Does.Contain("B1"));
-        Assert.That(confirmacao.Instrucao, Does.Contain("nenhuma alteração parcial é salva"));
+        Assert.That(confirmacao.Instrucao, Does.Contain("não salva nada"));
     }
 
     #endregion
@@ -201,7 +235,7 @@ public class PerfilDeDisplayDeA14Tests
     {
         Assert.That(EtapaDefinirNovaData.Quadros.Any(quadro => quadro.TextoLcd == "DESABI"), Is.False);
         Assert.That(EtapaDesligarAlerta.Quadros.Any(quadro => quadro.TextoLcd == "HABILI"), Is.False);
-        Assert.That(EtapaDesligarAlerta.Primeiro.Instrucao, Does.Contain("sem definir uma nova data"));
+        Assert.That(EtapaDesligarAlerta.Primeiro.Instrucao, Does.Contain("sem definir nova data"));
     }
 
     [Test]
