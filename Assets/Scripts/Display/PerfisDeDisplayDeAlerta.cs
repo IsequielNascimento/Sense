@@ -27,6 +27,9 @@ public static class PerfisDeDisplayDeAlerta
     public const string CodigoA14 = "A14";
     public const string MenuAlertaData = "A14\nALERTA";
     public const string ExemploDeData = "31 12\n2023";
+    public const string CodigoA21 = "A21";
+    public const string MenuDisplay = "C3\nDISPLA";
+    public const string Temperatura = "TEMPER";
 
     #endregion
 
@@ -43,6 +46,7 @@ public static class PerfisDeDisplayDeAlerta
         Adicionar(registro, CriarPerfilDeContadorTotal());
         Adicionar(registro, CriarPerfilDeAlertaDias());
         Adicionar(registro, CriarPerfilDeAlertaData());
+        Adicionar(registro, CriarPerfilDeTemperaturaAlta());
 
         return registro;
     }
@@ -420,6 +424,60 @@ public static class PerfisDeDisplayDeAlerta
             CodigoA14,
             new[] { definirNovaData, desligarAlerta },
             mecanismoDeAtivacaoConfirmado: false);
+    }
+
+    #endregion
+
+    #region MARK: Verificacao de temperatura compartilhada por A21 e A22
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeTemperatura(string codigo, string diagnostico)
+    {
+        var verificarTemperatura = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                codigo,
+                EstadoLedsM4.Desligado,
+                instrucao: diagnostico),
+            new QuadroDeDisplayM4(
+                Menu,
+                EstadoLedsM4.Desligado,
+                instrucao: "Encoste o polo Sul do chaveiro em B2 por 6 segundos.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                MenuConfig,
+                EstadoLedsM4.Desligado,
+                instrucao: "Pressione B2 para entrar."),
+            new QuadroDeDisplayM4(
+                MenuDisplay,
+                EstadoLedsM4.Desligado,
+                instrucao: "Avance com B3 até C3 e pressione B2."),
+            new QuadroDeDisplayM4(
+                Temperatura,
+                EstadoLedsM4.Desligado,
+                instrucao: "Selecione TEMPERATURA com B3 e pressione B2."),
+            new QuadroDeDisplayM4(
+                Sair,
+                EstadoLedsM4.Desligado,
+                instrucao: "Segure B1 por 3 segundos para sair do menu."),
+            new QuadroDeDisplayM4(
+                Temperatura,
+                EstadoLedsM4.Desligado,
+                instrucao: "O display mostra a temperatura interna. Verifique a temperatura do processo em campo."));
+
+        return new PerfilDeDisplayDeAlerta(
+            codigo,
+            new[] { verificarTemperatura },
+            mecanismoDeAtivacaoConfirmado: false);
+    }
+
+    #endregion
+
+    #region MARK: A21 TEMPERATURA ALTA, paginas 11, 55 e 76
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeTemperaturaAlta()
+    {
+        return CriarPerfilDeTemperatura(
+            CodigoA21,
+            "Alerta A21: temperatura do monitor acima de 70°.");
     }
 
     #endregion

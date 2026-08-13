@@ -7,6 +7,7 @@ public static class ModeloDeAlertaDisplay
     public const string CodigoA12 = "A12";
     public const string CodigoA13 = "A13";
     public const string CodigoA14 = "A14";
+    public const string CodigoA21 = "A21";
 
     private const string RecursoM4SmartTeste = "M4Problem1/M4SMARTTesteProblema1";
 
@@ -16,6 +17,7 @@ public static class ModeloDeAlertaDisplay
         CodigoA12,
         CodigoA13,
         CodigoA14,
+        CodigoA21,
     };
 
     public static bool UsaM4SmartTeste(string codigoOficial)
