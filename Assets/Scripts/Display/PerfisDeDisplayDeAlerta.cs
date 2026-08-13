@@ -13,6 +13,8 @@ public static class PerfisDeDisplayDeAlerta
     public const string Habilitar = "HABILI";
     public const string ExemploDeSenha = "1234";
     public const string Sair = "SAIR";
+    public const string CodigoA11 = "A11";
+    public const string ResetContadorParcial = "C18";
 
     #endregion
 
@@ -25,6 +27,7 @@ public static class PerfisDeDisplayDeAlerta
         var registro = new Dictionary<string, PerfilDeDisplayDeAlerta>(StringComparer.Ordinal);
 
         Adicionar(registro, CriarPerfilDeModoSeguro());
+        Adicionar(registro, CriarPerfilDeContadorParcial());
 
         return registro;
     }
@@ -106,6 +109,76 @@ public static class PerfisDeDisplayDeAlerta
             CodigoA8,
             new[] { acaoUnica },
             mecanismoDeAtivacaoConfirmado: true);
+    }
+
+    #endregion
+
+    #region MARK: A11 CONTADO PARCIAL, paginas 11, 54 e 76
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeContadorParcial()
+    {
+        var ajusteOuReset = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA11,
+                EstadoLedsM4.Desligado,
+                instrucao: "Confirme o alerta A11: o contador parcial atingiu o limite configurado. A11 vem desabilitado por padrão, então esse alerta indica que ele foi habilitado."),
+            new QuadroDeDisplayM4(
+                Menu,
+                EstadoLedsM4.Desligado,
+                instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                MenuConfig,
+                EstadoLedsM4.Desligado,
+                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações."),
+            new QuadroDeDisplayM4(
+                CodigoA11,
+                EstadoLedsM4.Desligado,
+                instrucao: "Use B3 para avançar até A11. B1 volta à opção anterior e B2 entra no menu do contador parcial, que configura o limite e também pode zerar o contador."),
+            new QuadroDeDisplayM4(
+                CodigoA11,
+                EstadoLedsM4.Desligado,
+                instrucao: "Alternativa 1: aumente o número de ciclos configurado como limite do contador parcial."),
+            new QuadroDeDisplayM4(
+                CodigoA11,
+                EstadoLedsM4.Desligado,
+                instrucao: "Verifique a confirmação: o novo limite do contador parcial foi salvo e o alerta A11 foi eliminado. O contador total não é alterado."),
+            new QuadroDeDisplayM4(
+                ResetContadorParcial,
+                EstadoLedsM4.Desligado,
+                instrucao: "Alternativa 2: em vez de aumentar o limite, entre em C18 para resetar o contador parcial."),
+            new QuadroDeDisplayM4(
+                ResetContadorParcial,
+                EstadoLedsM4.Desligado,
+                instrucao: "Verifique a confirmação: o contador parcial voltou a zero e o alerta A11 foi eliminado. O contador total não é alterado nem resetado."));
+
+        var desligarAlerta = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA11,
+                EstadoLedsM4.Desligado,
+                instrucao: "Identifique A11 no menu de alertas. Esta ação apenas desliga o alerta, sem ajustar o limite e sem resetar o contador parcial."),
+            new QuadroDeDisplayM4(
+                Menu,
+                EstadoLedsM4.Desligado,
+                instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                MenuConfig,
+                EstadoLedsM4.Desligado,
+                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações."),
+            new QuadroDeDisplayM4(
+                CodigoA11,
+                EstadoLedsM4.Desligado,
+                instrucao: "Use B3 para avançar até A11 e B2 para selecionar a opção de desligar o alerta, mantendo o contador parcial como está."),
+            new QuadroDeDisplayM4(
+                CodigoA11,
+                EstadoLedsM4.Desligado,
+                instrucao: "Verifique a confirmação: o alerta A11 foi desligado. Isso não reseta nem altera o contador parcial ou o total."));
+
+        return new PerfilDeDisplayDeAlerta(
+            CodigoA11,
+            new[] { ajusteOuReset, desligarAlerta },
+            mecanismoDeAtivacaoConfirmado: false);
     }
 
     #endregion

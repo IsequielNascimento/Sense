@@ -58,9 +58,10 @@ public class PerfilDeDisplayDeA8Tests
     [Test]
     public void RegistroDePerfis_NaoSelecionaPerfilDeOutroAlerta()
     {
-        Assert.That(PerfisDeDisplayDeAlerta.Obter("A11"), Is.Null);
         Assert.That(PerfisDeDisplayDeAlerta.Obter("A24"), Is.Null);
-        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Is.EqualTo(new[] { CodigoA8 }));
+        Assert.That(
+            PerfisDeDisplayDeAlerta.CodigosComPerfil,
+            Is.EquivalentTo(new[] { CodigoA8, PerfisDeDisplayDeAlerta.CodigoA11 }));
     }
 
     #endregion
