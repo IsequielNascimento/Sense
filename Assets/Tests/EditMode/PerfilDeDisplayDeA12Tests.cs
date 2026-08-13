@@ -14,7 +14,7 @@ public class PerfilDeDisplayDeA12Tests
     private const int QuantidadeDeQuadrosResetarContador = 7;
     private const int QuantidadeDeQuadrosDesligarAlerta = 7;
     private const string ModelPath = "Assets/Prefab/Teste/M4SMARTTeste.fbx";
-    private const string PrefabPath = "Assets/Resources/M4Problem1/M4SMARTTesteProblema1.prefab";
+    private const string PrefabPath = "Assets/Resources/M4Problem12/M4SMARTTesteProblema12.prefab";
 
     private AlertaOficial a12;
     private PerfilDeDisplayDeAlerta perfil;
