@@ -28,6 +28,7 @@ public static class PerfisDeDisplayDeAlerta
     public const string MenuAlertaData = "A14\nALERTA";
     public const string ExemploDeData = "31 12\n2023";
     public const string CodigoA21 = "A21";
+    public const string CodigoA22 = "A22";
     public const string MenuDisplay = "C3\nDISPLA";
     public const string Temperatura = "TEMPER";
 
@@ -47,6 +48,7 @@ public static class PerfisDeDisplayDeAlerta
         Adicionar(registro, CriarPerfilDeAlertaDias());
         Adicionar(registro, CriarPerfilDeAlertaData());
         Adicionar(registro, CriarPerfilDeTemperaturaAlta());
+        Adicionar(registro, CriarPerfilDeTemperaturaBaixa());
 
         return registro;
     }
@@ -478,6 +480,17 @@ public static class PerfisDeDisplayDeAlerta
         return CriarPerfilDeTemperatura(
             CodigoA21,
             "Alerta A21: temperatura do monitor acima de 70°.");
+    }
+
+    #endregion
+
+    #region MARK: A22 TEMPERATURA BAIXA, paginas 11, 55 e 76
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeTemperaturaBaixa()
+    {
+        return CriarPerfilDeTemperatura(
+            CodigoA22,
+            "Alerta A22: temperatura do monitor abaixo de -20°C.");
     }
 
     #endregion

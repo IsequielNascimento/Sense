@@ -4,10 +4,11 @@ using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
-public class PerfilDeDisplayDeA21Tests
+public class PerfilDeDisplayDeA22Tests
 {
     #region MARK: Fixture
 
+    private const string CodigoA22 = "A22";
     private const string CodigoA21 = "A21";
     private const string AcaoVerificarTemperatura = "Verificar temperatura do processo";
     private const int QuantidadeDeQuadros = 7;
@@ -15,14 +16,14 @@ public class PerfilDeDisplayDeA21Tests
     private const string ModelPath = "Assets/Prefab/Teste/M4SMARTTeste.fbx";
     private const string PrefabPath = "Assets/Resources/M4Problem1/M4SMARTTesteProblema1.prefab";
 
-    private AlertaOficial a21;
+    private AlertaOficial a22;
     private PerfilDeDisplayDeAlerta perfil;
 
     [SetUp]
     public void Carregar()
     {
-        a21 = CatalogoDeAlertas.Obter(CodigoA21, "pt");
-        perfil = PerfisDeDisplayDeAlerta.Obter(CodigoA21);
+        a22 = CatalogoDeAlertas.Obter(CodigoA22, "pt");
+        perfil = PerfisDeDisplayDeAlerta.Obter(CodigoA22);
     }
 
     private SequenciaDeQuadrosM4 EtapaUnica => perfil.EtapaOficial(0);
@@ -32,32 +33,64 @@ public class PerfilDeDisplayDeA21Tests
     #region MARK: Fidelidade ao catalogo oficial
 
     [Test]
-    public void CatalogoDeA21_MantemAAcaoUnicaDaPagina76()
+    public void CatalogoDeA22_MantemAAcaoUnicaDaPagina76()
     {
-        Assert.That(a21, Is.Not.Null);
-        Assert.That(a21.Nome, Is.EqualTo("TEMPERATURA ALTA"));
-        Assert.That(a21.Padrao, Is.EqualTo("habilitado"));
-        Assert.That(a21.Acoes.Count, Is.EqualTo(1));
-        Assert.That(a21.Acoes[0], Is.EqualTo(AcaoVerificarTemperatura));
-        Assert.That(a21.Locais.Count, Is.EqualTo(1));
-        Assert.That(a21.Locais[0], Is.EqualTo("em campo"));
+        Assert.That(a22, Is.Not.Null);
+        Assert.That(a22.Nome, Is.EqualTo("TEMPERATURA BAIXA"));
+        Assert.That(a22.Padrao, Is.EqualTo("habilitado"));
+        Assert.That(a22.Acoes.Count, Is.EqualTo(1));
+        Assert.That(a22.Acoes[0], Is.EqualTo(AcaoVerificarTemperatura));
+        Assert.That(a22.Locais.Count, Is.EqualTo(1));
+        Assert.That(a22.Locais[0], Is.EqualTo("em campo"));
     }
 
     [Test]
-    public void PerfilDeA21_TemExatamenteUmaEtapaOficial()
+    public void PerfilDeA22_TemExatamenteUmaEtapaOficial()
     {
         Assert.That(perfil, Is.Not.Null);
-        Assert.That(perfil.Codigo, Is.EqualTo(CodigoA21));
+        Assert.That(perfil.Codigo, Is.EqualTo(CodigoA22));
         Assert.That(perfil.QuantidadeDeEtapasOficiais, Is.EqualTo(1));
-        Assert.That(perfil.CorrespondeAoCatalogo(a21), Is.True);
+        Assert.That(perfil.CorrespondeAoCatalogo(a22), Is.True);
     }
 
     [Test]
-    public void RegistroDePerfis_A21NaoSelecionaPerfilDeOutroAlerta()
+    public void RegistroDePerfis_A22NaoSelecionaPerfilDeOutroAlerta()
     {
         Assert.That(PerfisDeDisplayDeAlerta.Obter("A24"), Is.Null);
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain(CodigoA22));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain(CodigoA21));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(7));
+    }
+
+    #endregion
+
+    #region MARK: Reuso do motor de temperatura do A21
+
+    [Test]
+    public void A22ReutilizaAFundacaoDeA21SemDuplicarOMotor()
+    {
+        SequenciaDeQuadrosM4 etapaDeA21 = PerfisDeDisplayDeAlerta.Obter(CodigoA21).EtapaOficial(0);
+
+        Assert.That(EtapaUnica.Quantidade, Is.EqualTo(etapaDeA21.Quantidade));
+
+        for (int i = 1; i < EtapaUnica.Quantidade; i++)
+        {
+            Assert.That(EtapaUnica.Em(i).TextoLcd, Is.EqualTo(etapaDeA21.Em(i).TextoLcd));
+            Assert.That(EtapaUnica.Em(i).Instrucao, Is.EqualTo(etapaDeA21.Em(i).Instrucao));
+        }
+    }
+
+    [Test]
+    public void DiagnosticoInicial_DistingueA22DeA21()
+    {
+        QuadroDeDisplayM4 inicialDeA22 = EtapaUnica.Primeiro;
+        QuadroDeDisplayM4 inicialDeA21 = PerfisDeDisplayDeAlerta.Obter(CodigoA21).EtapaOficial(0).Primeiro;
+
+        Assert.That(inicialDeA22.TextoLcd, Is.EqualTo(CodigoA22));
+        Assert.That(inicialDeA21.TextoLcd, Is.EqualTo(CodigoA21));
+        Assert.That(inicialDeA22.Instrucao, Is.Not.EqualTo(inicialDeA21.Instrucao));
+        Assert.That(inicialDeA22.Instrucao, Does.Contain("abaixo"));
+        Assert.That(inicialDeA22.Instrucao, Does.Not.Contain("70°"));
     }
 
     #endregion
@@ -120,21 +153,33 @@ public class PerfilDeDisplayDeA21Tests
 
     #endregion
 
-    #region MARK: Temperatura interna, limite e inspecao
+    #region MARK: Limite inferior, sinal negativo e unidade
 
     [Test]
-    public void EstadoInicial_ApresentaOLimiteSuperiorComprovado()
+    public void EstadoInicial_ApresentaOLimiteInferiorComSinalEUnidade()
     {
         QuadroDeDisplayM4 estadoInicial = EtapaUnica.Primeiro;
 
-        Assert.That(estadoInicial.TextoLcd, Is.EqualTo(CodigoA21));
-        Assert.That(estadoInicial.Instrucao, Does.Contain("70°"));
+        Assert.That(estadoInicial.TextoLcd, Is.EqualTo(CodigoA22));
+        Assert.That(estadoInicial.Instrucao, Does.Contain("-20°C"));
     }
 
     [Test]
-    public void LimiteDoManual_NaoInventaUnidadeNemConversao()
+    public void SinalNegativoEUnidade_UsamOsCaracteresCorretos()
     {
-        string[] unidadesInventadas = { "70°C", "70 °C", "°F", "Fahrenheit", "Celsius", "Kelvin" };
+        string diagnostico = EtapaUnica.Primeiro.Instrucao;
+        int posicaoDoValor = diagnostico.IndexOf("20°C", StringComparison.Ordinal);
+
+        Assert.That(posicaoDoValor, Is.GreaterThan(0));
+        Assert.That(diagnostico[posicaoDoValor - 1], Is.EqualTo('-'));
+        Assert.That(diagnostico, Does.Contain("°C"));
+        Assert.That(diagnostico, Does.Not.Contain("+"));
+    }
+
+    [Test]
+    public void LimiteDoManual_NaoInventaConversaoNemOutraEscala()
+    {
+        string[] unidadesInventadas = { "°F", "Fahrenheit", "Kelvin", "-4°", "graus negativos" };
 
         foreach (QuadroDeDisplayM4 quadro in EtapaUnica.Quadros)
         {
@@ -143,7 +188,7 @@ public class PerfilDeDisplayDeA21Tests
                 Assert.That(
                     quadro.Instrucao,
                     Does.Not.Contain(unidade).IgnoreCase,
-                    $"Instrução do quadro '{quadro.TextoLcd}' inventa a unidade '{unidade}'.");
+                    $"Instrução do quadro '{quadro.TextoLcd}' inventa '{unidade}'.");
             }
         }
     }
@@ -155,7 +200,6 @@ public class PerfilDeDisplayDeA21Tests
         QuadroDeDisplayM4 selecaoTemperatura = EtapaUnica.Em(4);
 
         Assert.That(menuDisplay.TextoLcd, Is.EqualTo("C3\nDISPLA"));
-        Assert.That(menuDisplay.Instrucao, Does.Contain("C3"));
         Assert.That(selecaoTemperatura.TextoLcd, Is.EqualTo("TEMPER"));
         Assert.That(selecaoTemperatura.Instrucao, Does.Contain("TEMPERATURA"));
     }
@@ -197,7 +241,7 @@ public class PerfilDeDisplayDeA21Tests
     #region MARK: Ausencia de fluxo de desativacao
 
     [Test]
-    public void PerfilDeA21_NaoAdicionaFluxoDeDesabilitarAlerta()
+    public void PerfilDeA22_NaoAdicionaFluxoDeDesabilitarAlerta()
     {
         Assert.That(EtapaUnica.Quadros.Any(quadro => quadro.TextoLcd == "DESABI"), Is.False);
         Assert.That(EtapaUnica.Quadros.Any(quadro => quadro.TextoLcd == "HABILI"), Is.False);
@@ -215,14 +259,14 @@ public class PerfilDeDisplayDeA21Tests
     #region MARK: LED e mecanismo sem evidencia normativa
 
     [Test]
-    public void PerfilDeA21_NaoInventaLedVermelhoSemEvidenciaNormativa()
+    public void PerfilDeA22_NaoInventaLedVermelhoSemEvidenciaNormativa()
     {
         Assert.That(EtapaUnica.Quadros.All(quadro => !quadro.LedPiscando), Is.True);
         Assert.That(EtapaUnica.Quadros.All(quadro => quadro.Leds == EstadoLedsM4.Desligado), Is.True);
     }
 
     [Test]
-    public void PerfilDeA21_NaoAfirmaMecanismoDeAtivacaoConfirmado()
+    public void PerfilDeA22_NaoAfirmaMecanismoDeAtivacaoConfirmado()
     {
         Assert.That(perfil.MecanismoDeAtivacaoConfirmado, Is.False);
     }
@@ -238,7 +282,7 @@ public class PerfilDeDisplayDeA21Tests
 
         Assert.That(navegacao.IndiceDaEtapaOficial, Is.EqualTo(0));
         Assert.That(navegacao.IndiceDoQuadro, Is.EqualTo(0));
-        Assert.That(navegacao.QuadroAtual.TextoLcd, Is.EqualTo(CodigoA21));
+        Assert.That(navegacao.QuadroAtual.TextoLcd, Is.EqualTo(CodigoA22));
     }
 
     [Test]
@@ -267,7 +311,7 @@ public class PerfilDeDisplayDeA21Tests
         navegacao.Repetir();
 
         Assert.That(navegacao.IndiceDoQuadro, Is.EqualTo(0));
-        Assert.That(navegacao.QuadroAtual.TextoLcd, Is.EqualTo(CodigoA21));
+        Assert.That(navegacao.QuadroAtual.TextoLcd, Is.EqualTo(CodigoA22));
     }
 
     [Test]
@@ -314,7 +358,7 @@ public class PerfilDeDisplayDeA21Tests
 
         EtapaUnica.Primeiro.Aplicar(etapa);
 
-        Assert.That(etapa.textoDisplay, Is.EqualTo(CodigoA21));
+        Assert.That(etapa.textoDisplay, Is.EqualTo(CodigoA22));
         Assert.That(etapa.leds, Is.EqualTo(QuadroDeDisplayM4.LedApagado));
         Assert.That(etapa.alerta, Is.Empty);
         Assert.That(etapa.textoAngulo, Is.Empty);
@@ -329,11 +373,11 @@ public class PerfilDeDisplayDeA21Tests
     #region MARK: Composicao sobre as etapas guiadas
 
     [Test]
-    public void EtapasDeA21_ExpandemAAcaoOficialEmPassosPraticos()
+    public void EtapasDeA22_ExpandemAAcaoOficialEmPassosPraticos()
     {
-        Etapa[] etapas = EtapasComDisplayDeAlerta.Aplicar(a21, EtapasGuiadasDeAlerta.Criar(a21));
+        Etapa[] etapas = EtapasComDisplayDeAlerta.Aplicar(a22, EtapasGuiadasDeAlerta.Criar(a22));
 
-        Assert.That(a21.Acoes, Has.Count.EqualTo(1));
+        Assert.That(a22.Acoes, Has.Count.EqualTo(1));
         Assert.That(etapas, Has.Length.EqualTo(QuantidadeDeQuadros));
         Assert.That(etapas.Select(etapa => etapa.textoDisplay), Is.EqualTo(
             EtapaUnica.Quadros.Select(quadro => quadro.TextoLcd)));
@@ -365,13 +409,13 @@ public class PerfilDeDisplayDeA21Tests
     }
 
     [Test]
-    public void ModeloDeA21_ResolveOPrefabBaseadoEmM4SmartTeste()
+    public void ModeloDeA22_ResolveOPrefabBaseadoEmM4SmartTeste()
     {
         Assert.That(TipoModeloDeAlertaDisplay, Is.Not.Null);
-        Assert.That(UsaM4SmartTeste(CodigoA21), Is.True);
+        Assert.That(UsaM4SmartTeste(CodigoA22), Is.True);
         Assert.That(ResolverModelo("A24"), Is.Null);
 
-        GameObject prefab = ResolverModelo(CodigoA21);
+        GameObject prefab = ResolverModelo(CodigoA22);
 
         Assert.That(prefab, Is.Not.Null);
         Assert.That(AssetDatabase.GetAssetPath(prefab), Is.EqualTo(PrefabPath));
