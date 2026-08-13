@@ -25,6 +25,7 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
     protected GameObject spawnedObject;
     protected Animator[] animators;
     protected GerenciadorVisual gerenciadorVisual;
+    private bool modeloExclusivoDeDisplay;
 
     #endregion
 
@@ -32,6 +33,7 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
 
     protected GameObject ResolverPrefabDoModelo()
     {
+        modeloExclusivoDeDisplay = false;
         ProblemaSelecionadoAR selecao = ProblemaSelecionadoAR.Instance;
         string cenario = IdentidadeDoCenario.Resolver(selecao?.scenarioId, selecao?.ChaveDoRecurso);
 
@@ -45,6 +47,13 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
                     return modelo.prefab;
                 }
             }
+        }
+
+        GameObject modeloDeDisplay = ModeloDeAlertaDisplay.Resolver(selecao?.CodigoOficial);
+        if (modeloDeDisplay != null)
+        {
+            modeloExclusivoDeDisplay = true;
+            return modeloDeDisplay;
         }
 
         return placedPrefab;
@@ -69,6 +78,7 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
         {
             anim.Rebind();
             anim.Update(0f);
+            anim.enabled = !modeloExclusivoDeDisplay;
         }
 
     }
@@ -93,7 +103,7 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
             Animator animatorPai = spawnedObject.GetComponent<Animator>();
             if (animatorPai != null)
             {
-                animatorPai.enabled = !isMontagem;
+                animatorPai.enabled = !modeloExclusivoDeDisplay && !isMontagem;
             }
         }
 

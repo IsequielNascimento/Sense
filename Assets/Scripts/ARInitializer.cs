@@ -5,9 +5,12 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.XR.Management;
 
 public class ARInitializer : MonoBehaviour
 {
+    private const string TipoLoaderSimulacao = "UnityEngine.XR.Simulation.SimulationLoader";
+
     public ARSession arSession;
     public UIDocument uiDocument;
     public float initializationTimeout = 10f;
@@ -18,6 +21,20 @@ public class ARInitializer : MonoBehaviour
     private Button arErrorBackButton;
     private bool arErrorButtonRegistered;
     private UIController uiController;
+
+    private void Awake()
+    {
+#if UNITY_EDITOR
+        PrepararSimulacaoNoEditor();
+#endif
+    }
+
+    private void OnDestroy()
+    {
+#if UNITY_EDITOR
+        EncerrarSimulacaoNoEditor();
+#endif
+    }
 
     private void Start()
     {
@@ -341,4 +358,50 @@ public class ARInitializer : MonoBehaviour
             arRaycastManager.enabled = active;
         }
     }
+
+#if UNITY_EDITOR
+    private void PrepararSimulacaoNoEditor()
+    {
+        XRManagerSettings manager = XRGeneralSettings.Instance?.Manager;
+        if (manager == null || manager.activeLoader != null || !TemLoaderDeSimulacaoConfigurado(manager))
+        {
+            return;
+        }
+
+        manager.InitializeLoaderSync();
+        if (EhLoaderDeSimulacao(manager.activeLoader))
+        {
+            manager.StartSubsystems();
+        }
+    }
+
+    private void EncerrarSimulacaoNoEditor()
+    {
+        XRManagerSettings manager = XRGeneralSettings.Instance?.Manager;
+        if (manager == null || !EhLoaderDeSimulacao(manager.activeLoader))
+        {
+            return;
+        }
+
+        manager.DeinitializeLoader();
+    }
+
+    private static bool TemLoaderDeSimulacaoConfigurado(XRManagerSettings manager)
+    {
+        foreach (XRLoader loader in manager.activeLoaders)
+        {
+            if (EhLoaderDeSimulacao(loader))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static bool EhLoaderDeSimulacao(XRLoader loader)
+    {
+        return loader != null && loader.GetType().FullName == TipoLoaderSimulacao;
+    }
+#endif
 }
