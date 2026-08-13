@@ -15,6 +15,12 @@ public static class PerfisDeDisplayDeAlerta
     public const string Sair = "SAIR";
     public const string CodigoA11 = "A11";
     public const string ResetContadorParcial = "C18";
+    public const string CodigoA12 = "A12";
+    public const string MenuAlerta = "MENU\nALERTA";
+    public const string MenuContadorTotal = "A12\nCONTAD";
+    public const string ResetContadorTotal = "C19\nRESET";
+    public const string Sim = "SIM";
+    public const string Desabilitar = "DESABI";
 
     #endregion
 
@@ -28,6 +34,7 @@ public static class PerfisDeDisplayDeAlerta
 
         Adicionar(registro, CriarPerfilDeModoSeguro());
         Adicionar(registro, CriarPerfilDeContadorParcial());
+        Adicionar(registro, CriarPerfilDeContadorTotal());
 
         return registro;
     }
@@ -178,6 +185,80 @@ public static class PerfisDeDisplayDeAlerta
         return new PerfilDeDisplayDeAlerta(
             CodigoA11,
             new[] { ajusteOuReset, desligarAlerta },
+            mecanismoDeAtivacaoConfirmado: false);
+    }
+
+    #endregion
+
+    #region MARK: A12 CONTADOR TOTAL, paginas 11, 54 e 76
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeContadorTotal()
+    {
+        var resetarContador = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA12,
+                EstadoLedsM4.Desligado,
+                instrucao: "Confirme o alerta A12: o contador total atingiu o limite configurado. O contador total mede a vida útil da válvula. A12 vem desabilitado por padrão, então esse alerta indica que ele foi habilitado."),
+            new QuadroDeDisplayM4(
+                Menu,
+                EstadoLedsM4.Desligado,
+                instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                MenuConfig,
+                EstadoLedsM4.Desligado,
+                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações."),
+            new QuadroDeDisplayM4(
+                ResetContadorTotal,
+                EstadoLedsM4.Desligado,
+                instrucao: "Use B3 para avançar até C19 RESET CONTADOR TOTAL. B1 volta à opção anterior e B2 entra no reset do contador total."),
+            new QuadroDeDisplayM4(
+                ResetContadorTotal,
+                EstadoLedsM4.Desligado,
+                instrucao: "IMPORTANTE: o contador total é o medidor de vida útil da válvula e deve ser zerado somente quando o monitor for instalado em uma válvula diferente. O reset não é uma rotina comum de manutenção."),
+            new QuadroDeDisplayM4(
+                Sim,
+                EstadoLedsM4.Desligado,
+                instrucao: "Selecione SIM com B1 ou B3 e pressione B2 para confirmar o reset do contador total."),
+            new QuadroDeDisplayM4(
+                ResetContadorTotal,
+                EstadoLedsM4.Desligado,
+                instrucao: "Verifique a confirmação: o contador total voltou a zero e o alerta A12 foi eliminado. O contador parcial e as demais configurações não são alterados."));
+
+        var desligarAlerta = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA12,
+                EstadoLedsM4.Desligado,
+                instrucao: "Identifique A12 no menu de alertas. Esta ação apenas desliga o alerta, sem resetar o contador total, que continua medindo a vida útil da válvula."),
+            new QuadroDeDisplayM4(
+                Menu,
+                EstadoLedsM4.Desligado,
+                instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                MenuConfig,
+                EstadoLedsM4.Desligado,
+                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Use B3 para avançar até MENU ALERTA."),
+            new QuadroDeDisplayM4(
+                MenuAlerta,
+                EstadoLedsM4.Desligado,
+                instrucao: "Em MENU ALERTA, pressione B2 para entrar no menu de alertas."),
+            new QuadroDeDisplayM4(
+                MenuContadorTotal,
+                EstadoLedsM4.Desligado,
+                instrucao: "Use B3 para avançar até A12 CONTADOR TOTAL e B2 para entrar na opção do alerta."),
+            new QuadroDeDisplayM4(
+                Desabilitar,
+                EstadoLedsM4.Desligado,
+                instrucao: "Selecione DESABILITAR com B1 ou B3 e pressione B2 para desligar o alerta A12."),
+            new QuadroDeDisplayM4(
+                MenuContadorTotal,
+                EstadoLedsM4.Desligado,
+                instrucao: "Verifique a confirmação: o alerta A12 foi desligado. Isso não reseta nem altera o contador total ou o parcial."));
+
+        return new PerfilDeDisplayDeAlerta(
+            CodigoA12,
+            new[] { resetarContador, desligarAlerta },
             mecanismoDeAtivacaoConfirmado: false);
     }
 
