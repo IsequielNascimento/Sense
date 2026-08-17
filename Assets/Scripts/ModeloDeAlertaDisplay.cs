@@ -10,6 +10,7 @@ public static class ModeloDeAlertaDisplay
     public const string CodigoA11 = "A11";
     public const string CodigoA12 = "A12";
     public const string CodigoA13 = "A13";
+    public const string CodigoA14 = "A14";
 
     private static readonly IReadOnlyDictionary<string, string> RecursoPorCodigo =
         new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -22,6 +23,13 @@ public static class ModeloDeAlertaDisplay
 
     #endregion
 
+    private static readonly string[] CodigosComM4SmartTeste =
+    {
+        CodigoA8,
+        CodigoA12,
+        CodigoA13,
+        CodigoA14,
+    };
     #region MARK: Resolucao
 
     public static bool UsaM4SmartTeste(string codigoOficial)
