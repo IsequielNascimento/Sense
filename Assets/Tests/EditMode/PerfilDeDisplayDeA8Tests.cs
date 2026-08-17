@@ -69,6 +69,7 @@ public class PerfilDeDisplayDeA8Tests
                 PerfisDeDisplayDeAlerta.CodigoA13,
                 PerfisDeDisplayDeAlerta.CodigoA14,
                 PerfisDeDisplayDeAlerta.CodigoA21,
+                PerfisDeDisplayDeAlerta.CodigoA22,
             }));
     }
 
