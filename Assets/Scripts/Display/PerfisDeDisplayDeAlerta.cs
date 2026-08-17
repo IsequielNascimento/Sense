@@ -21,6 +21,9 @@ public static class PerfisDeDisplayDeAlerta
     public const string ResetContadorTotal = "C19\nRESET";
     public const string Sim = "SIM";
     public const string Desabilitar = "DESABI";
+    public const string CodigoA13 = "A13";
+    public const string MenuAlertaDias = "A13\nALERTA";
+    public const string Limpar = "LIMPAR";
 
     #endregion
 
@@ -35,6 +38,7 @@ public static class PerfisDeDisplayDeAlerta
         Adicionar(registro, CriarPerfilDeModoSeguro());
         Adicionar(registro, CriarPerfilDeContadorParcial());
         Adicionar(registro, CriarPerfilDeContadorTotal());
+        Adicionar(registro, CriarPerfilDeAlertaDias());
 
         return registro;
     }
@@ -259,6 +263,80 @@ public static class PerfisDeDisplayDeAlerta
         return new PerfilDeDisplayDeAlerta(
             CodigoA12,
             new[] { resetarContador, desligarAlerta },
+            mecanismoDeAtivacaoConfirmado: false);
+    }
+
+    #endregion
+
+    #region MARK: A13 ALERTA DIAS, paginas 11, 54 e 76
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeAlertaDias()
+    {
+        var resetarAlerta = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA13,
+                EstadoLedsM4.Desligado,
+                instrucao: "Confirme o alerta A13: o número de dias trabalhados programado para a manutenção foi atingido. O monitor acumula os dias desde que foi energizado na válvula."),
+            new QuadroDeDisplayM4(
+                Menu,
+                EstadoLedsM4.Desligado,
+                instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                MenuConfig,
+                EstadoLedsM4.Desligado,
+                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Use B3 para avançar até MENU ALERTA."),
+            new QuadroDeDisplayM4(
+                MenuAlerta,
+                EstadoLedsM4.Desligado,
+                instrucao: "Em MENU ALERTA, pressione B2 para entrar no menu de alertas."),
+            new QuadroDeDisplayM4(
+                MenuAlertaDias,
+                EstadoLedsM4.Desligado,
+                instrucao: "Use B3 para avançar até A13 ALERTA DIAS e B2 para entrar na opção do alerta."),
+            new QuadroDeDisplayM4(
+                Limpar,
+                EstadoLedsM4.Desligado,
+                instrucao: "Selecione LIMPAR com B1 ou B3 e pressione B2 para resetar a contagem de dias trabalhados."),
+            new QuadroDeDisplayM4(
+                MenuAlertaDias,
+                EstadoLedsM4.Desligado,
+                instrucao: "Verifique a confirmação: a contagem de dias voltou a zero e uma nova contagem foi iniciada. Os contadores de ciclos parcial e total não são alterados."));
+
+        var desligarAlerta = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA13,
+                EstadoLedsM4.Desligado,
+                instrucao: "Identifique A13 no menu de alertas. Esta ação apenas desliga o alerta, sem resetar a contagem de dias trabalhados."),
+            new QuadroDeDisplayM4(
+                Menu,
+                EstadoLedsM4.Desligado,
+                instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                MenuConfig,
+                EstadoLedsM4.Desligado,
+                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Use B3 para avançar até MENU ALERTA."),
+            new QuadroDeDisplayM4(
+                MenuAlerta,
+                EstadoLedsM4.Desligado,
+                instrucao: "Em MENU ALERTA, pressione B2 para entrar no menu de alertas."),
+            new QuadroDeDisplayM4(
+                MenuAlertaDias,
+                EstadoLedsM4.Desligado,
+                instrucao: "Use B3 para avançar até A13 ALERTA DIAS e B2 para entrar na opção do alerta."),
+            new QuadroDeDisplayM4(
+                Desabilitar,
+                EstadoLedsM4.Desligado,
+                instrucao: "Selecione DESABILITAR com B1 ou B3 e pressione B2 para desligar o alerta A13."),
+            new QuadroDeDisplayM4(
+                MenuAlertaDias,
+                EstadoLedsM4.Desligado,
+                instrucao: "Verifique a confirmação: o alerta A13 foi desligado. A contagem de dias trabalhados continua registrada e não é apagada."));
+
+        return new PerfilDeDisplayDeAlerta(
+            CodigoA13,
+            new[] { resetarAlerta, desligarAlerta },
             mecanismoDeAtivacaoConfirmado: false);
     }
 
