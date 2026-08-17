@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+
+public static class AnimacoesDeAlertaConcluidas
+{
+    #region MARK: Registro das animacoes ja finalizadas
+
+    public const string CodigoA8 = "A8";
+    public const string CodigoA11 = "A11";
+    public const string CodigoA12 = "A12";
+    public const string CodigoA13 = "A13";
+    public const string CodigoA14 = "A14";
+    public const string CodigoA21 = "A21";
+    public const string CodigoA22 = "A22";
+
+    private static readonly HashSet<string> Concluidas =
+        new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            CodigoA8,
+            CodigoA11,
+            CodigoA12,
+            CodigoA13,
+            CodigoA14,
+            CodigoA21,
+            CodigoA22,
+        };
+
+    #endregion
+
+    #region MARK: Consulta
+
+    public static bool EstaConcluida(string codigoOficial)
+    {
+        return !string.IsNullOrWhiteSpace(codigoOficial) && Concluidas.Contains(codigoOficial.Trim());
+    }
+
+    public static IReadOnlyCollection<string> Codigos => Concluidas;
+
+    #endregion
+}

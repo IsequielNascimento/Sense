@@ -27,6 +27,12 @@ public static class PerfisDeDisplayDeAlerta
 
     #endregion
 
+    #region MARK: Animacoes do modelo M4
+
+    public const string AnimacaoB2 = "B2Button";
+
+    #endregion
+
     #region MARK: Registro central
 
     private static readonly Dictionary<string, PerfilDeDisplayDeAlerta> PorCodigo = Registrar();
@@ -81,32 +87,38 @@ public static class PerfisDeDisplayDeAlerta
                 EstadoLedsM4.Alerta,
                 ledPiscando: true,
                 instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
-                progressoSegundos: 6f),
+                progressoSegundos: 6f,
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuConfig,
                 EstadoLedsM4.Alerta,
                 ledPiscando: true,
-                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações."),
+                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuModoSeguro,
                 EstadoLedsM4.Alerta,
                 ledPiscando: true,
-                instrucao: "Use B3 para avançar até C16 MODO SEGURO. B1 volta à opção anterior e B2 entra em C16."),
+                instrucao: "Use B3 para avançar até C16 MODO SEGURO. B1 volta à opção anterior e B2 entra em C16.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 Senha,
                 EstadoLedsM4.Alerta,
                 ledPiscando: true,
-                instrucao: "Em C16, selecione SENHA com B1 ou B3 e pressione B2."),
+                instrucao: "Em C16, selecione SENHA com B1 ou B3 e pressione B2.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 Habilitar,
                 EstadoLedsM4.Alerta,
                 ledPiscando: true,
-                instrucao: "Use B3 para selecionar HABILITAR e pressione B2 para definir a senha."),
+                instrucao: "Use B3 para selecionar HABILITAR e pressione B2 para definir a senha.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 ExemploDeSenha,
                 EstadoLedsM4.Alerta,
                 ledPiscando: true,
-                instrucao: "Escolha quatro dígitos: B1 decrementa, B3 incrementa e B2 seleciona. Mantenha B2 por mais de 3 segundos para confirmar. 1234 é apenas o exemplo do manual."),
+                instrucao: "Escolha quatro dígitos: B1 decrementa, B3 incrementa e B2 seleciona. Mantenha B2 por mais de 3 segundos para confirmar. 1234 é apenas o exemplo do manual.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuModoSeguro,
                 EstadoLedsM4.Desligado,
@@ -137,15 +149,18 @@ public static class PerfisDeDisplayDeAlerta
                 Menu,
                 EstadoLedsM4.Desligado,
                 instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
-                progressoSegundos: 6f),
+                progressoSegundos: 6f,
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuConfig,
                 EstadoLedsM4.Desligado,
-                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações."),
+                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 CodigoA11,
                 EstadoLedsM4.Desligado,
-                instrucao: "Use B3 para avançar até A11. B1 volta à opção anterior e B2 entra no menu do contador parcial, que configura o limite e também pode zerar o contador."),
+                instrucao: "Use B3 para avançar até A11. B1 volta à opção anterior e B2 entra no menu do contador parcial, que configura o limite e também pode zerar o contador.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 CodigoA11,
                 EstadoLedsM4.Desligado,
@@ -172,15 +187,18 @@ public static class PerfisDeDisplayDeAlerta
                 Menu,
                 EstadoLedsM4.Desligado,
                 instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
-                progressoSegundos: 6f),
+                progressoSegundos: 6f,
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuConfig,
                 EstadoLedsM4.Desligado,
-                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações."),
+                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 CodigoA11,
                 EstadoLedsM4.Desligado,
-                instrucao: "Use B3 para avançar até A11 e B2 para selecionar a opção de desligar o alerta, mantendo o contador parcial como está."),
+                instrucao: "Use B3 para avançar até A11 e B2 para selecionar a opção de desligar o alerta, mantendo o contador parcial como está.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 CodigoA11,
                 EstadoLedsM4.Desligado,
@@ -207,15 +225,18 @@ public static class PerfisDeDisplayDeAlerta
                 Menu,
                 EstadoLedsM4.Desligado,
                 instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
-                progressoSegundos: 6f),
+                progressoSegundos: 6f,
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuConfig,
                 EstadoLedsM4.Desligado,
-                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações."),
+                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 ResetContadorTotal,
                 EstadoLedsM4.Desligado,
-                instrucao: "Use B3 para avançar até C19 RESET CONTADOR TOTAL. B1 volta à opção anterior e B2 entra no reset do contador total."),
+                instrucao: "Use B3 para avançar até C19 RESET CONTADOR TOTAL. B1 volta à opção anterior e B2 entra no reset do contador total.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 ResetContadorTotal,
                 EstadoLedsM4.Desligado,
@@ -223,7 +244,8 @@ public static class PerfisDeDisplayDeAlerta
             new QuadroDeDisplayM4(
                 Sim,
                 EstadoLedsM4.Desligado,
-                instrucao: "Selecione SIM com B1 ou B3 e pressione B2 para confirmar o reset do contador total."),
+                instrucao: "Selecione SIM com B1 ou B3 e pressione B2 para confirmar o reset do contador total.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 ResetContadorTotal,
                 EstadoLedsM4.Desligado,
@@ -238,7 +260,8 @@ public static class PerfisDeDisplayDeAlerta
                 Menu,
                 EstadoLedsM4.Desligado,
                 instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
-                progressoSegundos: 6f),
+                progressoSegundos: 6f,
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuConfig,
                 EstadoLedsM4.Desligado,
@@ -246,15 +269,18 @@ public static class PerfisDeDisplayDeAlerta
             new QuadroDeDisplayM4(
                 MenuAlerta,
                 EstadoLedsM4.Desligado,
-                instrucao: "Em MENU ALERTA, pressione B2 para entrar no menu de alertas."),
+                instrucao: "Em MENU ALERTA, pressione B2 para entrar no menu de alertas.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuContadorTotal,
                 EstadoLedsM4.Desligado,
-                instrucao: "Use B3 para avançar até A12 CONTADOR TOTAL e B2 para entrar na opção do alerta."),
+                instrucao: "Use B3 para avançar até A12 CONTADOR TOTAL e B2 para entrar na opção do alerta.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 Desabilitar,
                 EstadoLedsM4.Desligado,
-                instrucao: "Selecione DESABILITAR com B1 ou B3 e pressione B2 para desligar o alerta A12."),
+                instrucao: "Selecione DESABILITAR com B1 ou B3 e pressione B2 para desligar o alerta A12.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuContadorTotal,
                 EstadoLedsM4.Desligado,
@@ -281,7 +307,8 @@ public static class PerfisDeDisplayDeAlerta
                 Menu,
                 EstadoLedsM4.Desligado,
                 instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
-                progressoSegundos: 6f),
+                progressoSegundos: 6f,
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuConfig,
                 EstadoLedsM4.Desligado,
@@ -289,15 +316,18 @@ public static class PerfisDeDisplayDeAlerta
             new QuadroDeDisplayM4(
                 MenuAlerta,
                 EstadoLedsM4.Desligado,
-                instrucao: "Em MENU ALERTA, pressione B2 para entrar no menu de alertas."),
+                instrucao: "Em MENU ALERTA, pressione B2 para entrar no menu de alertas.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuAlertaDias,
                 EstadoLedsM4.Desligado,
-                instrucao: "Use B3 para avançar até A13 ALERTA DIAS e B2 para entrar na opção do alerta."),
+                instrucao: "Use B3 para avançar até A13 ALERTA DIAS e B2 para entrar na opção do alerta.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 Limpar,
                 EstadoLedsM4.Desligado,
-                instrucao: "Selecione LIMPAR com B1 ou B3 e pressione B2 para resetar a contagem de dias trabalhados."),
+                instrucao: "Selecione LIMPAR com B1 ou B3 e pressione B2 para resetar a contagem de dias trabalhados.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuAlertaDias,
                 EstadoLedsM4.Desligado,
@@ -312,7 +342,8 @@ public static class PerfisDeDisplayDeAlerta
                 Menu,
                 EstadoLedsM4.Desligado,
                 instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
-                progressoSegundos: 6f),
+                progressoSegundos: 6f,
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuConfig,
                 EstadoLedsM4.Desligado,
@@ -320,15 +351,18 @@ public static class PerfisDeDisplayDeAlerta
             new QuadroDeDisplayM4(
                 MenuAlerta,
                 EstadoLedsM4.Desligado,
-                instrucao: "Em MENU ALERTA, pressione B2 para entrar no menu de alertas."),
+                instrucao: "Em MENU ALERTA, pressione B2 para entrar no menu de alertas.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuAlertaDias,
                 EstadoLedsM4.Desligado,
-                instrucao: "Use B3 para avançar até A13 ALERTA DIAS e B2 para entrar na opção do alerta."),
+                instrucao: "Use B3 para avançar até A13 ALERTA DIAS e B2 para entrar na opção do alerta.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 Desabilitar,
                 EstadoLedsM4.Desligado,
-                instrucao: "Selecione DESABILITAR com B1 ou B3 e pressione B2 para desligar o alerta A13."),
+                instrucao: "Selecione DESABILITAR com B1 ou B3 e pressione B2 para desligar o alerta A13.",
+                animacao: AnimacaoB2),
             new QuadroDeDisplayM4(
                 MenuAlertaDias,
                 EstadoLedsM4.Desligado,

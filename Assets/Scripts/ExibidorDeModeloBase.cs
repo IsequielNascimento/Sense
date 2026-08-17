@@ -107,6 +107,14 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
             }
         }
 
+        if (possuiAnimacao && modeloExclusivoDeDisplay && animators != null)
+        {
+            foreach (var anim in animators)
+            {
+                if (anim != null) anim.enabled = true;
+            }
+        }
+
         if (animators != null && animators.Length > 0)
         {
             if (string.IsNullOrEmpty(camadaAlvo)) camadaAlvo = ArConstants.DefaultAnimatorLayer;

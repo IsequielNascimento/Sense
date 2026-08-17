@@ -303,7 +303,11 @@ public class PerfilDeDisplayDeA11Tests
         Assert.That(a11.Acoes, Has.Count.EqualTo(2));
         Assert.That(etapas, Has.Length.EqualTo(QuantidadeDeQuadrosAjusteOuReset + QuantidadeDeQuadrosDesligarAlerta));
         Assert.That(etapas.All(etapa => !string.IsNullOrWhiteSpace(etapa.tutorial)), Is.True);
-        Assert.That(etapas.All(etapa => string.IsNullOrEmpty(etapa.animacao)), Is.True);
+        Assert.That(
+            etapas.All(etapa => etapa.tutorial.Contains("B2")
+                ? etapa.animacao == PerfisDeDisplayDeAlerta.AnimacaoB2
+                : string.IsNullOrEmpty(etapa.animacao)),
+            Is.True);
         Assert.That(etapas.All(TelaM4.EtapaTemConteudo), Is.True);
         Assert.That(etapas[1].progressoSegundos, Is.EqualTo(6f));
         Assert.That(etapas[QuantidadeDeQuadrosAjusteOuReset + 1].progressoSegundos, Is.EqualTo(6f));

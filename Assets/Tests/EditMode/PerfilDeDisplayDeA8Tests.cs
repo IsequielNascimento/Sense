@@ -304,7 +304,11 @@ public class PerfilDeDisplayDeA8Tests
         Assert.That(etapas.Select(etapa => etapa.textoDisplay), Is.EqualTo(
             EtapaUnica.Quadros.Select(quadro => quadro.TextoLcd)));
         Assert.That(etapas.All(etapa => !string.IsNullOrWhiteSpace(etapa.tutorial)), Is.True);
-        Assert.That(etapas.All(etapa => string.IsNullOrEmpty(etapa.animacao)), Is.True);
+        Assert.That(
+            etapas.All(etapa => etapa.tutorial.Contains("B2")
+                ? etapa.animacao == PerfisDeDisplayDeAlerta.AnimacaoB2
+                : string.IsNullOrEmpty(etapa.animacao)),
+            Is.True);
         Assert.That(etapas.All(TelaM4.EtapaTemConteudo), Is.True);
         Assert.That(etapas[1].progressoSegundos, Is.EqualTo(6f));
         Assert.That(etapas[IndiceDaConfirmacao].leds, Is.EqualTo(QuadroDeDisplayM4.LedApagado));

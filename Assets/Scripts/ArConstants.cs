@@ -1,7 +1,7 @@
 public static class ArConstants
 {
     public const string DefaultAnimatorLayer = "Base Layer";
-    public const string AssemblyAnimationPrefix = "animacao_";
+    public const string AssemblyAnimationPrefix = DecisaoDeEtapaAr.PrefixoDeAnimacaoDeMontagem;
 
     public static string AssemblyAnimationName(string stepNumber)
     {

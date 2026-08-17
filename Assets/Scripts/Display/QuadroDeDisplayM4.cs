@@ -19,7 +19,8 @@ public sealed class QuadroDeDisplayM4
         EstadoLedsM4 leds,
         bool ledPiscando = false,
         string instrucao = null,
-        float progressoSegundos = 0f)
+        float progressoSegundos = 0f,
+        string animacao = null)
     {
         if (string.IsNullOrWhiteSpace(textoLcd))
         {
@@ -41,6 +42,7 @@ public sealed class QuadroDeDisplayM4
         LedPiscando = ledPiscando;
         Instrucao = instrucao;
         ProgressoSegundos = progressoSegundos;
+        Animacao = animacao;
     }
 
     #endregion
@@ -52,6 +54,7 @@ public sealed class QuadroDeDisplayM4
     public bool LedPiscando { get; }
     public string Instrucao { get; }
     public float ProgressoSegundos { get; }
+    public string Animacao { get; }
 
     #endregion
 
@@ -73,6 +76,7 @@ public sealed class QuadroDeDisplayM4
         if (etapa == null) return;
 
         if (!string.IsNullOrWhiteSpace(Instrucao)) etapa.tutorial = Instrucao;
+        etapa.animacao = Animacao ?? string.Empty;
         etapa.textoDisplay = TextoLcd;
         etapa.leds = EstadoDeLedDaEtapa();
         etapa.alerta = string.Empty;
