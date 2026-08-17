@@ -11,6 +11,7 @@ public static class ModeloDeAlertaDisplay
     public const string CodigoA12 = "A12";
     public const string CodigoA13 = "A13";
     public const string CodigoA14 = "A14";
+    public const string CodigoA21 = "A21";
 
     private static readonly IReadOnlyDictionary<string, string> RecursoPorCodigo =
         new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -29,6 +30,7 @@ public static class ModeloDeAlertaDisplay
         CodigoA12,
         CodigoA13,
         CodigoA14,
+        CodigoA21,
     };
     #region MARK: Resolucao
 
