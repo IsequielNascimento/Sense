@@ -11,14 +11,7 @@ public static class RegeneradorDePrefabsDeAlerta
     public const string NomeDisplayDinamico = "DisplayDynamic";
     public const string NomeObjetoLeds = "LEDS";
 
-    static readonly string[] Alvos =
-    {
-        "M4Problem1/M4SMARTTesteProblema1",
-        "M4Problem11/M4SMARTTesteProblema11",
-        "M4Problem12/M4SMARTTesteProblema12",
-        "M4Problem13/M4SMARTTesteProblema13",
-        "M4Problem14/M4SMARTTesteProblema14",
-    };
+    static IEnumerable<string> Alvos => ModeloDeAlertaDisplay.TodosOsRecursos;
 
     #endregion
 
@@ -35,14 +28,16 @@ public static class RegeneradorDePrefabsDeAlerta
         }
 
         int ok = 0;
+        int total = 0;
         foreach (string alvo in Alvos)
         {
+            total++;
             if (Regenerar(fbx, $"Assets/Resources/{alvo}.prefab")) ok++;
         }
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        Debug.Log($"[Regenerador] {ok}/{Alvos.Length} prefabs regenerados a partir de {CaminhoFbx}.");
+        Debug.Log($"[Regenerador] {ok}/{total} prefabs regenerados a partir de {CaminhoFbx}.");
     }
 
     static bool Regenerar(GameObject fbx, string caminho)
