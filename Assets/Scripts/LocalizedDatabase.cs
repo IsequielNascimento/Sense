@@ -85,10 +85,12 @@ public static class LocalizedDatabase
             return new ArExperienceData(uiText, new StepSequenceData());
         }
 
+        string layer = PerfisDeDisplayDeAlerta.Obter(alerta.Codigo)?.Layer ?? ArConstants.DefaultAnimatorLayer;
+
         var sequence = new StepSequenceData(
             EtapasGuiadasDeAlerta.Tutoriais(etapas),
             etapas,
-            ArConstants.DefaultAnimatorLayer);
+            layer);
 
         DevelopmentLog.Log(
             $"[LocalizedDatabase] Alerta oficial '{alerta.Codigo}' carregado com {etapas.Length} etapas guiadas.");

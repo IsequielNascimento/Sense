@@ -55,5 +55,15 @@ public class DecisaoDeEtapaArTests
         Assert.That(DecisaoDeEtapaAr.PossuiAnimacao(AnimacaoValida), Is.True);
     }
 
+    [TestCase("B2Button")]
+    [TestCase("PROBLEMA1")]
+    public void AnimacaoDeAlertaNaCamadaPadrao_NaoEMontagem(string animacao)
+    {
+        Assert.That(DecisaoDeEtapaAr.PossuiAnimacao(animacao), Is.True);
+        Assert.That(DecisaoDeEtapaAr.EhAnimacaoDeMontagem(animacao), Is.False);
+        Assert.That(DecisaoDeEtapaAr.EhMontagem(animacao, CamadaPadrao, CamadaPadrao), Is.False);
+        Assert.That(DecisaoDeEtapaAr.EhMontagem(animacao, null, CamadaPadrao), Is.False);
+    }
+
     #endregion
 }

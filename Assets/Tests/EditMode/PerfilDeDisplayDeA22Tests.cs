@@ -59,7 +59,7 @@ public class PerfilDeDisplayDeA22Tests
         Assert.That(PerfisDeDisplayDeAlerta.Obter("A24"), Is.Null);
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain(CodigoA22));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain(CodigoA21));
-        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(7));
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(9));
     }
 
     #endregion
@@ -370,6 +370,27 @@ public class PerfilDeDisplayDeA22Tests
 
     #endregion
 
+    #region MARK: Animacao do botao citado em cada passo
+
+    [Test]
+    public void AnimacoesDeA22_SeguemOsBotoesCitadosEmCadaPasso()
+    {
+        Assert.That(
+            EtapaUnica.Quadros.Select(quadro => quadro.Animacao),
+            Is.EqualTo(new[]
+            {
+                null,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B123,
+                AnimacaoDeBotaoM4.B123,
+                AnimacaoDeBotaoM4.B1,
+                null,
+            }));
+    }
+
+    #endregion
+
     #region MARK: Composicao sobre as etapas guiadas
 
     [Test]
@@ -382,7 +403,8 @@ public class PerfilDeDisplayDeA22Tests
         Assert.That(etapas.Select(etapa => etapa.textoDisplay), Is.EqualTo(
             EtapaUnica.Quadros.Select(quadro => quadro.TextoLcd)));
         Assert.That(etapas.All(etapa => !string.IsNullOrWhiteSpace(etapa.tutorial)), Is.True);
-        Assert.That(etapas.All(etapa => string.IsNullOrEmpty(etapa.animacao)), Is.True);
+        Assert.That(etapas.Select(etapa => etapa.animacao), Is.EqualTo(
+            EtapaUnica.Quadros.Select(quadro => quadro.Animacao ?? string.Empty)));
         Assert.That(etapas.All(TelaM4.EtapaTemConteudo), Is.True);
         Assert.That(etapas[1].progressoSegundos, Is.EqualTo(6f));
     }

@@ -70,6 +70,8 @@ public class PerfilDeDisplayDeA8Tests
                 PerfisDeDisplayDeAlerta.CodigoA14,
                 PerfisDeDisplayDeAlerta.CodigoA21,
                 PerfisDeDisplayDeAlerta.CodigoA22,
+                PerfisDeDisplayDeAlerta.CodigoA1,
+                PerfisDeDisplayDeAlerta.CodigoA2,
             }));
     }
 
@@ -295,6 +297,29 @@ public class PerfilDeDisplayDeA8Tests
 
     #endregion
 
+    #region MARK: Animacao do botao citado em cada passo
+
+    [Test]
+    public void AnimacoesDeA8_SeguemOsBotoesCitadosEmCadaPasso()
+    {
+        Assert.That(
+            EtapaUnica.Quadros.Select(quadro => quadro.Animacao),
+            Is.EqualTo(new[]
+            {
+                null,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B123,
+                AnimacaoDeBotaoM4.B123,
+                AnimacaoDeBotaoM4.B123,
+                AnimacaoDeBotaoM4.B123,
+                null,
+                AnimacaoDeBotaoM4.B1,
+            }));
+    }
+
+    #endregion
+
     #region MARK: Composicao sobre as etapas guiadas
 
     [Test]
@@ -307,7 +332,8 @@ public class PerfilDeDisplayDeA8Tests
         Assert.That(etapas.Select(etapa => etapa.textoDisplay), Is.EqualTo(
             EtapaUnica.Quadros.Select(quadro => quadro.TextoLcd)));
         Assert.That(etapas.All(etapa => !string.IsNullOrWhiteSpace(etapa.tutorial)), Is.True);
-        Assert.That(etapas.All(etapa => string.IsNullOrEmpty(etapa.animacao)), Is.True);
+        Assert.That(etapas.Select(etapa => etapa.animacao), Is.EqualTo(
+            EtapaUnica.Quadros.Select(quadro => quadro.Animacao ?? string.Empty)));
         Assert.That(etapas.All(TelaM4.EtapaTemConteudo), Is.True);
         Assert.That(etapas[1].progressoSegundos, Is.EqualTo(6f));
         Assert.That(etapas[IndiceDaConfirmacao].leds, Is.EqualTo(QuadroDeDisplayM4.LedApagado));

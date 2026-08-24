@@ -56,7 +56,10 @@ public class PerfilDeDisplayDeA11Tests
         Assert.That(PerfisDeDisplayDeAlerta.Obter("A24"), Is.Null);
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain(CodigoA11));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A8"));
-        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(7));
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A1"));
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A2"));
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A14"));
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(9));
     }
 
     #endregion
@@ -293,6 +296,33 @@ public class PerfilDeDisplayDeA11Tests
 
     #endregion
 
+    #region MARK: Animacao do botao citado em cada passo
+
+    [Test]
+    public void AnimacoesDeA11_SeguemOsBotoesCitadosEmCadaPasso()
+    {
+        Assert.That(
+            EtapaAjusteOuReset.Quadros.Concat(EtapaDesligarAlerta.Quadros).Select(quadro => quadro.Animacao),
+            Is.EqualTo(new[]
+            {
+                null,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B123,
+                null,
+                null,
+                null,
+                null,
+                null,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B123,
+                null,
+            }));
+    }
+
+    #endregion
+
     #region MARK: Composicao sobre as etapas guiadas
 
     [Test]
@@ -303,7 +333,8 @@ public class PerfilDeDisplayDeA11Tests
         Assert.That(a11.Acoes, Has.Count.EqualTo(2));
         Assert.That(etapas, Has.Length.EqualTo(QuantidadeDeQuadrosAjusteOuReset + QuantidadeDeQuadrosDesligarAlerta));
         Assert.That(etapas.All(etapa => !string.IsNullOrWhiteSpace(etapa.tutorial)), Is.True);
-        Assert.That(etapas.All(etapa => string.IsNullOrEmpty(etapa.animacao)), Is.True);
+        Assert.That(etapas.Select(etapa => etapa.animacao), Is.EqualTo(
+            EtapaAjusteOuReset.Quadros.Concat(EtapaDesligarAlerta.Quadros).Select(quadro => quadro.Animacao ?? string.Empty)));
         Assert.That(etapas.All(TelaM4.EtapaTemConteudo), Is.True);
         Assert.That(etapas[1].progressoSegundos, Is.EqualTo(6f));
         Assert.That(etapas[QuantidadeDeQuadrosAjusteOuReset + 1].progressoSegundos, Is.EqualTo(6f));

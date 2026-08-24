@@ -23,6 +23,9 @@ public class GerenciarUI : MonoBehaviour
     public GameObject templateProblema;
     public Transform listaDeResultados;
 
+    [Header("Cor por status da animação")]
+    public Color corAnimacaoPendente = new Color(0.62f, 0.62f, 0.62f, 1f);
+
     private IReadOnlyList<AlertaOficial> alertas = new List<AlertaOficial>();
     private AlertaOficial alertaAtual;
 
@@ -83,10 +86,20 @@ public class GerenciarUI : MonoBehaviour
             item.SetActive(true);
             item.GetComponentInChildren<TMP_Text>().text = $"{alerta.Codigo} - {alerta.Nome}";
 
+            AplicarStatusDaAnimacao(item, alerta);
+
             Button botao = item.GetComponent<Button>();
             botao.onClick.RemoveAllListeners();
             botao.onClick.AddListener(() => MostrarDetalhes(alerta));
         }
+    }
+
+    private void AplicarStatusDaAnimacao(GameObject item, AlertaOficial alerta)
+    {
+        if (AnimacoesDeAlertaConcluidas.EstaConcluida(alerta.Codigo)) return;
+
+        Image fundo = item.GetComponent<Image>();
+        if (fundo != null) fundo.color = corAnimacaoPendente;
     }
 
     void MostrarDetalhes(AlertaOficial alerta)
