@@ -24,12 +24,25 @@ public static class PerfisDeDisplayDeAlerta
     public const string CodigoA13 = "A13";
     public const string MenuAlertaDias = "A13\nALERTA";
     public const string Limpar = "LIMPAR";
+    public const string CodigoA1 = "A1";
+    public const string VerificarArComprimido = "Verificar o fornecimento de ar comprimido";
+    public const string VerificarAvariasNoConjunto = "Verificar possíveis avarias no conjunto válvula / atuador";
+    public const string CodigoA2 = "A2";
+    public const string MenuTempoMaxCal = "C6";
 
     #endregion
 
     #region MARK: Animacoes do modelo M4
 
     public const string AnimacaoB2 = "B2Button";
+    public const string AnimacaoProblema1 = "PROBLEMA1";
+    public const string LayerProblema1 = "Problema 1";
+
+    #endregion
+
+    #region MARK: VFX do modelo M4
+
+    public const string DestaqueAtuadorCopo = "DestaqueAtuadorCopo";
 
     #endregion
 
@@ -45,6 +58,8 @@ public static class PerfisDeDisplayDeAlerta
         Adicionar(registro, CriarPerfilDeContadorParcial());
         Adicionar(registro, CriarPerfilDeContadorTotal());
         Adicionar(registro, CriarPerfilDeAlertaDias());
+        Adicionar(registro, CriarPerfilDeAnguloMinimo());
+        Adicionar(registro, CriarPerfilDeTempoLimite());
 
         return registro;
     }
@@ -371,6 +386,95 @@ public static class PerfisDeDisplayDeAlerta
         return new PerfilDeDisplayDeAlerta(
             CodigoA13,
             new[] { resetarAlerta, desligarAlerta },
+            mecanismoDeAtivacaoConfirmado: false);
+    }
+
+    #endregion
+
+    #region MARK: A1 ANGULO MINIMO, pagina 11
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeAnguloMinimo()
+    {
+        var verificarArComprimido = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA1,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: VerificarArComprimido,
+                animacao: AnimacaoProblema1));
+
+        var verificarAvariasNoConjunto = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA1,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: VerificarAvariasNoConjunto,
+                vfx: DestaqueAtuadorCopo));
+
+        return new PerfilDeDisplayDeAlerta(
+            CodigoA1,
+            new[] { verificarArComprimido, verificarAvariasNoConjunto },
+            mecanismoDeAtivacaoConfirmado: false,
+            layer: LayerProblema1);
+    }
+
+    #endregion
+
+    #region MARK: A2 TEMPO LIMITE, paginas 11 e 52
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeTempoLimite()
+    {
+        var aumentarTempoLimite = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA2,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Confirme o alerta A2: o tempo máximo de calibração (C6) foi excedido. O monitor demorou mais que o configurado para mover a válvula durante a auto calibração."),
+            new QuadroDeDisplayM4(
+                Menu,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
+                progressoSegundos: 6f,
+                animacao: AnimacaoB2),
+            new QuadroDeDisplayM4(
+                MenuConfig,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações.",
+                animacao: AnimacaoB2),
+            new QuadroDeDisplayM4(
+                MenuTempoMaxCal,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Use B3 para avançar até C6 TEMPO MAX CAL. B1 volta à opção anterior e B2 entra na opção.",
+                animacao: AnimacaoB2),
+            new QuadroDeDisplayM4(
+                MenuTempoMaxCal,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Aumente o tempo máximo de calibração: B1 diminui e B3 aumenta o valor entre 10 e 120 segundos. Mantenha B2 por mais de 3 segundos para confirmar.",
+                animacao: AnimacaoB2),
+            new QuadroDeDisplayM4(
+                MenuTempoMaxCal,
+                EstadoLedsM4.Desligado,
+                instrucao: "Verifique a confirmação: o novo tempo máximo de calibração foi salvo e o alerta A2 foi eliminado."),
+            new QuadroDeDisplayM4(
+                Sair,
+                EstadoLedsM4.Desligado,
+                instrucao: "Em uma opção principal, mantenha B1 por mais de 3 segundos para sair. O display mostra SAIR e retorna ao modo RUN."));
+
+        var verificarAvariasNoConjunto = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA2,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: VerificarAvariasNoConjunto,
+                vfx: DestaqueAtuadorCopo));
+
+        return new PerfilDeDisplayDeAlerta(
+            CodigoA2,
+            new[] { aumentarTempoLimite, verificarAvariasNoConjunto },
             mecanismoDeAtivacaoConfirmado: false);
     }
 

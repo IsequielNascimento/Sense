@@ -8,7 +8,8 @@ public sealed class PerfilDeDisplayDeAlerta
     public PerfilDeDisplayDeAlerta(
         string codigo,
         IReadOnlyList<SequenciaDeQuadrosM4> etapasOficiais,
-        bool mecanismoDeAtivacaoConfirmado = true)
+        bool mecanismoDeAtivacaoConfirmado = true,
+        string layer = null)
     {
         if (!CodigosOficiais.EhAlerta(codigo))
         {
@@ -28,6 +29,7 @@ public sealed class PerfilDeDisplayDeAlerta
         Codigo = codigo.Trim();
         EtapasOficiais = etapasOficiais;
         MecanismoDeAtivacaoConfirmado = mecanismoDeAtivacaoConfirmado;
+        Layer = string.IsNullOrWhiteSpace(layer) ? null : layer;
     }
 
     #endregion
@@ -40,6 +42,7 @@ public sealed class PerfilDeDisplayDeAlerta
     public int QuantidadeDeEtapasOficiais => EtapasOficiais.Count;
 
     public bool MecanismoDeAtivacaoConfirmado { get; }
+    public string Layer { get; }
 
     public SequenciaDeQuadrosM4 EtapaOficial(int indice)
     {
