@@ -4,29 +4,31 @@ using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
-public class PerfilDeDisplayDeA13Tests
+public class PerfilDeDisplayDeA14Tests
 {
     #region MARK: Fixture
 
-    private const string CodigoA13 = "A13";
-    private const string AcaoResetarAlerta = "Resetar alerta";
+    private const string CodigoA14 = "A14";
+    private const string AcaoDefinirNovaData = "Definir nova data";
     private const string AcaoDesligarAlerta = "Desligar alerta";
-    private const int QuantidadeDeQuadrosResetarAlerta = 7;
+    private const int QuantidadeDeQuadrosDefinirNovaData = 8;
     private const int QuantidadeDeQuadrosDesligarAlerta = 7;
+    private const string ExemploDeData = "31 12\n2023";
+    private const int LimiteDeCaracteresDaInstrucao = 120;
     private const string ModelPath = "Assets/Prefab/Teste/M4SMARTTeste.fbx";
-    private const string PrefabPath = "Assets/Resources/M4Problem13/M4SMARTTesteProblema13.prefab";
+    private const string PrefabPath = "Assets/Resources/M4Problem1/M4SMARTTesteProblema1.prefab";
 
-    private AlertaOficial a13;
+    private AlertaOficial a14;
     private PerfilDeDisplayDeAlerta perfil;
 
     [SetUp]
     public void Carregar()
     {
-        a13 = CatalogoDeAlertas.Obter(CodigoA13, "pt");
-        perfil = PerfisDeDisplayDeAlerta.Obter(CodigoA13);
+        a14 = CatalogoDeAlertas.Obter(CodigoA14, "pt");
+        perfil = PerfisDeDisplayDeAlerta.Obter(CodigoA14);
     }
 
-    private SequenciaDeQuadrosM4 EtapaResetarAlerta => perfil.EtapaOficial(0);
+    private SequenciaDeQuadrosM4 EtapaDefinirNovaData => perfil.EtapaOficial(0);
     private SequenciaDeQuadrosM4 EtapaDesligarAlerta => perfil.EtapaOficial(1);
 
     #endregion
@@ -34,37 +36,33 @@ public class PerfilDeDisplayDeA13Tests
     #region MARK: Fidelidade ao catalogo oficial
 
     [Test]
-    public void CatalogoDeA13_MantemAsDuasAcoesDaPagina76()
+    public void CatalogoDeA14_MantemAsDuasAcoesDaPagina76()
     {
-        Assert.That(a13, Is.Not.Null);
-        Assert.That(a13.Nome, Is.EqualTo("ALERTA DIAS"));
-        Assert.That(a13.Padrao, Is.EqualTo("desabilitado"));
-        Assert.That(a13.Acoes.Count, Is.EqualTo(2));
-        Assert.That(a13.Acoes[0], Is.EqualTo(AcaoResetarAlerta));
-        Assert.That(a13.Acoes[1], Is.EqualTo(AcaoDesligarAlerta));
-        Assert.That(a13.Locais.Count, Is.EqualTo(2));
+        Assert.That(a14, Is.Not.Null);
+        Assert.That(a14.Nome, Is.EqualTo("ALERTA DATA"));
+        Assert.That(a14.Padrao, Is.EqualTo("desabilitado"));
+        Assert.That(a14.Acoes.Count, Is.EqualTo(2));
+        Assert.That(a14.Acoes[0], Is.EqualTo(AcaoDefinirNovaData));
+        Assert.That(a14.Acoes[1], Is.EqualTo(AcaoDesligarAlerta));
+        Assert.That(a14.Locais.Count, Is.EqualTo(2));
     }
 
     [Test]
-    public void PerfilDeA13_TemExatamenteDuasEtapasOficiais()
+    public void PerfilDeA14_TemExatamenteDuasEtapasOficiais()
     {
         Assert.That(perfil, Is.Not.Null);
-        Assert.That(perfil.Codigo, Is.EqualTo(CodigoA13));
+        Assert.That(perfil.Codigo, Is.EqualTo(CodigoA14));
         Assert.That(perfil.QuantidadeDeEtapasOficiais, Is.EqualTo(2));
-        Assert.That(perfil.CorrespondeAoCatalogo(a13), Is.True);
+        Assert.That(perfil.CorrespondeAoCatalogo(a14), Is.True);
     }
 
     [Test]
-    public void RegistroDePerfis_A13NaoSelecionaPerfilDeOutroAlerta()
+    public void RegistroDePerfis_A14NaoSelecionaPerfilDeOutroAlerta()
     {
         Assert.That(PerfisDeDisplayDeAlerta.Obter("A24"), Is.Null);
-        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain(CodigoA13));
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain(CodigoA14));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A8"));
-        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A11"));
-        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A12"));
-        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A1"));
-        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A2"));
-        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A14"));
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A13"));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(9));
     }
 
@@ -73,11 +71,11 @@ public class PerfilDeDisplayDeA13Tests
     #region MARK: Quadros do LCD
 
     [Test]
-    public void EtapaResetarAlerta_TemSeteQuadrosSemTextoVazio()
+    public void EtapaDefinirNovaData_TemOitoQuadrosSemTextoVazio()
     {
-        Assert.That(EtapaResetarAlerta.Quantidade, Is.EqualTo(QuantidadeDeQuadrosResetarAlerta));
+        Assert.That(EtapaDefinirNovaData.Quantidade, Is.EqualTo(QuantidadeDeQuadrosDefinirNovaData));
 
-        foreach (QuadroDeDisplayM4 quadro in EtapaResetarAlerta.Quadros)
+        foreach (QuadroDeDisplayM4 quadro in EtapaDefinirNovaData.Quadros)
         {
             Assert.That(quadro.TextoLcd, Is.Not.Empty);
             Assert.That(quadro.TextoLcd, Is.EqualTo(quadro.TextoLcd.Trim()));
@@ -101,15 +99,50 @@ public class PerfilDeDisplayDeA13Tests
     }
 
     [Test]
+    public void Instrucoes_CabemNaCaixaDeTextoDoPassoAPasso()
+    {
+        foreach (SequenciaDeQuadrosM4 etapa in new[] { EtapaDefinirNovaData, EtapaDesligarAlerta })
+        {
+            foreach (QuadroDeDisplayM4 quadro in etapa.Quadros)
+            {
+                Assert.That(
+                    quadro.Instrucao.Length,
+                    Is.LessThanOrEqualTo(LimiteDeCaracteresDaInstrucao),
+                    $"Instrução longa demais no quadro '{quadro.TextoLcd}'.");
+            }
+        }
+    }
+
+    [Test]
+    public void Instrucoes_NaoCitamOManualNemJustificamEscolhas()
+    {
+        string[] termosProibidos = { "Figura", "manual", "página", "exemplo" };
+
+        foreach (SequenciaDeQuadrosM4 etapa in new[] { EtapaDefinirNovaData, EtapaDesligarAlerta })
+        {
+            foreach (QuadroDeDisplayM4 quadro in etapa.Quadros)
+            {
+                foreach (string termo in termosProibidos)
+                {
+                    Assert.That(
+                        quadro.Instrucao,
+                        Does.Not.Contain(termo).IgnoreCase,
+                        $"Instrução do quadro '{quadro.TextoLcd}' cita '{termo}'.");
+                }
+            }
+        }
+    }
+
+    [Test]
     public void EntradaNoMenu_UsaB2PorSeisSegundosEmAmbasAsEtapas()
     {
-        QuadroDeDisplayM4 entradaResetarAlerta = EtapaResetarAlerta.Em(1);
+        QuadroDeDisplayM4 entradaDefinirNovaData = EtapaDefinirNovaData.Em(1);
         QuadroDeDisplayM4 entradaDesligarAlerta = EtapaDesligarAlerta.Em(1);
 
-        Assert.That(entradaResetarAlerta.TextoLcd, Is.EqualTo("MENU"));
-        Assert.That(entradaResetarAlerta.Instrucao, Does.Contain("B2"));
-        Assert.That(entradaResetarAlerta.Instrucao, Does.Contain("6 segundos"));
-        Assert.That(entradaResetarAlerta.ProgressoSegundos, Is.EqualTo(6f));
+        Assert.That(entradaDefinirNovaData.TextoLcd, Is.EqualTo("MENU"));
+        Assert.That(entradaDefinirNovaData.Instrucao, Does.Contain("B2"));
+        Assert.That(entradaDefinirNovaData.Instrucao, Does.Contain("6 segundos"));
+        Assert.That(entradaDefinirNovaData.ProgressoSegundos, Is.EqualTo(6f));
 
         Assert.That(entradaDesligarAlerta.TextoLcd, Is.EqualTo("MENU"));
         Assert.That(entradaDesligarAlerta.Instrucao, Does.Contain("B2"));
@@ -118,48 +151,75 @@ public class PerfilDeDisplayDeA13Tests
     }
 
     [Test]
-    public void AmbasAsEtapas_PercorremMenuAlertaAteA13()
+    public void AmbasAsEtapas_PercorremMenuAlertaAteA14()
     {
-        foreach (SequenciaDeQuadrosM4 etapa in new[] { EtapaResetarAlerta, EtapaDesligarAlerta })
+        foreach (SequenciaDeQuadrosM4 etapa in new[] { EtapaDefinirNovaData, EtapaDesligarAlerta })
         {
             Assert.That(etapa.Em(2).TextoLcd, Is.EqualTo("MENU\nCONFIG"));
             Assert.That(etapa.Em(3).TextoLcd, Is.EqualTo("MENU\nALERTA"));
-            Assert.That(etapa.Em(4).TextoLcd, Is.EqualTo("A13\nALERTA"));
+            Assert.That(etapa.Em(4).TextoLcd, Is.EqualTo("A14\nALERTA"));
         }
     }
 
     #endregion
 
-    #region MARK: Reset da contagem de dias
+    #region MARK: Edicao da data e relogio C13
 
     [Test]
-    public void EstadoInicial_IdentificaA13EOsDiasTrabalhados()
+    public void EstadoInicial_IndicaQueORelogioC13PrecisaEstarAjustado()
     {
-        QuadroDeDisplayM4 estadoInicial = EtapaResetarAlerta.Primeiro;
+        QuadroDeDisplayM4 estadoInicial = EtapaDefinirNovaData.Primeiro;
 
-        Assert.That(estadoInicial.TextoLcd, Is.EqualTo(CodigoA13));
-        Assert.That(estadoInicial.Instrucao, Does.Contain("dias"));
+        Assert.That(estadoInicial.TextoLcd, Is.EqualTo(CodigoA14));
+        Assert.That(estadoInicial.Instrucao, Does.Contain("C13"));
     }
 
     [Test]
-    public void Reset_UsaLimparEIniciaNovaContagemSemMexerNosCiclos()
+    public void EdicaoDaData_UsaHabilitarEOsComandosDeDigito()
     {
-        QuadroDeDisplayM4 limpar = EtapaResetarAlerta.Em(5);
-        QuadroDeDisplayM4 confirmacaoReset = EtapaResetarAlerta.Ultimo;
+        QuadroDeDisplayM4 habilitar = EtapaDefinirNovaData.Em(5);
+        QuadroDeDisplayM4 edicao = EtapaDefinirNovaData.Em(6);
 
-        Assert.That(limpar.TextoLcd, Is.EqualTo("LIMPAR"));
-        Assert.That(limpar.Instrucao, Does.Contain("B2"));
-        Assert.That(confirmacaoReset.Leds, Is.EqualTo(EstadoLedsM4.Desligado));
-        Assert.That(confirmacaoReset.Instrucao, Does.Contain("nova contagem"));
-        Assert.That(confirmacaoReset.Instrucao, Does.Contain("parcial e total não são alterados"));
+        Assert.That(habilitar.TextoLcd, Is.EqualTo("HABILI"));
+        Assert.That(habilitar.Instrucao, Does.Contain("B2"));
+        Assert.That(edicao.TextoLcd, Is.EqualTo(ExemploDeData));
+        Assert.That(edicao.Instrucao, Does.Contain("B1"));
+        Assert.That(edicao.Instrucao, Does.Contain("B3"));
+        Assert.That(edicao.Instrucao, Does.Contain("3 segundos"));
+    }
+
+    [Test]
+    public void DataDoManual_NaoEApresentadaComoDadoDeProducao()
+    {
+        QuadroDeDisplayM4 edicao = EtapaDefinirNovaData.Em(6);
+
+        Assert.That(edicao.Instrucao, Does.Contain("data da manutenção"));
+
+        int quadrosComData = EtapaDefinirNovaData.Quadros
+            .Concat(EtapaDesligarAlerta.Quadros)
+            .Count(quadro => quadro.TextoLcd == ExemploDeData);
+
+        Assert.That(quadrosComData, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void ConfirmacaoDaData_AvisaQueCancelarNaoSalvaAlteracaoParcial()
+    {
+        QuadroDeDisplayM4 confirmacao = EtapaDefinirNovaData.Ultimo;
+
+        Assert.That(confirmacao.TextoLcd, Is.EqualTo("A14\nALERTA"));
+        Assert.That(confirmacao.Leds, Is.EqualTo(EstadoLedsM4.Desligado));
+        Assert.That(confirmacao.Instrucao, Does.Contain("Data salva"));
+        Assert.That(confirmacao.Instrucao, Does.Contain("B1"));
+        Assert.That(confirmacao.Instrucao, Does.Contain("não salva nada"));
     }
 
     #endregion
 
-    #region MARK: Separacao entre reset e desativacao
+    #region MARK: Separacao entre definir data e desativacao
 
     [Test]
-    public void Desativacao_NaoApagaAContagemDeDias()
+    public void Desativacao_NaoAlteraORelogioC13()
     {
         QuadroDeDisplayM4 desabilitar = EtapaDesligarAlerta.Em(5);
         QuadroDeDisplayM4 confirmacaoDesligar = EtapaDesligarAlerta.Ultimo;
@@ -167,22 +227,22 @@ public class PerfilDeDisplayDeA13Tests
         Assert.That(desabilitar.TextoLcd, Is.EqualTo("DESABI"));
         Assert.That(confirmacaoDesligar.Leds, Is.EqualTo(EstadoLedsM4.Desligado));
         Assert.That(confirmacaoDesligar.Instrucao, Does.Contain("desligado"));
-        Assert.That(confirmacaoDesligar.Instrucao, Does.Contain("não é apagada"));
+        Assert.That(confirmacaoDesligar.Instrucao, Does.Contain("C13 não é alterado"));
     }
 
     [Test]
-    public void PrimeiraEtapaNaoDesliga_ESegundaEtapaNaoReseta()
+    public void PrimeiraEtapaNaoDesliga_ESegundaEtapaNaoEditaData()
     {
-        Assert.That(EtapaResetarAlerta.Quadros.Any(quadro => quadro.TextoLcd == "DESABI"), Is.False);
-        Assert.That(EtapaDesligarAlerta.Quadros.Any(quadro => quadro.TextoLcd == "LIMPAR"), Is.False);
-        Assert.That(EtapaDesligarAlerta.Primeiro.Instrucao, Does.Contain("sem resetar"));
+        Assert.That(EtapaDefinirNovaData.Quadros.Any(quadro => quadro.TextoLcd == "DESABI"), Is.False);
+        Assert.That(EtapaDesligarAlerta.Quadros.Any(quadro => quadro.TextoLcd == "HABILI"), Is.False);
+        Assert.That(EtapaDesligarAlerta.Primeiro.Instrucao, Does.Contain("sem definir nova data"));
     }
 
     [Test]
-    public void ConfirmacoesDeResetEDesativacao_SaoTextualmenteDistintas()
+    public void ConfirmacoesDeDataEDesativacao_SaoTextualmenteDistintas()
     {
         Assert.That(
-            EtapaResetarAlerta.Ultimo.Instrucao,
+            EtapaDefinirNovaData.Ultimo.Instrucao,
             Is.Not.EqualTo(EtapaDesligarAlerta.Ultimo.Instrucao));
     }
 
@@ -191,16 +251,16 @@ public class PerfilDeDisplayDeA13Tests
     #region MARK: LED e mecanismo sem evidencia normativa
 
     [Test]
-    public void PerfilDeA13_NaoInventaLedVermelhoSemEvidenciaNormativa()
+    public void PerfilDeA14_NaoInventaLedVermelhoSemEvidenciaNormativa()
     {
-        Assert.That(EtapaResetarAlerta.Quadros.All(quadro => !quadro.LedPiscando), Is.True);
-        Assert.That(EtapaResetarAlerta.Quadros.All(quadro => quadro.Leds == EstadoLedsM4.Desligado), Is.True);
+        Assert.That(EtapaDefinirNovaData.Quadros.All(quadro => !quadro.LedPiscando), Is.True);
+        Assert.That(EtapaDefinirNovaData.Quadros.All(quadro => quadro.Leds == EstadoLedsM4.Desligado), Is.True);
         Assert.That(EtapaDesligarAlerta.Quadros.All(quadro => !quadro.LedPiscando), Is.True);
         Assert.That(EtapaDesligarAlerta.Quadros.All(quadro => quadro.Leds == EstadoLedsM4.Desligado), Is.True);
     }
 
     [Test]
-    public void PerfilDeA13_NaoAfirmaMecanismoDeAtivacaoConfirmado()
+    public void PerfilDeA14_NaoAfirmaMecanismoDeAtivacaoConfirmado()
     {
         Assert.That(perfil.MecanismoDeAtivacaoConfirmado, Is.False);
     }
@@ -216,7 +276,7 @@ public class PerfilDeDisplayDeA13Tests
 
         Assert.That(navegacao.IndiceDaEtapaOficial, Is.EqualTo(0));
         Assert.That(navegacao.IndiceDoQuadro, Is.EqualTo(0));
-        Assert.That(navegacao.QuadroAtual.TextoLcd, Is.EqualTo(CodigoA13));
+        Assert.That(navegacao.QuadroAtual.TextoLcd, Is.EqualTo(CodigoA14));
     }
 
     [Test]
@@ -224,7 +284,7 @@ public class PerfilDeDisplayDeA13Tests
     {
         var navegacao = new NavegacaoDeQuadrosDeAlerta(perfil);
 
-        for (int i = 1; i < EtapaResetarAlerta.Quantidade; i++)
+        for (int i = 1; i < EtapaDefinirNovaData.Quantidade; i++)
         {
             Assert.That(navegacao.ProximoQuadro(), Is.True);
             Assert.That(navegacao.IndiceDoQuadro, Is.EqualTo(i));
@@ -245,7 +305,7 @@ public class PerfilDeDisplayDeA13Tests
         navegacao.Repetir();
 
         Assert.That(navegacao.IndiceDoQuadro, Is.EqualTo(0));
-        Assert.That(navegacao.QuadroAtual.TextoLcd, Is.EqualTo(CodigoA13));
+        Assert.That(navegacao.QuadroAtual.TextoLcd, Is.EqualTo(CodigoA14));
     }
 
     [Test]
@@ -292,7 +352,7 @@ public class PerfilDeDisplayDeA13Tests
     {
         var etapa = new Etapa
         {
-            tutorial = AcaoResetarAlerta,
+            tutorial = AcaoDefinirNovaData,
             animacao = string.Empty,
             textoDisplay = "residual",
             alerta = "alerta residual",
@@ -303,9 +363,9 @@ public class PerfilDeDisplayDeA13Tests
             progressoEstoura = true,
         };
 
-        EtapaResetarAlerta.Primeiro.Aplicar(etapa);
+        EtapaDefinirNovaData.Primeiro.Aplicar(etapa);
 
-        Assert.That(etapa.textoDisplay, Is.EqualTo(CodigoA13));
+        Assert.That(etapa.textoDisplay, Is.EqualTo(CodigoA14));
         Assert.That(etapa.leds, Is.EqualTo(QuadroDeDisplayM4.LedApagado));
         Assert.That(etapa.alerta, Is.Empty);
         Assert.That(etapa.textoAngulo, Is.Empty);
@@ -320,10 +380,10 @@ public class PerfilDeDisplayDeA13Tests
     #region MARK: Animacao do botao citado em cada passo
 
     [Test]
-    public void AnimacoesDeA13_SeguemOsBotoesCitadosEmCadaPasso()
+    public void AnimacoesDeA14_SeguemOsBotoesCitadosEmCadaPasso()
     {
         Assert.That(
-            EtapaResetarAlerta.Quadros.Concat(EtapaDesligarAlerta.Quadros).Select(quadro => quadro.Animacao),
+            EtapaDefinirNovaData.Quadros.Concat(EtapaDesligarAlerta.Quadros).Select(quadro => quadro.Animacao),
             Is.EqualTo(new[]
             {
                 null,
@@ -332,7 +392,8 @@ public class PerfilDeDisplayDeA13Tests
                 AnimacaoDeBotaoM4.B2,
                 AnimacaoDeBotaoM4.B123,
                 AnimacaoDeBotaoM4.B123,
-                null,
+                AnimacaoDeBotaoM4.B123,
+                AnimacaoDeBotaoM4.B1,
                 null,
                 AnimacaoDeBotaoM4.B2,
                 AnimacaoDeBotaoM4.B3,
@@ -348,18 +409,18 @@ public class PerfilDeDisplayDeA13Tests
     #region MARK: Composicao sobre as etapas guiadas
 
     [Test]
-    public void EtapasDeA13_ExpandemAsDuasAcoesOficiaisEmPassosPraticos()
+    public void EtapasDeA14_ExpandemAsDuasAcoesOficiaisEmPassosPraticos()
     {
-        Etapa[] etapas = EtapasComDisplayDeAlerta.Aplicar(a13, EtapasGuiadasDeAlerta.Criar(a13));
+        Etapa[] etapas = EtapasComDisplayDeAlerta.Aplicar(a14, EtapasGuiadasDeAlerta.Criar(a14));
 
-        Assert.That(a13.Acoes, Has.Count.EqualTo(2));
-        Assert.That(etapas, Has.Length.EqualTo(QuantidadeDeQuadrosResetarAlerta + QuantidadeDeQuadrosDesligarAlerta));
+        Assert.That(a14.Acoes, Has.Count.EqualTo(2));
+        Assert.That(etapas, Has.Length.EqualTo(QuantidadeDeQuadrosDefinirNovaData + QuantidadeDeQuadrosDesligarAlerta));
         Assert.That(etapas.All(etapa => !string.IsNullOrWhiteSpace(etapa.tutorial)), Is.True);
         Assert.That(etapas.Select(etapa => etapa.animacao), Is.EqualTo(
-            EtapaResetarAlerta.Quadros.Concat(EtapaDesligarAlerta.Quadros).Select(quadro => quadro.Animacao ?? string.Empty)));
+            EtapaDefinirNovaData.Quadros.Concat(EtapaDesligarAlerta.Quadros).Select(quadro => quadro.Animacao ?? string.Empty)));
         Assert.That(etapas.All(TelaM4.EtapaTemConteudo), Is.True);
         Assert.That(etapas[1].progressoSegundos, Is.EqualTo(6f));
-        Assert.That(etapas[QuantidadeDeQuadrosResetarAlerta + 1].progressoSegundos, Is.EqualTo(6f));
+        Assert.That(etapas[QuantidadeDeQuadrosDefinirNovaData + 1].progressoSegundos, Is.EqualTo(6f));
     }
 
     #endregion
@@ -384,13 +445,13 @@ public class PerfilDeDisplayDeA13Tests
     }
 
     [Test]
-    public void ModeloDeA13_ResolveOPrefabBaseadoEmM4SmartTeste()
+    public void ModeloDeA14_ResolveOPrefabBaseadoEmM4SmartTeste()
     {
         Assert.That(TipoModeloDeAlertaDisplay, Is.Not.Null);
-        Assert.That(UsaM4SmartTeste(CodigoA13), Is.True);
+        Assert.That(UsaM4SmartTeste(CodigoA14), Is.True);
         Assert.That(ResolverModelo("A24"), Is.Null);
 
-        GameObject prefab = ResolverModelo(CodigoA13);
+        GameObject prefab = ResolverModelo(CodigoA14);
 
         Assert.That(prefab, Is.Not.Null);
         Assert.That(AssetDatabase.GetAssetPath(prefab), Is.EqualTo(PrefabPath));

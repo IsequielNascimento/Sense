@@ -28,6 +28,13 @@ public static class PerfisDeDisplayDeAlerta
     public const string VerificarArComprimido = "Verificar o fornecimento de ar comprimido";
     public const string VerificarAvariasNoConjunto = "Verificar possíveis avarias no conjunto válvula / atuador";
     public const string CodigoA2 = "A2";
+    public const string CodigoA14 = "A14";
+    public const string MenuAlertaData = "A14\nALERTA";
+    public const string ExemploDeData = "31 12\n2023";
+    public const string CodigoA21 = "A21";
+    public const string CodigoA22 = "A22";
+    public const string MenuDisplay = "C3\nDISPLA";
+    public const string Temperatura = "TEMPER";
     public const string MenuTempoMaxCal = "C6";
 
     #endregion
@@ -57,6 +64,9 @@ public static class PerfisDeDisplayDeAlerta
         Adicionar(registro, CriarPerfilDeContadorParcial());
         Adicionar(registro, CriarPerfilDeContadorTotal());
         Adicionar(registro, CriarPerfilDeAlertaDias());
+        Adicionar(registro, CriarPerfilDeAlertaData());
+        Adicionar(registro, CriarPerfilDeTemperaturaAlta());
+        Adicionar(registro, CriarPerfilDeTemperaturaBaixa());
         Adicionar(registro, CriarPerfilDeAnguloMinimo());
         Adicionar(registro, CriarPerfilDeTempoLimite());
 
@@ -358,6 +368,149 @@ public static class PerfisDeDisplayDeAlerta
             CodigoA13,
             new[] { resetarAlerta, desligarAlerta },
             mecanismoDeAtivacaoConfirmado: false);
+    }
+
+    #endregion
+
+    #region MARK: A14 ALERTA DATA, paginas 11, 53, 54, 63 e 76
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeAlertaData()
+    {
+        var definirNovaData = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA14,
+                EstadoLedsM4.Desligado,
+                instrucao: "Alerta A14: a data ajustada foi atingida. Depende do relógio C13 ajustado."),
+            new QuadroDeDisplayM4(
+                Menu,
+                EstadoLedsM4.Desligado,
+                instrucao: "Encoste o polo Sul do chaveiro em B2 por 6 segundos.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                MenuConfig,
+                EstadoLedsM4.Desligado,
+                instrucao: "Avance com B3 até MENU ALERTA."),
+            new QuadroDeDisplayM4(
+                MenuAlerta,
+                EstadoLedsM4.Desligado,
+                instrucao: "Pressione B2 para entrar."),
+            new QuadroDeDisplayM4(
+                MenuAlertaData,
+                EstadoLedsM4.Desligado,
+                instrucao: "Avance com B3 até A14 e pressione B2."),
+            new QuadroDeDisplayM4(
+                Habilitar,
+                EstadoLedsM4.Desligado,
+                instrucao: "Selecione HABILITAR com B3 e pressione B2."),
+            new QuadroDeDisplayM4(
+                ExemploDeData,
+                EstadoLedsM4.Desligado,
+                instrucao: "Ajuste a data da manutenção. B1 diminui, B3 aumenta, B2 troca de dígito. Segure B2 por 3 segundos para confirmar."),
+            new QuadroDeDisplayM4(
+                MenuAlertaData,
+                EstadoLedsM4.Desligado,
+                instrucao: "Data salva e alerta A14 encerrado. Sair com B1 antes de confirmar não salva nada."));
+
+        var desligarAlerta = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA14,
+                EstadoLedsM4.Desligado,
+                instrucao: "Alerta A14 ativo. Aqui você só desliga o alerta, sem definir nova data."),
+            new QuadroDeDisplayM4(
+                Menu,
+                EstadoLedsM4.Desligado,
+                instrucao: "Encoste o polo Sul do chaveiro em B2 por 6 segundos.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                MenuConfig,
+                EstadoLedsM4.Desligado,
+                instrucao: "Avance com B3 até MENU ALERTA."),
+            new QuadroDeDisplayM4(
+                MenuAlerta,
+                EstadoLedsM4.Desligado,
+                instrucao: "Pressione B2 para entrar."),
+            new QuadroDeDisplayM4(
+                MenuAlertaData,
+                EstadoLedsM4.Desligado,
+                instrucao: "Avance com B3 até A14 e pressione B2."),
+            new QuadroDeDisplayM4(
+                Desabilitar,
+                EstadoLedsM4.Desligado,
+                instrucao: "Selecione DESABILITAR com B3 e pressione B2."),
+            new QuadroDeDisplayM4(
+                MenuAlertaData,
+                EstadoLedsM4.Desligado,
+                instrucao: "Alerta A14 desligado. O relógio C13 não é alterado."));
+
+        return new PerfilDeDisplayDeAlerta(
+            CodigoA14,
+            new[] { definirNovaData, desligarAlerta },
+            mecanismoDeAtivacaoConfirmado: false);
+    }
+
+    #endregion
+
+    #region MARK: Verificacao de temperatura compartilhada por A21 e A22
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeTemperatura(string codigo, string diagnostico)
+    {
+        var verificarTemperatura = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                codigo,
+                EstadoLedsM4.Desligado,
+                instrucao: diagnostico),
+            new QuadroDeDisplayM4(
+                Menu,
+                EstadoLedsM4.Desligado,
+                instrucao: "Encoste o polo Sul do chaveiro em B2 por 6 segundos.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                MenuConfig,
+                EstadoLedsM4.Desligado,
+                instrucao: "Pressione B2 para entrar."),
+            new QuadroDeDisplayM4(
+                MenuDisplay,
+                EstadoLedsM4.Desligado,
+                instrucao: "Avance com B3 até C3 e pressione B2."),
+            new QuadroDeDisplayM4(
+                Temperatura,
+                EstadoLedsM4.Desligado,
+                instrucao: "Selecione TEMPERATURA com B3 e pressione B2."),
+            new QuadroDeDisplayM4(
+                Sair,
+                EstadoLedsM4.Desligado,
+                instrucao: "Segure B1 por 3 segundos para sair do menu."),
+            new QuadroDeDisplayM4(
+                Temperatura,
+                EstadoLedsM4.Desligado,
+                instrucao: "O display mostra a temperatura interna. Verifique a temperatura do processo em campo."));
+
+        return new PerfilDeDisplayDeAlerta(
+            codigo,
+            new[] { verificarTemperatura },
+            mecanismoDeAtivacaoConfirmado: false);
+    }
+
+    #endregion
+
+    #region MARK: A21 TEMPERATURA ALTA, paginas 11, 55 e 76
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeTemperaturaAlta()
+    {
+        return CriarPerfilDeTemperatura(
+            CodigoA21,
+            "Alerta A21: temperatura do monitor acima de 70°.");
+    }
+
+    #endregion
+
+    #region MARK: A22 TEMPERATURA BAIXA, paginas 11, 55 e 76
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeTemperaturaBaixa()
+    {
+        return CriarPerfilDeTemperatura(
+            CodigoA22,
+            "Alerta A22: temperatura do monitor abaixo de -20°C.");
     }
 
     #endregion
