@@ -89,7 +89,7 @@ public class PerfilDeDisplayDeA2Tests
         Assert.That(entrada.Instrucao, Does.Contain("B2"));
         Assert.That(entrada.Instrucao, Does.Contain("6 segundos"));
         Assert.That(entrada.ProgressoSegundos, Is.EqualTo(6f));
-        Assert.That(entrada.Animacao, Is.EqualTo(PerfisDeDisplayDeAlerta.AnimacaoB2));
+        Assert.That(entrada.Animacao, Is.EqualTo(AnimacaoDeBotaoM4.B2));
     }
 
     [Test]
@@ -139,6 +139,28 @@ public class PerfilDeDisplayDeA2Tests
 
     #endregion
 
+    #region MARK: Animacao do botao citado em cada passo
+
+    [Test]
+    public void AnimacoesDeA2_SeguemOsBotoesCitadosEmCadaPasso()
+    {
+        Assert.That(
+            EtapaAumentarTempoLimite.Quadros.Concat(EtapaAvarias.Quadros).Select(quadro => quadro.Animacao),
+            Is.EqualTo(new[]
+            {
+                null,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B123,
+                AnimacaoDeBotaoM4.B123,
+                null,
+                AnimacaoDeBotaoM4.B1,
+                null,
+            }));
+    }
+
+    #endregion
+
     #region MARK: Composicao sobre as etapas guiadas
 
     [Test]
@@ -149,12 +171,9 @@ public class PerfilDeDisplayDeA2Tests
         Assert.That(etapas, Has.Length.EqualTo(QuantidadeDeQuadrosAumentarTempoLimite + 1));
         Assert.That(etapas.All(etapa => !string.IsNullOrWhiteSpace(etapa.tutorial)), Is.True);
         Assert.That(etapas.Last().vfx, Is.EqualTo("DestaqueAtuadorCopo"));
-        Assert.That(
-            etapas.Take(QuantidadeDeQuadrosAumentarTempoLimite)
-                .All(etapa => etapa.tutorial.Contains("B2")
-                    ? etapa.animacao == PerfisDeDisplayDeAlerta.AnimacaoB2
-                    : string.IsNullOrEmpty(etapa.animacao)),
-            Is.True);
+        Assert.That(etapas.Select(etapa => etapa.animacao), Is.EqualTo(
+            EtapaAumentarTempoLimite.Quadros.Concat(EtapaAvarias.Quadros)
+                .Select(quadro => quadro.Animacao ?? string.Empty)));
     }
 
     #endregion

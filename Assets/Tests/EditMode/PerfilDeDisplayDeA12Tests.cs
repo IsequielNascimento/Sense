@@ -318,6 +318,34 @@ public class PerfilDeDisplayDeA12Tests
 
     #endregion
 
+    #region MARK: Animacao do botao citado em cada passo
+
+    [Test]
+    public void AnimacoesDeA12_SeguemOsBotoesCitadosEmCadaPasso()
+    {
+        Assert.That(
+            EtapaResetarContador.Quadros.Concat(EtapaDesligarAlerta.Quadros).Select(quadro => quadro.Animacao),
+            Is.EqualTo(new[]
+            {
+                null,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B123,
+                null,
+                AnimacaoDeBotaoM4.B123,
+                null,
+                null,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B3,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B123,
+                AnimacaoDeBotaoM4.B123,
+                null,
+            }));
+    }
+
+    #endregion
+
     #region MARK: Composicao sobre as etapas guiadas
 
     [Test]
@@ -328,11 +356,8 @@ public class PerfilDeDisplayDeA12Tests
         Assert.That(a12.Acoes, Has.Count.EqualTo(2));
         Assert.That(etapas, Has.Length.EqualTo(QuantidadeDeQuadrosResetarContador + QuantidadeDeQuadrosDesligarAlerta));
         Assert.That(etapas.All(etapa => !string.IsNullOrWhiteSpace(etapa.tutorial)), Is.True);
-        Assert.That(
-            etapas.All(etapa => etapa.tutorial.Contains("B2")
-                ? etapa.animacao == PerfisDeDisplayDeAlerta.AnimacaoB2
-                : string.IsNullOrEmpty(etapa.animacao)),
-            Is.True);
+        Assert.That(etapas.Select(etapa => etapa.animacao), Is.EqualTo(
+            EtapaResetarContador.Quadros.Concat(EtapaDesligarAlerta.Quadros).Select(quadro => quadro.Animacao ?? string.Empty)));
         Assert.That(etapas.All(TelaM4.EtapaTemConteudo), Is.True);
         Assert.That(etapas[1].progressoSegundos, Is.EqualTo(6f));
         Assert.That(etapas[QuantidadeDeQuadrosResetarContador + 1].progressoSegundos, Is.EqualTo(6f));

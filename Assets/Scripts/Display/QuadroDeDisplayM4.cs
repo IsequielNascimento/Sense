@@ -43,7 +43,7 @@ public sealed class QuadroDeDisplayM4
         LedPiscando = ledPiscando;
         Instrucao = instrucao;
         ProgressoSegundos = progressoSegundos;
-        Animacao = animacao;
+        Animacao = animacao ?? AnimacaoDeBotaoM4.Derivar(instrucao);
         Vfx = vfx;
     }
 

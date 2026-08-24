@@ -136,7 +136,11 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
                     anim.SetLayerWeight(i, PlanoDeCamadas.PesoDaCamadaDeProblema(i, camadaComEstado));
                 }
 
-                if (!estadoExiste) continue;
+                if (!estadoExiste)
+                {
+                    if (possuiAnimacao) RetornarAoRepouso(anim, layerIndex);
+                    continue;
+                }
 
                 anim.speed = 1f;
                 anim.Play(hashDaAnimacao, layerIndex, 0f);
@@ -162,6 +166,22 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
             gerenciadorVisual.AtivarEfeito(etapa.vfx);
             gerenciadorVisual.AplicarCamadasDinamicas(etapa);
         }
+    }
+
+    static void RetornarAoRepouso(Animator anim, int layerIndex)
+    {
+        int camada = layerIndex != PlanoDeCamadas.CamadaInexistente ? layerIndex : 0;
+        int repouso = Animator.StringToHash(DecisaoDeEtapaAr.EstadoDeRepouso);
+
+        if (anim.HasState(camada, repouso))
+        {
+            anim.speed = 1f;
+            anim.Play(repouso, camada, 0f);
+            return;
+        }
+
+        anim.Rebind();
+        anim.Update(0f);
     }
 
     #endregion

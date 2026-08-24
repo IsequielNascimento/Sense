@@ -5,6 +5,7 @@ public static class DecisaoDeEtapaAr
     #region MARK: Vocabulario de animacao
 
     public const string PrefixoDeAnimacaoDeMontagem = "animacao_";
+    public const string EstadoDeRepouso = "Vazio";
 
     #endregion
 
