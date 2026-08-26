@@ -91,8 +91,50 @@ public static class RegeneradorDePrefabsDeAlerta
             var rendererNovo = correspondente.GetComponent<Renderer>();
             if (rendererNovo == null) continue;
 
+            string motivo = MotivoParaNaoPropagar(rendererAntigo, rendererNovo);
+
+            if (motivo != null)
+            {
+                Debug.LogWarning(
+                    $"[Regenerador] '{caminho}': {motivo}. " +
+                    "Mantendo o material que veio do FBX em vez de propagar o do prefab antigo.");
+                continue;
+            }
+
             rendererNovo.sharedMaterials = rendererAntigo.sharedMaterials;
         }
+    }
+
+    static string MotivoParaNaoPropagar(Renderer antigo, Renderer novo)
+    {
+        var materiaisAntigos = antigo.sharedMaterials;
+
+        if (materiaisAntigos.Length == 0) return "prefab antigo sem slot de material";
+
+        if (materiaisAntigos.Length != novo.sharedMaterials.Length)
+        {
+            return $"prefab antigo tem {materiaisAntigos.Length} slot(s) e o FBX tem " +
+                   $"{novo.sharedMaterials.Length}; o array antigo está desatualizado";
+        }
+
+        foreach (var material in materiaisAntigos)
+        {
+            if (material == null) return "prefab antigo com material perdido";
+
+            if (!EhMaterialDoProjeto(material))
+            {
+                return $"prefab antigo usa '{material.name}', um material de fallback fora de Assets/";
+            }
+        }
+
+        return null;
+    }
+
+    static bool EhMaterialDoProjeto(Material material)
+    {
+        string caminho = AssetDatabase.GetAssetPath(material);
+
+        return !string.IsNullOrEmpty(caminho) && caminho.StartsWith("Assets/");
     }
 
     static string CaminhoRelativo(Transform alvo, Transform raiz)

@@ -28,6 +28,10 @@ public static class PerfisDeDisplayDeAlerta
     public const string VerificarArComprimido = "Verificar o fornecimento de ar comprimido";
     public const string VerificarAvariasNoConjunto = "Verificar possíveis avarias no conjunto válvula / atuador";
     public const string CodigoA2 = "A2";
+    public const string CodigoA3 = "A3";
+    public const string FastSetup = "FAST\nSETUP";
+    public const string Certo = "CERTO";
+    public const string Abortar = "ABORT";
     public const string CodigoA14 = "A14";
     public const string MenuAlertaData = "A14\nALERTA";
     public const string ExemploDeData = "31 12\n2023";
@@ -49,6 +53,8 @@ public static class PerfisDeDisplayDeAlerta
     #region MARK: VFX do modelo M4
 
     public const string DestaqueAtuadorCopo = "DestaqueAtuadorCopo";
+    public const string DestaquePneumatica = "DestaquePneumatica";
+    public const string DestaqueMangueiras = "DestaqueMangueiras";
 
     #endregion
 
@@ -69,6 +75,7 @@ public static class PerfisDeDisplayDeAlerta
         Adicionar(registro, CriarPerfilDeTemperaturaBaixa());
         Adicionar(registro, CriarPerfilDeAnguloMinimo());
         Adicionar(registro, CriarPerfilDeTempoLimite());
+        Adicionar(registro, CriarPerfilDeFalhaNaAutoCalibracao());
 
         return registro;
     }
@@ -595,6 +602,103 @@ public static class PerfisDeDisplayDeAlerta
         return new PerfilDeDisplayDeAlerta(
             CodigoA2,
             new[] { aumentarTempoLimite, verificarAvariasNoConjunto },
+            mecanismoDeAtivacaoConfirmado: false);
+    }
+
+    #endregion
+
+    #region MARK: A3 FALHA NA AUTO CALIBRACAO, paginas 11 e 76
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeFalhaNaAutoCalibracao()
+    {
+        var verificarArComprimido = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA3,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Confirme o alerta A3: nos ciclos de auto calibração o monitor gravou pontos de aberto e fechado diferentes entre si. A falha é indicada após três erros consecutivos no processo de calibração."),
+            new QuadroDeDisplayM4(
+                CodigoA3,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "A verificação deste passo é no gerador de ar comprimido, fora do monitor. O ar da linha entra pela conexão P, a entrada de ar 1, e sai pelas portas de abrir e fechar o atuador.",
+                vfx: DestaquePneumatica),
+            new QuadroDeDisplayM4(
+                CodigoA3,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Confira a pressão da linha: o monitor opera entre 3 e 8 bar (45 a 120 psi) e sai de fábrica ajustado em 6 bar (87 psi). Sem pressão suficiente a válvula não completa o mesmo curso em todos os ciclos."),
+            new QuadroDeDisplayM4(
+                CodigoA3,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Respeite a pressão máxima: acima de 10 bar (150 psi) o monitor é danificado permanentemente. Garanta que, mesmo em caso de falha no fornecimento de ar, a pressão não ultrapasse esse limite."),
+            new QuadroDeDisplayM4(
+                CodigoA3,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Verifique as mangueiras e os engates da entrada de ar: vazamento ou engate solto derrubam a pressão durante a calibração. Desligue a pressão da linha antes de conectar ou desconectar qualquer mangueira.",
+                vfx: DestaqueMangueiras),
+            new QuadroDeDisplayM4(
+                CodigoA3,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Confirme a qualidade do ar: use ar comprimido limpo e isento de óleo. Os orifícios pneumáticos internos da válvula são muito pequenos e podem entupir, dificultando ou impedindo o funcionamento do monitor."),
+            new QuadroDeDisplayM4(
+                CodigoA3,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Se o fornecimento de ar estiver dentro do especificado, o problema não está na linha. Siga para a inspeção do conjunto válvula / atuador em campo."));
+
+        var verificarAvariasNoConjunto = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA3,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Antes de tocar no conjunto, desconecte o monitor do fornecimento de ar comprimido. Toda manutenção deve ser feita com a linha despressurizada.",
+                vfx: DestaqueAtuadorCopo),
+            new QuadroDeDisplayM4(
+                CodigoA3,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Inspecione o acoplamento no padrão NAMUR: o adaptador de eixo precisa encaixar perfeitamente no eixo do atuador, que deve ter entre 11 mm e 38 mm de diâmetro.",
+                vfx: DestaqueAtuadorCopo),
+            new QuadroDeDisplayM4(
+                CodigoA3,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Procure desgaste nas partes móveis da válvula, como diafragma, gaxetas e assentos. É esse desgaste que o contador parcial acompanha para programar a manutenção preventiva.",
+                vfx: DestaqueAtuadorCopo),
+            new QuadroDeDisplayM4(
+                CodigoA3,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Em atuador simples ação, confirme o tamponamento: no modelo NA tampona-se a saída de ar 4 e no NF a saída de ar 2. Use apenas tampões metálicos compatíveis com a rosca da conexão."),
+            new QuadroDeDisplayM4(
+                FastSetup,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Resolvida a avaria, refaça a auto calibração: aproxime o polo Norte do chaveiro magnético do botão B3 por 6 segundos. O display mostra FAST SETUP e o bargraph começa a carregar.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                Certo,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "O monitor avisa que a válvula vai se mover e mostra CERTO. Aproxime o polo Sul do chaveiro magnético do botão B2 para iniciar os ciclos de calibração."),
+            new QuadroDeDisplayM4(
+                Abortar,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Se precisar interromper a calibração, aproxime o polo Norte do chaveiro magnético do botão B1 por 3 segundos. O display mostra ABORT e o monitor volta ao modo RUN.",
+                progressoSegundos: 3f),
+            new QuadroDeDisplayM4(
+                Certo,
+                EstadoLedsM4.Desligado,
+                instrucao: "Verifique a confirmação: com os pontos de aberto e fechado iguais em todos os ciclos, a auto calibração conclui e o alerta A3 é eliminado."));
+
+        return new PerfilDeDisplayDeAlerta(
+            CodigoA3,
+            new[] { verificarArComprimido, verificarAvariasNoConjunto },
             mecanismoDeAtivacaoConfirmado: false);
     }
 

@@ -14,6 +14,7 @@ public static class AnimacoesDeAlertaConcluidas
     public const string CodigoA22 = "A22";
     public const string CodigoA1 = "A1";
     public const string CodigoA2 = "A2";
+    public const string CodigoA3 = "A3";
 
     private static readonly HashSet<string> Concluidas =
         new HashSet<string>(StringComparer.OrdinalIgnoreCase)
@@ -27,6 +28,7 @@ public static class AnimacoesDeAlertaConcluidas
             CodigoA22,
             CodigoA1,
             CodigoA2,
+            CodigoA3,
         };
 
     #endregion
