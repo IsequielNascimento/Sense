@@ -8,6 +8,7 @@ public class PerfilDeDisplayDeA9Tests
     private const string CodigoA9 = "A9";
     private const string AcaoVerificarArComprimido = "Verificar o fornecimento de ar comprimido";
     private const int QuantidadeDeQuadros = 13;
+    private const int LimiteDeCaracteresDaInstrucao = 120;
 
     private AlertaOficial a9;
     private PerfilDeDisplayDeAlerta perfil;
@@ -79,8 +80,18 @@ public class PerfilDeDisplayDeA9Tests
         var instrucoes = EtapaUnica.Quadros.Select(quadro => quadro.Instrucao).ToList();
 
         Assert.That(instrucoes, Has.None.EqualTo(AcaoVerificarArComprimido));
-        Assert.That(instrucoes.All(instrucao => instrucao.Length >= 100), Is.True,
-            "todo passo do A9 precisa explicar o que fazer, e não só nomear a ação.");
+    }
+
+    [Test]
+    public void Instrucoes_CabemNaCaixaDeTextoDoPassoAPasso()
+    {
+        foreach (QuadroDeDisplayM4 quadro in EtapaUnica.Quadros)
+        {
+            Assert.That(
+                quadro.Instrucao.Length,
+                Is.LessThanOrEqualTo(LimiteDeCaracteresDaInstrucao),
+                $"Instrução longa demais no quadro '{quadro.TextoLcd}'.");
+        }
     }
 
     [Test]

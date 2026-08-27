@@ -8,6 +8,7 @@ public class PerfilDeDisplayDeA3Tests
     private const string CodigoA3 = "A3";
     private const string AcaoVerificarArComprimido = "Verificar o fornecimento de ar comprimido";
     private const string AcaoVerificarAvarias = "Verificar possíveis avarias no conjunto válvula / atuador";
+    private const int LimiteDeCaracteresDaInstrucao = 120;
 
     private AlertaOficial a3;
     private PerfilDeDisplayDeAlerta perfil;
@@ -67,8 +68,18 @@ public class PerfilDeDisplayDeA3Tests
 
         Assert.That(instrucoes, Has.None.EqualTo(AcaoVerificarArComprimido));
         Assert.That(instrucoes, Has.None.EqualTo(AcaoVerificarAvarias));
-        Assert.That(instrucoes.All(instrucao => instrucao.Length >= 100), Is.True,
-            "todo passo do A3 precisa explicar o que fazer, e não só nomear a ação.");
+    }
+
+    [Test]
+    public void Instrucoes_CabemNaCaixaDeTextoDoPassoAPasso()
+    {
+        foreach (QuadroDeDisplayM4 quadro in perfil.EtapasOficiais.SelectMany(etapa => etapa.Quadros))
+        {
+            Assert.That(
+                quadro.Instrucao.Length,
+                Is.LessThanOrEqualTo(LimiteDeCaracteresDaInstrucao),
+                $"Instrução longa demais no quadro '{quadro.TextoLcd}'.");
+        }
     }
 
     [Test]
