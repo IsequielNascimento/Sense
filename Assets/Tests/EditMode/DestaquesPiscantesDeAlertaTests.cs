@@ -16,8 +16,8 @@ public class DestaquesPiscantesDeAlertaTests
 
     private static readonly Dictionary<string, string[]> PecasEsperadasPorAlerta = new Dictionary<string, string[]>
     {
-        { "A1", new[] { "ATUADOR", "COPO" } },
-        { "A2", new[] { "ATUADOR", "COPO" } },
+        { "A1", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
+        { "A2", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
         { "A3", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
         { "A4", new[] { "PNEUMATICA", "Magueira", "Magueira.001" } },
         { "A5", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },

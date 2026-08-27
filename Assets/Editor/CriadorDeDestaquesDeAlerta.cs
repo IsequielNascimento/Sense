@@ -14,8 +14,22 @@ public static class CriadorDeDestaquesDeAlerta
     public static readonly IReadOnlyDictionary<string, IReadOnlyList<(string Efeito, string[] Pecas)>> DestaquesPorAlerta =
         new Dictionary<string, IReadOnlyList<(string, string[])>>
         {
-            { "A1", new[] { (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }) } },
-            { "A2", new[] { (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }) } },
+            {
+                "A1", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }),
+                }
+            },
+            {
+                "A2", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }),
+                }
+            },
             {
                 "A3", new[]
                 {

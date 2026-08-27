@@ -529,7 +529,7 @@ public static class PerfisDeDisplayDeAlerta
 
     #endregion
 
-    #region MARK: A1 ANGULO MINIMO, pagina 11
+    #region MARK: A1 ANGULO MINIMO, paginas 11, 16, 17, 49 e 76
 
     private static PerfilDeDisplayDeAlerta CriarPerfilDeAnguloMinimo()
     {
@@ -538,16 +538,79 @@ public static class PerfisDeDisplayDeAlerta
                 CodigoA1,
                 EstadoLedsM4.Alerta,
                 ledPiscando: true,
-                instrucao: VerificarArComprimido,
-                animacao: AnimacaoProblema1));
+                instrucao: "Confirme o alerta A1: a válvula se moveu, mas o ângulo entre o ponto de abertura e o de fechamento ficou abaixo de 30°.",
+                animacao: AnimacaoProblema1),
+            new QuadroDeDisplayM4(
+                CodigoA1,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Verifique no gerador de ar comprimido, fora do monitor: o ar entra pela conexão P, a entrada de ar 1, e vai ao atuador.",
+                vfx: DestaquePneumatica),
+            new QuadroDeDisplayM4(
+                CodigoA1,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Confira a pressão da linha: o monitor opera entre 3 e 8 bar (45 a 120 psi) e sai de fábrica em 6 bar (87 psi)."),
+            new QuadroDeDisplayM4(
+                CodigoA1,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Respeite o limite: acima de 10 bar (150 psi) o monitor é danificado permanentemente, mesmo em falha do fornecimento."),
+            new QuadroDeDisplayM4(
+                CodigoA1,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Cheque mangueiras e engates: vazamento derruba a pressão e a válvula para antes do fim do curso. Despressurize antes.",
+                vfx: DestaqueMangueiras),
+            new QuadroDeDisplayM4(
+                CodigoA1,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Use ar comprimido limpo e isento de óleo. Os orifícios pneumáticos internos são pequenos e entopem, encurtando o curso."),
+            new QuadroDeDisplayM4(
+                CodigoA1,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Se a pressão está no especificado e o curso segue curto, o problema não está na linha. Inspecione o conjunto."));
 
         var verificarAvariasNoConjunto = new SequenciaDeQuadrosM4(
             new QuadroDeDisplayM4(
                 CodigoA1,
                 EstadoLedsM4.Alerta,
                 ledPiscando: true,
-                instrucao: VerificarAvariasNoConjunto,
-                vfx: DestaqueAtuadorCopo));
+                instrucao: "Com ar suficiente e curso curto, procure obstrução no conjunto. Desconecte o monitor do ar antes de tocar nele.",
+                vfx: DestaqueAtuadorCopo),
+            new QuadroDeDisplayM4(
+                CodigoA1,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Inspecione o acoplamento NAMUR: o adaptador de eixo deve encaixar perfeitamente no eixo, de 11 mm a 38 mm de diâmetro.",
+                vfx: DestaqueAtuadorCopo),
+            new QuadroDeDisplayM4(
+                CodigoA1,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Procure desgaste nas partes móveis: diafragma, gaxetas e assentos. É o que o contador parcial acompanha.",
+                vfx: DestaqueAtuadorCopo),
+            new QuadroDeDisplayM4(
+                CodigoA1,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Em atuador simples ação, confira o tamponamento: NA tampona a saída de ar 4, NF a saída de ar 2. Use tampões metálicos."),
+            new QuadroDeDisplayM4(
+                CodigoA1,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Confira o padrão dos orifícios pneumáticos, NPT ou BSP: conexão incompatível danifica a rosca e restringe a passagem."),
+            new QuadroDeDisplayM4(
+                CodigoA1,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Resolvida a avaria, refaça a auto calibração para o monitor reaprender os pontos de abertura e de fechamento."),
+            new QuadroDeDisplayM4(
+                CodigoA1,
+                EstadoLedsM4.Desligado,
+                instrucao: "Verifique a confirmação: com o curso completo reaprendido, o ângulo supera 30° e o alerta A1 é eliminado."));
 
         return new PerfilDeDisplayDeAlerta(
             CodigoA1,
@@ -558,7 +621,7 @@ public static class PerfisDeDisplayDeAlerta
 
     #endregion
 
-    #region MARK: A2 TEMPO LIMITE, paginas 11 e 52
+    #region MARK: A2 TEMPO LIMITE, paginas 11, 16, 49, 51 e 52
 
     private static PerfilDeDisplayDeAlerta CriarPerfilDeTempoLimite()
     {
@@ -567,7 +630,7 @@ public static class PerfisDeDisplayDeAlerta
                 CodigoA2,
                 EstadoLedsM4.Alerta,
                 ledPiscando: true,
-                instrucao: "Confirme o alerta A2: o tempo máximo de calibração (C6) foi excedido. O monitor demorou mais que o configurado para mover a válvula durante a auto calibração."),
+                instrucao: "Confirme o alerta A2: a auto calibração levou mais tempo que o máximo configurado em C6 TEMPO MAX CAL."),
             new QuadroDeDisplayM4(
                 Menu,
                 EstadoLedsM4.Alerta,
@@ -588,7 +651,7 @@ public static class PerfisDeDisplayDeAlerta
                 MenuTempoMaxCal,
                 EstadoLedsM4.Alerta,
                 ledPiscando: true,
-                instrucao: "Aumente o tempo máximo de calibração: B1 diminui e B3 aumenta o valor entre 10 e 120 segundos. Mantenha B2 por mais de 3 segundos para confirmar."),
+                instrucao: "Ajuste o valor entre 10 e 120 segundos: B1 diminui, B3 aumenta. Mantenha B2 por mais de 3 segundos para confirmar."),
             new QuadroDeDisplayM4(
                 MenuTempoMaxCal,
                 EstadoLedsM4.Desligado,
@@ -603,8 +666,52 @@ public static class PerfisDeDisplayDeAlerta
                 CodigoA2,
                 EstadoLedsM4.Alerta,
                 ledPiscando: true,
-                instrucao: VerificarAvariasNoConjunto,
-                vfx: DestaqueAtuadorCopo));
+                instrucao: "Com o curso completo mas lento, procure a avaria que freia o conjunto. Desconecte o monitor do ar antes de tocar nele.",
+                vfx: DestaqueAtuadorCopo),
+            new QuadroDeDisplayM4(
+                CodigoA2,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Cheque mangueiras e engates: dobra ou engate estreito restringe a passagem de ar e a válvula demora a completar o curso.",
+                vfx: DestaqueMangueiras),
+            new QuadroDeDisplayM4(
+                CodigoA2,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Confira a pressão disponível na entrada de ar: entre 3 e 8 bar. Pressão baixa move a válvula, porém devagar demais.",
+                vfx: DestaquePneumatica),
+            new QuadroDeDisplayM4(
+                CodigoA2,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Inspecione o acoplamento NAMUR: o adaptador de eixo deve encaixar perfeitamente no eixo, de 11 mm a 38 mm de diâmetro.",
+                vfx: DestaqueAtuadorCopo),
+            new QuadroDeDisplayM4(
+                CodigoA2,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Procure atrito e emperramento parcial: diafragma, gaxetas e assentos. É o que o contador parcial acompanha.",
+                vfx: DestaqueAtuadorCopo),
+            new QuadroDeDisplayM4(
+                CodigoA2,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Confira se o atuador não está subdimensionado para a pressão disponível: ele completa o curso, mas sempre com lentidão."),
+            new QuadroDeDisplayM4(
+                FastSetup,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Refaça a auto calibração: aproxime o polo Norte do chaveiro do botão B3 por 6 segundos. O display mostra FAST SETUP.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                Certo,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "O monitor avisa que a válvula vai se mover e mostra CERTO. Aproxime o polo Sul do chaveiro do botão B2 para iniciar."),
+            new QuadroDeDisplayM4(
+                Certo,
+                EstadoLedsM4.Desligado,
+                instrucao: "Verifique a confirmação: com o conjunto livre, a calibração termina dentro de C6 e o alerta A2 é eliminado."));
 
         return new PerfilDeDisplayDeAlerta(
             CodigoA2,
