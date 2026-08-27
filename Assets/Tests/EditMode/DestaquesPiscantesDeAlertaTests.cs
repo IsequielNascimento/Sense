@@ -12,13 +12,16 @@ public class DestaquesPiscantesDeAlertaTests
 
     private const string CaminhoMaterialDeOutline = "Assets/Materials/Destaque Outline.mat";
 
-    private static readonly string[] AlertasComDestaque = { "A1", "A2", "A3" };
+    private static readonly string[] AlertasComDestaque = { "A1", "A2", "A3", "A4", "A5", "A9" };
 
     private static readonly Dictionary<string, string[]> PecasEsperadasPorAlerta = new Dictionary<string, string[]>
     {
         { "A1", new[] { "ATUADOR", "COPO" } },
         { "A2", new[] { "ATUADOR", "COPO" } },
         { "A3", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
+        { "A4", new[] { "PNEUMATICA", "Magueira", "Magueira.001" } },
+        { "A5", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
+        { "A9", new[] { "PNEUMATICA", "Magueira", "Magueira.001" } },
     };
 
     private static GameObject Prefab(string codigo)
@@ -148,6 +151,20 @@ public class DestaquesPiscantesDeAlertaTests
                 Is.True,
                 $"{codigo}: o perfil pede o VFX '{vfx}', mas o prefab nao o registra.");
         }
+    }
+
+    [TestCaseSource(nameof(AlertasComDestaque))]
+    public void NenhumEfeitoRegistrado_ApontaParaUmObjetoPerdido(string codigo)
+    {
+        var perdidos = EfeitosRegistrados(Prefab(codigo))
+            .Select((efeito, indice) => (efeito.Nome, efeito.Objeto, indice))
+            .Where(item => item.Objeto == null)
+            .Select(item => $"[{item.indice}] {item.Nome}")
+            .ToArray();
+
+        Assert.That(perdidos, Is.Empty,
+            $"{codigo}: entrada de VFX apontando para objeto inexistente, sobra de uma regeneracao do prefab. " +
+            "Rode 'Sense/Alertas/Criar destaques piscantes' para reconstruir a lista.");
     }
 
     [Test]

@@ -30,13 +30,25 @@ public class AnimacaoDeBotaoM4Tests
 
     #endregion
 
-    #region MARK: Mais de um botao distinto
+    #region MARK: Dois botoes distintos
+
+    [TestCase("Segure B1 e depois pressione B2 para confirmar.", AnimacaoDeBotaoM4.B12)]
+    [TestCase("B1 diminui e B3 aumenta o valor.", AnimacaoDeBotaoM4.B13)]
+    [TestCase("Use B3 para selecionar HABILITAR e pressione B2 para definir a senha.", AnimacaoDeBotaoM4.B23)]
+    [TestCase("Avance com B3 até A14 e pressione B2.", AnimacaoDeBotaoM4.B23)]
+    public void InstrucaoComDoisBotoes_DerivaOParCitado(string instrucao, string esperada)
+    {
+        Assert.That(AnimacaoDeBotaoM4.Derivar(instrucao), Is.EqualTo(esperada));
+    }
+
+    #endregion
+
+    #region MARK: Os tres botoes
 
     [TestCase("Use B3 para avançar até C16. B1 volta à opção anterior e B2 entra em C16.")]
     [TestCase("Em C16, selecione SENHA com B1 ou B3 e pressione B2.")]
-    [TestCase("Use B3 para selecionar HABILITAR e pressione B2 para definir a senha.")]
-    [TestCase("B1 diminui e B3 aumenta o valor.")]
-    public void InstrucaoComVariosBotoes_DerivaAAnimacaoCombinada(string instrucao)
+    [TestCase("B1 decrementa, B3 incrementa e B2 seleciona.")]
+    public void InstrucaoComOsTresBotoes_DerivaAAnimacaoCombinada(string instrucao)
     {
         Assert.That(AnimacaoDeBotaoM4.Derivar(instrucao), Is.EqualTo(AnimacaoDeBotaoM4.B123));
     }
@@ -63,8 +75,14 @@ public class AnimacaoDeBotaoM4Tests
         Assert.That(AnimacaoDeBotaoM4.B1, Is.EqualTo("B1Button"));
         Assert.That(AnimacaoDeBotaoM4.B2, Is.EqualTo("B2Button"));
         Assert.That(AnimacaoDeBotaoM4.B3, Is.EqualTo("B3Button"));
+        Assert.That(AnimacaoDeBotaoM4.B12, Is.EqualTo("B12Button"));
+        Assert.That(AnimacaoDeBotaoM4.B13, Is.EqualTo("B13Button"));
+        Assert.That(AnimacaoDeBotaoM4.B23, Is.EqualTo("B23Button"));
         Assert.That(AnimacaoDeBotaoM4.B123, Is.EqualTo("B123Button"));
-        Assert.That(AnimacaoDeBotaoM4.Todas, Is.EquivalentTo(new[] { "B1Button", "B2Button", "B3Button", "B123Button" }));
+        Assert.That(AnimacaoDeBotaoM4.Todas, Is.EquivalentTo(new[]
+        {
+            "B1Button", "B2Button", "B3Button", "B12Button", "B13Button", "B23Button", "B123Button",
+        }));
     }
 
     #endregion

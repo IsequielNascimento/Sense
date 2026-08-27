@@ -52,7 +52,7 @@ public class PerfilDeDisplayDeA1Tests
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain(CodigoA1));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A2"));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A3"));
-        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(10));
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(13));
     }
 
     #endregion

@@ -73,6 +73,9 @@ public class PerfilDeDisplayDeA8Tests
                 PerfisDeDisplayDeAlerta.CodigoA1,
                 PerfisDeDisplayDeAlerta.CodigoA2,
                 PerfisDeDisplayDeAlerta.CodigoA3,
+                PerfisDeDisplayDeAlerta.CodigoA4,
+                PerfisDeDisplayDeAlerta.CodigoA5,
+                PerfisDeDisplayDeAlerta.CodigoA9,
             }));
     }
 
@@ -312,7 +315,7 @@ public class PerfilDeDisplayDeA8Tests
                 AnimacaoDeBotaoM4.B2,
                 AnimacaoDeBotaoM4.B123,
                 AnimacaoDeBotaoM4.B123,
-                AnimacaoDeBotaoM4.B123,
+                AnimacaoDeBotaoM4.B23,
                 AnimacaoDeBotaoM4.B123,
                 null,
                 AnimacaoDeBotaoM4.B1,

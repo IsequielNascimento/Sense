@@ -63,7 +63,7 @@ public class PerfilDeDisplayDeA14Tests
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain(CodigoA14));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A8"));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A13"));
-        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(10));
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(13));
     }
 
     #endregion
@@ -390,16 +390,16 @@ public class PerfilDeDisplayDeA14Tests
                 AnimacaoDeBotaoM4.B2,
                 AnimacaoDeBotaoM4.B3,
                 AnimacaoDeBotaoM4.B2,
-                AnimacaoDeBotaoM4.B123,
-                AnimacaoDeBotaoM4.B123,
+                AnimacaoDeBotaoM4.B23,
+                AnimacaoDeBotaoM4.B23,
                 AnimacaoDeBotaoM4.B123,
                 AnimacaoDeBotaoM4.B1,
                 null,
                 AnimacaoDeBotaoM4.B2,
                 AnimacaoDeBotaoM4.B3,
                 AnimacaoDeBotaoM4.B2,
-                AnimacaoDeBotaoM4.B123,
-                AnimacaoDeBotaoM4.B123,
+                AnimacaoDeBotaoM4.B23,
+                AnimacaoDeBotaoM4.B23,
                 null,
             }));
     }

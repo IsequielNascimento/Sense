@@ -32,6 +32,10 @@ public static class PerfisDeDisplayDeAlerta
     public const string FastSetup = "FAST\nSETUP";
     public const string Certo = "CERTO";
     public const string Abortar = "ABORT";
+    public const string CodigoA4 = "A4";
+    public const string MenuPressaoDaLinha = "C17";
+    public const string CodigoA5 = "A5";
+    public const string CodigoA9 = "A9";
     public const string CodigoA14 = "A14";
     public const string MenuAlertaData = "A14\nALERTA";
     public const string ExemploDeData = "31 12\n2023";
@@ -76,6 +80,9 @@ public static class PerfisDeDisplayDeAlerta
         Adicionar(registro, CriarPerfilDeAnguloMinimo());
         Adicionar(registro, CriarPerfilDeTempoLimite());
         Adicionar(registro, CriarPerfilDeFalhaNaAutoCalibracao());
+        Adicionar(registro, CriarPerfilDeForaDeFaixa());
+        Adicionar(registro, CriarPerfilDeSemMovimento());
+        Adicionar(registro, CriarPerfilDeMaxPressaoNaLinha());
 
         return registro;
     }
@@ -186,7 +193,7 @@ public static class PerfisDeDisplayDeAlerta
             new QuadroDeDisplayM4(
                 CodigoA11,
                 EstadoLedsM4.Desligado,
-                instrucao: "Alternativa 1: aumente o número de ciclos configurado como limite do contador parcial."),
+                instrucao: "Alternativa 1: aumente o número de ciclos configurado como limite do contador parcial. B1 diminui e B3 aumenta o valor. Mantenha B2 por mais de 3 segundos para confirmar."),
             new QuadroDeDisplayM4(
                 CodigoA11,
                 EstadoLedsM4.Desligado,
@@ -194,7 +201,7 @@ public static class PerfisDeDisplayDeAlerta
             new QuadroDeDisplayM4(
                 ResetContadorParcial,
                 EstadoLedsM4.Desligado,
-                instrucao: "Alternativa 2: em vez de aumentar o limite, entre em C18 para resetar o contador parcial."),
+                instrucao: "Alternativa 2: em vez de aumentar o limite, entre em C18 para resetar o contador parcial. Use B3 para avançar até C18 RESET CONTADOR PARCIAL. B1 volta à opção anterior e B2 entra no reset."),
             new QuadroDeDisplayM4(
                 ResetContadorParcial,
                 EstadoLedsM4.Desligado,
@@ -699,6 +706,263 @@ public static class PerfisDeDisplayDeAlerta
         return new PerfilDeDisplayDeAlerta(
             CodigoA3,
             new[] { verificarArComprimido, verificarAvariasNoConjunto },
+            mecanismoDeAtivacaoConfirmado: false);
+    }
+
+    #endregion
+
+    #region MARK: A4 FORA DE FAIXA, paginas 11, 16, 49, 53 e 76
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeForaDeFaixa()
+    {
+        var verificarArComprimido = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA4,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Confirme o alerta A4: a pressão de alimentação está acima da que foi usada na calibração. Com mais pressão a válvula avança 5° além do ponto de aberto ou fechado que o monitor aprendeu."),
+            new QuadroDeDisplayM4(
+                CodigoA4,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "A verificação deste passo é no gerador de ar comprimido, fora do monitor. O ar da linha entra pela conexão P, a entrada de ar 1, e sai pelas portas de abrir e fechar o atuador.",
+                vfx: DestaquePneumatica),
+            new QuadroDeDisplayM4(
+                CodigoA4,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Meça a pressão na entrada de ar. O monitor opera entre 3 e 8 bar (45 a 120 psi) e sai de fábrica ajustado em 6 bar (87 psi). O A4 não acusa pressão fora dessa faixa, e sim pressão maior que a do dia da calibração.",
+                vfx: DestaqueMangueiras),
+            new QuadroDeDisplayM4(
+                CodigoA4,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Respeite a pressão máxima: acima de 10 bar (150 psi) o monitor é danificado permanentemente. Garanta que, mesmo em caso de falha no fornecimento de ar, a pressão não ultrapasse esse limite."),
+            new QuadroDeDisplayM4(
+                CodigoA4,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Primeira saída: regule o gerador de volta à pressão usada na calibração. Voltando ao valor original, a válvula para dentro dos 5° do ponto aprendido e o alerta A4 é eliminado sem mexer no monitor.",
+                vfx: DestaquePneumatica),
+            new QuadroDeDisplayM4(
+                Menu,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Segunda saída, para quando a pressão nova veio para ficar: aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                MenuConfig,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações, onde fica a pressão de linha que o monitor usa como referência."),
+            new QuadroDeDisplayM4(
+                MenuPressaoDaLinha,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Use B3 para avançar até C17 PRESSÃO DA LINHA. B1 volta à opção anterior e B2 entra na opção. É esse valor que o monitor toma como a pressão da sua linha."),
+            new QuadroDeDisplayM4(
+                MenuPressaoDaLinha,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Informe ao monitor a pressão que a linha passou a ter: B1 diminui e B3 aumenta o valor entre 3 e 8 bar. Mantenha B2 por mais de 3 segundos para confirmar."),
+            new QuadroDeDisplayM4(
+                FastSetup,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Refaça a auto calibração para o monitor reaprender os pontos na pressão atual: aproxime o polo Norte do chaveiro magnético do botão B3 por 6 segundos. O display mostra FAST SETUP e o bargraph começa a carregar.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                Certo,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "O monitor avisa que a válvula vai se mover e mostra CERTO. Aproxime o polo Sul do chaveiro magnético do botão B2 para iniciar os ciclos de calibração."),
+            new QuadroDeDisplayM4(
+                Certo,
+                EstadoLedsM4.Desligado,
+                instrucao: "Verifique a confirmação: com os pontos de aberto e fechado reaprendidos na pressão atual, a válvula para dentro da faixa e o alerta A4 é eliminado."));
+
+        return new PerfilDeDisplayDeAlerta(
+            CodigoA4,
+            new[] { verificarArComprimido },
+            mecanismoDeAtivacaoConfirmado: false);
+    }
+
+    #endregion
+
+    #region MARK: A5 SEM MOVIMENTO, paginas 11, 13, 16, 17, 49 e 76
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeSemMovimento()
+    {
+        var verificarArComprimido = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA5,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Confirme o alerta A5: o monitor acompanha o deslocamento do eixo durante a calibração e não registrou movimento nenhum. Não é movimento inconsistente, é ausência de movimento: o ar não chegou ao atuador ou o conjunto está travado."),
+            new QuadroDeDisplayM4(
+                CodigoA5,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "A verificação deste passo é no gerador de ar comprimido, fora do monitor. O ar da linha entra pela conexão P, a entrada de ar 1, e sai pela porta que abre o atuador, a saída 4, e pela porta que fecha, a saída 2.",
+                vfx: DestaquePneumatica),
+            new QuadroDeDisplayM4(
+                CodigoA5,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Confira antes de tudo se existe pressão na entrada de ar: o monitor opera entre 3 e 8 bar (45 a 120 psi) e sai de fábrica ajustado em 6 bar (87 psi). Sem ar na linha o atuador não sai do lugar e nenhum ciclo de calibração acontece."),
+            new QuadroDeDisplayM4(
+                CodigoA5,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Ao restabelecer o fornecimento, respeite a pressão máxima: acima de 10 bar (150 psi) o monitor é danificado permanentemente. Garanta que, mesmo em caso de falha no fornecimento de ar, a pressão não ultrapasse esse limite."),
+            new QuadroDeDisplayM4(
+                CodigoA5,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Siga as mangueiras da entrada de ar até as portas do atuador: mangueira desconectada, invertida ou dobrada bloqueia o ar e a válvula fica parada. Desligue a pressão da linha antes de conectar ou desconectar qualquer mangueira.",
+                vfx: DestaqueMangueiras),
+            new QuadroDeDisplayM4(
+                CodigoA5,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Confirme a qualidade do ar: use ar comprimido limpo e isento de óleo. Os orifícios pneumáticos internos da válvula são muito pequenos e podem entupir, o que chega a impedir por completo o funcionamento do monitor."),
+            new QuadroDeDisplayM4(
+                CodigoA5,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Se a pressão especificada está chegando às portas do atuador e mesmo assim a válvula não se move, o problema não está na linha. Siga para a inspeção do conjunto válvula / atuador em campo."));
+
+        var verificarAvariasNoConjunto = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA5,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Com ar disponível e a válvula parada, a procura agora é por travamento ou acoplamento solto. Antes de tocar no conjunto, desconecte o monitor do fornecimento de ar comprimido e trabalhe com a linha despressurizada.",
+                vfx: DestaqueAtuadorCopo),
+            new QuadroDeDisplayM4(
+                CodigoA5,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Inspecione o acoplamento no padrão NAMUR: o adaptador de eixo precisa encaixar perfeitamente no eixo do atuador, que deve ter entre 11 mm e 38 mm de diâmetro. Solto, o eixo gira sem levar o acionador e o monitor lê a válvula parada.",
+                vfx: DestaqueAtuadorCopo),
+            new QuadroDeDisplayM4(
+                CodigoA5,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Procure emperramento nas partes móveis da válvula, como diafragma, gaxetas e assentos. É esse desgaste que o contador parcial acompanha para programar a manutenção preventiva antes que a peça prenda de vez.",
+                vfx: DestaqueAtuadorCopo),
+            new QuadroDeDisplayM4(
+                CodigoA5,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Em atuador simples ação, confirme o tamponamento: no modelo NA tampona-se a saída de ar 4 e no NF a saída de ar 2. Sem o tampão correto o ar escapa pela saída aberta e o atuador não desloca. Use apenas tampões metálicos compatíveis com a rosca da conexão."),
+            new QuadroDeDisplayM4(
+                FastSetup,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Liberada a movimentação, refaça a auto calibração: aproxime o polo Norte do chaveiro magnético do botão B3 por 6 segundos. O display mostra FAST SETUP e o bargraph começa a carregar.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                Certo,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "O monitor avisa que a válvula vai se mover e mostra CERTO. Aproxime o polo Sul do chaveiro magnético do botão B2 para iniciar os ciclos de calibração."),
+            new QuadroDeDisplayM4(
+                Abortar,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Se a válvula continuar parada e for preciso interromper a calibração, aproxime o polo Norte do chaveiro magnético do botão B1 por 3 segundos. O display mostra ABORT e o monitor volta ao modo RUN.",
+                progressoSegundos: 3f),
+            new QuadroDeDisplayM4(
+                Certo,
+                EstadoLedsM4.Desligado,
+                instrucao: "Verifique a confirmação: com a válvula percorrendo o curso completo em todos os ciclos, a auto calibração conclui e o alerta A5 é eliminado."));
+
+        return new PerfilDeDisplayDeAlerta(
+            CodigoA5,
+            new[] { verificarArComprimido, verificarAvariasNoConjunto },
+            mecanismoDeAtivacaoConfirmado: false);
+    }
+
+    #endregion
+
+    #region MARK: A9 MAX. PRESSAO NA LINHA, paginas 5, 11, 16, 51, 53, 54 e 76
+
+    private static PerfilDeDisplayDeAlerta CriarPerfilDeMaxPressaoNaLinha()
+    {
+        var verificarArComprimido = new SequenciaDeQuadrosM4(
+            new QuadroDeDisplayM4(
+                CodigoA9,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Confirme o alerta A9: a pressão da linha é monitorada e ultrapassou 9 bar. O A9 é sempre ligado e não se desliga pelo menu, então ele só sai quando a pressão da linha baixar."),
+            new QuadroDeDisplayM4(
+                CodigoA9,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "IMPORTANTE: o manual alerta para o risco de danos ao equipamento caso a pressão da linha exceda 9 bar (130,5 psi). Trate o A9 como risco imediato ao monitor, e não como um aviso que pode esperar."),
+            new QuadroDeDisplayM4(
+                CodigoA9,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Respeite a pressão máxima: acima de 10 bar (150 psi) o monitor é danificado permanentemente. Garanta que, mesmo em caso de falha no fornecimento de ar, a pressão não ultrapasse esse limite."),
+            new QuadroDeDisplayM4(
+                CodigoA9,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "A verificação deste passo é no gerador de ar comprimido, fora do monitor. O ar da linha entra pela conexão P, a entrada de ar 1, e sai pelas portas de abrir e fechar o atuador.",
+                vfx: DestaquePneumatica),
+            new QuadroDeDisplayM4(
+                CodigoA9,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Desligue a pressão da linha antes de conectar ou desconectar qualquer mangueira do monitor. Com a linha desligada, confira se todas as conexões pneumáticas estão corretas, como o manual exige para evitar danos.",
+                vfx: DestaqueMangueiras),
+            new QuadroDeDisplayM4(
+                CodigoA9,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Regule o gerador de volta para a faixa de operação do monitor, de 3 a 8 bar (45 a 120 psi). O ajuste padrão de fábrica é 6 bar (87 psi) e, enquanto a linha passar de 9 bar, o A9 continua ativo.",
+                vfx: DestaquePneumatica),
+            new QuadroDeDisplayM4(
+                CodigoA9,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "O alerta A17 ALTA PRESSÃO avisa antes do A9: de fábrica ele dispara 20% acima da pressão ajustada, ou seja, 7,2 bar (104 psi) para os 6 bar de fábrica. Chegar ao A9 significa que a linha subiu bem além da faixa."),
+            new QuadroDeDisplayM4(
+                Menu,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Confira também qual pressão o monitor tem como referência: aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
+                progressoSegundos: 6f),
+            new QuadroDeDisplayM4(
+                MenuConfig,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações, onde fica a pressão de linha que o monitor usa como referência."),
+            new QuadroDeDisplayM4(
+                MenuPressaoDaLinha,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Use B3 para avançar até C17 PRESSÃO DA LINHA. B1 volta à opção anterior e B2 entra na opção. É esse valor que o monitor toma como a pressão da sua linha."),
+            new QuadroDeDisplayM4(
+                MenuPressaoDaLinha,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Deixe C17 igual à pressão que o gerador passou a fornecer: B1 diminui e B3 aumenta o valor entre 3 e 8 bar. Mantenha B2 por mais de 3 segundos para confirmar."),
+            new QuadroDeDisplayM4(
+                Sair,
+                EstadoLedsM4.Alerta,
+                ledPiscando: true,
+                instrucao: "Em uma opção principal, mantenha B1 por mais de 3 segundos para sair. O display mostra SAIR e o monitor retorna ao modo RUN."),
+            new QuadroDeDisplayM4(
+                CodigoA9,
+                EstadoLedsM4.Desligado,
+                instrucao: "Verifique a confirmação: com a pressão da linha de volta abaixo de 9 bar, o alerta A9 é eliminado e o LED vermelho para de piscar."));
+
+        return new PerfilDeDisplayDeAlerta(
+            CodigoA9,
+            new[] { verificarArComprimido },
             mecanismoDeAtivacaoConfirmado: false);
     }
 

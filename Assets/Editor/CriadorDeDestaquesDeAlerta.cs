@@ -24,6 +24,28 @@ public static class CriadorDeDestaquesDeAlerta
                     (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }),
                 }
             },
+            {
+                "A4", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                }
+            },
+            {
+                "A5", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }),
+                }
+            },
+            {
+                "A9", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                }
+            },
         };
 
     #endregion
@@ -189,7 +211,7 @@ public static class CriadorDeDestaquesDeAlerta
         if (gerenciador.efeitosDisponiveis != null)
         {
             efeitos.AddRange(gerenciador.efeitosDisponiveis.Where(efeito =>
-                efeito.VfxObject == null || !efeito.VfxObject.name.EndsWith(SufixoDeContorno)));
+                efeito.VfxObject != null && !efeito.VfxObject.name.EndsWith(SufixoDeContorno)));
         }
 
         foreach ((string efeito, GameObject objeto) in criados)

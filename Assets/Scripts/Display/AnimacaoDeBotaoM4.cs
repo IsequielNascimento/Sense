@@ -7,9 +7,12 @@ public static class AnimacaoDeBotaoM4
     public const string B1 = "B1Button";
     public const string B2 = "B2Button";
     public const string B3 = "B3Button";
+    public const string B12 = "B12Button";
+    public const string B13 = "B13Button";
+    public const string B23 = "B23Button";
     public const string B123 = "B123Button";
 
-    public static readonly string[] Todas = { B1, B2, B3, B123 };
+    public static readonly string[] Todas = { B1, B2, B3, B12, B13, B23, B123 };
 
     #endregion
 
@@ -35,12 +38,16 @@ public static class AnimacaoDeBotaoM4
             }
         }
 
-        int distintos = (b1 ? 1 : 0) + (b2 ? 1 : 0) + (b3 ? 1 : 0);
+        if (b1 && b2 && b3) return B123;
+        if (b1 && b2) return B12;
+        if (b1 && b3) return B13;
+        if (b2 && b3) return B23;
 
-        if (distintos == 0) return null;
-        if (distintos > 1) return B123;
+        if (b1) return B1;
+        if (b2) return B2;
+        if (b3) return B3;
 
-        return b1 ? B1 : b2 ? B2 : B3;
+        return null;
     }
 
     #endregion
