@@ -54,10 +54,87 @@ public static class CriadorDeDestaquesDeAlerta
                 }
             },
             {
+                "A6", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO_ELETRONICO" }),
+                }
+            },
+            {
+                "A7", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }),
+                }
+            },
+            {
                 "A9", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
                     (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                }
+            },
+            {
+                "A23", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO_ELETRONICO" }),
+                }
+            },
+            {
+                "A24", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO_ELETRONICO" }),
+                }
+            },
+            {
+                "A25", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO_ELETRONICO" }),
+                }
+            },
+            {
+                "A19", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO_ELETRONICO" }),
+                }
+            },
+            {
+                "A20", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO_ELETRONICO" }),
+                }
+            },
+            {
+                "A17", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                }
+            },
+            {
+                "A18", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                }
+            },
+            {
+                "A15", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }),
+                }
+            },
+            {
+                "A16", new[]
+                {
+                    (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }),
                 }
             },
         };
@@ -155,10 +232,10 @@ public static class CriadorDeDestaquesDeAlerta
 
     private static GameObject RecriarContorno(Transform peca, Material outline)
     {
-        var malha = peca.GetComponent<MeshFilter>();
-        var rendererDaPeca = peca.GetComponent<MeshRenderer>();
+        Mesh malha = MalhaDaPeca(peca);
+        var rendererDaPeca = peca.GetComponent<Renderer>();
 
-        if (malha == null || malha.sharedMesh == null || rendererDaPeca == null) return null;
+        if (malha == null || rendererDaPeca == null) return null;
 
         string nomeDoContorno = peca.name + SufixoDeContorno;
         Transform anterior = peca.Find(nomeDoContorno);
@@ -171,7 +248,7 @@ public static class CriadorDeDestaquesDeAlerta
         contorno.transform.localRotation = Quaternion.identity;
         contorno.transform.localScale = Vector3.one * EscalaDoContorno;
 
-        contorno.AddComponent<MeshFilter>().sharedMesh = malha.sharedMesh;
+        contorno.AddComponent<MeshFilter>().sharedMesh = malha;
 
         var rendererDoContorno = contorno.AddComponent<MeshRenderer>();
         rendererDoContorno.sharedMaterials = Enumerable
@@ -187,6 +264,17 @@ public static class CriadorDeDestaquesDeAlerta
 
         contorno.SetActive(false);
         return contorno;
+    }
+
+    private static Mesh MalhaDaPeca(Transform peca)
+    {
+        var filtro = peca.GetComponent<MeshFilter>();
+
+        if (filtro != null && filtro.sharedMesh != null) return filtro.sharedMesh;
+
+        var pele = peca.GetComponent<SkinnedMeshRenderer>();
+
+        return pele != null ? pele.sharedMesh : null;
     }
 
     private static List<Transform> BuscarPecas(Transform raiz, string nome)

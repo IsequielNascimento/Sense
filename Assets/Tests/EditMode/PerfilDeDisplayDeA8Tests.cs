@@ -58,7 +58,7 @@ public class PerfilDeDisplayDeA8Tests
     [Test]
     public void RegistroDePerfis_NaoSelecionaPerfilDeOutroAlerta()
     {
-        Assert.That(PerfisDeDisplayDeAlerta.Obter("A24"), Is.Null);
+        Assert.That(PerfisDeDisplayDeAlerta.Obter("A10"), Is.Null);
         Assert.That(
             PerfisDeDisplayDeAlerta.CodigosComPerfil,
             Is.EquivalentTo(new[]
@@ -75,7 +75,18 @@ public class PerfilDeDisplayDeA8Tests
                 PerfisDeDisplayDeAlerta.CodigoA3,
                 PerfisDeDisplayDeAlerta.CodigoA4,
                 PerfisDeDisplayDeAlerta.CodigoA5,
+                PerfisDeDisplayDeAlerta.CodigoA6,
                 PerfisDeDisplayDeAlerta.CodigoA9,
+                PerfisDeDisplayDeAlerta.CodigoA23,
+                PerfisDeDisplayDeAlerta.CodigoA24,
+                PerfisDeDisplayDeAlerta.CodigoA25,
+                PerfisDeDisplayDeAlerta.CodigoA19,
+                PerfisDeDisplayDeAlerta.CodigoA20,
+                PerfisDeDisplayDeAlerta.CodigoA17,
+                PerfisDeDisplayDeAlerta.CodigoA18,
+                PerfisDeDisplayDeAlerta.CodigoA15,
+                PerfisDeDisplayDeAlerta.CodigoA16,
+                PerfisDeDisplayDeAlerta.CodigoA7,
             }));
     }
 
@@ -346,11 +357,23 @@ public class PerfilDeDisplayDeA8Tests
     [Test]
     public void AlertaSemPerfil_MantemAsEtapasIntactas()
     {
-        AlertaOficial a24 = CatalogoDeAlertas.Obter("A24", "pt");
+        var semPerfil = new AlertaOficial(
+            new AlertaEstrutural { codigo = "A10", categoria = "Funcional", quantidadeDeAcoes = 2, quantidadeDeLocais = 2 },
+            new TextoDeAlerta
+            {
+                codigo = "A10",
+                nome = "ALERTA SEM PERFIL",
+                acoes = new[] { "Primeira acao", "Segunda acao" },
+                locais = new[] { "em campo", "em campo" },
+            },
+            11,
+            76);
 
-        Etapa[] etapas = EtapasComDisplayDeAlerta.Aplicar(a24, EtapasGuiadasDeAlerta.Criar(a24));
+        Assert.That(PerfisDeDisplayDeAlerta.Obter(semPerfil.Codigo), Is.Null, "o codigo da sonda nao pode ganhar perfil.");
 
-        Assert.That(etapas.Length, Is.EqualTo(a24.Acoes.Count));
+        Etapa[] etapas = EtapasComDisplayDeAlerta.Aplicar(semPerfil, EtapasGuiadasDeAlerta.Criar(semPerfil));
+
+        Assert.That(etapas.Length, Is.EqualTo(semPerfil.Acoes.Count));
         Assert.That(etapas[0].textoDisplay, Is.Null.Or.Empty);
         Assert.That(etapas[0].animacao, Is.Empty);
     }

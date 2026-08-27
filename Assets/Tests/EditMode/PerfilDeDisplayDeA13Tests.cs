@@ -57,7 +57,7 @@ public class PerfilDeDisplayDeA13Tests
     [Test]
     public void RegistroDePerfis_A13NaoSelecionaPerfilDeOutroAlerta()
     {
-        Assert.That(PerfisDeDisplayDeAlerta.Obter("A24"), Is.Null);
+        Assert.That(PerfisDeDisplayDeAlerta.Obter("A10"), Is.Null);
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain(CodigoA13));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A8"));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A11"));
@@ -65,7 +65,7 @@ public class PerfilDeDisplayDeA13Tests
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A1"));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A2"));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A14"));
-        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(13));
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(24));
     }
 
     #endregion

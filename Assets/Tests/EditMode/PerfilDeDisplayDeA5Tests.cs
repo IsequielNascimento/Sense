@@ -53,10 +53,10 @@ public class PerfilDeDisplayDeA5Tests
     [Test]
     public void RegistroDePerfis_A5NaoSelecionaPerfilDeOutroAlerta()
     {
-        Assert.That(PerfisDeDisplayDeAlerta.Obter("A6"), Is.Null);
+        Assert.That(PerfisDeDisplayDeAlerta.Obter("A10"), Is.Null);
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain(CodigoA5));
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain("A3"));
-        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(13));
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(24));
     }
 
     #endregion

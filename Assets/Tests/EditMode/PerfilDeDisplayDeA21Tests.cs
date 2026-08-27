@@ -55,9 +55,9 @@ public class PerfilDeDisplayDeA21Tests
     [Test]
     public void RegistroDePerfis_A21NaoSelecionaPerfilDeOutroAlerta()
     {
-        Assert.That(PerfisDeDisplayDeAlerta.Obter("A24"), Is.Null);
+        Assert.That(PerfisDeDisplayDeAlerta.Obter("A10"), Is.Null);
         Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain(CodigoA21));
-        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(13));
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(24));
     }
 
     #endregion

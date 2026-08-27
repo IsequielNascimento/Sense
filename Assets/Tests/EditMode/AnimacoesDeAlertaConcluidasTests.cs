@@ -51,7 +51,7 @@ public class AnimacoesDeAlertaConcluidasTests
     [Test]
     public void AlertaSemPerfil_ContinuaPendente()
     {
-        Assert.That(EstaConcluida("A24"), Is.False);
+        Assert.That(EstaConcluida("A10"), Is.False);
         Assert.That(EstaConcluida(null), Is.False);
         Assert.That(EstaConcluida("   "), Is.False);
     }

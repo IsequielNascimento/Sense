@@ -1,0 +1,363 @@
+using System;
+using System.Linq;
+using NUnit.Framework;
+using UnityEditor;
+using UnityEngine;
+
+public class PerfilDeDisplayDeA17Tests
+{
+    #region MARK: Fixture
+
+    private const string CodigoA17 = "A17";
+    private const string CodigoA18 = "A18";
+    private const string AcaoVerificarArComprimido = "Verificar fornecimento de ar comprimido";
+    private const string AcaoDesligarAlerta = "Desligar alerta";
+    private const int QuantidadeDeQuadrosVerificarArComprimido = 14;
+    private const int QuantidadeDeQuadrosDesligarAlerta = 7;
+    private const int LimiteDeCaracteresDaInstrucao = 120;
+    private const string ModelPath = "Assets/Prefab/Teste/M4SMARTTeste.fbx";
+    private const string PrefabPath = "Assets/Resources/M4ProblemA17/M4SMARTTesteProblemaA17.prefab";
+
+    private AlertaOficial a17;
+    private PerfilDeDisplayDeAlerta perfil;
+
+    [SetUp]
+    public void Carregar()
+    {
+        a17 = CatalogoDeAlertas.Obter(CodigoA17, "pt");
+        perfil = PerfisDeDisplayDeAlerta.Obter(CodigoA17);
+    }
+
+    private SequenciaDeQuadrosM4 EtapaVerificarArComprimido => perfil.EtapaOficial(0);
+    private SequenciaDeQuadrosM4 EtapaDesligarAlerta => perfil.EtapaOficial(1);
+
+    #endregion
+
+    #region MARK: Fidelidade ao catalogo oficial
+
+    [Test]
+    public void CatalogoDeA17_MantemAsDuasAcoesDaPagina76()
+    {
+        Assert.That(a17, Is.Not.Null);
+        Assert.That(a17.Nome, Is.EqualTo("ALTA PRESSÃO"));
+        Assert.That(a17.Padrao, Is.EqualTo("20%"));
+        Assert.That(a17.OQueE, Is.EqualTo("a pressão da linha é monitorada"));
+        Assert.That(a17.Acoes.Count, Is.EqualTo(2));
+        Assert.That(a17.Acoes[0], Is.EqualTo(AcaoVerificarArComprimido));
+        Assert.That(a17.Acoes[1], Is.EqualTo(AcaoDesligarAlerta));
+        Assert.That(a17.Locais.Count, Is.EqualTo(2));
+        Assert.That(a17.Locais[0], Is.EqualTo("gerador de ar comprimido"));
+        Assert.That(a17.Locais[1], Is.EqualTo("menu alta pressão"));
+    }
+
+    [Test]
+    public void PerfilDeA17_TemExatamenteDuasEtapasOficiais()
+    {
+        Assert.That(perfil, Is.Not.Null);
+        Assert.That(perfil.Codigo, Is.EqualTo(CodigoA17));
+        Assert.That(perfil.QuantidadeDeEtapasOficiais, Is.EqualTo(2));
+        Assert.That(perfil.CorrespondeAoCatalogo(a17), Is.True);
+    }
+
+    [Test]
+    public void RegistroDePerfis_A17NaoSelecionaPerfilDeOutroAlerta()
+    {
+        Assert.That(PerfisDeDisplayDeAlerta.Obter("A10"), Is.Null);
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain(CodigoA17));
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Does.Contain(CodigoA18));
+        Assert.That(PerfisDeDisplayDeAlerta.CodigosComPerfil, Has.Count.EqualTo(24));
+    }
+
+    #endregion
+
+    #region MARK: Encadeamento com a pressao da linha do C17
+
+    [Test]
+    public void EstadoInicial_AmarraOAlertaAoValorAjustadoEmC17()
+    {
+        QuadroDeDisplayM4 estadoInicial = EtapaVerificarArComprimido.Primeiro;
+
+        Assert.That(estadoInicial.TextoLcd, Is.EqualTo(CodigoA17));
+        Assert.That(estadoInicial.Instrucao, Does.StartWith("Confirme o alerta A17"));
+        Assert.That(estadoInicial.Instrucao, Does.Contain("C17"));
+    }
+
+    [Test]
+    public void PercentualDoAlerta_EMedidoSobreAPressaoDefinidaEmC17()
+    {
+        Assert.That(EtapaVerificarArComprimido.Em(1).Instrucao, Does.Contain("C17 PRESSÃO DA LINHA"));
+        Assert.That(EtapaVerificarArComprimido.Em(2).Instrucao, Does.Contain("3 a 8 bar"));
+        Assert.That(EtapaVerificarArComprimido.Em(2).Instrucao, Does.Contain("6 bar (87 psi)"));
+        Assert.That(EtapaVerificarArComprimido.Em(2).Instrucao, Does.Contain("20%"));
+        Assert.That(EtapaVerificarArComprimido.Em(3).Instrucao, Does.Contain("7,2 bar"));
+    }
+
+    [Test]
+    public void OAjusteDeC17_EFeitoPeloMenuConfigECabeNaFaixaDoManual()
+    {
+        Assert.That(EtapaVerificarArComprimido.Em(9).TextoLcd, Is.EqualTo("MENU\nCONFIG"));
+        Assert.That(EtapaVerificarArComprimido.Em(10).TextoLcd, Is.EqualTo(PerfisDeDisplayDeAlerta.MenuPressaoDaLinha));
+        Assert.That(EtapaVerificarArComprimido.Em(11).TextoLcd, Is.EqualTo(PerfisDeDisplayDeAlerta.MenuPressaoDaLinha));
+        Assert.That(EtapaVerificarArComprimido.Em(11).Instrucao, Does.Contain("C17"));
+    }
+
+    [Test]
+    public void LimiteAbsolutoDoManual_ApareceSemInventarOutroValor()
+    {
+        QuadroDeDisplayM4 limite = EtapaVerificarArComprimido.Em(6);
+
+        Assert.That(limite.Instrucao, Does.Contain("10 bar (150 psi)"));
+        Assert.That(limite.Instrucao, Does.Contain("A9"));
+    }
+
+    #endregion
+
+    #region MARK: Fronteira entre alta e baixa pressao
+
+    [Test]
+    public void NenhumQuadroDeA17_CitaOCenarioDeBaixaPressao()
+    {
+        foreach (SequenciaDeQuadrosM4 etapa in new[] { EtapaVerificarArComprimido, EtapaDesligarAlerta })
+        {
+            foreach (QuadroDeDisplayM4 quadro in etapa.Quadros)
+            {
+                Assert.That(quadro.Instrucao, Does.Not.Contain("abaixo"),
+                    $"o quadro '{quadro.TextoLcd}' descreve o cenário do A18.");
+            }
+        }
+    }
+
+    [Test]
+    public void AberturaDoDesligamento_DizAFaixaConfiguravelNoSentidoAlto()
+    {
+        QuadroDeDisplayM4 abertura = EtapaDesligarAlerta.Primeiro;
+
+        Assert.That(abertura.TextoLcd, Is.EqualTo(CodigoA17));
+        Assert.That(abertura.Instrucao, Does.Contain("20%, 30%, 40% ou 50%"));
+        Assert.That(abertura.Instrucao, Does.Contain("acima"));
+        Assert.That(abertura.Instrucao, Does.Contain("C17"));
+    }
+
+    #endregion
+
+    #region MARK: Desligamento pelo menu de alertas
+
+    [Test]
+    public void EtapaDesligarAlerta_PercorreMenuConfigMenuAlertaEOCodigoDoProprioAlerta()
+    {
+        Assert.That(EtapaDesligarAlerta.Em(1).TextoLcd, Is.EqualTo("MENU"));
+        Assert.That(EtapaDesligarAlerta.Em(1).ProgressoSegundos, Is.EqualTo(6f));
+        Assert.That(EtapaDesligarAlerta.Em(2).TextoLcd, Is.EqualTo("MENU\nCONFIG"));
+        Assert.That(EtapaDesligarAlerta.Em(3).TextoLcd, Is.EqualTo("MENU\nALERTA"));
+        Assert.That(EtapaDesligarAlerta.Em(4).TextoLcd, Is.EqualTo(PerfisDeDisplayDeAlerta.MenuPressaoAlta));
+        Assert.That(EtapaDesligarAlerta.Em(5).TextoLcd, Is.EqualTo("DESABI"));
+        Assert.That(EtapaDesligarAlerta.Ultimo.TextoLcd, Is.EqualTo(PerfisDeDisplayDeAlerta.MenuPressaoAlta));
+    }
+
+    [Test]
+    public void DesligarOAlerta_NaoAlteraAPressaoDeReferenciaNemOA9()
+    {
+        Assert.That(EtapaDesligarAlerta.Ultimo.Instrucao, Does.Contain("C17"));
+        Assert.That(EtapaDesligarAlerta.Ultimo.Instrucao, Does.Contain("A9"));
+    }
+
+    #endregion
+
+    #region MARK: Quadros do LCD
+
+    [Test]
+    public void EtapaVerificarArComprimido_TemQuatorzeQuadrosSemTextoVazio()
+    {
+        Assert.That(EtapaVerificarArComprimido.Quantidade, Is.EqualTo(QuantidadeDeQuadrosVerificarArComprimido));
+
+        foreach (QuadroDeDisplayM4 quadro in EtapaVerificarArComprimido.Quadros)
+        {
+            Assert.That(quadro.TextoLcd, Is.Not.Empty);
+            Assert.That(quadro.TextoLcd, Is.EqualTo(quadro.TextoLcd.Trim()));
+            Assert.That(quadro.Instrucao, Is.Not.Null.And.Not.Empty);
+            Assert.That(quadro.Instrucao, Is.EqualTo(quadro.Instrucao.Trim()));
+        }
+    }
+
+    [Test]
+    public void EtapaDesligarAlerta_TemSeteQuadrosSemTextoVazio()
+    {
+        Assert.That(EtapaDesligarAlerta.Quantidade, Is.EqualTo(QuantidadeDeQuadrosDesligarAlerta));
+
+        foreach (QuadroDeDisplayM4 quadro in EtapaDesligarAlerta.Quadros)
+        {
+            Assert.That(quadro.TextoLcd, Is.Not.Empty);
+            Assert.That(quadro.TextoLcd, Is.EqualTo(quadro.TextoLcd.Trim()));
+            Assert.That(quadro.Instrucao, Is.Not.Null.And.Not.Empty);
+            Assert.That(quadro.Instrucao, Is.EqualTo(quadro.Instrucao.Trim()));
+        }
+    }
+
+    [Test]
+    public void Instrucoes_CabemNaCaixaDeTextoDoPassoAPasso()
+    {
+        foreach (SequenciaDeQuadrosM4 etapa in new[] { EtapaVerificarArComprimido, EtapaDesligarAlerta })
+        {
+            foreach (QuadroDeDisplayM4 quadro in etapa.Quadros)
+            {
+                Assert.That(
+                    quadro.Instrucao.Length,
+                    Is.LessThanOrEqualTo(LimiteDeCaracteresDaInstrucao),
+                    $"Instrução longa demais no quadro '{quadro.TextoLcd}'.");
+            }
+        }
+    }
+
+    [Test]
+    public void NenhumQuadro_RepeteOTextoResumidoDaTabelaDeResolucao()
+    {
+        Assert.That(
+            EtapaVerificarArComprimido.Quadros.Select(quadro => quadro.Instrucao),
+            Has.None.EqualTo(AcaoVerificarArComprimido));
+        Assert.That(
+            EtapaDesligarAlerta.Quadros.Select(quadro => quadro.Instrucao),
+            Has.None.EqualTo(AcaoDesligarAlerta));
+    }
+
+    #endregion
+
+    #region MARK: LED e destaque das pecas
+
+    [Test]
+    public void EnquantoOAlertaEstaAtivo_OLedVermelhoPisca()
+    {
+        foreach (SequenciaDeQuadrosM4 etapa in new[] { EtapaVerificarArComprimido, EtapaDesligarAlerta })
+        {
+            for (int i = 0; i < etapa.Quantidade - 1; i++)
+            {
+                Assert.That(etapa.Em(i).Leds, Is.EqualTo(EstadoLedsM4.Alerta), $"quadro {i}");
+                Assert.That(etapa.Em(i).LedPiscando, Is.True, $"quadro {i}");
+            }
+
+            Assert.That(etapa.Ultimo.Leds, Is.EqualTo(EstadoLedsM4.Desligado));
+            Assert.That(etapa.Ultimo.LedPiscando, Is.False);
+            Assert.That(etapa.Ultimo.Instrucao, Does.StartWith("Verifique a confirmação"));
+        }
+    }
+
+    [Test]
+    public void OGeradorDeArComprimido_AcendeAPneumaticaEAsMangueiras()
+    {
+        Assert.That(EtapaVerificarArComprimido.Em(4).Vfx, Is.EqualTo(PerfisDeDisplayDeAlerta.DestaquePneumatica));
+        Assert.That(EtapaVerificarArComprimido.Em(5).Vfx, Is.EqualTo(PerfisDeDisplayDeAlerta.DestaqueMangueiras));
+        Assert.That(EtapaVerificarArComprimido.Em(7).Vfx, Is.EqualTo(PerfisDeDisplayDeAlerta.DestaquePneumatica));
+    }
+
+    [Test]
+    public void QuadrosDeMenu_NaoAcendemDestaqueNoModelo()
+    {
+        for (int i = 8; i < EtapaVerificarArComprimido.Quantidade; i++)
+        {
+            Assert.That(EtapaVerificarArComprimido.Em(i).Vfx, Is.Null, $"quadro {i}");
+        }
+
+        foreach (QuadroDeDisplayM4 quadro in EtapaDesligarAlerta.Quadros)
+        {
+            Assert.That(quadro.Vfx, Is.Null, $"o quadro '{quadro.TextoLcd}' é de menu.");
+        }
+    }
+
+    #endregion
+
+    #region MARK: Mecanismo sem evidencia normativa
+
+    [Test]
+    public void PerfilDeA17_NaoAfirmaMecanismoDeAtivacaoConfirmado()
+    {
+        Assert.That(perfil.MecanismoDeAtivacaoConfirmado, Is.False);
+    }
+
+    #endregion
+
+    #region MARK: Animacao do botao citado em cada passo
+
+    [Test]
+    public void AnimacoesDeA17_SeguemOsBotoesCitadosEmCadaPasso()
+    {
+        Assert.That(
+            EtapaVerificarArComprimido.Quadros.Select(quadro => quadro.Animacao),
+            Is.EqualTo(new[]
+            {
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B123,
+                AnimacaoDeBotaoM4.B123,
+                AnimacaoDeBotaoM4.B1,
+                null,
+            }));
+
+        Assert.That(
+            EtapaDesligarAlerta.Quadros.Select(quadro => quadro.Animacao),
+            Is.EqualTo(new[]
+            {
+                null,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B3,
+                AnimacaoDeBotaoM4.B2,
+                AnimacaoDeBotaoM4.B23,
+                AnimacaoDeBotaoM4.B123,
+                null,
+            }));
+    }
+
+    #endregion
+
+    #region MARK: Composicao sobre as etapas guiadas
+
+    [Test]
+    public void EtapasDeA17_ExpandemAsDuasAcoesOficiaisEmPassosPraticos()
+    {
+        Etapa[] etapas = EtapasComDisplayDeAlerta.Aplicar(a17, EtapasGuiadasDeAlerta.Criar(a17));
+
+        Assert.That(etapas, Has.Length.EqualTo(
+            QuantidadeDeQuadrosVerificarArComprimido + QuantidadeDeQuadrosDesligarAlerta));
+        Assert.That(etapas.All(etapa => !string.IsNullOrWhiteSpace(etapa.tutorial)), Is.True);
+        Assert.That(etapas.All(etapa => !string.IsNullOrWhiteSpace(etapa.textoDisplay)), Is.True);
+        Assert.That(etapas[8].progressoSegundos, Is.EqualTo(6f));
+        Assert.That(etapas[QuantidadeDeQuadrosVerificarArComprimido + 1].progressoSegundos, Is.EqualTo(6f));
+    }
+
+    #endregion
+
+    #region MARK: Modelo visual obrigatorio
+
+    private static readonly Type TipoModeloDeAlertaDisplay =
+        Type.GetType("ModeloDeAlertaDisplay, Assembly-CSharp");
+
+    private static GameObject ResolverModelo(string codigo)
+    {
+        return TipoModeloDeAlertaDisplay
+            .GetMethod("Resolver")
+            .Invoke(null, new object[] { codigo }) as GameObject;
+    }
+
+    [Test]
+    public void ModeloDeA17_ResolveOPrefabBaseadoEmM4SmartTeste()
+    {
+        Assert.That(TipoModeloDeAlertaDisplay, Is.Not.Null);
+
+        GameObject prefab = ResolverModelo(CodigoA17);
+
+        Assert.That(prefab, Is.Not.Null);
+        Assert.That(AssetDatabase.GetAssetPath(prefab), Is.EqualTo(PrefabPath));
+        Assert.That(AssetDatabase.GetDependencies(PrefabPath), Does.Contain(ModelPath));
+        Assert.That(prefab.GetComponentsInChildren<Transform>(true)
+            .Any(item => item.name == "DisplayDynamic"), Is.True);
+        Assert.That(prefab.GetComponentInChildren<ControladorLedsM4>(true), Is.Not.Null);
+    }
+
+    #endregion
+}

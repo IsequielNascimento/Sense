@@ -12,7 +12,8 @@ public class DestaquesPiscantesDeAlertaTests
 
     private const string CaminhoMaterialDeOutline = "Assets/Materials/Destaque Outline.mat";
 
-    private static readonly string[] AlertasComDestaque = { "A1", "A2", "A3", "A4", "A5", "A9" };
+    private static readonly string[] AlertasComDestaque =
+        { "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A9", "A15", "A16", "A17", "A18", "A19", "A20", "A23", "A24", "A25" };
 
     private static readonly Dictionary<string, string[]> PecasEsperadasPorAlerta = new Dictionary<string, string[]>
     {
@@ -21,7 +22,18 @@ public class DestaquesPiscantesDeAlertaTests
         { "A3", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
         { "A4", new[] { "PNEUMATICA", "Magueira", "Magueira.001" } },
         { "A5", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
+        { "A6", new[] { "PNEUMATICA", "MODULO_ELETRONICO" } },
+        { "A7", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
         { "A9", new[] { "PNEUMATICA", "Magueira", "Magueira.001" } },
+        { "A15", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
+        { "A16", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
+        { "A17", new[] { "PNEUMATICA", "Magueira", "Magueira.001" } },
+        { "A18", new[] { "PNEUMATICA", "Magueira", "Magueira.001" } },
+        { "A19", new[] { "MODULO_ELETRONICO" } },
+        { "A20", new[] { "MODULO_ELETRONICO" } },
+        { "A23", new[] { "PNEUMATICA", "MODULO_ELETRONICO" } },
+        { "A24", new[] { "PNEUMATICA", "MODULO_ELETRONICO" } },
+        { "A25", new[] { "MODULO_ELETRONICO" } },
     };
 
     private static GameObject Prefab(string codigo)
@@ -33,6 +45,17 @@ public class DestaquesPiscantesDeAlertaTests
     private static Transform Peca(GameObject prefab, string nome)
     {
         return prefab.GetComponentsInChildren<Transform>(true).SingleOrDefault(t => t.name == nome);
+    }
+
+    private static Mesh MalhaDaPeca(Transform peca)
+    {
+        var filtro = peca.GetComponent<MeshFilter>();
+
+        if (filtro != null && filtro.sharedMesh != null) return filtro.sharedMesh;
+
+        var pele = peca.GetComponent<SkinnedMeshRenderer>();
+
+        return pele != null ? pele.sharedMesh : null;
     }
 
     private static IEnumerable<(string Nome, GameObject Objeto)> EfeitosRegistrados(GameObject prefab)
@@ -73,7 +96,7 @@ public class DestaquesPiscantesDeAlertaTests
 
             Assert.That(
                 contorno.GetComponent<MeshFilter>().sharedMesh,
-                Is.EqualTo(peca.GetComponent<MeshFilter>().sharedMesh),
+                Is.EqualTo(MalhaDaPeca(peca)),
                 $"{codigo}/{nomeDaPeca}: malha do contorno divergente.");
 
             Assert.That(
