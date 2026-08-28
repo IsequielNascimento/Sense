@@ -82,6 +82,10 @@ docs/superpowers/
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Performance Testing grava isso dentro de Resources, ou seja, entraria no build
+/[Aa]ssets/[Rr]esources/PerformanceTestRunInfo.json*
+/[Aa]ssets/[Rr]esources/PerformanceTestRunSettings.json*
+
 # TestRunner generated files
 InitTestScene*.unity*
 
