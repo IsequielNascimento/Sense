@@ -1,3 +1,4 @@
+// Rodar após reimportar M4GLASS.mat: troca o shader para URP/Lit transparente.
 using UnityEditor;
 using UnityEngine;
 

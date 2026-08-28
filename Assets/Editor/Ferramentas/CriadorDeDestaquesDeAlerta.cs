@@ -1,3 +1,4 @@
+// Rodar após regenerar os prefabs de alerta: recria os objetos _Outline de destaque de cada alerta.
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;

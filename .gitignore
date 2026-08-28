@@ -75,6 +75,9 @@ mono_crash.*
 /tmp
 Assets/_Recovery
 
+# Artefatos de sessao de agente (specs, planos, logs) - ficam locais
+docs/superpowers/
+
 # Crashlytics generated file
 crashlytics-build.properties
 

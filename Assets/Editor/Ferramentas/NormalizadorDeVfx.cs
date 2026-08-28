@@ -1,3 +1,4 @@
+// Rodar após renomear VFX no prefab: aplica os nomes canônicos que Etapa.vfx espera.
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;

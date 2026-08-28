@@ -1,3 +1,4 @@
+// Roda sozinho ao abrir o Editor; o menu apenas força a regeneração da fonte SDF do display LCD.
 using TMPro;
 using UnityEditor;
 using UnityEngine;

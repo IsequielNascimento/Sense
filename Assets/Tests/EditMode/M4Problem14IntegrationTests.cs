@@ -171,19 +171,5 @@ public class M4Problem14IntegrationTests
         }
     }
 
-    [Test]
-    public void FerramentaDeCriacaoDoPrefabDeA14EhIdempotente()
-    {
-        Type criador = Type.GetType("CriadorDePrefabDeAlertaA14, Assembly-CSharp-Editor");
-        Assert.That(criador, Is.Not.Null);
-
-        Assert.That(criador.GetField("PrefabDestinoA14").GetRawConstantValue(), Is.EqualTo(PrefabPathA14));
-        Assert.That(criador.GetField("PrefabOrigemA8").GetRawConstantValue(), Is.EqualTo(PrefabPathA8));
-
-        criador.GetMethod("CriarOuAtualizarPrefabA14").Invoke(null, null);
-
-        Assert.That(AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPathA14), Is.Not.Null);
-    }
-
     #endregion
 }

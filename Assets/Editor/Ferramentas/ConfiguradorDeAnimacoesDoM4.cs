@@ -1,3 +1,4 @@
+// Rodar após reexportar M4SMARTTeste.fbx: refaz os clips dos takes e descarta as curvas de m_LocalScale.
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;

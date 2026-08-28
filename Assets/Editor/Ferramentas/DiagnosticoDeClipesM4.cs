@@ -1,3 +1,4 @@
+// Diagnóstico: compara a escala do FBX com a do prefab. Só escreve log, não altera asset.
 using System.Linq;
 using UnityEditor;
 using UnityEngine;

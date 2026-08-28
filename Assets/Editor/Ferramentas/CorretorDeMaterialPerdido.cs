@@ -1,3 +1,4 @@
+// Rodar quando os prefabs de Resources aparecerem com material perdido em PARAFUSO B.
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

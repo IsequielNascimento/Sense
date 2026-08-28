@@ -1,3 +1,4 @@
+// Rodar após mexer nas cenas de AR: garante o ARAnchorManager que PlaceOnPlane_Adaptado exige.
 using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;

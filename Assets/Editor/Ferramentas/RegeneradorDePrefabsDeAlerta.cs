@@ -1,3 +1,4 @@
+// Rodar sempre que M4SMARTTeste.fbx for reexportado: os prefabs de alerta são achatados, não Variants, e não herdam mudanças do FBX.
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
