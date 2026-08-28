@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/ARMudanca.uss?fileID=7433441132597879392&amp;guid=2c3c44f454c99a44f9c08ce802c12ad3&amp;type=3#ARMudanca"/>
+    <Style src="project://database/Assets/UI/Estilos/ARMudanca.uss?fileID=7433441132597879392&amp;guid=2c3c44f454c99a44f9c08ce802c12ad3&amp;type=3#ARMudanca"/>
     <ui:GroupBox name="FundoBlur" picking-mode="Ignore" style="top: -2%; height: 2189px; position: absolute; width: 1066px;">
         <ui:VisualElement name="Blur" picking-mode="Ignore" style="flex-grow: 0; height: 102%; width: 103%; flex-shrink: 0; top: 0%; align-items: center; justify-content: center; align-self: center; align-content: center; color: rgba(0, 0, 0, 0.78); background-image: resource(&quot;ImagensProblemas/elemento n e forma&quot;); -unity-background-image-tint-color: rgba(0, 0, 0, 0.78); background-size: 100% 134%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); right: 0%;"/>
     </ui:GroupBox>
