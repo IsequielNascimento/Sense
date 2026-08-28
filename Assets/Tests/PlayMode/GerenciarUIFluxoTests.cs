@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 public class GerenciarUIFluxoTests
 {
-    private const string TipoQualificado = "GerenciarUI, Assembly-CSharp";
+    private const string TipoQualificado = "GerenciarUI, Sense.Runtime";
     private const string ChaveIdioma = "idioma";
     private const string IdiomaDoTeste = "pt";
     private const string CodigoDoAlerta = "A9";

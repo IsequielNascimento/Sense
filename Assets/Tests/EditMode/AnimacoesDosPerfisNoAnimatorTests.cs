@@ -10,9 +10,9 @@ public class AnimacoesDosPerfisNoAnimatorTests
     #region MARK: Resolucao igual a de LocalizedDatabase e ExibidorDeModeloBase
 
     private static readonly Type TipoModeloDeAlertaDisplay =
-        Type.GetType("ModeloDeAlertaDisplay, Assembly-CSharp");
+        Type.GetType("ModeloDeAlertaDisplay, Sense.Runtime");
 
-    private static readonly Type TipoArConstants = Type.GetType("ArConstants, Assembly-CSharp");
+    private static readonly Type TipoArConstants = Type.GetType("ArConstants, Sense.Runtime");
 
     private static string CamadaPadrao =>
         (string)TipoArConstants.GetField("DefaultAnimatorLayer").GetRawConstantValue();

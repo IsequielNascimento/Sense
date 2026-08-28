@@ -53,7 +53,7 @@ public class M4ProblemA2IntegrationTests
     public void GerenciadorVisualDoA2_RegistraOsDoisOutlinesSobOMesmoNomeDeEfeito()
     {
         GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPathA2);
-        Type tipoGerenciador = Type.GetType("GerenciadorVisual, Assembly-CSharp");
+        Type tipoGerenciador = Type.GetType("GerenciadorVisual, Sense.Runtime");
         Assert.That(tipoGerenciador, Is.Not.Null);
 
         Component gerenciador = prefab.GetComponentInChildren(tipoGerenciador, true);
@@ -84,7 +84,7 @@ public class M4ProblemA2IntegrationTests
     [Test]
     public void ExperienciaDeAlertaOficialDoA2_UsaABaseLayerPadrao()
     {
-        Type tipoLocalizedDatabase = Type.GetType("LocalizedDatabase, Assembly-CSharp");
+        Type tipoLocalizedDatabase = Type.GetType("LocalizedDatabase, Sense.Runtime");
         Assert.That(tipoLocalizedDatabase, Is.Not.Null);
 
         MethodInfo metodo = tipoLocalizedDatabase.GetMethod(

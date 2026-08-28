@@ -7,6 +7,6 @@ public class NavegarParaMontagemPadrao : MonoBehaviour
     {
         ControleDeCena.Instance.DefinirOrigem(OrigemCena.Montagem);
 
-        SceneManager.LoadScene(Scenes.ArLegacy);
+        SceneManager.LoadScene(Scenes.ArUiToolkit);
     }
 }

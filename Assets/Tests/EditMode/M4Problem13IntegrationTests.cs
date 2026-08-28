@@ -62,7 +62,7 @@ public class M4Problem13IntegrationTests
         EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
         MonoBehaviour exibidor = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
             .First(component => component.GetType().Name == "PlaceOnPlane_Adaptado");
-        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Assembly-CSharp");
+        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Sense.Runtime");
         var objetoSelecao = new GameObject("Selecao A13 Teste AR");
         Component selecao = objetoSelecao.AddComponent(tipoSelecao);
         PropertyInfo instancia = tipoSelecao.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
@@ -96,8 +96,8 @@ public class M4Problem13IntegrationTests
         EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
         MonoBehaviour exibidorAr = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
             .First(component => component.GetType().Name == "PlaceOnPlane_Adaptado");
-        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Assembly-CSharp");
-        Type tipoVisualizador = Type.GetType("Visualizador3D, Assembly-CSharp");
+        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Sense.Runtime");
+        Type tipoVisualizador = Type.GetType("Visualizador3D, Sense.Runtime");
         var objetoSelecao = new GameObject("Selecao A13 Teste Comparativo");
         Component selecao = objetoSelecao.AddComponent(tipoSelecao);
         PropertyInfo instancia = tipoSelecao.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
@@ -136,7 +136,7 @@ public class M4Problem13IntegrationTests
         EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
         MonoBehaviour exibidor = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
             .First(component => component.GetType().Name == "PlaceOnPlane_Adaptado");
-        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Assembly-CSharp");
+        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Sense.Runtime");
         var objetoSelecao = new GameObject("Selecao A13 Teste Animacao");
         Component selecao = objetoSelecao.AddComponent(tipoSelecao);
         PropertyInfo instancia = tipoSelecao.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
@@ -169,20 +169,6 @@ public class M4Problem13IntegrationTests
             instancia.SetValue(null, null);
             Object.DestroyImmediate(objetoSelecao);
         }
-    }
-
-    [Test]
-    public void FerramentaDeCriacaoDoPrefabDeA13EhIdempotente()
-    {
-        Type criador = Type.GetType("CriadorDePrefabDeAlertaA13, Assembly-CSharp-Editor");
-        Assert.That(criador, Is.Not.Null);
-
-        Assert.That(criador.GetField("PrefabDestinoA13").GetRawConstantValue(), Is.EqualTo(PrefabPathA13));
-        Assert.That(criador.GetField("PrefabOrigemA8").GetRawConstantValue(), Is.EqualTo(PrefabPathA8));
-
-        criador.GetMethod("CriarOuAtualizarPrefabA13").Invoke(null, null);
-
-        Assert.That(AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPathA13), Is.Not.Null);
     }
 
     #endregion

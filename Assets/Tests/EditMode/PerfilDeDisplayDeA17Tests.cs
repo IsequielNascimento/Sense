@@ -335,7 +335,7 @@ public class PerfilDeDisplayDeA17Tests
     #region MARK: Modelo visual obrigatorio
 
     private static readonly Type TipoModeloDeAlertaDisplay =
-        Type.GetType("ModeloDeAlertaDisplay, Assembly-CSharp");
+        Type.GetType("ModeloDeAlertaDisplay, Sense.Runtime");
 
     private static GameObject ResolverModelo(string codigo)
     {

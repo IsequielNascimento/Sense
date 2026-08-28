@@ -2222,7 +2222,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17e32c23071f0de4190a88d0410b9597, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GerenciadorVisual
+  m_EditorClassIdentifier: Sense.Runtime::GerenciadorVisual
   displaySpriteRenderer: {fileID: 0}
   telasDisponiveis: []
   ancoraDisplayDinamico: {fileID: 8863821141025768438}
