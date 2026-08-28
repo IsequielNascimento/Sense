@@ -106,7 +106,7 @@ public class GerenciarUI : MonoBehaviour
     {
         alertaAtual = alerta;
 
-        DetalheDeAlertaFormatado detalhe = FormatadorDeDetalheDeAlerta.Formatar(alerta);
+        DetalheDeAlertaFormatado detalhe = FormatadorDeDetalheDeAlerta.Formatar(alerta, LocalizedDatabase.CurrentLanguage);
 
         tituloProblema.text = detalhe.Titulo;
         descricaoProblema.text = detalhe.Descricao;

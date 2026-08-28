@@ -232,4 +232,70 @@ public class FormatadorDeDetalheDeAlertaTests
     }
 
     #endregion
+
+    #region MARK: Rotulos por idioma
+
+    [TestCase("en", "What is it?", "When does it occur?", "What to do?", "Where")]
+    [TestCase("es", "¿Qué es?", "¿Cuándo ocurre?", "¿Qué hacer?", "Dónde")]
+    [TestCase("fr", "Qu'est-ce que c'est ?", "Quand cela se produit-il ?", "Que faire ?", "Où")]
+    public void Formatar_ComIdiomaTraduzido_UsaOsRotulosDoIdioma(
+        string idioma, string oQueE, string quandoOcorre, string oQueFazer, string onde)
+    {
+        AlertaOficial alerta = Buscar("A1");
+        DetalheDeAlertaFormatado detalhe = FormatadorDeDetalheDeAlerta.Formatar(alerta, idioma);
+
+        Assert.That(detalhe.Descricao, Does.Contain(oQueE));
+        Assert.That(detalhe.Descricao, Does.Contain(quandoOcorre));
+        Assert.That(detalhe.Solucao, Does.Contain(oQueFazer));
+        Assert.That(detalhe.Solucao, Does.Contain(onde));
+
+        Assert.That(detalhe.Descricao, Does.Not.Contain(FormatadorDeDetalheDeAlerta.RotuloOQueE));
+        Assert.That(detalhe.Solucao, Does.Not.Contain(FormatadorDeDetalheDeAlerta.RotuloOQueFazer));
+    }
+
+    [TestCase("de")]
+    [TestCase("")]
+    [TestCase(null)]
+    public void Formatar_ComIdiomaDesconhecido_CaiParaOsRotulosPt(string idioma)
+    {
+        AlertaOficial alerta = Buscar("A1");
+        DetalheDeAlertaFormatado detalhe = FormatadorDeDetalheDeAlerta.Formatar(alerta, idioma);
+
+        Assert.That(detalhe.Descricao, Does.Contain(FormatadorDeDetalheDeAlerta.RotuloOQueE));
+        Assert.That(detalhe.Solucao, Does.Contain(FormatadorDeDetalheDeAlerta.RotuloOQueFazer));
+    }
+
+    [Test]
+    public void Formatar_SemIdioma_MantemOsRotulosPt()
+    {
+        AlertaOficial alerta = Buscar("A1");
+        DetalheDeAlertaFormatado detalhe = FormatadorDeDetalheDeAlerta.Formatar(alerta);
+
+        Assert.That(detalhe.Descricao, Does.Contain(FormatadorDeDetalheDeAlerta.RotuloOQueE));
+        Assert.That(detalhe.Solucao, Does.Contain(FormatadorDeDetalheDeAlerta.RotuloOnde));
+    }
+
+    [TestCase("pt", "IMPORTANTE")]
+    [TestCase("en", "IMPORTANT")]
+    [TestCase("es", "IMPORTANTE")]
+    [TestCase("fr", "IMPORTANT")]
+    public void Formatar_AvisoDoA9_UsaORotuloDeNivelDoIdioma(string idioma, string rotulo)
+    {
+        AlertaOficial alerta = Buscar("A9");
+        DetalheDeAlertaFormatado detalhe = FormatadorDeDetalheDeAlerta.Formatar(alerta, idioma);
+
+        Assert.That(detalhe.Solucao, Does.Contain($"<b>{rotulo}</b>"));
+    }
+
+    [TestCase("pt", "PERIGO")]
+    [TestCase("en", "DANGER")]
+    [TestCase("es", "PELIGRO")]
+    [TestCase("fr", "DANGER")]
+    [TestCase("de", "PERIGO")]
+    public void RotuloExibicao_TraduzONivelDeAviso(string idioma, string esperado)
+    {
+        Assert.That(NivelDeAviso.Perigo.RotuloExibicao(idioma), Is.EqualTo(esperado));
+    }
+
+    #endregion
 }
