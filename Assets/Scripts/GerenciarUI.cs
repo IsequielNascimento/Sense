@@ -61,6 +61,10 @@ public class GerenciarUI : MonoBehaviour
             tituloTitulosUI.text = banco.titulos.titulo_cena;
             subtituloTitulosUI.text = banco.titulos.subtitulo;
             holderTitulosUI.text = banco.titulos.holder;
+
+            if (descricao != null) descricao.text = banco.titulos.rotulo_descricao;
+            if (solucao != null) solucao.text = banco.titulos.rotulo_solucao;
+            if (textpasso != null) textpasso.text = banco.titulos.rotulo_passo_a_passo;
         }
 
         alertas = CatalogoDeAlertas.Carregar(LocalizedDatabase.CurrentLanguage);
@@ -106,7 +110,7 @@ public class GerenciarUI : MonoBehaviour
     {
         alertaAtual = alerta;
 
-        DetalheDeAlertaFormatado detalhe = FormatadorDeDetalheDeAlerta.Formatar(alerta);
+        DetalheDeAlertaFormatado detalhe = FormatadorDeDetalheDeAlerta.Formatar(alerta, LocalizedDatabase.CurrentLanguage);
 
         tituloProblema.text = detalhe.Titulo;
         descricaoProblema.text = detalhe.Descricao;

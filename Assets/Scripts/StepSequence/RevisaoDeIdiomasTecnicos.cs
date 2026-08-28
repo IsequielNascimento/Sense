@@ -16,9 +16,9 @@ public static class RevisaoDeIdiomasTecnicos
     private static readonly Dictionary<string, EstadoDeRevisao> Estados = new Dictionary<string, EstadoDeRevisao>(StringComparer.Ordinal)
     {
         { "pt", EstadoDeRevisao.Aprovado },
-        { "en", EstadoDeRevisao.PendenteRevisao },
-        { "es", EstadoDeRevisao.PendenteRevisao },
-        { "fr", EstadoDeRevisao.PendenteRevisao },
+        { "en", EstadoDeRevisao.Aprovado },
+        { "es", EstadoDeRevisao.Aprovado },
+        { "fr", EstadoDeRevisao.Aprovado },
     };
 
     #endregion

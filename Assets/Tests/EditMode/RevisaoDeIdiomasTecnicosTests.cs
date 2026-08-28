@@ -13,9 +13,9 @@ public class RevisaoDeIdiomasTecnicosTests
     [TestCase("en")]
     [TestCase("es")]
     [TestCase("fr")]
-    public void EnEsFr_SaoPendentesDeRevisao(string idioma)
+    public void EnEsFr_SaoAprovados(string idioma)
     {
-        Assert.That(RevisaoDeIdiomasTecnicos.ObterEstado(idioma), Is.EqualTo(EstadoDeRevisao.PendenteRevisao));
+        Assert.That(RevisaoDeIdiomasTecnicos.ObterEstado(idioma), Is.EqualTo(EstadoDeRevisao.Aprovado));
     }
 
     [TestCase("")]
@@ -45,9 +45,9 @@ public class RevisaoDeIdiomasTecnicosTests
     [TestCase("en")]
     [TestCase("es")]
     [TestCase("fr")]
-    public void IdiomasPendentes_ResolvemParaPt(string idioma)
+    public void IdiomasAprovados_ResolvemParaSiMesmos(string idioma)
     {
-        Assert.That(RevisaoDeIdiomasTecnicos.ResolverIdiomaTecnico(idioma), Is.EqualTo("pt"));
+        Assert.That(RevisaoDeIdiomasTecnicos.ResolverIdiomaTecnico(idioma), Is.EqualTo(idioma));
     }
 
     [TestCase("")]
@@ -63,7 +63,7 @@ public class RevisaoDeIdiomasTecnicosTests
     public void Idioma_ECaseInsensitive()
     {
         Assert.That(RevisaoDeIdiomasTecnicos.ObterEstado("PT"), Is.EqualTo(EstadoDeRevisao.Aprovado));
-        Assert.That(RevisaoDeIdiomasTecnicos.ResolverIdiomaTecnico("EN"), Is.EqualTo("pt"));
+        Assert.That(RevisaoDeIdiomasTecnicos.ResolverIdiomaTecnico("EN"), Is.EqualTo("en"));
     }
 
     #endregion

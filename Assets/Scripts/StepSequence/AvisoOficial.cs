@@ -17,14 +17,27 @@ public static class NivelDeAvisoExtensoes
         return nivel != NivelDeAviso.Importante;
     }
 
-    public static string RotuloExibicao(this NivelDeAviso nivel)
+    public static string RotuloExibicao(this NivelDeAviso nivel, string idioma = "pt")
+    {
+        string chave = string.IsNullOrWhiteSpace(idioma) ? "pt" : idioma.Trim().ToLowerInvariant();
+
+        switch (chave)
+        {
+            case "en": return RotuloEm(nivel, "DANGER", "WARNING", "CAUTION", "IMPORTANT");
+            case "es": return RotuloEm(nivel, "PELIGRO", "ATENCIÓN", "PRECAUCIÓN", "IMPORTANTE");
+            case "fr": return RotuloEm(nivel, "DANGER", "AVERTISSEMENT", "ATTENTION", "IMPORTANT");
+            default: return RotuloEm(nivel, "PERIGO", "ATENÇÃO", "CUIDADO", "IMPORTANTE");
+        }
+    }
+
+    private static string RotuloEm(NivelDeAviso nivel, string perigo, string atencao, string cuidado, string importante)
     {
         switch (nivel)
         {
-            case NivelDeAviso.Perigo: return "PERIGO";
-            case NivelDeAviso.Atencao: return "ATENÇÃO";
-            case NivelDeAviso.Cuidado: return "CUIDADO";
-            case NivelDeAviso.Importante: return "IMPORTANTE";
+            case NivelDeAviso.Perigo: return perigo;
+            case NivelDeAviso.Atencao: return atencao;
+            case NivelDeAviso.Cuidado: return cuidado;
+            case NivelDeAviso.Importante: return importante;
             default: throw new ArgumentOutOfRangeException(nameof(nivel), nivel, null);
         }
     }

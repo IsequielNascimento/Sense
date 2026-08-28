@@ -674,38 +674,51 @@ public class CatalogoDeAlertasTests
 
     #endregion
 
-    #region MARK: Idiomas tecnicos pendentes de revisao
+    #region MARK: Idiomas tecnicos traduzidos
 
     private static readonly string[] IdiomasTecnicos = { "pt", "en", "es", "fr" };
 
-    private static readonly string[] IdiomasPendentes = { "en", "es", "fr" };
+    private static readonly string[] IdiomasTraduzidos = { "en", "es", "fr" };
 
-    [TestCaseSource(nameof(IdiomasPendentes))]
-    public void CarregarComIdiomaPendente_ResolveParaOMesmoConteudoDoPt(string idioma)
+    [TestCaseSource(nameof(IdiomasTraduzidos))]
+    public void CarregarComIdiomaTraduzido_MantemAEstruturaDoPt(string idioma)
     {
         IReadOnlyList<AlertaOficial> catalogoPt = CatalogoDeAlertas.Carregar("pt");
-        IReadOnlyList<AlertaOficial> catalogoPendente = CatalogoDeAlertas.Carregar(idioma);
+        IReadOnlyList<AlertaOficial> catalogoTraduzido = CatalogoDeAlertas.Carregar(idioma);
 
-        Assert.That(catalogoPendente.Select(alerta => alerta.Codigo),
+        Assert.That(catalogoTraduzido.Select(alerta => alerta.Codigo),
             Is.EqualTo(catalogoPt.Select(alerta => alerta.Codigo)));
 
         for (int i = 0; i < catalogoPt.Count; i++)
         {
             AlertaOficial esperado = catalogoPt[i];
-            AlertaOficial obtido = catalogoPendente[i];
+            AlertaOficial obtido = catalogoTraduzido[i];
 
             Assert.That(obtido.Categoria, Is.EqualTo(esperado.Categoria), $"{esperado.Codigo}: categoria.");
-            Assert.That(obtido.Nome, Is.EqualTo(esperado.Nome), $"{esperado.Codigo}: nome.");
-            Assert.That(obtido.OQueE, Is.EqualTo(esperado.OQueE), $"{esperado.Codigo}: 'O que e'.");
-            Assert.That(obtido.QuandoOcorre, Is.EqualTo(esperado.QuandoOcorre), $"{esperado.Codigo}: 'Quando ocorre'.");
-            Assert.That(obtido.Acoes, Is.EqualTo(esperado.Acoes), $"{esperado.Codigo}: 'O que fazer'.");
-            Assert.That(obtido.Locais, Is.EqualTo(esperado.Locais), $"{esperado.Codigo}: 'Onde'.");
+            Assert.That(obtido.Acoes.Count, Is.EqualTo(esperado.Acoes.Count), $"{esperado.Codigo}: quantidade de acoes.");
+            Assert.That(obtido.Locais.Count, Is.EqualTo(esperado.Locais.Count), $"{esperado.Codigo}: quantidade de locais.");
             Assert.That(obtido.QuantidadeDeAcoesEsperada, Is.EqualTo(esperado.QuantidadeDeAcoesEsperada), $"{esperado.Codigo}: quantidade de acoes esperada.");
             Assert.That(obtido.QuantidadeDeLocaisEsperada, Is.EqualTo(esperado.QuantidadeDeLocaisEsperada), $"{esperado.Codigo}: quantidade de locais esperada.");
-            Assert.That(obtido.Padrao, Is.EqualTo(esperado.Padrao), $"{esperado.Codigo}: 'Padrao'.");
-            Assert.That(obtido.Nota, Is.EqualTo(esperado.Nota), $"{esperado.Codigo}: nota.");
             Assert.That(obtido.PaginaTabelaCodigos, Is.EqualTo(esperado.PaginaTabelaCodigos), $"{esperado.Codigo}: pagina tabela codigos.");
             Assert.That(obtido.PaginaTabelaResolucao, Is.EqualTo(esperado.PaginaTabelaResolucao), $"{esperado.Codigo}: pagina tabela resolucao.");
+
+            Assert.That(obtido.Nome, Is.Not.Empty, $"{esperado.Codigo}: nome nao traduzido.");
+            Assert.That(obtido.OQueE, Is.Not.Empty, $"{esperado.Codigo}: 'O que e' nao traduzido.");
+            Assert.That(obtido.QuandoOcorre, Is.Not.Empty, $"{esperado.Codigo}: 'Quando ocorre' nao traduzido.");
+            Assert.That(obtido.Padrao, Is.Not.Empty, $"{esperado.Codigo}: 'Padrao' nao traduzido.");
+
+            Assert.That(string.IsNullOrEmpty(obtido.Nota), Is.EqualTo(string.IsNullOrEmpty(esperado.Nota)),
+                $"{esperado.Codigo}: presenca da nota diverge do pt.");
+
+            foreach (string acao in obtido.Acoes)
+            {
+                Assert.That(acao, Is.Not.Empty, $"{esperado.Codigo}: acao vazia.");
+            }
+
+            foreach (string local in obtido.Locais)
+            {
+                Assert.That(local, Is.Not.Empty, $"{esperado.Codigo}: local vazio.");
+            }
 
             Assert.That(obtido.Avisos.Count, Is.EqualTo(esperado.Avisos.Count), $"{esperado.Codigo}: quantidade de avisos.");
 
@@ -717,7 +730,7 @@ public class CatalogoDeAlertasTests
                 Assert.That(avisoObtido.Id, Is.EqualTo(avisoEsperado.Id), $"{esperado.Codigo}: aviso[{j}].Id.");
                 Assert.That(avisoObtido.Nivel, Is.EqualTo(avisoEsperado.Nivel), $"{esperado.Codigo}: aviso[{j}].Nivel.");
                 Assert.That(avisoObtido.Pagina, Is.EqualTo(avisoEsperado.Pagina), $"{esperado.Codigo}: aviso[{j}].Pagina.");
-                Assert.That(avisoObtido.Texto, Is.EqualTo(avisoEsperado.Texto), $"{esperado.Codigo}: aviso[{j}].Texto.");
+                Assert.That(avisoObtido.Texto, Is.Not.Empty, $"{esperado.Codigo}: aviso[{j}] sem texto traduzido.");
             }
         }
     }
@@ -729,20 +742,21 @@ public class CatalogoDeAlertasTests
     }
 
     [Test]
-    public void ArquivosDeIdiomaPendente_NaoExistemEmCatalogoDeAlertas()
+    public void ArquivosDeIdiomaTraduzido_ExistemEmCatalogoDeAlertas()
     {
-        foreach (string idioma in IdiomasPendentes)
+        foreach (string idioma in IdiomasTraduzidos)
         {
             string caminho = $"{PastaDeAssets}/{idioma}.json";
-            Assert.That(AssetDatabase.LoadAssetAtPath<TextAsset>(caminho), Is.Null,
-                $"{caminho} nao deveria existir; {idioma} esta pendente de revisao.");
+            Assert.That(AssetDatabase.LoadAssetAtPath<TextAsset>(caminho), Is.Not.Null,
+                $"{caminho} deveria existir; {idioma} esta aprovado.");
         }
     }
 
     [Test]
-    public void UnicoIdiomaPresenteEmCatalogoDeAlertas_EPt()
+    public void IdiomasPresentesEmCatalogoDeAlertas_SaoOsQuatroTecnicos()
     {
-        Assert.That(IdiomasPresentes().ToArray(), Is.EqualTo(new[] { "pt" }));
+        Assert.That(IdiomasPresentes().OrderBy(nome => nome).ToArray(),
+            Is.EqualTo(IdiomasTecnicos.OrderBy(nome => nome).ToArray()));
     }
 
     #endregion

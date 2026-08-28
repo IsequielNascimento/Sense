@@ -1,0 +1,355 @@
+{
+    "notaAlertasDiagnostico": "La désactivation des alertes 19 à 25 ne désactive que les notifications dans l'application. L'indication physique sur le moniteur continue de fonctionner normalement.",
+    "alertas": [
+        {
+            "codigo": "A1",
+            "nome": "ANGLE MINIMAL",
+            "oQueE": "la vanne n'a pas atteint l'angle de fonctionnement minimal requis",
+            "quandoOcorre": "alerte car l'angle entre le point d'ouverture et le point de fermeture est inférieur à 30°",
+            "acoes": [
+                "Vérifier l'alimentation en air comprimé",
+                "Vérifier l'ensemble vanne / actionneur à la recherche de dommages"
+            ],
+            "locais": [
+                "générateur d'air comprimé",
+                "sur le terrain"
+            ],
+            "padrao": "toujours actif"
+        },
+        {
+            "codigo": "A2",
+            "nome": "DÉLAI LIMITE",
+            "oQueE": "le temps nécessaire pour effectuer le calibrage automatique est surveillé",
+            "quandoOcorre": "alerte car le calibrage de la vanne a dépassé le temps configuré dans le menu",
+            "acoes": [
+                "Augmenter le délai limite",
+                "Vérifier l'ensemble vanne / actionneur à la recherche de dommages"
+            ],
+            "locais": [
+                "menu temps max. cal.",
+                "sur le terrain"
+            ],
+            "padrao": "toujours actif"
+        },
+        {
+            "codigo": "A3",
+            "nome": "ÉCHEC DE L'AUTOCALIBRAGE",
+            "oQueE": "le déplacement de l'axe est surveillé pendant le processus de calibrage et le temps ainsi que les positions ouverte et fermée sont enregistrés",
+            "quandoOcorre": "alerte car les points ouvert et fermé enregistrés ne sont pas identiques d'un cycle de calibrage à l'autre",
+            "acoes": [
+                "Vérifier l'alimentation en air comprimé",
+                "Vérifier l'ensemble vanne / actionneur à la recherche de dommages"
+            ],
+            "locais": [
+                "générateur d'air comprimé",
+                "sur le terrain"
+            ],
+            "padrao": "toujours actif"
+        },
+        {
+            "codigo": "A4",
+            "nome": "HORS PLAGE",
+            "oQueE": "la pression d'alimentation est supérieure à celle utilisée lors du processus de calibrage",
+            "quandoOcorre": "alerte en raison d'une avance de 5° du point d'ouverture ou de fermeture de la vanne appris lors du calibrage",
+            "acoes": [
+                "Vérifier l'alimentation en air comprimé"
+            ],
+            "locais": [
+                "générateur d'air comprimé"
+            ],
+            "padrao": "toujours actif"
+        },
+        {
+            "codigo": "A5",
+            "nome": "AUCUN MOUVEMENT",
+            "oQueE": "le déplacement de l'axe est surveillé pendant le processus de calibrage",
+            "quandoOcorre": "alerte en raison de l'absence de mouvement de la vanne pendant le calibrage",
+            "acoes": [
+                "Vérifier l'alimentation en air comprimé",
+                "Vérifier l'ensemble vanne / actionneur à la recherche de dommages"
+            ],
+            "locais": [
+                "générateur d'air comprimé",
+                "sur le terrain"
+            ],
+            "padrao": "toujours actif"
+        },
+        {
+            "codigo": "A6",
+            "nome": "ÉCHEC DE COMMANDE",
+            "oQueE": "la commande du solénoïde est surveillée",
+            "quandoOcorre": "alerte lorsque la vanne n'exécute pas la commande du solénoïde",
+            "acoes": [
+                "Vérifier si le solénoïde est défectueux",
+                "Vérifier l'absence de signal électrique vers le solénoïde"
+            ],
+            "locais": [
+                "solénoïde",
+                "sur le terrain"
+            ],
+            "padrao": "toujours actif"
+        },
+        {
+            "codigo": "A7",
+            "nome": "CHANGEMENT INATTENDU",
+            "oQueE": "la position de la vanne est surveillée en continu",
+            "quandoOcorre": "alerte en raison d'un changement de position inattendu, indépendamment de la commande du solénoïde",
+            "acoes": [
+                "Vérifier l'actionnement manuel de la vanne",
+                "Vérifier les raccordements pneumatiques"
+            ],
+            "locais": [
+                "sur le terrain"
+            ],
+            "padrao": "toujours actif"
+        },
+        {
+            "codigo": "A8",
+            "nome": "MODE SÉCURISÉ",
+            "oQueE": "le moniteur n'est pas en mode sécurisé et peut être consulté de manière inappropriée",
+            "quandoOcorre": "lorsque le moniteur n'est pas en mode sécurisé",
+            "acoes": [
+                "Mettre le moniteur en mode sécurisé"
+            ],
+            "locais": [
+                "menu mode sécurisé"
+            ],
+            "padrao": "toujours actif"
+        },
+        {
+            "codigo": "A9",
+            "nome": "PRESSION MAX. DE LIGNE",
+            "oQueE": "la pression de la ligne est surveillée",
+            "quandoOcorre": "alerte car la pression maximale de la ligne dépasse 9 bar",
+            "acoes": [
+                "Vérifier l'alimentation en air comprimé"
+            ],
+            "locais": [
+                "générateur d'air comprimé"
+            ],
+            "padrao": "toujours actif"
+        },
+        {
+            "codigo": "A11",
+            "nome": "COMPTEUR PARTIEL",
+            "oQueE": "le compteur augmente chaque fois que la vanne atteint la position ouverte",
+            "quandoOcorre": "lorsque le comptage partiel est atteint",
+            "acoes": [
+                "Augmenter le nombre de cycles ou réinitialiser le compteur",
+                "Désactiver l'alerte"
+            ],
+            "locais": [
+                "sur le terrain",
+                "menu compteur partiel"
+            ],
+            "padrao": "désactivé"
+        },
+        {
+            "codigo": "A12",
+            "nome": "COMPTEUR TOTAL",
+            "oQueE": "le compteur augmente chaque fois que la vanne atteint la position ouverte",
+            "quandoOcorre": "lorsque le comptage total est atteint",
+            "acoes": [
+                "Réinitialiser le compteur",
+                "Désactiver l'alerte"
+            ],
+            "locais": [
+                "sur le terrain",
+                "menu compteur total"
+            ],
+            "padrao": "désactivé"
+        },
+        {
+            "codigo": "A13",
+            "nome": "ALERTE JOURS",
+            "oQueE": "le moniteur cumule le nombre de jours depuis sa mise sous tension",
+            "quandoOcorre": "lorsque le jour configuré est atteint",
+            "acoes": [
+                "Réinitialiser l'alerte",
+                "Désactiver l'alerte"
+            ],
+            "locais": [
+                "sur le terrain",
+                "menu alerte jours"
+            ],
+            "padrao": "désactivé"
+        },
+        {
+            "codigo": "A14",
+            "nome": "ALERTE DATE",
+            "oQueE": "alerte pour une date précise",
+            "quandoOcorre": "lorsque la date configurée est atteinte",
+            "acoes": [
+                "Définir une nouvelle date",
+                "Désactiver l'alerte"
+            ],
+            "locais": [
+                "sur le terrain",
+                "menu alerte date"
+            ],
+            "padrao": "désactivé"
+        },
+        {
+            "codigo": "A15",
+            "nome": "TEMPS D'OUVERTURE",
+            "oQueE": "le moniteur apprend le temps d'ouverture de la vanne pendant le processus de calibrage",
+            "quandoOcorre": "lorsque le temps d'ouverture est dépassé",
+            "acoes": [
+                "Vérifier l'alimentation en air comprimé",
+                "Vérifier l'ensemble vanne / actionneur à la recherche de dommages",
+                "Désactiver l'alerte"
+            ],
+            "locais": [
+                "générateur d'air comprimé",
+                "sur le terrain",
+                "menu temps d'ouverture"
+            ],
+            "padrao": "désactivé"
+        },
+        {
+            "codigo": "A16",
+            "nome": "TEMPS DE FERMETURE",
+            "oQueE": "le moniteur apprend le temps de fermeture de la vanne pendant le processus de calibrage",
+            "quandoOcorre": "lorsque le temps de fermeture est dépassé",
+            "acoes": [
+                "Vérifier l'alimentation en air comprimé",
+                "Vérifier l'ensemble vanne / actionneur à la recherche de dommages",
+                "Désactiver l'alerte"
+            ],
+            "locais": [
+                "générateur d'air comprimé",
+                "sur le terrain",
+                "menu temps de fermeture"
+            ],
+            "padrao": "désactivé"
+        },
+        {
+            "codigo": "A17",
+            "nome": "HAUTE PRESSION",
+            "oQueE": "la pression de la ligne est surveillée",
+            "quandoOcorre": "lorsque la pression d'entrée est supérieure à la plage spécifiée",
+            "acoes": [
+                "Vérifier l'alimentation en air comprimé",
+                "Désactiver l'alerte"
+            ],
+            "locais": [
+                "générateur d'air comprimé",
+                "menu haute pression"
+            ],
+            "padrao": "20%"
+        },
+        {
+            "codigo": "A18",
+            "nome": "BASSE PRESSION",
+            "oQueE": "la pression de la ligne est surveillée",
+            "quandoOcorre": "lorsque la pression d'entrée est inférieure à la plage spécifiée",
+            "acoes": [
+                "Vérifier l'alimentation en air comprimé",
+                "Désactiver l'alerte"
+            ],
+            "locais": [
+                "générateur d'air comprimé",
+                "menu basse pression"
+            ],
+            "padrao": "20%"
+        },
+        {
+            "codigo": "A19",
+            "nome": "TENSION D'ALIMENTATION HAUTE",
+            "oQueE": "la tension d'alimentation est surveillée",
+            "quandoOcorre": "tension supérieure à 32 Vcc pour le réseau AS-Interface et 10% pour PNP et DeviceNet",
+            "acoes": [
+                "Vérifier la source d'alimentation"
+            ],
+            "locais": [
+                "armoire de commande"
+            ],
+            "padrao": "activé"
+        },
+        {
+            "codigo": "A20",
+            "nome": "TENSION D'ALIMENTATION BASSE",
+            "oQueE": "la tension d'alimentation est surveillée",
+            "quandoOcorre": "tension inférieure à 27 V pour AS-Interface et 22,8 V pour DeviceNet et PNP",
+            "acoes": [
+                "Vérifier la source d'alimentation"
+            ],
+            "locais": [
+                "armoire de commande"
+            ],
+            "padrao": "activé"
+        },
+        {
+            "codigo": "A21",
+            "nome": "TEMPÉRATURE HAUTE",
+            "oQueE": "la température interne est surveillée",
+            "quandoOcorre": "lorsque la température du moniteur est supérieure à 70°",
+            "acoes": [
+                "Vérifier la température du procédé"
+            ],
+            "locais": [
+                "sur le terrain"
+            ],
+            "padrao": "activé"
+        },
+        {
+            "codigo": "A22",
+            "nome": "TEMPÉRATURE BASSE",
+            "oQueE": "la température interne est surveillée",
+            "quandoOcorre": "lorsque la température du moniteur est inférieure à -20°C",
+            "acoes": [
+                "Vérifier la température du procédé"
+            ],
+            "locais": [
+                "sur le terrain"
+            ],
+            "padrao": "activé"
+        },
+        {
+            "codigo": "A23",
+            "nome": "SOLÉNOÏDE EN COURT-CIRCUIT",
+            "oQueE": "la bobine du solénoïde est surveillée",
+            "quandoOcorre": "lorsque la bobine du solénoïde est en court-circuit",
+            "acoes": [
+                "Vérifier le câblage du solénoïde"
+            ],
+            "locais": [
+                "sur le terrain"
+            ],
+            "padrao": "activé"
+        },
+        {
+            "codigo": "A24",
+            "nome": "SOLÉNOÏDE OUVERT",
+            "oQueE": "surveille la rupture du câble de la bobine du solénoïde",
+            "quandoOcorre": "lorsque la bobine du solénoïde ou son câble est rompu",
+            "acoes": [
+                "Vérifier le câblage du solénoïde"
+            ],
+            "locais": [
+                "sur le terrain"
+            ],
+            "padrao": "activé"
+        },
+        {
+            "codigo": "A25",
+            "nome": "SORTIE EN COURT-CIRCUIT",
+            "oQueE": "les sorties PNP sont surveillées",
+            "quandoOcorre": "lorsque l'une des sorties PNP ou leurs charges sont en court-circuit",
+            "acoes": [
+                "Vérifier le raccordement des sorties"
+            ],
+            "locais": [
+                "sur le terrain",
+                "armoire de commande"
+            ],
+            "padrao": "activé"
+        }
+    ],
+    "avisos": [
+        {
+            "id": "aviso-a9-max-pressao-linha",
+            "texto": "Attention au risque de dommages à l'équipement si la pression de la ligne dépasse 9 bar (130,5 psi)."
+        }
+    ]
+}

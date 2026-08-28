@@ -171,44 +171,40 @@ public class ConformidadeDoManualTests
 
     #endregion
 
-    #region MARK: Assinatura tecnica identica entre idiomas
+    #region MARK: Assinatura estrutural identica entre idiomas
 
     private static readonly string[] IdiomasTecnicos = { "pt", "en", "es", "fr" };
 
-    private static string AssinaturaTecnica(AlertaOficial alerta)
+    private static string AssinaturaEstrutural(AlertaOficial alerta)
     {
         var construtor = new StringBuilder();
 
         construtor.Append(alerta.Codigo).Append('|');
         construtor.Append(alerta.Categoria).Append('|');
-        construtor.Append(alerta.Nome).Append('|');
-        construtor.Append(alerta.OQueE).Append('|');
-        construtor.Append(alerta.QuandoOcorre).Append('|');
-        construtor.Append(string.Join(",", alerta.Acoes)).Append('|');
-        construtor.Append(string.Join(",", alerta.Locais)).Append('|');
-        construtor.Append(alerta.Padrao).Append('|');
-        construtor.Append(alerta.Nota).Append('|');
+        construtor.Append(alerta.Acoes.Count).Append('|');
+        construtor.Append(alerta.Locais.Count).Append('|');
+        construtor.Append(string.IsNullOrEmpty(alerta.Nota)).Append('|');
         construtor.Append(alerta.PaginaTabelaCodigos).Append('|');
         construtor.Append(alerta.PaginaTabelaResolucao).Append('|');
 
         foreach (AvisoOficial aviso in alerta.Avisos)
         {
-            construtor.Append(aviso.Id).Append(':').Append(aviso.Nivel).Append(':').Append(aviso.Pagina).Append(':').Append(aviso.Texto).Append(';');
+            construtor.Append(aviso.Id).Append(':').Append(aviso.Nivel).Append(':').Append(aviso.Pagina).Append(';');
         }
 
         return construtor.ToString();
     }
 
     [TestCaseSource(nameof(IdiomasTecnicos))]
-    public void TodoIdiomaTecnico_RetornaAMesmaAssinaturaTecnicaCompleta(string idioma)
+    public void TodoIdiomaTecnico_RetornaAMesmaAssinaturaEstrutural(string idioma)
     {
         IReadOnlyList<AlertaOficial> catalogoPt = CatalogoDeAlertas.Carregar("pt");
         IReadOnlyList<AlertaOficial> catalogoIdioma = CatalogoDeAlertas.Carregar(idioma);
 
-        IEnumerable<string> assinaturasPt = catalogoPt.Select(AssinaturaTecnica);
-        IEnumerable<string> assinaturasIdioma = catalogoIdioma.Select(AssinaturaTecnica);
+        IEnumerable<string> assinaturasPt = catalogoPt.Select(AssinaturaEstrutural);
+        IEnumerable<string> assinaturasIdioma = catalogoIdioma.Select(AssinaturaEstrutural);
 
-        Assert.That(assinaturasIdioma, Is.EqualTo(assinaturasPt), $"idioma '{idioma}': assinatura tecnica divergente do pt.");
+        Assert.That(assinaturasIdioma, Is.EqualTo(assinaturasPt), $"idioma '{idioma}': assinatura estrutural divergente do pt.");
     }
 
     #endregion
