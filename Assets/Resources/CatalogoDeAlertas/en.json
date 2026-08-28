@@ -1,0 +1,355 @@
+{
+    "notaAlertasDiagnostico": "Disabling alerts 19 to 25 only disables the notifications in the app. The physical indication on the monitor keeps working normally.",
+    "alertas": [
+        {
+            "codigo": "A1",
+            "nome": "MINIMUM ANGLE",
+            "oQueE": "the valve did not reach the required minimum operating angle",
+            "quandoOcorre": "alert because the angle between the opening point and the closing point is below 30°",
+            "acoes": [
+                "Check the compressed air supply",
+                "Check the valve / actuator assembly for damage"
+            ],
+            "locais": [
+                "compressed air generator",
+                "in the field"
+            ],
+            "padrao": "always on"
+        },
+        {
+            "codigo": "A2",
+            "nome": "TIME LIMIT",
+            "oQueE": "the time taken to perform the automatic calibration is monitored",
+            "quandoOcorre": "alert because the valve calibration exceeded the time configured in the menu",
+            "acoes": [
+                "Increase the time limit",
+                "Check the valve / actuator assembly for damage"
+            ],
+            "locais": [
+                "max. cal. time menu",
+                "in the field"
+            ],
+            "padrao": "always on"
+        },
+        {
+            "codigo": "A3",
+            "nome": "AUTO CALIBRATION FAILURE",
+            "oQueE": "the shaft travel is monitored during the calibration process and the time and the open and closed positions are stored",
+            "quandoOcorre": "alert because the stored open and closed points are not the same across the calibration cycles",
+            "acoes": [
+                "Check the compressed air supply",
+                "Check the valve / actuator assembly for damage"
+            ],
+            "locais": [
+                "compressed air generator",
+                "in the field"
+            ],
+            "padrao": "always on"
+        },
+        {
+            "codigo": "A4",
+            "nome": "OUT OF RANGE",
+            "oQueE": "the supply pressure is higher than the one used during the calibration process",
+            "quandoOcorre": "alert because the valve opening or closing point learned during calibration advanced by 5°",
+            "acoes": [
+                "Check the compressed air supply"
+            ],
+            "locais": [
+                "compressed air generator"
+            ],
+            "padrao": "always on"
+        },
+        {
+            "codigo": "A5",
+            "nome": "NO MOVEMENT",
+            "oQueE": "the shaft travel is monitored during the calibration process",
+            "quandoOcorre": "alert because the valve did not move during calibration",
+            "acoes": [
+                "Check the compressed air supply",
+                "Check the valve / actuator assembly for damage"
+            ],
+            "locais": [
+                "compressed air generator",
+                "in the field"
+            ],
+            "padrao": "always on"
+        },
+        {
+            "codigo": "A6",
+            "nome": "COMMAND FAILURE",
+            "oQueE": "the solenoid command is monitored",
+            "quandoOcorre": "alert when the valve does not execute the solenoid command",
+            "acoes": [
+                "Check whether the solenoid is faulty",
+                "Check for a missing electrical signal to the solenoid"
+            ],
+            "locais": [
+                "solenoid",
+                "in the field"
+            ],
+            "padrao": "always on"
+        },
+        {
+            "codigo": "A7",
+            "nome": "UNEXPECTED CHANGE",
+            "oQueE": "the valve position is continuously monitored",
+            "quandoOcorre": "alert because of an unexpected position change, regardless of the solenoid command",
+            "acoes": [
+                "Check the manual actuation of the valve",
+                "Check the pneumatic connections"
+            ],
+            "locais": [
+                "in the field"
+            ],
+            "padrao": "always on"
+        },
+        {
+            "codigo": "A8",
+            "nome": "SAFE MODE",
+            "oQueE": "the monitor is not in safe mode and may be accessed improperly",
+            "quandoOcorre": "when the monitor is not in safe mode",
+            "acoes": [
+                "Set the monitor to safe mode"
+            ],
+            "locais": [
+                "safe mode menu"
+            ],
+            "padrao": "always on"
+        },
+        {
+            "codigo": "A9",
+            "nome": "MAX. LINE PRESSURE",
+            "oQueE": "the line pressure is monitored",
+            "quandoOcorre": "alert because the maximum line pressure exceeded 9 bar",
+            "acoes": [
+                "Check the compressed air supply"
+            ],
+            "locais": [
+                "compressed air generator"
+            ],
+            "padrao": "always on"
+        },
+        {
+            "codigo": "A11",
+            "nome": "PARTIAL COUNTER",
+            "oQueE": "the counter increases every time the valve reaches the open position",
+            "quandoOcorre": "when the partial count is reached",
+            "acoes": [
+                "Increase the number of cycles or reset the counter",
+                "Turn the alert off"
+            ],
+            "locais": [
+                "in the field",
+                "partial counter menu"
+            ],
+            "padrao": "disabled"
+        },
+        {
+            "codigo": "A12",
+            "nome": "TOTAL COUNTER",
+            "oQueE": "the counter increases every time the valve reaches the open position",
+            "quandoOcorre": "when the total count is reached",
+            "acoes": [
+                "Reset the counter",
+                "Turn the alert off"
+            ],
+            "locais": [
+                "in the field",
+                "total counter menu"
+            ],
+            "padrao": "disabled"
+        },
+        {
+            "codigo": "A13",
+            "nome": "DAYS ALERT",
+            "oQueE": "the monitor accumulates the number of days since it was powered up",
+            "quandoOcorre": "when the configured day is reached",
+            "acoes": [
+                "Reset the alert",
+                "Turn the alert off"
+            ],
+            "locais": [
+                "in the field",
+                "days alert menu"
+            ],
+            "padrao": "disabled"
+        },
+        {
+            "codigo": "A14",
+            "nome": "DATE ALERT",
+            "oQueE": "alert for a specific date",
+            "quandoOcorre": "when the configured date is reached",
+            "acoes": [
+                "Set a new date",
+                "Turn the alert off"
+            ],
+            "locais": [
+                "in the field",
+                "date alert menu"
+            ],
+            "padrao": "disabled"
+        },
+        {
+            "codigo": "A15",
+            "nome": "OPENING TIME",
+            "oQueE": "the monitor learns the valve opening time during the calibration process",
+            "quandoOcorre": "when the opening time is exceeded",
+            "acoes": [
+                "Check the compressed air supply",
+                "Check the valve / actuator assembly for damage",
+                "Turn the alert off"
+            ],
+            "locais": [
+                "compressed air generator",
+                "in the field",
+                "opening time menu"
+            ],
+            "padrao": "disabled"
+        },
+        {
+            "codigo": "A16",
+            "nome": "CLOSING TIME",
+            "oQueE": "the monitor learns the valve closing time during the calibration process",
+            "quandoOcorre": "when the closing time is exceeded",
+            "acoes": [
+                "Check the compressed air supply",
+                "Check the valve / actuator assembly for damage",
+                "Turn the alert off"
+            ],
+            "locais": [
+                "compressed air generator",
+                "in the field",
+                "closing time menu"
+            ],
+            "padrao": "disabled"
+        },
+        {
+            "codigo": "A17",
+            "nome": "HIGH PRESSURE",
+            "oQueE": "the line pressure is monitored",
+            "quandoOcorre": "when the inlet pressure is above the specified range",
+            "acoes": [
+                "Check the compressed air supply",
+                "Turn the alert off"
+            ],
+            "locais": [
+                "compressed air generator",
+                "high pressure menu"
+            ],
+            "padrao": "20%"
+        },
+        {
+            "codigo": "A18",
+            "nome": "LOW PRESSURE",
+            "oQueE": "the line pressure is monitored",
+            "quandoOcorre": "when the inlet pressure is below the specified range",
+            "acoes": [
+                "Check the compressed air supply",
+                "Turn the alert off"
+            ],
+            "locais": [
+                "compressed air generator",
+                "low pressure menu"
+            ],
+            "padrao": "20%"
+        },
+        {
+            "codigo": "A19",
+            "nome": "HIGH SUPPLY VOLTAGE",
+            "oQueE": "the supply voltage is monitored",
+            "quandoOcorre": "voltage above 32 Vdc for the AS-Interface network and 10% for PNP and DeviceNet",
+            "acoes": [
+                "Check the power supply"
+            ],
+            "locais": [
+                "control panel"
+            ],
+            "padrao": "enabled"
+        },
+        {
+            "codigo": "A20",
+            "nome": "LOW SUPPLY VOLTAGE",
+            "oQueE": "the supply voltage is monitored",
+            "quandoOcorre": "voltage below 27 V for AS-Interface and 22.8 V for DeviceNet and PNP",
+            "acoes": [
+                "Check the power supply"
+            ],
+            "locais": [
+                "control panel"
+            ],
+            "padrao": "enabled"
+        },
+        {
+            "codigo": "A21",
+            "nome": "HIGH TEMPERATURE",
+            "oQueE": "the internal temperature is monitored",
+            "quandoOcorre": "when the monitor temperature is above 70°",
+            "acoes": [
+                "Check the process temperature"
+            ],
+            "locais": [
+                "in the field"
+            ],
+            "padrao": "enabled"
+        },
+        {
+            "codigo": "A22",
+            "nome": "LOW TEMPERATURE",
+            "oQueE": "the internal temperature is monitored",
+            "quandoOcorre": "when the monitor temperature is below -20°C",
+            "acoes": [
+                "Check the process temperature"
+            ],
+            "locais": [
+                "in the field"
+            ],
+            "padrao": "enabled"
+        },
+        {
+            "codigo": "A23",
+            "nome": "SOLENOID SHORT",
+            "oQueE": "the solenoid coil is monitored",
+            "quandoOcorre": "when the solenoid coil is short-circuited",
+            "acoes": [
+                "Check the solenoid wiring"
+            ],
+            "locais": [
+                "in the field"
+            ],
+            "padrao": "enabled"
+        },
+        {
+            "codigo": "A24",
+            "nome": "SOLENOID OPEN",
+            "oQueE": "monitors a break in the solenoid coil cable",
+            "quandoOcorre": "when the solenoid coil or its cable is broken",
+            "acoes": [
+                "Check the solenoid wiring"
+            ],
+            "locais": [
+                "in the field"
+            ],
+            "padrao": "enabled"
+        },
+        {
+            "codigo": "A25",
+            "nome": "OUTPUT SHORT",
+            "oQueE": "the PNP outputs are monitored",
+            "quandoOcorre": "when any of the PNP outputs or their loads are short-circuited",
+            "acoes": [
+                "Check the output connections"
+            ],
+            "locais": [
+                "in the field",
+                "control panel"
+            ],
+            "padrao": "enabled"
+        }
+    ],
+    "avisos": [
+        {
+            "id": "aviso-a9-max-pressao-linha",
+            "texto": "Be aware of the risk of damage to the equipment if the line pressure exceeds 9 bar (130.5 psi)."
+        }
+    ]
+}
