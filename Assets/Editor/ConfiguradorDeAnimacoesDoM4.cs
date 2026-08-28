@@ -14,7 +14,8 @@ public static class ConfiguradorDeAnimacoesDoM4
     public const string CamadaAlvo = "Base Layer";
     public const string PastaDeClips = "Assets/Animation/Clips";
     public const string PropriedadeDeEscala = "m_LocalScale";
-    public const string PrefixoDoTake = "CHAVE_S|";
+    public const string PrefixoDoTakeDeBotao = "CHAVE_S|";
+    public const string PrefixoDoTakeDeProblema1 = "COPO|";
 
     public static string[] EstadosExpostos =>
         AnimacaoDeBotaoM4.Todas.Concat(new[] { PerfisDeDisplayDeAlerta.AnimacaoProblema1 }).ToArray();
@@ -23,7 +24,11 @@ public static class ConfiguradorDeAnimacoesDoM4
 
     public static string TakeDoEstado(string estado)
     {
-        return $"{PrefixoDoTake}{estado.ToUpperInvariant()}";
+        string prefixo = estado == PerfisDeDisplayDeAlerta.AnimacaoProblema1
+            ? PrefixoDoTakeDeProblema1
+            : PrefixoDoTakeDeBotao;
+
+        return $"{prefixo}{estado.ToUpperInvariant()}";
     }
 
     public static string CaminhoDoClip(string estado)
@@ -131,9 +136,17 @@ public static class ConfiguradorDeAnimacoesDoM4
 
         foreach (string estado in EstadosExpostos)
         {
-            if (clips.Any(c => c.name == estado)) continue;
-
             string take = TakeDoEstado(estado);
+            ModelImporterClipAnimation atual = clips.FirstOrDefault(c => c.name == estado);
+
+            if (atual != null)
+            {
+                if (atual.takeName == take) continue;
+
+                clips.Remove(atual);
+                Debug.Log($"[AnimacoesM4] Clip '{estado}' vinha do take '{atual.takeName}'; refazendo a partir de '{take}'.");
+            }
+
             ModelImporterClipAnimation origem = disponiveis.FirstOrDefault(c => c.takeName == take);
 
             if (origem == null)
