@@ -18,6 +18,9 @@ public class PlaceOnPlane_Adaptado : ExibidorDeModeloBase
     [SerializeField] private float alturaProblemas = -1f;
 
     private ARRaycastManager raycastManager;
+    private ARAnchorManager anchorManager;
+    private ARPlaneManager planeManager;
+    private ARAnchor ancoraAtual;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
     private bool objectPlaced = false;
@@ -29,6 +32,12 @@ public class PlaceOnPlane_Adaptado : ExibidorDeModeloBase
     void Awake()
     {
         raycastManager = GetComponent<ARRaycastManager>();
+        anchorManager = GetComponent<ARAnchorManager>();
+        planeManager = GetComponent<ARPlaneManager>();
+
+        if (anchorManager == null)
+            Debug.LogWarning("[PlaceOnPlane] Sem ARAnchorManager: o modelo vai flutuar conforme o tracking refina o plano.");
+
         if (arCamera == null) arCamera = Camera.main;
         if (uiController == null) Debug.LogError("[PlaceOnPlane] Referência 'UI Controller' não configurada.");
     }
@@ -82,12 +91,15 @@ public class PlaceOnPlane_Adaptado : ExibidorDeModeloBase
                 }
 
                 objectPlaced = true;
+                AncorarNoPlano(hits[0].trackableId);
                 SetARPlanesActive(false);
             }
             else
             {
-                spawnedObject.transform.SetPositionAndRotation(posicaoFinal, lastHitPose.rotation);
+                AncorarNoPlano(hits[0].trackableId);
             }
+
+            PosicionarConformeAOrigem();
         }
     }
 
@@ -95,15 +107,49 @@ public class PlaceOnPlane_Adaptado : ExibidorDeModeloBase
     {
         offsetAtual = isMontagem ? alturaMontagem : alturaProblemas;
 
-        if (spawnedObject != null && hasHit)
+        if (hasHit) PosicionarConformeAOrigem();
+    }
+
+    private void AncorarNoPlano(TrackableId planoId)
+    {
+        if (ancoraAtual != null)
         {
-            spawnedObject.transform.position = lastHitPose.position + new Vector3(0, offsetAtual, 0);
+            if (anchorManager != null) anchorManager.TryRemoveAnchor(ancoraAtual);
+            ancoraAtual = null;
         }
+
+        if (spawnedObject == null) return;
+        if (anchorManager == null || !anchorManager.enabled || anchorManager.subsystem == null) return;
+        if (planeManager == null) return;
+
+        ARPlane plano = planeManager.GetPlane(planoId);
+        if (plano == null) return;
+
+        ancoraAtual = anchorManager.AttachAnchor(plano, lastHitPose);
+
+        if (ancoraAtual != null)
+        {
+            spawnedObject.transform.SetParent(ancoraAtual.transform, false);
+        }
+    }
+
+    private void PosicionarConformeAOrigem()
+    {
+        if (spawnedObject == null) return;
+
+        if (ancoraAtual != null)
+        {
+            spawnedObject.transform.localPosition = new Vector3(0f, offsetAtual, 0f);
+            spawnedObject.transform.localRotation = Quaternion.identity;
+            return;
+        }
+
+        spawnedObject.transform.SetPositionAndRotation(
+            lastHitPose.position + new Vector3(0f, offsetAtual, 0f), lastHitPose.rotation);
     }
 
     private void SetARPlanesActive(bool isActive)
     {
-        ARPlaneManager planeManager = GetComponent<ARPlaneManager>();
         if (planeManager != null)
         {
             planeManager.enabled = isActive;
