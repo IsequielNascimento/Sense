@@ -75,6 +75,8 @@ public class Montagem2Toolkit : MonoBehaviour
     {
         Debug.Log("[Montagem2] Botão clicado! Carregando Banco de Dados e Cena AR...");
 
+        ControleDeCena.Instance?.DefinirOrigem(OrigemCena.Montagem);
+
         SceneManager.LoadScene(Scenes.ArUiToolkit);
     }
 }

@@ -706,7 +706,7 @@ MonoBehaviour:
     prefab: {fileID: 2890924970170058457, guid: 29b8f118c472d3f4e9c0607eb7bcf12e, type: 3}
   uiController: {fileID: 1609545332}
   arCamera: {fileID: 500483670}
-  alturaMontagem: 1
+  alturaMontagem: 0
   alturaProblemas: 0
 --- !u!1 &1097942396
 GameObject:

@@ -37,26 +37,46 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
         ProblemaSelecionadoAR selecao = ProblemaSelecionadoAR.Instance;
         string cenario = IdentidadeDoCenario.Resolver(selecao?.scenarioId, selecao?.ChaveDoRecurso);
 
-        if (!string.IsNullOrEmpty(cenario) && modelosPorCenario != null)
+        GameObject modeloDoCenario = ModeloDoCenario(cenario);
+
+        bool origemEhMontagem = ControleDeCena.Instance != null
+            && ControleDeCena.Instance.OrigemDaCena == OrigemCena.Montagem;
+
+        FonteDoModeloAr fonte = DecisaoDeModeloAr.Escolher(
+            origemEhMontagem,
+            modeloDoCenario != null,
+            !string.IsNullOrEmpty(selecao?.CodigoOficial));
+
+        if (fonte == FonteDoModeloAr.ModeloDoCenario) return modeloDoCenario;
+
+        if (fonte == FonteDoModeloAr.ModeloDeAlerta)
         {
-            foreach (ModeloPorCenario modelo in modelosPorCenario)
+            GameObject modeloDeDisplay = ModeloDeAlertaDisplay.Resolver(selecao.CodigoOficial);
+
+            if (modeloDeDisplay != null)
             {
-                if (modelo?.prefab != null &&
-                    string.Equals(modelo.cenario, cenario, StringComparison.OrdinalIgnoreCase))
-                {
-                    return modelo.prefab;
-                }
+                modeloExclusivoDeDisplay = true;
+                return modeloDeDisplay;
             }
         }
 
-        GameObject modeloDeDisplay = ModeloDeAlertaDisplay.Resolver(selecao?.CodigoOficial);
-        if (modeloDeDisplay != null)
+        return placedPrefab;
+    }
+
+    private GameObject ModeloDoCenario(string cenario)
+    {
+        if (string.IsNullOrEmpty(cenario) || modelosPorCenario == null) return null;
+
+        foreach (ModeloPorCenario modelo in modelosPorCenario)
         {
-            modeloExclusivoDeDisplay = true;
-            return modeloDeDisplay;
+            if (modelo?.prefab != null &&
+                string.Equals(modelo.cenario, cenario, StringComparison.OrdinalIgnoreCase))
+            {
+                return modelo.prefab;
+            }
         }
 
-        return placedPrefab;
+        return null;
     }
 
     #endregion
