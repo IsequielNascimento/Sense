@@ -39,6 +39,53 @@ public class TitulosUIBancoTests
 
     #endregion
 
+    #region MARK - Rotulos do detalhe em todos os idiomas
+
+    [System.Serializable]
+    private class RotulosEspelho
+    {
+        public string rotulo_descricao;
+        public string rotulo_solucao;
+        public string rotulo_passo_a_passo;
+    }
+
+    [System.Serializable]
+    private class BancoComRotulosEspelho
+    {
+        public RotulosEspelho titulos = new RotulosEspelho();
+    }
+
+    [TestCase("pt")]
+    [TestCase("en")]
+    [TestCase("es")]
+    [TestCase("fr")]
+    public void TodoIdioma_TrazOsRotulosDoDetalhe(string idioma)
+    {
+        string caminho = $"Assets/Resources/banco_de_dados_{idioma}.json";
+        TextAsset asset = AssetDatabase.LoadAssetAtPath<TextAsset>(caminho);
+        Assert.That(asset, Is.Not.Null, $"Arquivo nao encontrado: {caminho}");
+
+        BancoComRotulosEspelho banco = JsonUtility.FromJson<BancoComRotulosEspelho>(asset.text);
+
+        Assert.That(banco.titulos, Is.Not.Null);
+        Assert.That(banco.titulos.rotulo_descricao, Is.Not.Empty, $"{idioma}: rotulo_descricao ausente.");
+        Assert.That(banco.titulos.rotulo_solucao, Is.Not.Empty, $"{idioma}: rotulo_solucao ausente.");
+        Assert.That(banco.titulos.rotulo_passo_a_passo, Is.Not.Empty, $"{idioma}: rotulo_passo_a_passo ausente.");
+    }
+
+    [Test]
+    public void GerenciarUI_PreencheOsRotulosDoDetalhe()
+    {
+        string caminho = Path.Combine(Application.dataPath, "Scripts", "GerenciarUI.cs");
+        string codigo = File.ReadAllText(caminho);
+
+        Assert.That(codigo, Does.Contain("rotulo_descricao"));
+        Assert.That(codigo, Does.Contain("rotulo_solucao"));
+        Assert.That(codigo, Does.Contain("rotulo_passo_a_passo"));
+    }
+
+    #endregion
+
     #region MARK - Aceite: GerenciarUI nao desserializa BancoProblemas
 
     [Test]

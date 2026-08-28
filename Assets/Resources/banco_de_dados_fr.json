@@ -2,7 +2,10 @@
   "titulos": {
     "titulo_cena": "Problèmes",
     "subtitulo": "Choisissez l’option qui correspond à votre problème",
-    "holder": "Rechercher un problème..."
+    "holder": "Rechercher un problème...",
+    "rotulo_descricao": "Description",
+    "rotulo_solucao": "Solution",
+    "rotulo_passo_a_passo": "Voir étape par étape"
   },
   "problemas": [
     {

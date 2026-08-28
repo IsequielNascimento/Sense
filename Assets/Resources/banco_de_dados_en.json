@@ -2,7 +2,10 @@
   "titulos": {
     "titulo_cena": "Issues",
     "subtitulo": "Choose the option that matches your issue",
-    "holder": "Search issue..."
+    "holder": "Search issue...",
+    "rotulo_descricao": "Description",
+    "rotulo_solucao": "Solution",
+    "rotulo_passo_a_passo": "View step by step"
   },
   "problemas": [
     {
