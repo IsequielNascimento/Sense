@@ -26,7 +26,7 @@ public class M4Problem1IntegrationTests
     {
         AnimationClip clip = AssetDatabase.LoadAllAssetsAtPath(ModelPath)
             .OfType<AnimationClip>()
-            .FirstOrDefault(asset => asset.name == "COPO|PROBLEMA1");
+            .FirstOrDefault(asset => asset.name == PerfisDeDisplayDeAlerta.AnimacaoProblema1);
 
         Assert.That(clip, Is.Not.Null);
         Assert.That(AnimationUtility.GetCurveBindings(clip)
@@ -49,7 +49,7 @@ public class M4Problem1IntegrationTests
         Assert.That(controller, Is.Not.Null);
         AnimatorControllerLayer layer = controller.layers.Single(item => item.name == "Problema 1");
         AnimatorState state = layer.stateMachine.states.Single(item => item.state.name == "PROBLEMA1").state;
-        Assert.That(state.motion.name, Is.EqualTo("COPO|PROBLEMA1"));
+        Assert.That(state.motion.name, Is.EqualTo(PerfisDeDisplayDeAlerta.AnimacaoProblema1));
     }
 
     [Test]

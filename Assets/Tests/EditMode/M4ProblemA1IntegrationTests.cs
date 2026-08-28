@@ -97,10 +97,12 @@ public class M4ProblemA1IntegrationTests
             nomesDosObjetos.Add(vfxObject != null ? vfxObject.name : null);
         }
 
-        Assert.That(nomes, Has.Count.EqualTo(2));
-        Assert.That(nomes.All(nome => nome == "DestaqueAtuadorCopo"), Is.True);
-        Assert.That(nomesDosObjetos, Does.Contain("ATUADOR_Outline"));
-        Assert.That(nomesDosObjetos, Does.Contain("COPO_Outline"));
+        var doAtuadorCopo = nomes
+            .Zip(nomesDosObjetos, (nome, objeto) => (Nome: nome, Objeto: objeto))
+            .Where(item => item.Nome == "DestaqueAtuadorCopo")
+            .Select(item => item.Objeto);
+
+        Assert.That(doAtuadorCopo, Is.EquivalentTo(new[] { "ATUADOR_Outline", "COPO_Outline" }));
     }
 
     [Test]
@@ -129,10 +131,15 @@ public class M4ProblemA1IntegrationTests
         string layer = (string)sequence.GetType().GetProperty("Layer").GetValue(sequence);
         Etapa[] etapas = (Etapa[])sequence.GetType().GetProperty("Etapas").GetValue(sequence);
 
+        int quadrosDoPerfil = PerfisDeDisplayDeAlerta.Obter("A1")
+            .EtapasOficiais.Sum(etapa => etapa.Quantidade);
+
         Assert.That(layer, Is.EqualTo("Problema 1"));
-        Assert.That(etapas, Has.Length.EqualTo(2));
-        Assert.That(etapas[0].animacao, Is.EqualTo("PROBLEMA1"));
-        Assert.That(etapas[1].vfx, Is.EqualTo("DestaqueAtuadorCopo"));
+        Assert.That(etapas, Has.Length.EqualTo(quadrosDoPerfil));
+        Assert.That(
+            etapas.Select(etapa => etapa.animacao).Where(animacao => !string.IsNullOrEmpty(animacao)).Distinct(),
+            Is.EquivalentTo(new[] { PerfisDeDisplayDeAlerta.AnimacaoProblema1 }));
+        Assert.That(etapas.Select(etapa => etapa.vfx), Does.Contain("DestaqueAtuadorCopo"));
     }
 
     #endregion

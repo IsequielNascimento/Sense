@@ -13,7 +13,7 @@ public class PerfilDeDisplayDeA21Tests
     private const int QuantidadeDeQuadros = 7;
     private const int LimiteDeCaracteresDaInstrucao = 120;
     private const string ModelPath = "Assets/Prefab/Teste/M4SMARTTeste.fbx";
-    private const string PrefabPath = "Assets/Resources/M4Problem1/M4SMARTTesteProblema1.prefab";
+    private const string PrefabPath = "Assets/Resources/M4ProblemA21/M4SMARTTesteProblemaA21.prefab";
 
     private AlertaOficial a21;
     private PerfilDeDisplayDeAlerta perfil;
@@ -391,7 +391,7 @@ public class PerfilDeDisplayDeA21Tests
     {
         Assert.That(TipoModeloDeAlertaDisplay, Is.Not.Null);
         Assert.That(UsaM4SmartTeste(CodigoA21), Is.True);
-        Assert.That(ResolverModelo("A24"), Is.Null);
+        Assert.That(ResolverModelo("A10"), Is.Null);
 
         GameObject prefab = ResolverModelo(CodigoA21);
 

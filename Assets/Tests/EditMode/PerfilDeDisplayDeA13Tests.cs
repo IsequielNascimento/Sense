@@ -388,7 +388,7 @@ public class PerfilDeDisplayDeA13Tests
     {
         Assert.That(TipoModeloDeAlertaDisplay, Is.Not.Null);
         Assert.That(UsaM4SmartTeste(CodigoA13), Is.True);
-        Assert.That(ResolverModelo("A24"), Is.Null);
+        Assert.That(ResolverModelo("A10"), Is.Null);
 
         GameObject prefab = ResolverModelo(CodigoA13);
 
