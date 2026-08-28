@@ -173,6 +173,7 @@ public class UIController : MonoBehaviour
         SetText(labelPopup2, text.popupInicialTexto2);
         SetText(botaoOK, text.popupInicialBotao);
         SetText(botaoSair, text.sair);
+        SetText(textoTutorial, text.tutorialInicial);
         SetText(textoTotalPassos, $"{text.textoDe} {sequence.Count}");
         SetText(labelTituloFinal, text.popupFinalTitulo);
         SetText(botaoVoltarMenu, text.popupFinalBotaoMenu);
