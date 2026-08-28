@@ -458,7 +458,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0f53cb7193b8d144a073cb8fd147496, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::IdiomaDropdownToolkit
+  m_EditorClassIdentifier: Sense.Runtime::IdiomaDropdownToolkit
   uiDocument: {fileID: 1249255126}
   menuToolkitScript: {fileID: 1249255125}
   flagPT: {fileID: 21300000, guid: 06eedd3d6d0c7df4d8c25c0a7ec590ab, type: 3}
@@ -476,7 +476,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e285237fbeaa53a44be422766059432f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuToolkit
+  m_EditorClassIdentifier: Sense.Runtime::MenuToolkit
   uiDocument: {fileID: 1249255126}
 --- !u!114 &1249255126
 MonoBehaviour:

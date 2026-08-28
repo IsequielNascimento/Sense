@@ -104,7 +104,7 @@ public class M4Problem1IntegrationTests
         EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
         MonoBehaviour exibidor = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
             .First(component => component.GetType().Name == "PlaceOnPlane_Adaptado");
-        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Assembly-CSharp");
+        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Sense.Runtime");
         var objetoSelecao = new GameObject("Selecao A1 Teste");
         Component selecao = objetoSelecao.AddComponent(tipoSelecao);
         PropertyInfo instancia = tipoSelecao.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
@@ -126,7 +126,7 @@ public class M4Problem1IntegrationTests
         EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
         MonoBehaviour exibidor = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
             .First(component => component.GetType().Name == "PlaceOnPlane_Adaptado");
-        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Assembly-CSharp");
+        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Sense.Runtime");
         var objetoSelecao = new GameObject("Selecao A8 Teste");
         Component selecao = objetoSelecao.AddComponent(tipoSelecao);
         PropertyInfo instancia = tipoSelecao.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
@@ -160,7 +160,7 @@ public class M4Problem1IntegrationTests
         EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
         MonoBehaviour exibidor = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
             .First(component => component.GetType().Name == "PlaceOnPlane_Adaptado");
-        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Assembly-CSharp");
+        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Sense.Runtime");
         var objetoSelecao = new GameObject("Selecao A8 Teste");
         Component selecao = objetoSelecao.AddComponent(tipoSelecao);
         PropertyInfo instancia = tipoSelecao.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);

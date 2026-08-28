@@ -1,0 +1,14 @@
+{
+    "name": "Sense.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "Sense.StepSequence",
+        "Sense.Display",
+        "Unity.TextMeshPro",
+        "Unity.InputSystem",
+        "Unity.XR.ARFoundation",
+        "Unity.XR.ARSubsystems",
+        "Unity.XR.Management",
+        "UnityEngine.UI"
+    ]
+}

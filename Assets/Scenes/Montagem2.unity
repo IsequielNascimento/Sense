@@ -202,7 +202,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 554620741}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_TargetAssemblyTypeName: Menu, Sense.Runtime
         m_MethodName: LoadScenes
         m_Mode: 5
         m_Arguments:
@@ -999,7 +999,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7da90e724b8052a4da22f1f8143b9310, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Montagem2Toolkit
+  m_EditorClassIdentifier: Sense.Runtime::Montagem2Toolkit
   uiDocument: {fileID: 1229414778}
 --- !u!114 &1229414778
 MonoBehaviour:
@@ -1548,7 +1548,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 554620744}
-        m_TargetAssemblyTypeName: NavegarParaMontagemPadrao, Assembly-CSharp
+        m_TargetAssemblyTypeName: NavegarParaMontagemPadrao, Sense.Runtime
         m_MethodName: CarregarMontagemPadrao
         m_Mode: 1
         m_Arguments:

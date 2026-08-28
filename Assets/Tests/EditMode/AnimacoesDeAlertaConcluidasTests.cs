@@ -6,10 +6,10 @@ using NUnit.Framework;
 
 public class AnimacoesDeAlertaConcluidasTests
 {
-    #region MARK: Acesso ao registro em Assembly-CSharp
+    #region MARK: Acesso ao registro em Sense.Runtime
 
     private static readonly Type TipoAnimacoesConcluidas =
-        Type.GetType("AnimacoesDeAlertaConcluidas, Assembly-CSharp");
+        Type.GetType("AnimacoesDeAlertaConcluidas, Sense.Runtime");
 
     private static bool EstaConcluida(string codigo)
     {

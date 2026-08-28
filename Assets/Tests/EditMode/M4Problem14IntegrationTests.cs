@@ -62,7 +62,7 @@ public class M4Problem14IntegrationTests
         EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
         MonoBehaviour exibidor = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
             .First(component => component.GetType().Name == "PlaceOnPlane_Adaptado");
-        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Assembly-CSharp");
+        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Sense.Runtime");
         var objetoSelecao = new GameObject("Selecao A14 Teste AR");
         Component selecao = objetoSelecao.AddComponent(tipoSelecao);
         PropertyInfo instancia = tipoSelecao.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
@@ -96,8 +96,8 @@ public class M4Problem14IntegrationTests
         EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
         MonoBehaviour exibidorAr = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
             .First(component => component.GetType().Name == "PlaceOnPlane_Adaptado");
-        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Assembly-CSharp");
-        Type tipoVisualizador = Type.GetType("Visualizador3D, Assembly-CSharp");
+        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Sense.Runtime");
+        Type tipoVisualizador = Type.GetType("Visualizador3D, Sense.Runtime");
         var objetoSelecao = new GameObject("Selecao A14 Teste Comparativo");
         Component selecao = objetoSelecao.AddComponent(tipoSelecao);
         PropertyInfo instancia = tipoSelecao.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
@@ -136,7 +136,7 @@ public class M4Problem14IntegrationTests
         EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
         MonoBehaviour exibidor = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
             .First(component => component.GetType().Name == "PlaceOnPlane_Adaptado");
-        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Assembly-CSharp");
+        Type tipoSelecao = Type.GetType("ProblemaSelecionadoAR, Sense.Runtime");
         var objetoSelecao = new GameObject("Selecao A14 Teste Animacao");
         Component selecao = objetoSelecao.AddComponent(tipoSelecao);
         PropertyInfo instancia = tipoSelecao.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);

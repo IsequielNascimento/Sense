@@ -60,7 +60,7 @@ public class DestaquesPiscantesDeAlertaTests
 
     private static IEnumerable<(string Nome, GameObject Objeto)> EfeitosRegistrados(GameObject prefab)
     {
-        Type tipoGerenciador = Type.GetType("GerenciadorVisual, Assembly-CSharp");
+        Type tipoGerenciador = Type.GetType("GerenciadorVisual, Sense.Runtime");
         Component gerenciador = prefab.GetComponentInChildren(tipoGerenciador, true);
         var efeitos = (IEnumerable)tipoGerenciador.GetField("efeitosDisponiveis").GetValue(gerenciador);
 
