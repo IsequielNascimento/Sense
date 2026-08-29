@@ -15,18 +15,18 @@ public static class ConfiguradorDeAnimacoesDoM4
     public const string CamadaAlvo = "Base Layer";
     public const string PastaDeClips = "Assets/Animation/Clips";
     public const string PropriedadeDeEscala = "m_LocalScale";
-    public const string PrefixoDoTakeDeBotao = "CHAVE_S|";
-    public const string PrefixoDoTakeDeProblema1 = "COPO|";
+    public const string PrefixoDoTakeDeBotao = "CHAVE_S|CHAVE_S|";
+    public const string PrefixoDoTakeDoCopo = "COPO|COPO|";
 
     public static string[] EstadosExpostos =>
-        AnimacaoDeBotaoM4.Todas.Concat(new[] { PerfisDeDisplayDeAlerta.AnimacaoProblema1 }).ToArray();
+        AnimacaoDeBotaoM4.Todas.Concat(AnimacaoDoCopoM4.Todas).ToArray();
 
-    static readonly string[] ControllersComProblema1 = { CaminhoController, CaminhoControllerA1 };
+    static readonly string[] ControllersComCopo = { CaminhoController, CaminhoControllerA1 };
 
     public static string TakeDoEstado(string estado)
     {
-        string prefixo = estado == PerfisDeDisplayDeAlerta.AnimacaoProblema1
-            ? PrefixoDoTakeDeProblema1
+        string prefixo = AnimacaoDoCopoM4.Todas.Contains(estado)
+            ? PrefixoDoTakeDoCopo
             : PrefixoDoTakeDeBotao;
 
         return $"{prefixo}{estado.ToUpperInvariant()}";
@@ -60,22 +60,22 @@ public static class ConfiguradorDeAnimacoesDoM4
             return;
         }
 
-        GarantirEstadoDeRepouso(controller, camada.stateMachine);
+        GarantirEstadoDeRepouso(controller, camada.stateMachine, CamadaAlvo);
 
         foreach (string estado in AnimacaoDeBotaoM4.Todas)
         {
             CriarEstadoNoController(controller, camada.stateMachine, estado);
         }
 
-        ReapontarProblema1();
+        ReapontarAnimacoesDoCopo();
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
 
-    static void ReapontarProblema1()
+    static void ReapontarAnimacoesDoCopo()
     {
-        foreach (string caminho in ControllersComProblema1)
+        foreach (string caminho in ControllersComCopo)
         {
             var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(caminho);
             if (controller == null)
@@ -85,19 +85,45 @@ public static class ConfiguradorDeAnimacoesDoM4
             }
 
             AnimatorControllerLayer camada = controller.layers
-                .FirstOrDefault(l => l.name == PerfisDeDisplayDeAlerta.LayerProblema1);
+                .FirstOrDefault(l => l.name == PerfisDeDisplayDeAlerta.LayerCopo);
 
             if (camada == null)
             {
-                Debug.LogError($"[AnimacoesM4] Camada '{PerfisDeDisplayDeAlerta.LayerProblema1}' não existe em {caminho}.");
+                Debug.LogError($"[AnimacoesM4] Camada '{PerfisDeDisplayDeAlerta.LayerCopo}' não existe em {caminho}.");
                 continue;
             }
 
-            CriarEstadoNoController(controller, camada.stateMachine, PerfisDeDisplayDeAlerta.AnimacaoProblema1);
+            GarantirEstadoDeRepouso(controller, camada.stateMachine, PerfisDeDisplayDeAlerta.LayerCopo);
+
+            foreach (string estado in AnimacaoDoCopoM4.Todas)
+            {
+                CriarEstadoNoController(controller, camada.stateMachine, estado);
+            }
+
+            RemoverEstadosObsoletos(controller, camada.stateMachine, AnimacaoDoCopoM4.Todas);
         }
     }
 
-    static void GarantirEstadoDeRepouso(AnimatorController controller, AnimatorStateMachine maquina)
+    static void RemoverEstadosObsoletos(
+        AnimatorController controller,
+        AnimatorStateMachine maquina,
+        IReadOnlyList<string> estadosValidos)
+    {
+        AnimatorState[] obsoletos = maquina.states
+            .Select(s => s.state)
+            .Where(s => s.name != DecisaoDeEtapaAr.EstadoDeRepouso && !estadosValidos.Contains(s.name))
+            .ToArray();
+
+        foreach (AnimatorState estado in obsoletos)
+        {
+            Debug.Log($"[AnimacoesM4] Estado obsoleto '{estado.name}' removido de '{PerfisDeDisplayDeAlerta.LayerCopo}'.");
+            maquina.RemoveState(estado);
+        }
+
+        if (obsoletos.Length > 0) EditorUtility.SetDirty(controller);
+    }
+
+    static void GarantirEstadoDeRepouso(AnimatorController controller, AnimatorStateMachine maquina, string camada)
     {
         AnimatorState repouso = maquina.states
             .Select(s => s.state)
@@ -106,7 +132,7 @@ public static class ConfiguradorDeAnimacoesDoM4
         if (repouso == null)
         {
             repouso = maquina.AddState(DecisaoDeEtapaAr.EstadoDeRepouso);
-            Debug.Log($"[AnimacoesM4] Estado '{DecisaoDeEtapaAr.EstadoDeRepouso}' criado em '{CamadaAlvo}'.");
+            Debug.Log($"[AnimacoesM4] Estado '{DecisaoDeEtapaAr.EstadoDeRepouso}' criado em '{camada}'.");
         }
 
         repouso.motion = null;

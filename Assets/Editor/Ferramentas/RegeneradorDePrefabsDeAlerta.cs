@@ -1,5 +1,6 @@
 // Rodar sempre que M4SMARTTeste.fbx for reexportado: os prefabs de alerta são achatados, não Variants, e não herdam mudanças do FBX.
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -73,10 +74,112 @@ public static class RegeneradorDePrefabsDeAlerta
         CopiarComponentesExtras(ancoraAntiga.gameObject, ancoraNova.gameObject);
         ReligarReferencias(ancoraNova.gameObject, novo, ancoraNova);
         PreservarMateriais(antigo, novo);
+        CorrigirPoseDeRepouso(novo);
+        DesligarFerramentas(novo);
 
         PrefabUtility.SaveAsPrefabAsset(novo, caminho);
         Object.DestroyImmediate(novo);
         return true;
+    }
+
+    static void DesligarFerramentas(GameObject novo)
+    {
+        foreach (string ferramenta in FerramentasDoM4.Todas)
+        {
+            Transform alvo = BuscarRecursivo(novo.transform, ferramenta);
+
+            if (alvo == null)
+            {
+                Debug.LogWarning($"[Regenerador] Ferramenta '{ferramenta}' não existe no FBX.");
+                continue;
+            }
+
+            alvo.gameObject.SetActive(false);
+        }
+    }
+
+    static void CorrigirPoseDeRepouso(GameObject novo)
+    {
+        var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(
+            ConfiguradorDeAnimacoesDoM4.CaminhoDoClip(AnimacaoDoCopoM4.Calibrado));
+
+        if (clip == null)
+        {
+            Debug.LogWarning($"[Regenerador] Clip '{AnimacaoDoCopoM4.Calibrado}' ausente; pose de repouso não corrigida.");
+            return;
+        }
+
+        foreach (var pose in PosesDoClip(clip))
+        {
+            Transform alvo = novo.transform.Find(pose.Key);
+
+            if (alvo == null || alvo.localPosition != Vector3.zero) continue;
+            if (pose.Value.Posicao == Vector3.zero) continue;
+
+            alvo.localPosition = pose.Value.Posicao;
+            if (pose.Value.Rotacao.HasValue) alvo.localRotation = pose.Value.Rotacao.Value;
+
+            Debug.Log($"[Regenerador] '{pose.Key}': import veio na origem; pose de repouso de '{clip.name}' aplicada ({pose.Value.Posicao:F6}).");
+        }
+    }
+
+    static Dictionary<string, (Vector3 Posicao, Quaternion? Rotacao)> PosesDoClip(AnimationClip clip)
+    {
+        var posicoes = new Dictionary<string, Vector3>();
+        var rotacoes = new Dictionary<string, Quaternion>();
+
+        foreach (EditorCurveBinding binding in AnimationUtility.GetCurveBindings(clip))
+        {
+            AnimationCurve curva = AnimationUtility.GetEditorCurve(clip, binding);
+            if (curva == null || curva.length == 0) continue;
+
+            float valor = curva.keys[0].value;
+
+            if (binding.propertyName.StartsWith("m_LocalPosition."))
+            {
+                Vector3 p = posicoes.TryGetValue(binding.path, out Vector3 atual) ? atual : Vector3.zero;
+                DefinirComponente(ref p, binding.propertyName, valor);
+                posicoes[binding.path] = p;
+            }
+            else if (binding.propertyName.StartsWith("m_LocalRotation."))
+            {
+                Quaternion q = rotacoes.TryGetValue(binding.path, out Quaternion atualQ) ? atualQ : new Quaternion(0f, 0f, 0f, 0f);
+                DefinirComponente(ref q, binding.propertyName, valor);
+                rotacoes[binding.path] = q;
+            }
+        }
+
+        var poses = new Dictionary<string, (Vector3, Quaternion?)>();
+
+        foreach (var item in posicoes)
+        {
+            Quaternion? rot = rotacoes.TryGetValue(item.Key, out Quaternion q) ? Normalizar(q) : (Quaternion?)null;
+            poses[item.Key] = (item.Value, rot);
+        }
+
+        return poses;
+    }
+
+    static Quaternion? Normalizar(Quaternion q)
+    {
+        float tamanho = Mathf.Sqrt(q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w);
+
+        return tamanho < 0.0001f ? (Quaternion?)null : new Quaternion(q.x / tamanho, q.y / tamanho, q.z / tamanho, q.w / tamanho);
+    }
+
+    static void DefinirComponente(ref Vector3 alvo, string propriedade, float valor)
+    {
+        if (propriedade.EndsWith(".x")) alvo.x = valor;
+        else if (propriedade.EndsWith(".y")) alvo.y = valor;
+        else if (propriedade.EndsWith(".z")) alvo.z = valor;
+    }
+
+    static void DefinirComponente(ref Quaternion alvo, string propriedade, float valor)
+    {
+        if (propriedade.EndsWith(".x")) alvo.x = valor;
+        else if (propriedade.EndsWith(".y")) alvo.y = valor;
+        else if (propriedade.EndsWith(".z")) alvo.z = valor;
+        else if (propriedade.EndsWith(".w")) alvo.w = valor;
     }
 
     static void PreservarMateriais(GameObject antigo, GameObject novo)
@@ -92,43 +195,47 @@ public static class RegeneradorDePrefabsDeAlerta
             var rendererNovo = correspondente.GetComponent<Renderer>();
             if (rendererNovo == null) continue;
 
-            string motivo = MotivoParaNaoPropagar(rendererAntigo, rendererNovo);
-
-            if (motivo != null)
-            {
-                Debug.LogWarning(
-                    $"[Regenerador] '{caminho}': {motivo}. " +
-                    "Mantendo o material que veio do FBX em vez de propagar o do prefab antigo.");
-                continue;
-            }
-
-            rendererNovo.sharedMaterials = rendererAntigo.sharedMaterials;
+            AplicarOverridesDoPrefab(rendererAntigo, rendererNovo, caminho);
         }
     }
 
-    static string MotivoParaNaoPropagar(Renderer antigo, Renderer novo)
+    static void AplicarOverridesDoPrefab(Renderer antigo, Renderer novo, string caminho)
     {
         var materiaisAntigos = antigo.sharedMaterials;
+        var materiaisNovos = novo.sharedMaterials;
 
-        if (materiaisAntigos.Length == 0) return "prefab antigo sem slot de material";
-
-        if (materiaisAntigos.Length != novo.sharedMaterials.Length)
+        if (materiaisAntigos.Length != materiaisNovos.Length)
         {
-            return $"prefab antigo tem {materiaisAntigos.Length} slot(s) e o FBX tem " +
-                   $"{novo.sharedMaterials.Length}; o array antigo está desatualizado";
+            Debug.LogWarning(
+                $"[Regenerador] '{caminho}': o prefab tem {materiaisAntigos.Length} slot(s) e o FBX tem " +
+                $"{materiaisNovos.Length}; os overrides do prefab foram descartados por desalinhamento.");
+            return;
         }
 
-        foreach (var material in materiaisAntigos)
-        {
-            if (material == null) return "prefab antigo com material perdido";
+        var vindosDoFbx = new HashSet<Material>(materiaisNovos.Where(m => m != null));
+        bool mudou = false;
 
-            if (!EhMaterialDoProjeto(material))
-            {
-                return $"prefab antigo usa '{material.name}', um material de fallback fora de Assets/";
-            }
+        for (int i = 0; i < materiaisNovos.Length; i++)
+        {
+            Material doPrefab = materiaisAntigos[i];
+            if (!EhMaterialDoProjeto(doPrefab)) continue;
+
+            bool fbxSemMaterial = !EhMaterialDoProjeto(materiaisNovos[i]);
+            bool overrideDeliberado = !vindosDoFbx.Contains(doPrefab);
+
+            if (!fbxSemMaterial && !overrideDeliberado) continue;
+
+            string motivo = fbxSemMaterial
+                ? "o FBX nao trouxe material de projeto"
+                : "o prefab usa um material que o FBX nao conhece";
+
+            Debug.Log($"[Regenerador] '{caminho}'[{i}]: {motivo}; mantendo '{doPrefab.name}' do prefab antigo.");
+
+            materiaisNovos[i] = doPrefab;
+            mudou = true;
         }
 
-        return null;
+        if (mudou) novo.sharedMaterials = materiaisNovos;
     }
 
     static bool EhMaterialDoProjeto(Material material)

@@ -31,7 +31,7 @@ public class M4ProblemA1IntegrationTests
     }
 
     [Test]
-    public void PrefabDeA1TemAnimatorComEstadoProblema1NaLayerDedicada()
+    public void PrefabDeA1TemAnimatorComOsEstadosDoCopoNaLayerDedicada()
     {
         GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPathA1);
         Animator animator = prefab.GetComponentInChildren<Animator>(true);
@@ -41,10 +41,14 @@ public class M4ProblemA1IntegrationTests
 
         var controller = animator.runtimeAnimatorController as AnimatorController;
         Assert.That(controller, Is.Not.Null);
-        Assert.That(controller.layers.Select(layer => layer.name), Does.Contain("Problema 1"));
+        Assert.That(controller.layers.Select(layer => layer.name), Does.Contain(PerfisDeDisplayDeAlerta.LayerCopo));
 
-        AnimatorControllerLayer layerProblema1 = controller.layers.Single(layer => layer.name == "Problema 1");
-        Assert.That(layerProblema1.stateMachine.states.Select(s => s.state.name), Does.Contain("PROBLEMA1"));
+        AnimatorControllerLayer layerCopo = controller.layers
+            .Single(layer => layer.name == PerfisDeDisplayDeAlerta.LayerCopo);
+
+        Assert.That(
+            layerCopo.stateMachine.states.Select(s => s.state.name),
+            Is.SupersetOf(AnimacaoDoCopoM4.Todas));
 
         AnimatorControllerLayer baseLayer = controller.layers.Single(layer => layer.name == "Base Layer");
         Assert.That(baseLayer.stateMachine.states.Select(s => s.state.name), Does.Not.Contain("B2Button"));
@@ -118,7 +122,7 @@ public class M4ProblemA1IntegrationTests
     }
 
     [Test]
-    public void ExperienciaDeAlertaOficialDoA1_UsaALayerProblema1()
+    public void ExperienciaDeAlertaOficialDoA1_RodaNaBaseLayerEAnimaOCopoPorTexto()
     {
         Type tipoLocalizedDatabase = Type.GetType("LocalizedDatabase, Sense.Runtime");
         Assert.That(tipoLocalizedDatabase, Is.Not.Null);
@@ -134,11 +138,11 @@ public class M4ProblemA1IntegrationTests
         int quadrosDoPerfil = PerfisDeDisplayDeAlerta.Obter("A1")
             .EtapasOficiais.Sum(etapa => etapa.Quantidade);
 
-        Assert.That(layer, Is.EqualTo("Problema 1"));
+        Assert.That(layer, Is.EqualTo("Base Layer"));
         Assert.That(etapas, Has.Length.EqualTo(quadrosDoPerfil));
         Assert.That(
-            etapas.Select(etapa => etapa.animacao).Where(animacao => !string.IsNullOrEmpty(animacao)).Distinct(),
-            Is.EquivalentTo(new[] { PerfisDeDisplayDeAlerta.AnimacaoProblema1 }));
+            etapas.Select(etapa => etapa.animacaoCopo).Where(a => !string.IsNullOrEmpty(a)).Distinct(),
+            Is.EquivalentTo(new[] { AnimacaoDoCopoM4.Calibrando }));
         Assert.That(etapas.Select(etapa => etapa.vfx), Does.Contain("DestaqueAtuadorCopo"));
     }
 

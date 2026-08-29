@@ -3,6 +3,7 @@ public class Etapa
 {
     public string tutorial;
     public string animacao;
+    public string animacaoCopo;
     public string telaDisplay;
     public string vfx;
 

@@ -19,7 +19,7 @@ public static class CriadorDeDestaquesDeAlerta
                 "A1", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
-                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Tubo 8mm" }),
                     (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }),
                 }
             },
@@ -27,7 +27,7 @@ public static class CriadorDeDestaquesDeAlerta
                 "A2", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
-                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Tubo 8mm" }),
                     (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }),
                 }
             },
@@ -35,7 +35,7 @@ public static class CriadorDeDestaquesDeAlerta
                 "A3", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
-                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Tubo 8mm" }),
                     (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }),
                 }
             },
@@ -43,14 +43,14 @@ public static class CriadorDeDestaquesDeAlerta
                 "A4", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
-                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Tubo 8mm" }),
                 }
             },
             {
                 "A5", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
-                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Tubo 8mm" }),
                     (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }),
                 }
             },
@@ -58,14 +58,14 @@ public static class CriadorDeDestaquesDeAlerta
                 "A6", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
-                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO_ELETRONICO" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO ELETRONICO" }),
                 }
             },
             {
                 "A7", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
-                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Tubo 8mm" }),
                     (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }),
                 }
             },
@@ -73,60 +73,60 @@ public static class CriadorDeDestaquesDeAlerta
                 "A9", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
-                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Tubo 8mm" }),
                 }
             },
             {
                 "A23", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
-                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO_ELETRONICO" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO ELETRONICO" }),
                 }
             },
             {
                 "A24", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
-                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO_ELETRONICO" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO ELETRONICO" }),
                 }
             },
             {
                 "A25", new[]
                 {
-                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO_ELETRONICO" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO ELETRONICO" }),
                 }
             },
             {
                 "A19", new[]
                 {
-                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO_ELETRONICO" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO ELETRONICO" }),
                 }
             },
             {
                 "A20", new[]
                 {
-                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO_ELETRONICO" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueModuloEletronico, new[] { "MODULO ELETRONICO" }),
                 }
             },
             {
                 "A17", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
-                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Tubo 8mm" }),
                 }
             },
             {
                 "A18", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
-                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Tubo 8mm" }),
                 }
             },
             {
                 "A15", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
-                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Tubo 8mm" }),
                     (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }),
                 }
             },
@@ -134,7 +134,7 @@ public static class CriadorDeDestaquesDeAlerta
                 "A16", new[]
                 {
                     (PerfisDeDisplayDeAlerta.DestaquePneumatica, new[] { "PNEUMATICA" }),
-                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Magueira" }),
+                    (PerfisDeDisplayDeAlerta.DestaqueMangueiras, new[] { "Tubo 8mm" }),
                     (PerfisDeDisplayDeAlerta.DestaqueAtuadorCopo, new[] { "ATUADOR", "COPO" }),
                 }
             },

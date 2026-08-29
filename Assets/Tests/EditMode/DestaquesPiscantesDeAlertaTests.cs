@@ -17,23 +17,23 @@ public class DestaquesPiscantesDeAlertaTests
 
     private static readonly Dictionary<string, string[]> PecasEsperadasPorAlerta = new Dictionary<string, string[]>
     {
-        { "A1", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
-        { "A2", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
-        { "A3", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
-        { "A4", new[] { "PNEUMATICA", "Magueira", "Magueira.001" } },
-        { "A5", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
-        { "A6", new[] { "PNEUMATICA", "MODULO_ELETRONICO" } },
-        { "A7", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
-        { "A9", new[] { "PNEUMATICA", "Magueira", "Magueira.001" } },
-        { "A15", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
-        { "A16", new[] { "PNEUMATICA", "Magueira", "Magueira.001", "ATUADOR", "COPO" } },
-        { "A17", new[] { "PNEUMATICA", "Magueira", "Magueira.001" } },
-        { "A18", new[] { "PNEUMATICA", "Magueira", "Magueira.001" } },
-        { "A19", new[] { "MODULO_ELETRONICO" } },
-        { "A20", new[] { "MODULO_ELETRONICO" } },
-        { "A23", new[] { "PNEUMATICA", "MODULO_ELETRONICO" } },
-        { "A24", new[] { "PNEUMATICA", "MODULO_ELETRONICO" } },
-        { "A25", new[] { "MODULO_ELETRONICO" } },
+        { "A1", new[] { "PNEUMATICA", "Tubo 8mm", "Tubo 8mm.001", "ATUADOR", "COPO" } },
+        { "A2", new[] { "PNEUMATICA", "Tubo 8mm", "Tubo 8mm.001", "ATUADOR", "COPO" } },
+        { "A3", new[] { "PNEUMATICA", "Tubo 8mm", "Tubo 8mm.001", "ATUADOR", "COPO" } },
+        { "A4", new[] { "PNEUMATICA", "Tubo 8mm", "Tubo 8mm.001" } },
+        { "A5", new[] { "PNEUMATICA", "Tubo 8mm", "Tubo 8mm.001", "ATUADOR", "COPO" } },
+        { "A6", new[] { "PNEUMATICA", "MODULO ELETRONICO" } },
+        { "A7", new[] { "PNEUMATICA", "Tubo 8mm", "Tubo 8mm.001", "ATUADOR", "COPO" } },
+        { "A9", new[] { "PNEUMATICA", "Tubo 8mm", "Tubo 8mm.001" } },
+        { "A15", new[] { "PNEUMATICA", "Tubo 8mm", "Tubo 8mm.001", "ATUADOR", "COPO" } },
+        { "A16", new[] { "PNEUMATICA", "Tubo 8mm", "Tubo 8mm.001", "ATUADOR", "COPO" } },
+        { "A17", new[] { "PNEUMATICA", "Tubo 8mm", "Tubo 8mm.001" } },
+        { "A18", new[] { "PNEUMATICA", "Tubo 8mm", "Tubo 8mm.001" } },
+        { "A19", new[] { "MODULO ELETRONICO" } },
+        { "A20", new[] { "MODULO ELETRONICO" } },
+        { "A23", new[] { "PNEUMATICA", "MODULO ELETRONICO" } },
+        { "A24", new[] { "PNEUMATICA", "MODULO ELETRONICO" } },
+        { "A25", new[] { "MODULO ELETRONICO" } },
     };
 
     private static GameObject Prefab(string codigo)
@@ -211,7 +211,7 @@ public class DestaquesPiscantesDeAlertaTests
 
         Assert.That(
             registrados.Where(efeito => efeito.Nome == "DestaqueMangueiras").Select(efeito => efeito.Objeto.name),
-            Is.EquivalentTo(new[] { "Magueira_Outline", "Magueira.001_Outline" }));
+            Is.EquivalentTo(new[] { "Tubo 8mm_Outline", "Tubo 8mm.001_Outline" }));
     }
 
     [Test]

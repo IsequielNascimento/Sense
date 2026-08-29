@@ -3,12 +3,177 @@ guid: 4db4073cdc6432f439e7f363faaeba5a
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Azul.001
+    second: {fileID: 2100000, guid: 78ce7eb428c9c6446bb3bf77de3aa61d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackMetal.001
+    second: {fileID: 2100000, guid: f87062f90bb8cb34cb7ffa6f4d0393a1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Borracha Preta
+    second: {fileID: 2100000, guid: c7c1a6887356df34f894d3254fbcc504, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Borracha Preta.001
+    second: {fileID: 2100000, guid: c7c1a6887356df34f894d3254fbcc504, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Branco.001
+    second: {fileID: 2100000, guid: 88f234189a45f094493c361f9ea587da, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cano Vermelho.001
+    second: {fileID: 2100000, guid: a71f70e06a2135447b9365d1cc1c0cb5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CleanMetal.001
+    second: {fileID: 2100000, guid: 70844ef43ad324e429914ee51141bcec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dark Steel.001
+    second: {fileID: 2100000, guid: 037ddf54c7071a54c925e9f22acc8251, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Display
+    second: {fileID: 2100000, guid: d582af0f5c2e1784fa7eaf60b63354c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M4_COPO.001
+    second: {fileID: 2100000, guid: 0a0c114887928ef43bf1fe7eddc06635, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: edcd524d862c1694fa42da6e9b9252d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: c44ee9441ad6f884a97dccf661c66a82, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Old Metal.001
+    second: {fileID: 2100000, guid: b39905fd6490d614e9c7a1109b46730b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ouro
+    second: {fileID: 2100000, guid: ea3d6ed65aa31b94bba2b5049e27ea3d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ouro.001
+    second: {fileID: 2100000, guid: ea3d6ed65aa31b94bba2b5049e27ea3d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico Amarelo.001
+    second: {fileID: 2100000, guid: bcf79aff9c8fc1245ae33e1aaef3bca5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico Azul
+    second: {fileID: 2100000, guid: 2098368cc8cfcdb48812c136f609c552, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico Azul.001
+    second: {fileID: 2100000, guid: 2098368cc8cfcdb48812c136f609c552, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico Branco
+    second: {fileID: 2100000, guid: c69e5c7caf1bdf04b96439b070b3765f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico Branco.001
+    second: {fileID: 2100000, guid: c69e5c7caf1bdf04b96439b070b3765f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico Cinza
+    second: {fileID: 2100000, guid: 58281091ffbe3374c9b0d4ac7b51ae46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico Cinza.001
+    second: {fileID: 2100000, guid: 58281091ffbe3374c9b0d4ac7b51ae46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico Preto Fosco.001
+    second: {fileID: 2100000, guid: 3b44901eab62a154ab0f2965d815a8f0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico Preto.001
+    second: {fileID: 2100000, guid: 06db4fc92462ae148936c50a3f7f927c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico Verde
+    second: {fileID: 2100000, guid: e0c0326acf07eb2448f1303f5dd04569, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico Verde.001
+    second: {fileID: 2100000, guid: e0c0326acf07eb2448f1303f5dd04569, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico Verde_
+    second: {fileID: 2100000, guid: 9b1f6d405a15a4042af154171716a54f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico Verde_.001
+    second: {fileID: 2100000, guid: 9b1f6d405a15a4042af154171716a54f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Preto.001
+    second: {fileID: 2100000, guid: d0585a8c20977bc41a930dcb02acf94d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stainless Steel.001
+    second: {fileID: 2100000, guid: 36fc2fac48f3c394ab0ff038ac057865, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Transparent plastic (Plastic)
+    second: {fileID: 2100000, guid: 58ce3adef55e0354f8237e0ffe552125, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Transparent plastic (Plastic).001
+    second: {fileID: 2100000, guid: 58ce3adef55e0354f8237e0ffe552125, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vermelho.001
+    second: {fileID: 2100000, guid: 6db9aeeff85874a4f8f078e34b63f008, type: 2}
   materials:
     materialImportMode: 2
     materialName: 1
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -32,7 +197,7 @@ ModelImporter:
     clipAnimations:
     - serializedVersion: 16
       name: CHAVE_S|B2BUTTON
-      takeName: CHAVE_S|B2BUTTON
+      takeName: CHAVE_S|CHAVE_S|B2BUTTON
       internalID: 3433835609564862515
       firstFrame: 0
       lastFrame: 47
@@ -61,7 +226,7 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: B2Button
-      takeName: CHAVE_S|B2BUTTON
+      takeName: CHAVE_S|CHAVE_S|B2BUTTON
       internalID: -1191519248320200415
       firstFrame: 0
       lastFrame: 47
@@ -90,7 +255,7 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: B1Button
-      takeName: CHAVE_S|B1BUTTON
+      takeName: CHAVE_S|CHAVE_S|B1BUTTON
       internalID: 3497449772269892111
       firstFrame: 0
       lastFrame: 48
@@ -119,7 +284,7 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: B3Button
-      takeName: CHAVE_S|B3BUTTON
+      takeName: CHAVE_S|CHAVE_S|B3BUTTON
       internalID: 6647990144403165484
       firstFrame: 0
       lastFrame: 48
@@ -148,7 +313,7 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: B123Button
-      takeName: CHAVE_S|B123BUTTON
+      takeName: CHAVE_S|CHAVE_S|B123BUTTON
       internalID: -786932523986545177
       firstFrame: 0
       lastFrame: 48
@@ -177,7 +342,7 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: B12Button
-      takeName: CHAVE_S|B12BUTTON
+      takeName: CHAVE_S|CHAVE_S|B12BUTTON
       internalID: -3153330287322685695
       firstFrame: 0
       lastFrame: 48
@@ -206,7 +371,7 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: B13Button
-      takeName: CHAVE_S|B13BUTTON
+      takeName: CHAVE_S|CHAVE_S|B13BUTTON
       internalID: -3588916389996549129
       firstFrame: 0
       lastFrame: 60
@@ -235,7 +400,7 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: B23Button
-      takeName: CHAVE_S|B23BUTTON
+      takeName: CHAVE_S|CHAVE_S|B23BUTTON
       internalID: -2733857185826190302
       firstFrame: 0
       lastFrame: 59
@@ -263,11 +428,40 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: PROBLEMA1
-      takeName: COPO|PROBLEMA1
-      internalID: -7554331640313055249
+      name: CALIBRANDO
+      takeName: COPO|COPO|CALIBRANDO
+      internalID: -2678186710515590922
       firstFrame: 0
-      lastFrame: 119
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: OPEN
+      takeName: COPO|COPO|OPEN
+      internalID: -1422935092417058537
+      firstFrame: 0
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -336,7 +530,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []

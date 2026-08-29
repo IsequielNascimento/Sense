@@ -66,8 +66,7 @@ public static class PerfisDeDisplayDeAlerta
 
     #region MARK: Animacoes do modelo M4
 
-    public const string AnimacaoProblema1 = "PROBLEMA1";
-    public const string LayerProblema1 = "Problema 1";
+    public const string LayerCopo = "Copo";
 
     #endregion
 
@@ -567,8 +566,7 @@ public static class PerfisDeDisplayDeAlerta
                 CodigoA1,
                 EstadoLedsM4.Alerta,
                 ledPiscando: true,
-                instrucao: "Confirme o alerta A1: a válvula se moveu, mas o ângulo entre o ponto de abertura e o de fechamento ficou abaixo de 30°.",
-                animacao: AnimacaoProblema1),
+                instrucao: "Confirme o alerta A1: a válvula se moveu, mas o ângulo entre o ponto de abertura e o de fechamento ficou abaixo de 30°."),
             new QuadroDeDisplayM4(
                 CodigoA1,
                 EstadoLedsM4.Alerta,
@@ -644,8 +642,7 @@ public static class PerfisDeDisplayDeAlerta
         return new PerfilDeDisplayDeAlerta(
             CodigoA1,
             new[] { verificarArComprimido, verificarAvariasNoConjunto },
-            mecanismoDeAtivacaoConfirmado: false,
-            layer: LayerProblema1);
+            mecanismoDeAtivacaoConfirmado: false);
     }
 
     #endregion

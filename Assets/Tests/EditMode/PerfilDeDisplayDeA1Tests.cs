@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
@@ -105,45 +106,51 @@ public class PerfilDeDisplayDeA1Tests
 
     #endregion
 
-    #region MARK: Camada de animacao dedicada, sem passo de botao
+    #region MARK: Animacao do copo em camada propria, sem passo de botao
 
     [Test]
-    public void PerfilDeA1_UsaALayerProblema1EmVezDaBaseLayer()
+    public void PerfilDeA1_RodaNaBaseLayer()
     {
-        Assert.That(perfil.Layer, Is.EqualTo("Problema 1"));
+        Assert.That(perfil.Layer, Is.Null);
     }
 
     [Test]
-    public void NenhumaInstrucao_CitaB1B2OuB3PorqueACamadaProblema1NaoTemEssesEstados()
+    public void NenhumaInstrucao_CitaB1B2OuB3PorqueOControllerDoA1NaoTemEssesEstados()
     {
         foreach (string instrucao in TodasAsInstrucoes)
         {
             Assert.That(
                 MencaoDeBotao.IsMatch(instrucao),
                 Is.False,
-                $"A camada Problema 1 não tem animação de botão: '{instrucao}'.");
+                $"O controller do A1 não tem animação de botão: '{instrucao}'.");
         }
     }
 
     [Test]
-    public void AnimacoesDeA1_SaoApenasOMovimentoDaValvulaNoQuadroDoAnguloCurto()
+    public void A1_NaoTemAnimacaoDeBotaoEmNenhumQuadro()
     {
-        Assert.That(
-            EtapaArComprimido.Quadros.Select(quadro => quadro.Animacao),
-            Is.EqualTo(new[]
-            {
-                PerfisDeDisplayDeAlerta.AnimacaoProblema1,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-            }));
+        foreach (SequenciaDeQuadrosM4 etapa in new[] { EtapaArComprimido, EtapaAvarias })
+        {
+            Assert.That(etapa.Quadros.Select(quadro => quadro.Animacao), Is.All.Null);
+        }
+    }
 
-        Assert.That(
-            EtapaAvarias.Quadros.Select(quadro => quadro.Animacao),
-            Is.EqualTo(new string[] { null, null, null, null, null, null, null }));
+    [Test]
+    public void A1_AnimaOCopoExatamenteNosQuadrosQueFalamDeCalibracao()
+    {
+        foreach (SequenciaDeQuadrosM4 etapa in new[] { EtapaArComprimido, EtapaAvarias })
+        {
+            foreach (QuadroDeDisplayM4 quadro in etapa.Quadros)
+            {
+                bool falaDeCalibracao = quadro.Instrucao != null
+                    && quadro.Instrucao.IndexOf("calibra", StringComparison.OrdinalIgnoreCase) >= 0;
+
+                Assert.That(
+                    quadro.AnimacaoDoCopo,
+                    falaDeCalibracao ? Is.EqualTo(AnimacaoDoCopoM4.Calibrando) : Is.Null,
+                    quadro.Instrucao);
+            }
+        }
     }
 
     #endregion
@@ -291,7 +298,10 @@ public class PerfilDeDisplayDeA1Tests
 
         Assert.That(etapas, Has.Length.EqualTo(14));
         Assert.That(etapas[0].tutorial, Does.StartWith("Confirme o alerta A1"));
-        Assert.That(etapas[0].animacao, Is.EqualTo("PROBLEMA1"));
+        Assert.That(etapas[0].animacao, Is.Empty);
+        Assert.That(
+            etapas.Select(etapa => etapa.animacaoCopo).Where(a => !string.IsNullOrEmpty(a)),
+            Is.EquivalentTo(new[] { AnimacaoDoCopoM4.Calibrando }));
         Assert.That(etapas[1].vfx, Is.EqualTo("DestaquePneumatica"));
         Assert.That(etapas[7].vfx, Is.EqualTo("DestaqueAtuadorCopo"));
         Assert.That(etapas.All(TelaM4.EtapaTemConteudo), Is.True);

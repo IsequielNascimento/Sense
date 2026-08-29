@@ -22,19 +22,22 @@ public class M4Problem1IntegrationTests
     private const string BloomProfilePath = "Assets/Settings/M4DisplayBloomProfile.asset";
 
     [Test]
-    public void FbxForneceAnimacaoProblema1DoCopo()
+    public void FbxForneceAsAnimacoesDoCopo()
     {
-        AnimationClip clip = AssetDatabase.LoadAllAssetsAtPath(ModelPath)
-            .OfType<AnimationClip>()
-            .FirstOrDefault(asset => asset.name == PerfisDeDisplayDeAlerta.AnimacaoProblema1);
+        foreach (string nome in AnimacaoDoCopoM4.Todas)
+        {
+            AnimationClip clip = AssetDatabase.LoadAllAssetsAtPath(ModelPath)
+                .OfType<AnimationClip>()
+                .FirstOrDefault(asset => asset.name == nome);
 
-        Assert.That(clip, Is.Not.Null);
-        Assert.That(AnimationUtility.GetCurveBindings(clip)
-            .Any(binding => binding.path == "COPO"), Is.True);
+            Assert.That(clip, Is.Not.Null, nome);
+            Assert.That(AnimationUtility.GetCurveBindings(clip)
+                .Any(binding => binding.path == "COPO"), Is.True, nome);
+        }
     }
 
     [Test]
-    public void PrefabUsaFbxDisplayDinamicoEEstadoProblema1()
+    public void PrefabUsaFbxDisplayDinamicoEEstadosDoCopo()
     {
         GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
         Assert.That(prefab, Is.Not.Null);
@@ -47,9 +50,13 @@ public class M4Problem1IntegrationTests
         Assert.That(animator, Is.Not.Null);
         var controller = animator.runtimeAnimatorController as AnimatorController;
         Assert.That(controller, Is.Not.Null);
-        AnimatorControllerLayer layer = controller.layers.Single(item => item.name == "Problema 1");
-        AnimatorState state = layer.stateMachine.states.Single(item => item.state.name == "PROBLEMA1").state;
-        Assert.That(state.motion.name, Is.EqualTo(PerfisDeDisplayDeAlerta.AnimacaoProblema1));
+        AnimatorControllerLayer layer = controller.layers.Single(item => item.name == PerfisDeDisplayDeAlerta.LayerCopo);
+
+        foreach (string nome in AnimacaoDoCopoM4.Todas)
+        {
+            AnimatorState state = layer.stateMachine.states.Single(item => item.state.name == nome).state;
+            Assert.That(state.motion.name, Is.EqualTo(nome));
+        }
     }
 
     [Test]

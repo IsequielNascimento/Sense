@@ -180,11 +180,68 @@ public abstract class ExibidorDeModeloBase : MonoBehaviour
             }
         }
 
+        TocarAnimacaoDoCopo(etapa.animacaoCopo);
+        AtualizarFerramentas(animName);
+
         if (gerenciadorVisual != null)
         {
             gerenciadorVisual.MudarSpriteDoSensor(etapa.telaDisplay);
             gerenciadorVisual.AtivarEfeito(etapa.vfx);
             gerenciadorVisual.AplicarCamadasDinamicas(etapa);
+        }
+    }
+
+    void AtualizarFerramentas(string animacaoDoPasso)
+    {
+        if (spawnedObject == null) return;
+
+        foreach (string ferramenta in FerramentasDoM4.Todas)
+        {
+            Transform alvo = BuscarNoModelo(ferramenta);
+            if (alvo == null) continue;
+
+            bool aparece = FerramentasDoM4.DeveAparecer(ferramenta, animacaoDoPasso);
+            if (alvo.gameObject.activeSelf == aparece) continue;
+
+            alvo.gameObject.SetActive(aparece);
+            DevelopmentLog.Log($"[ExibidorDeModeloBase] Ferramenta '{ferramenta}' {(aparece ? "exibida" : "escondida")}.");
+        }
+    }
+
+    Transform BuscarNoModelo(string nome)
+    {
+        foreach (Transform atual in spawnedObject.GetComponentsInChildren<Transform>(true))
+        {
+            if (atual.name == nome) return atual;
+        }
+
+        return null;
+    }
+
+    void TocarAnimacaoDoCopo(string nomeDaAnimacao)
+    {
+        if (animators == null || animators.Length == 0) return;
+
+        bool possuiAnimacao = DecisaoDeEtapaAr.PossuiAnimacao(nomeDaAnimacao);
+        int hashDaAnimacao = possuiAnimacao ? Animator.StringToHash(nomeDaAnimacao) : 0;
+
+        foreach (var anim in animators)
+        {
+            if (anim == null || !anim.enabled) continue;
+
+            int camada = anim.GetLayerIndex(PerfisDeDisplayDeAlerta.LayerCopo);
+            if (camada == PlanoDeCamadas.CamadaInexistente) continue;
+
+            if (!possuiAnimacao || !anim.HasState(camada, hashDaAnimacao))
+            {
+                anim.SetLayerWeight(camada, 0f);
+                continue;
+            }
+
+            anim.SetLayerWeight(camada, 1f);
+            anim.speed = 1f;
+            anim.Play(hashDaAnimacao, camada, 0f);
+            DevelopmentLog.Log($"[ExibidorDeModeloBase] Animação do copo '{nomeDaAnimacao}' iniciada na camada '{PerfisDeDisplayDeAlerta.LayerCopo}'.");
         }
     }
 

@@ -17,8 +17,16 @@ public class AnimacoesDoModeloM4Tests
 
     private static string[] Botoes => AnimacaoDeBotaoM4.Todas;
 
-    private static string[] Expostos =>
-        Botoes.Concat(new[] { PerfisDeDisplayDeAlerta.AnimacaoProblema1 }).ToArray();
+    private static string[] AnimacoesDoCopo => AnimacaoDoCopoM4.Todas;
+
+    private static string[] Expostos => Botoes.Concat(AnimacoesDoCopo).ToArray();
+
+    private static string TakeEsperado(string estado)
+    {
+        string prefixo = AnimacoesDoCopo.Contains(estado) ? "COPO|COPO|" : "CHAVE_S|CHAVE_S|";
+
+        return $"{prefixo}{estado.ToUpperInvariant()}";
+    }
 
     private static AnimatorState Estado(string caminhoDoController, string camadaAlvo, string nome)
     {
@@ -62,7 +70,7 @@ public class AnimacoesDoModeloM4Tests
 
         foreach (string nome in Expostos)
         {
-            Assert.That(takes, Does.Contain($"CHAVE_S|{nome.ToUpperInvariant()}"), nome);
+            Assert.That(takes, Does.Contain(TakeEsperado(nome)), nome);
             Assert.That(gerados, Does.Contain(nome), $"'{nome}' não está na lista Clips do importer.");
         }
     }
@@ -82,16 +90,18 @@ public class AnimacoesDoModeloM4Tests
 
     #endregion
 
-    #region MARK - PROBLEMA1 nao pode cair no sub-asset reciclado do FBX
+    #region MARK - As animacoes do copo nao podem cair no sub-asset reciclado do FBX
 
     [Test]
-    public void EstadoProblema1_UsaOClipeSaneadoNosDoisControllers()
+    public void EstadosDoCopo_UsamOClipeSaneadoNosDoisControllers()
     {
-        string nome = PerfisDeDisplayDeAlerta.AnimacaoProblema1;
-        string camada = PerfisDeDisplayDeAlerta.LayerProblema1;
+        string camada = PerfisDeDisplayDeAlerta.LayerCopo;
 
-        AssertClipeSaneado(Estado(CaminhoController, camada, nome), nome, "compartilhado");
-        AssertClipeSaneado(Estado(CaminhoControllerA1, camada, nome), nome, "A1");
+        foreach (string nome in AnimacoesDoCopo)
+        {
+            AssertClipeSaneado(Estado(CaminhoController, camada, nome), nome, "compartilhado");
+            AssertClipeSaneado(Estado(CaminhoControllerA1, camada, nome), nome, "A1");
+        }
     }
 
     #endregion
