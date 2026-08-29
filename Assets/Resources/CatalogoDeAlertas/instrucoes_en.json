@@ -1,0 +1,924 @@
+{
+  "entradas": [
+    {
+      "pt": "Confirme o alerta A1: a válvula se moveu, mas o ângulo entre o ponto de abertura e o de fechamento ficou abaixo de 30°.",
+      "texto": "Confirm alert A1: the valve moved, but the angle between the opening and the closing point stayed below 30°."
+    },
+    {
+      "pt": "Verifique no gerador de ar comprimido, fora do monitor: o ar entra pela conexão P, a entrada de ar 1, e vai ao atuador.",
+      "texto": "Check the compressed air generator, outside the monitor: air enters through connection P, air inlet 1, and goes to the actuator."
+    },
+    {
+      "pt": "Confira a pressão da linha: o monitor opera entre 3 e 8 bar (45 a 120 psi) e sai de fábrica em 6 bar (87 psi).",
+      "texto": "Check the line pressure: the monitor operates between 3 and 8 bar (45 to 120 psi) and ships from the factory at 6 bar (87 psi)."
+    },
+    {
+      "pt": "Respeite o limite: acima de 10 bar (150 psi) o monitor é danificado permanentemente, mesmo em falha do fornecimento.",
+      "texto": "Respect the limit: above 10 bar (150 psi) the monitor is permanently damaged, even during a supply failure."
+    },
+    {
+      "pt": "Cheque mangueiras e engates: vazamento derruba a pressão e a válvula para antes do fim do curso. Despressurize antes.",
+      "texto": "Check hoses and fittings: a leak drops the pressure and the valve stops before the end of the stroke. Depressurize first."
+    },
+    {
+      "pt": "Use ar comprimido limpo e isento de óleo. Os orifícios pneumáticos internos são pequenos e entopem, encurtando o curso.",
+      "texto": "Use clean, oil-free compressed air. The internal pneumatic orifices are small and clog, shortening the stroke."
+    },
+    {
+      "pt": "Se a pressão está no especificado e o curso segue curto, o problema não está na linha. Inspecione o conjunto.",
+      "texto": "If the pressure is within specification and the stroke is still short, the problem is not in the line. Inspect the assembly."
+    },
+    {
+      "pt": "Com ar suficiente e curso curto, procure obstrução no conjunto. Desconecte o monitor do ar antes de tocar nele.",
+      "texto": "With enough air and a short stroke, look for an obstruction in the assembly. Disconnect the monitor from the air before touching it."
+    },
+    {
+      "pt": "Inspecione o acoplamento NAMUR: o adaptador de eixo deve encaixar perfeitamente no eixo, de 11 mm a 38 mm de diâmetro.",
+      "texto": "Inspect the NAMUR coupling: the shaft adapter must fit the shaft perfectly, from 11 mm to 38 mm in diameter."
+    },
+    {
+      "pt": "Procure desgaste nas partes móveis: diafragma, gaxetas e assentos. É o que o contador parcial acompanha.",
+      "texto": "Look for wear on the moving parts: diaphragm, seals and seats. That is what the partial counter tracks."
+    },
+    {
+      "pt": "Em atuador simples ação, confira o tamponamento: NA tampona a saída de ar 4, NF a saída de ar 2. Use tampões metálicos.",
+      "texto": "On a single acting actuator, check the plugging: NO plugs air outlet 4, NC plugs air outlet 2. Use metal plugs."
+    },
+    {
+      "pt": "Confira o padrão dos orifícios pneumáticos, NPT ou BSP: conexão incompatível danifica a rosca e restringe a passagem.",
+      "texto": "Check the standard of the pneumatic orifices, NPT or BSP: an incompatible connection damages the thread and restricts the flow."
+    },
+    {
+      "pt": "Resolvida a avaria, refaça a auto calibração para o monitor reaprender os pontos de abertura e de fechamento.",
+      "texto": "Once the fault is fixed, run the auto calibration again so the monitor relearns the opening and closing points."
+    },
+    {
+      "pt": "Verifique a confirmação: com o curso completo reaprendido, o ângulo supera 30° e o alerta A1 é eliminado.",
+      "texto": "Check the confirmation: with the full stroke relearned, the angle exceeds 30° and alert A1 is cleared."
+    },
+    {
+      "pt": "Confirme o alerta A2: a auto calibração levou mais tempo que o máximo configurado em C6 TEMPO MAX CAL.",
+      "texto": "Confirm alert A2: the auto calibration took longer than the maximum set in C6 TEMPO MAX CAL."
+    },
+    {
+      "pt": "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
+      "texto": "Hold the South pole of the magnetic key near button B2 for more than 6 seconds to enter the menu."
+    },
+    {
+      "pt": "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações.",
+      "texto": "After the bargraph, the display shows MENU CONFIG. Press B2 to open the settings."
+    },
+    {
+      "pt": "Use B3 para avançar até C6 TEMPO MAX CAL. B1 volta à opção anterior e B2 entra na opção.",
+      "texto": "Use B3 to advance to C6 TEMPO MAX CAL. B1 goes back to the previous option and B2 enters the option."
+    },
+    {
+      "pt": "Ajuste o valor entre 10 e 120 segundos: B1 diminui, B3 aumenta. Mantenha B2 por mais de 3 segundos para confirmar.",
+      "texto": "Set the value between 10 and 120 seconds: B1 decreases, B3 increases. Hold B2 for more than 3 seconds to confirm."
+    },
+    {
+      "pt": "Verifique a confirmação: o novo tempo máximo de calibração foi salvo e o alerta A2 foi eliminado.",
+      "texto": "Check the confirmation: the new maximum calibration time was saved and alert A2 was cleared."
+    },
+    {
+      "pt": "Em uma opção principal, mantenha B1 por mais de 3 segundos para sair. O display mostra SAIR e retorna ao modo RUN.",
+      "texto": "On a main option, hold B1 for more than 3 seconds to exit. The display shows SAIR and returns to RUN mode."
+    },
+    {
+      "pt": "Com o curso completo mas lento, procure a avaria que freia o conjunto. Desconecte o monitor do ar antes de tocar nele.",
+      "texto": "With a full but slow stroke, look for the fault that is slowing the assembly down. Disconnect the monitor from the air before touching it."
+    },
+    {
+      "pt": "Cheque mangueiras e engates: dobra ou engate estreito restringe a passagem de ar e a válvula demora a completar o curso.",
+      "texto": "Check hoses and fittings: a kink or a narrow fitting restricts the air flow and the valve takes longer to complete the stroke."
+    },
+    {
+      "pt": "Confira a pressão disponível na entrada de ar: entre 3 e 8 bar. Pressão baixa move a válvula, porém devagar demais.",
+      "texto": "Check the pressure available at the air inlet: between 3 and 8 bar. Low pressure moves the valve, but far too slowly."
+    },
+    {
+      "pt": "Procure atrito e emperramento parcial: diafragma, gaxetas e assentos. É o que o contador parcial acompanha.",
+      "texto": "Look for friction and partial binding: diaphragm, seals and seats. That is what the partial counter tracks."
+    },
+    {
+      "pt": "Confira se o atuador não está subdimensionado para a pressão disponível: ele completa o curso, mas sempre com lentidão.",
+      "texto": "Check that the actuator is not undersized for the available pressure: it completes the stroke, but always slowly."
+    },
+    {
+      "pt": "Refaça a auto calibração: aproxime o polo Norte do chaveiro do botão B3 por 6 segundos. O display mostra FAST SETUP.",
+      "texto": "Run the auto calibration again: hold the North pole of the key near button B3 for 6 seconds. The display shows FAST SETUP."
+    },
+    {
+      "pt": "O monitor avisa que a válvula vai se mover e mostra CERTO. Aproxime o polo Sul do chaveiro do botão B2 para iniciar.",
+      "texto": "The monitor warns that the valve is about to move and shows CERTO. Hold the South pole of the key near button B2 to start."
+    },
+    {
+      "pt": "Verifique a confirmação: com o conjunto livre, a calibração termina dentro de C6 e o alerta A2 é eliminado.",
+      "texto": "Check the confirmation: with the assembly free, the calibration finishes within C6 and alert A2 is cleared."
+    },
+    {
+      "pt": "Confirme o alerta A3: na auto calibração o monitor gravou pontos de aberto e fechado diferentes entre si.",
+      "texto": "Confirm alert A3: during the auto calibration the monitor recorded open and closed points that differ from each other."
+    },
+    {
+      "pt": "Cheque mangueiras e engates da entrada de ar: vazamento derruba a pressão. Despressurize a linha antes de mexer.",
+      "texto": "Check the hoses and fittings of the air inlet: a leak drops the pressure. Depressurize the line before working on it."
+    },
+    {
+      "pt": "Use ar comprimido limpo e isento de óleo. Os orifícios pneumáticos internos são pequenos e entopem, travando o monitor.",
+      "texto": "Use clean, oil-free compressed air. The internal pneumatic orifices are small and clog, locking the monitor up."
+    },
+    {
+      "pt": "Se o fornecimento de ar está no especificado, o problema não está na linha. Inspecione o conjunto válvula / atuador.",
+      "texto": "If the air supply is within specification, the problem is not in the line. Inspect the valve / actuator assembly."
+    },
+    {
+      "pt": "Antes de tocar no conjunto, desconecte o monitor do ar comprimido. Faça toda manutenção com a linha despressurizada.",
+      "texto": "Before touching the assembly, disconnect the monitor from the compressed air. Do all maintenance with the line depressurized."
+    },
+    {
+      "pt": "Para interromper a calibração, aproxime o polo Norte do chaveiro do botão B1 por 3 segundos. O display mostra ABORT.",
+      "texto": "To abort the calibration, hold the North pole of the key near button B1 for 3 seconds. The display shows ABORT."
+    },
+    {
+      "pt": "Verifique a confirmação: com os pontos iguais em todos os ciclos, a calibração conclui e o alerta A3 é eliminado.",
+      "texto": "Check the confirmation: with matching points across every cycle, the calibration completes and alert A3 is cleared."
+    },
+    {
+      "pt": "Confirme o alerta A4: a pressão de alimentação subiu acima da usada na calibração e a válvula avança 5° além do ponto.",
+      "texto": "Confirm alert A4: the supply pressure rose above the one used in the calibration and the valve overshoots the point by 5°."
+    },
+    {
+      "pt": "Meça a pressão na entrada de ar: o monitor opera entre 3 e 8 bar (45 a 120 psi) e sai de fábrica em 6 bar (87 psi).",
+      "texto": "Measure the pressure at the air inlet: the monitor operates between 3 and 8 bar (45 to 120 psi) and ships from the factory at 6 bar (87 psi)."
+    },
+    {
+      "pt": "Primeira saída: regule o gerador de volta à pressão da calibração e o A4 é eliminado sem mexer no monitor.",
+      "texto": "First way out: set the generator back to the calibration pressure and A4 is cleared without touching the monitor."
+    },
+    {
+      "pt": "Segunda saída, se a pressão nova veio para ficar: aproxime o polo Sul do chaveiro do botão B2 por mais de 6 segundos.",
+      "texto": "Second way out, if the new pressure is here to stay: hold the South pole of the key near button B2 for more than 6 seconds."
+    },
+    {
+      "pt": "Após o bargraph o display mostra MENU CONFIG. Pressione B2 para acessar as configurações.",
+      "texto": "After the bargraph the display shows MENU CONFIG. Press B2 to open the settings."
+    },
+    {
+      "pt": "Use B3 para avançar até C17 PRESSÃO DA LINHA. B1 volta à opção anterior e B2 entra na opção.",
+      "texto": "Use B3 to advance to C17 PRESSÃO DA LINHA. B1 goes back to the previous option and B2 enters the option."
+    },
+    {
+      "pt": "Informe a pressão que a linha passou a ter: B1 diminui e B3 aumenta, entre 3 e 8 bar. Mantenha B2 por 3 segundos.",
+      "texto": "Enter the pressure the line now runs at: B1 decreases and B3 increases, between 3 and 8 bar. Hold B2 for 3 seconds."
+    },
+    {
+      "pt": "Verifique a confirmação: com os pontos reaprendidos na pressão atual, a válvula fica na faixa e o A4 é eliminado.",
+      "texto": "Check the confirmation: with the points relearned at the current pressure, the valve stays in range and A4 is cleared."
+    },
+    {
+      "pt": "Confirme o alerta A5: na calibração o monitor não registrou movimento nenhum. É ausência de movimento, não curso curto.",
+      "texto": "Confirm alert A5: during the calibration the monitor recorded no movement at all. This is absence of movement, not a short stroke."
+    },
+    {
+      "pt": "Verifique no gerador de ar comprimido, fora do monitor. O ar entra pela conexão P e sai pela saída 4 e pela saída 2.",
+      "texto": "Check the compressed air generator, outside the monitor. Air enters through connection P and leaves through outlet 4 and outlet 2."
+    },
+    {
+      "pt": "Confira a pressão na entrada de ar: o monitor opera entre 3 e 8 bar (45 a 120 psi) e sai de fábrica em 6 bar (87 psi).",
+      "texto": "Check the pressure at the air inlet: the monitor operates between 3 and 8 bar (45 to 120 psi) and ships from the factory at 6 bar (87 psi)."
+    },
+    {
+      "pt": "Siga as mangueiras até as portas do atuador: desconectada, invertida ou dobrada, ela bloqueia o ar. Despressurize antes.",
+      "texto": "Follow the hoses to the actuator ports: disconnected, swapped or kinked, a hose blocks the air. Depressurize first."
+    },
+    {
+      "pt": "Use ar comprimido limpo e isento de óleo. Os orifícios pneumáticos internos são pequenos e podem entupir o monitor.",
+      "texto": "Use clean, oil-free compressed air. The internal pneumatic orifices are small and can clog the monitor."
+    },
+    {
+      "pt": "Se a pressão chega às portas do atuador e a válvula não se move, o problema não está na linha. Inspecione o conjunto.",
+      "texto": "If the pressure reaches the actuator ports and the valve does not move, the problem is not in the line. Inspect the assembly."
+    },
+    {
+      "pt": "Com ar disponível e a válvula parada, procure travamento ou acoplamento solto. Desconecte o ar antes de tocar nela.",
+      "texto": "With air available and the valve stopped, look for binding or a loose coupling. Disconnect the air before touching it."
+    },
+    {
+      "pt": "Procure emperramento nas partes móveis: diafragma, gaxetas e assentos. É o que o contador parcial acompanha.",
+      "texto": "Look for binding on the moving parts: diaphragm, seals and seats. That is what the partial counter tracks."
+    },
+    {
+      "pt": "Verifique a confirmação: com a válvula percorrendo o curso completo, a calibração conclui e o alerta A5 é eliminado.",
+      "texto": "Check the confirmation: with the valve running the full stroke, the calibration completes and alert A5 is cleared."
+    },
+    {
+      "pt": "Confirme o alerta A6: a válvula não executa o comando enviado à solenoide. O monitor manda o sinal e nada acontece.",
+      "texto": "Confirm alert A6: the valve does not execute the command sent to the solenoid. The monitor sends the signal and nothing happens."
+    },
+    {
+      "pt": "Falha de comando é a válvula não responder ao sinal do monitor. A causa pode ser elétrica ou pneumática.",
+      "texto": "A command failure is the valve not responding to the monitor's signal. The cause can be electrical or pneumatic."
+    },
+    {
+      "pt": "PERIGO: desligue a fonte de energia e impeça o religamento antes de abrir qualquer compartimento do monitor.",
+      "texto": "DANGER: switch off the power supply and prevent it from being switched back on before opening any compartment of the monitor."
+    },
+    {
+      "pt": "Mesmo desligado, os circuitos guardam energia residual. Aguarde antes de encostar em fios ou terminais.",
+      "texto": "Even switched off, the circuits hold residual energy. Wait before touching wires or terminals."
+    },
+    {
+      "pt": "Desconecte o monitor do ar comprimido antes de qualquer manutenção na válvula.",
+      "texto": "Disconnect the monitor from the compressed air before any maintenance on the valve."
+    },
+    {
+      "pt": "Para chegar à bobina, afrouxe os quatro parafusos que prendem a válvula ao corpo e puxe a válvula para fora.",
+      "texto": "To reach the coil, loosen the four screws that hold the valve to the body and pull the valve out."
+    },
+    {
+      "pt": "Desconecte os fios da solenoide, afrouxe os dois parafusos de fixação da bobina e remova a bobina do compartimento.",
+      "texto": "Disconnect the solenoid wires, loosen the two coil fastening screws and remove the coil from the compartment."
+    },
+    {
+      "pt": "Na bobina de troca, confira o anel de vedação em seu lugar: sem ele a válvula vaza ao ser fechada.",
+      "texto": "On the replacement coil, check that the sealing ring is in place: without it the valve leaks when closed."
+    },
+    {
+      "pt": "Recoloque a bobina, aperte os parafusos, refaça os fios e encaixe a válvula no invólucro com os quatro parafusos.",
+      "texto": "Refit the coil, tighten the screws, redo the wiring and fit the valve back into the housing with the four screws."
+    },
+    {
+      "pt": "Com a bobina íntegra e a válvula ainda sem responder, o defeito está no sinal elétrico que a comanda.",
+      "texto": "With the coil intact and the valve still not responding, the fault is in the electrical signal that commands it."
+    },
+    {
+      "pt": "Com a bobina íntegra, o A6 aponta falta de sinal elétrico: o comando não chega até a solenoide.",
+      "texto": "With the coil intact, A6 points to a missing electrical signal: the command is not reaching the solenoid."
+    },
+    {
+      "pt": "O comando vem da saída do controlador lógico e entra no monitor pelo terminal aparafusável interno.",
+      "texto": "The command comes from the logic controller output and enters the monitor through the internal screw terminal."
+    },
+    {
+      "pt": "PERIGO: desligue a fonte e impeça o religamento antes de mexer na fiação, sob risco de choque e curto circuito.",
+      "texto": "DANGER: switch off the power supply and prevent it from being switched back on before working on the wiring, at risk of shock and short circuit."
+    },
+    {
+      "pt": "Na versão Reed, o comando da solenoide chega pelos terminais S1+ e S1- do borne interno, junto do GND.",
+      "texto": "On the Reed version, the solenoid command arrives through terminals S1+ and S1- of the internal terminal block, next to GND."
+    },
+    {
+      "pt": "Na versão IO-Link, a solenoide é alimentada por V+ e V- do mesmo borne. Confira também o conector M12.",
+      "texto": "On the IO-Link version, the solenoid is powered by V+ and V- of the same terminal block. Also check the M12 connector."
+    },
+    {
+      "pt": "Reaperte os fios do borne com uma chave de bornes adequada e confira as cores contra o diagrama do seu modelo.",
+      "texto": "Retighten the terminal block wires with a suitable terminal screwdriver and check the colours against the diagram for your model."
+    },
+    {
+      "pt": "No prensa cabos, passe o cabo pela porca e pela borracha de vedação; cabo mal preso solta o fio do terminal.",
+      "texto": "At the cable gland, run the cable through the nut and the sealing rubber; a poorly clamped cable pulls the wire out of the terminal."
+    },
+    {
+      "pt": "Na solenoide externa, gire a tampa do compartimento no sentido anti-horário para destravar e revise os bornes.",
+      "texto": "On the external solenoid, turn the compartment cover counterclockwise to unlock it and inspect the terminals."
+    },
+    {
+      "pt": "O módulo é encapsulado em resina e não deve ser aberto. Se a fiação está boa, substitua o módulo eletrônico.",
+      "texto": "The module is encapsulated in resin and must not be opened. If the wiring is fine, replace the electronic module."
+    },
+    {
+      "pt": "Verifique a confirmação: com o comando chegando e a solenoide sã, a válvula responde e o alerta A6 é eliminado.",
+      "texto": "Check the confirmation: with the command arriving and the solenoid sound, the valve responds and alert A6 is cleared."
+    },
+    {
+      "pt": "Confirme o alerta A7: a válvula mudou de posição sem comando da solenoide. Não é falha de resposta, é movimento sozinho.",
+      "texto": "Confirm alert A7: the valve changed position without a command from the solenoid. This is not a response failure, it moved on its own."
+    },
+    {
+      "pt": "A posição é monitorada sem contato: o ímã do indicador local e o sensor Hall registram todo giro do eixo.",
+      "texto": "The position is monitored without contact: the local indicator magnet and the Hall sensor record every turn of the shaft."
+    },
+    {
+      "pt": "Vá ao corpo da válvula, em campo, e procure o acionador manual com trava. Ele move a válvula sem a solenoide.",
+      "texto": "Go to the valve body, in the field, and look for the manual override with lock. It moves the valve without the solenoid."
+    },
+    {
+      "pt": "O acionador manual é operado com chave de fenda: pressione e gire o botão. Veja se ele ficou pressionado ou travado.",
+      "texto": "The manual override is operated with a screwdriver: press and turn the knob. Check whether it was left pressed or locked."
+    },
+    {
+      "pt": "Se estiver travado, destrave o acionador. A válvula volta ao estado comandado e para de se mover por conta própria.",
+      "texto": "If it is locked, release the override. The valve returns to the commanded state and stops moving on its own."
+    },
+    {
+      "pt": "Forçar a solenoide pede B1 e confirmação em B2; o display mostra Forc Aberta. Sem essa mensagem, não houve comando.",
+      "texto": "Forcing the solenoid requires B1 and confirmation on B2; the display shows Forc Aberta. Without that message, no command was issued."
+    },
+    {
+      "pt": "O manual avisa: forçada pelo acionador físico, a solenoide não gera mensagem no display. Por isso o A7 aparece sozinho.",
+      "texto": "The manual warns: when forced by the physical override, the solenoid generates no message on the display. That is why A7 appears on its own."
+    },
+    {
+      "pt": "A solenoide também pode ser forçada pelo sistema de controle ou pelo software. Confirme com quem opera a rede.",
+      "texto": "The solenoid can also be forced by the control system or by software. Confirm with whoever operates the network."
+    },
+    {
+      "pt": "Sem acionamento manual e sem comando forçado, o movimento veio pelo ar. Verifique as conexões pneumáticas.",
+      "texto": "With no manual actuation and no forced command, the movement came from the air. Check the pneumatic connections."
+    },
+    {
+      "pt": "Descartado o acionamento manual, o ar moveu a válvula sem comando. Procure a falha nas conexões pneumáticas.",
+      "texto": "With manual actuation ruled out, the air moved the valve without a command. Look for the fault in the pneumatic connections."
+    },
+    {
+      "pt": "Confira a ligação das portas: P é a entrada de ar 1, a saída de ar 4 abre o atuador e a saída de ar 2 fecha.",
+      "texto": "Check how the ports are connected: P is air inlet 1, air outlet 4 opens the actuator and air outlet 2 closes it."
+    },
+    {
+      "pt": "Mangueiras trocadas entre as saídas 4 e 2 invertem o sentido: a válvula assume a posição contrária sem receber comando.",
+      "texto": "Hoses swapped between outlets 4 and 2 reverse the direction: the valve takes the opposite position without receiving a command."
+    },
+    {
+      "pt": "Procure vazamento nos engates: ar chegando ao atuador com a solenoide desenergizada empurra a válvula sozinho.",
+      "texto": "Look for leaks at the fittings: air reaching the actuator with the solenoid de-energized pushes the valve on its own."
+    },
+    {
+      "pt": "Desligue a linha antes de conectar ou desconectar qualquer mangueira da válvula do monitor.",
+      "texto": "Switch off the line before connecting or disconnecting any hose from the monitor's valve."
+    },
+    {
+      "pt": "Confira o padrão dos orifícios pneumáticos, NPT ou BSP: conexão incompatível danifica a rosca e deixa vazar.",
+      "texto": "Check the standard of the pneumatic orifices, NPT or BSP: an incompatible connection damages the thread and lets air leak."
+    },
+    {
+      "pt": "Verifique a confirmação: sem acionador travado e com as conexões corretas, a válvula só se move sob comando e o A7 sai.",
+      "texto": "Check the confirmation: with no locked override and correct connections, the valve only moves on command and A7 clears."
+    },
+    {
+      "pt": "Confirme o alerta A8: o monitor não está no modo seguro. O LED vermelho deve piscar até a correção.",
+      "texto": "Confirm alert A8: the monitor is not in safe mode. The red LED must blink until it is corrected."
+    },
+    {
+      "pt": "Use B3 para avançar até C16 MODO SEGURO. B1 volta à opção anterior e B2 entra em C16.",
+      "texto": "Use B3 to advance to C16 MODO SEGURO. B1 goes back to the previous option and B2 enters C16."
+    },
+    {
+      "pt": "Em C16, selecione SENHA com B1 ou B3 e pressione B2.",
+      "texto": "In C16, select SENHA with B1 or B3 and press B2."
+    },
+    {
+      "pt": "Use B3 para selecionar HABILITAR e pressione B2 para definir a senha.",
+      "texto": "Use B3 to select HABILITAR and press B2 to set the password."
+    },
+    {
+      "pt": "Escolha quatro dígitos: B1 decrementa, B3 incrementa e B2 seleciona. Mantenha B2 por mais de 3 segundos para confirmar. 1234 é apenas o exemplo do manual.",
+      "texto": "Choose four digits: B1 decrements, B3 increments and B2 selects. Hold B2 for more than 3 seconds to confirm. 1234 is only the manual's example."
+    },
+    {
+      "pt": "Verifique a confirmação: o modo seguro está habilitado, o alerta A8 foi eliminado e o LED vermelho parou de piscar.",
+      "texto": "Check the confirmation: safe mode is enabled, alert A8 was cleared and the red LED stopped blinking."
+    },
+    {
+      "pt": "Confirme o alerta A9: a pressão da linha ultrapassou 9 bar. O A9 é sempre ligado e não se desliga pelo menu.",
+      "texto": "Confirm alert A9: the line pressure exceeded 9 bar. A9 is always on and cannot be switched off from the menu."
+    },
+    {
+      "pt": "IMPORTANTE: há risco de danos ao equipamento se a pressão da linha exceder 9 bar (130,5 psi). Trate como risco imediato.",
+      "texto": "IMPORTANT: there is a risk of equipment damage if the line pressure exceeds 9 bar (130.5 psi). Treat it as an immediate risk."
+    },
+    {
+      "pt": "Desligue a pressão da linha antes de mexer em qualquer mangueira. Com a linha desligada, confira todas as conexões.",
+      "texto": "Switch off the line pressure before working on any hose. With the line off, check every connection."
+    },
+    {
+      "pt": "Regule o gerador de volta para 3 a 8 bar (45 a 120 psi). O padrão é 6 bar (87 psi). Acima de 9 bar o A9 segue ativo.",
+      "texto": "Set the generator back to 3 to 8 bar (45 to 120 psi). The default is 6 bar (87 psi). Above 9 bar A9 stays active."
+    },
+    {
+      "pt": "O A17 ALTA PRESSÃO avisa antes: dispara 20% acima da pressão ajustada, ou seja, 7,2 bar (104 psi) para 6 bar.",
+      "texto": "A17 ALTA PRESSÃO warns beforehand: it trips 20% above the set pressure, that is, 7.2 bar (104 psi) for 6 bar."
+    },
+    {
+      "pt": "Confira qual pressão o monitor tem como referência: aproxime o polo Sul do chaveiro do botão B2 por mais de 6 segundos.",
+      "texto": "Check which pressure the monitor uses as reference: hold the South pole of the key near button B2 for more than 6 seconds."
+    },
+    {
+      "pt": "Deixe C17 igual à pressão do gerador: B1 diminui e B3 aumenta, entre 3 e 8 bar. Mantenha B2 por mais de 3 segundos.",
+      "texto": "Leave C17 equal to the generator pressure: B1 decreases and B3 increases, between 3 and 8 bar. Hold B2 for more than 3 seconds."
+    },
+    {
+      "pt": "Em uma opção principal, mantenha B1 por mais de 3 segundos para sair. O display mostra SAIR e volta ao modo RUN.",
+      "texto": "On a main option, hold B1 for more than 3 seconds to exit. The display shows SAIR and returns to RUN mode."
+    },
+    {
+      "pt": "Verifique a confirmação: com a pressão da linha abaixo de 9 bar, o A9 é eliminado e o LED vermelho para de piscar.",
+      "texto": "Check the confirmation: with the line pressure below 9 bar, A9 is cleared and the red LED stops blinking."
+    },
+    {
+      "pt": "Confirme o alerta A11: o contador parcial atingiu o limite configurado. A11 vem desabilitado por padrão, então esse alerta indica que ele foi habilitado.",
+      "texto": "Confirm alert A11: the partial counter reached the configured limit. A11 is disabled by default, so this alert means it was enabled."
+    },
+    {
+      "pt": "Use B3 para avançar até A11. B1 volta à opção anterior e B2 entra no menu do contador parcial, que configura o limite e também pode zerar o contador.",
+      "texto": "Use B3 to advance to A11. B1 goes back to the previous option and B2 enters the partial counter menu, which sets the limit and can also reset the counter."
+    },
+    {
+      "pt": "Alternativa 1: aumente o número de ciclos configurado como limite do contador parcial. B1 diminui e B3 aumenta o valor. Mantenha B2 por mais de 3 segundos para confirmar.",
+      "texto": "Alternative 1: increase the number of cycles set as the partial counter limit. B1 decreases and B3 increases the value. Hold B2 for more than 3 seconds to confirm."
+    },
+    {
+      "pt": "Verifique a confirmação: o novo limite do contador parcial foi salvo e o alerta A11 foi eliminado. O contador total não é alterado.",
+      "texto": "Check the confirmation: the new partial counter limit was saved and alert A11 was cleared. The total counter is not changed."
+    },
+    {
+      "pt": "Alternativa 2: em vez de aumentar o limite, entre em C18 para resetar o contador parcial. Use B3 para avançar até C18 RESET CONTADOR PARCIAL. B1 volta à opção anterior e B2 entra no reset.",
+      "texto": "Alternative 2: instead of raising the limit, enter C18 to reset the partial counter. Use B3 to advance to C18 RESET CONTADOR PARCIAL. B1 goes back to the previous option and B2 enters the reset."
+    },
+    {
+      "pt": "Verifique a confirmação: o contador parcial voltou a zero e o alerta A11 foi eliminado. O contador total não é alterado nem resetado.",
+      "texto": "Check the confirmation: the partial counter went back to zero and alert A11 was cleared. The total counter is neither changed nor reset."
+    },
+    {
+      "pt": "Identifique A11 no menu de alertas. Esta ação apenas desliga o alerta, sem ajustar o limite e sem resetar o contador parcial.",
+      "texto": "Find A11 in the alert menu. This action only switches the alert off, without adjusting the limit and without resetting the partial counter."
+    },
+    {
+      "pt": "Use B3 para avançar até A11 e B2 para selecionar a opção de desligar o alerta, mantendo o contador parcial como está.",
+      "texto": "Use B3 to advance to A11 and B2 to select the option that switches the alert off, leaving the partial counter as it is."
+    },
+    {
+      "pt": "Verifique a confirmação: o alerta A11 foi desligado. Isso não reseta nem altera o contador parcial ou o total.",
+      "texto": "Check the confirmation: alert A11 was switched off. This neither resets nor changes the partial or the total counter."
+    },
+    {
+      "pt": "Confirme o alerta A12: o contador total atingiu o limite configurado. O contador total mede a vida útil da válvula. A12 vem desabilitado por padrão, então esse alerta indica que ele foi habilitado.",
+      "texto": "Confirm alert A12: the total counter reached the configured limit. The total counter measures the service life of the valve. A12 is disabled by default, so this alert means it was enabled."
+    },
+    {
+      "pt": "Use B3 para avançar até C19 RESET CONTADOR TOTAL. B1 volta à opção anterior e B2 entra no reset do contador total.",
+      "texto": "Use B3 to advance to C19 RESET CONTADOR TOTAL. B1 goes back to the previous option and B2 enters the total counter reset."
+    },
+    {
+      "pt": "IMPORTANTE: o contador total é o medidor de vida útil da válvula e deve ser zerado somente quando o monitor for instalado em uma válvula diferente. O reset não é uma rotina comum de manutenção.",
+      "texto": "IMPORTANT: the total counter is the valve's service life meter and must only be zeroed when the monitor is installed on a different valve. The reset is not a routine maintenance step."
+    },
+    {
+      "pt": "Selecione SIM com B1 ou B3 e pressione B2 para confirmar o reset do contador total.",
+      "texto": "Select SIM with B1 or B3 and press B2 to confirm the total counter reset."
+    },
+    {
+      "pt": "Verifique a confirmação: o contador total voltou a zero e o alerta A12 foi eliminado. O contador parcial e as demais configurações não são alterados.",
+      "texto": "Check the confirmation: the total counter went back to zero and alert A12 was cleared. The partial counter and the other settings are not changed."
+    },
+    {
+      "pt": "Identifique A12 no menu de alertas. Esta ação apenas desliga o alerta, sem resetar o contador total, que continua medindo a vida útil da válvula.",
+      "texto": "Find A12 in the alert menu. This action only switches the alert off, without resetting the total counter, which keeps measuring the service life of the valve."
+    },
+    {
+      "pt": "Após o bargraph, o display mostra MENU CONFIG. Use B3 para avançar até MENU ALERTA.",
+      "texto": "After the bargraph, the display shows MENU CONFIG. Use B3 to advance to MENU ALERTA."
+    },
+    {
+      "pt": "Em MENU ALERTA, pressione B2 para entrar no menu de alertas.",
+      "texto": "In MENU ALERTA, press B2 to enter the alert menu."
+    },
+    {
+      "pt": "Use B3 para avançar até A12 CONTADOR TOTAL e B2 para entrar na opção do alerta.",
+      "texto": "Use B3 to advance to A12 CONTADOR TOTAL and B2 to enter the alert option."
+    },
+    {
+      "pt": "Selecione DESABILITAR com B1 ou B3 e pressione B2 para desligar o alerta A12.",
+      "texto": "Select DESABILITAR with B1 or B3 and press B2 to switch alert A12 off."
+    },
+    {
+      "pt": "Verifique a confirmação: o alerta A12 foi desligado. Isso não reseta nem altera o contador total ou o parcial.",
+      "texto": "Check the confirmation: alert A12 was switched off. This neither resets nor changes the total or the partial counter."
+    },
+    {
+      "pt": "Confirme o alerta A13: o número de dias trabalhados programado para a manutenção foi atingido. O monitor acumula os dias desde que foi energizado na válvula.",
+      "texto": "Confirm alert A13: the number of worked days programmed for maintenance was reached. The monitor accumulates the days since it was powered up on the valve."
+    },
+    {
+      "pt": "Use B3 para avançar até A13 ALERTA DIAS e B2 para entrar na opção do alerta.",
+      "texto": "Use B3 to advance to A13 ALERTA DIAS and B2 to enter the alert option."
+    },
+    {
+      "pt": "Selecione LIMPAR com B1 ou B3 e pressione B2 para resetar a contagem de dias trabalhados.",
+      "texto": "Select LIMPAR with B1 or B3 and press B2 to reset the worked days count."
+    },
+    {
+      "pt": "Verifique a confirmação: a contagem de dias voltou a zero e uma nova contagem foi iniciada. Os contadores de ciclos parcial e total não são alterados.",
+      "texto": "Check the confirmation: the day count went back to zero and a new count has started. The partial and total cycle counters are not changed."
+    },
+    {
+      "pt": "Identifique A13 no menu de alertas. Esta ação apenas desliga o alerta, sem resetar a contagem de dias trabalhados.",
+      "texto": "Find A13 in the alert menu. This action only switches the alert off, without resetting the worked days count."
+    },
+    {
+      "pt": "Selecione DESABILITAR com B1 ou B3 e pressione B2 para desligar o alerta A13.",
+      "texto": "Select DESABILITAR with B1 or B3 and press B2 to switch alert A13 off."
+    },
+    {
+      "pt": "Verifique a confirmação: o alerta A13 foi desligado. A contagem de dias trabalhados continua registrada e não é apagada.",
+      "texto": "Check the confirmation: alert A13 was switched off. The worked days count stays recorded and is not erased."
+    },
+    {
+      "pt": "Alerta A14: a data ajustada foi atingida. Depende do relógio C13 ajustado.",
+      "texto": "Alert A14: the set date was reached. It depends on the C13 clock being set."
+    },
+    {
+      "pt": "Encoste o polo Sul do chaveiro em B2 por 6 segundos.",
+      "texto": "Hold the South pole of the key against B2 for 6 seconds."
+    },
+    {
+      "pt": "Avance com B3 até MENU ALERTA.",
+      "texto": "Advance with B3 to MENU ALERTA."
+    },
+    {
+      "pt": "Pressione B2 para entrar.",
+      "texto": "Press B2 to enter."
+    },
+    {
+      "pt": "Avance com B3 até A14 e pressione B2.",
+      "texto": "Advance with B3 to A14 and press B2."
+    },
+    {
+      "pt": "Selecione HABILITAR com B3 e pressione B2.",
+      "texto": "Select HABILITAR with B3 and press B2."
+    },
+    {
+      "pt": "Ajuste a data da manutenção. B1 diminui, B3 aumenta, B2 troca de dígito. Segure B2 por 3 segundos para confirmar.",
+      "texto": "Set the maintenance date. B1 decreases, B3 increases, B2 moves to the next digit. Hold B2 for 3 seconds to confirm."
+    },
+    {
+      "pt": "Data salva e alerta A14 encerrado. Sair com B1 antes de confirmar não salva nada.",
+      "texto": "Date saved and alert A14 closed. Exiting with B1 before confirming saves nothing."
+    },
+    {
+      "pt": "Alerta A14 ativo. Aqui você só desliga o alerta, sem definir nova data.",
+      "texto": "Alert A14 active. Here you only switch the alert off, without setting a new date."
+    },
+    {
+      "pt": "Selecione DESABILITAR com B3 e pressione B2.",
+      "texto": "Select DESABILITAR with B3 and press B2."
+    },
+    {
+      "pt": "Alerta A14 desligado. O relógio C13 não é alterado.",
+      "texto": "Alert A14 switched off. The C13 clock is not changed."
+    },
+    {
+      "pt": "Confirme o alerta A15: a válvula abriu por completo, mas gastou mais tempo do que o aprendido na calibração.",
+      "texto": "Confirm alert A15: the valve opened completely, but took longer than what was learned during the calibration."
+    },
+    {
+      "pt": "O alerta não tem tempo fixo: a referência é o tempo de curso que o monitor aprendeu no ciclo de auto calibração.",
+      "texto": "The alert has no fixed time: the reference is the stroke time the monitor learned during the auto calibration cycle."
+    },
+    {
+      "pt": "O disparo ocorre quando esse tempo aprendido é excedido em 20%, 30%, 40% ou 50%, conforme o percentual configurado.",
+      "texto": "It trips when that learned time is exceeded by 20%, 30%, 40% or 50%, according to the configured percentage."
+    },
+    {
+      "pt": "Se a calibração foi feita em outras condições, a referência está defasada e o alerta acusa atraso mesmo sem avaria.",
+      "texto": "If the calibration was done under other conditions, the reference is outdated and the alert reports a delay even without a fault."
+    },
+    {
+      "pt": "Comece pelo gerador de ar comprimido, fora do monitor: o ar entra pela conexão P, a entrada de ar 1, e vai ao atuador.",
+      "texto": "Start at the compressed air generator, outside the monitor: air enters through connection P, air inlet 1, and goes to the actuator."
+    },
+    {
+      "pt": "Cheque mangueiras e engates: dobra, vazamento ou engate estreito reduz a vazão e atrasa o curso. Despressurize antes.",
+      "texto": "Check hoses and fittings: a kink, a leak or a narrow fitting reduces the flow and delays the stroke. Depressurize first."
+    },
+    {
+      "pt": "Use ar comprimido limpo e isento de óleo. Os orifícios pneumáticos internos são pequenos e entopem, freando o curso.",
+      "texto": "Use clean, oil-free compressed air. The internal pneumatic orifices are small and clog, slowing the stroke."
+    },
+    {
+      "pt": "Regule o gerador para a mesma pressão usada na calibração: com a vazão de volta, o curso cabe no tempo aprendido.",
+      "texto": "Set the generator to the same pressure used during the calibration: with the flow restored, the stroke fits the learned time."
+    },
+    {
+      "pt": "Verifique a confirmação: com o fornecimento de ar restabelecido, o curso termina no prazo e o LED para de piscar.",
+      "texto": "Check the confirmation: with the air supply restored, the stroke finishes on time and the LED stops blinking."
+    },
+    {
+      "pt": "Com ar suficiente e a abertura ainda lenta, procure no conjunto o atrito que atrasa o curso. Desconecte o ar antes.",
+      "texto": "With enough air and the opening still slow, look in the assembly for the friction that is delaying the stroke. Disconnect the air first."
+    },
+    {
+      "pt": "Siga as mangueiras até as portas do atuador: engate solto ou mangueira dobrada rouba vazão e alonga o curso.",
+      "texto": "Follow the hoses to the actuator ports: a loose fitting or a kinked hose steals flow and stretches the stroke."
+    },
+    {
+      "pt": "Resolvida a avaria, refaça a auto calibração para o monitor reaprender o tempo de curso nas condições atuais.",
+      "texto": "Once the fault is fixed, run the auto calibration again so the monitor relearns the stroke time under the current conditions."
+    },
+    {
+      "pt": "C5 AUTO CAL define em quantos ciclos o monitor aprende posições, tempos e ângulos: 3, 5 ou 10 ciclos.",
+      "texto": "C5 AUTO CAL sets how many cycles the monitor uses to learn positions, times and angles: 3, 5 or 10 cycles."
+    },
+    {
+      "pt": "Verifique a confirmação: com o conjunto livre e o tempo reaprendido, o curso cabe na referência e o alerta cai.",
+      "texto": "Check the confirmation: with the assembly free and the time relearned, the stroke fits the reference and the alert clears."
+    },
+    {
+      "pt": "No A15 o alerta dispara quando o tempo de abertura passa em 20%, 30%, 40% ou 50% do tempo aprendido na calibração.",
+      "texto": "On A15 the alert trips when the opening time exceeds the time learned during the calibration by 20%, 30%, 40% or 50%."
+    },
+    {
+      "pt": "Encoste o polo Sul do chaveiro em B2 por mais de 6 segundos para entrar no menu.",
+      "texto": "Hold the South pole of the key against B2 for more than 6 seconds to enter the menu."
+    },
+    {
+      "pt": "Após o bargraph o display mostra MENU CONFIG. Use B3 para avançar até MENU ALERTA.",
+      "texto": "After the bargraph the display shows MENU CONFIG. Use B3 to advance to MENU ALERTA."
+    },
+    {
+      "pt": "Em MENU ALERTA, pressione B2 para entrar na lista de alertas configuráveis.",
+      "texto": "In MENU ALERTA, press B2 to enter the list of configurable alerts."
+    },
+    {
+      "pt": "Avance com B3 até o alerta de tempo indicado no display e pressione B2 para entrar.",
+      "texto": "Advance with B3 to the time alert shown on the display and press B2 to enter."
+    },
+    {
+      "pt": "Selecione DESABILITAR com B1 ou B3 e pressione B2 para desligar este alerta.",
+      "texto": "Select DESABILITAR with B1 or B3 and press B2 to switch this alert off."
+    },
+    {
+      "pt": "Verifique a confirmação: o alerta foi desligado. O monitor segue medindo o curso, mas não avisa mais o atraso.",
+      "texto": "Check the confirmation: the alert was switched off. The monitor keeps measuring the stroke, but no longer reports the delay."
+    },
+    {
+      "pt": "Confirme o alerta A16: a válvula fechou por completo, mas gastou mais tempo do que o aprendido na calibração.",
+      "texto": "Confirm alert A16: the valve closed completely, but took longer than what was learned during the calibration."
+    },
+    {
+      "pt": "Com ar suficiente e o fechamento ainda lento, procure no conjunto o atrito que atrasa o curso. Desconecte o ar antes.",
+      "texto": "With enough air and the closing still slow, look in the assembly for the friction that is delaying the stroke. Disconnect the air first."
+    },
+    {
+      "pt": "No A16 o alerta dispara quando o tempo de fechamento passa em 20%, 30%, 40% ou 50% do tempo aprendido na calibração.",
+      "texto": "On A16 the alert trips when the closing time exceeds the time learned during the calibration by 20%, 30%, 40% or 50%."
+    },
+    {
+      "pt": "Confirme o alerta A17: a pressão de entrada passou do limite alto ajustado sobre o valor de C17 PRESSÃO DA LINHA.",
+      "texto": "Confirm alert A17: the inlet pressure went past the high limit set over the value of C17 PRESSÃO DA LINHA."
+    },
+    {
+      "pt": "O percentual do alerta é medido sobre a pressão definida em C17 PRESSÃO DA LINHA, e não sobre um valor fixo.",
+      "texto": "The alert percentage is measured over the pressure set in C17 PRESSÃO DA LINHA, not over a fixed value."
+    },
+    {
+      "pt": "C17 vai de 3 a 8 bar (45 a 120 psi) e sai de fábrica em 6 bar (87 psi). O padrão do alerta é 20% desse valor.",
+      "texto": "C17 ranges from 3 to 8 bar (45 to 120 psi) and ships from the factory at 6 bar (87 psi). The alert default is 20% of that value."
+    },
+    {
+      "pt": "Com C17 em 6 bar e o padrão de 20%, a faixa vigiada vai de 4,8 a 7,2 bar (70 a 104 psi).",
+      "texto": "With C17 at 6 bar and the 20% default, the monitored range runs from 4.8 to 7.2 bar (70 to 104 psi)."
+    },
+    {
+      "pt": "A verificação principal é fora do monitor: vá ao gerador de ar comprimido que alimenta a entrada de ar 1.",
+      "texto": "The main check is outside the monitor: go to the compressed air generator that feeds air inlet 1."
+    },
+    {
+      "pt": "Desligue a pressão da linha antes de mexer nas mangueiras. Vazamento, estrangulamento ou engate solto mudam a pressão.",
+      "texto": "Switch off the line pressure before working on the hoses. A leak, a restriction or a loose fitting changes the pressure."
+    },
+    {
+      "pt": "Limite absoluto: passar de 10 bar (150 psi) danifica o monitor permanentemente. O A9 vigia a linha em 9 bar.",
+      "texto": "Absolute limit: going past 10 bar (150 psi) damages the monitor permanently. A9 watches the line at 9 bar."
+    },
+    {
+      "pt": "Regule o gerador para a mesma pressão ajustada em C17, sempre dentro de 3 a 8 bar (45 a 120 psi).",
+      "texto": "Set the generator to the same pressure configured in C17, always within 3 to 8 bar (45 to 120 psi)."
+    },
+    {
+      "pt": "Encoste o polo Sul do chaveiro em B2 por mais de 6 segundos para conferir a referência do monitor.",
+      "texto": "Hold the South pole of the key against B2 for more than 6 seconds to check the monitor's reference."
+    },
+    {
+      "pt": "Deixe C17 igual à pressão real do gerador: B1 diminui e B3 aumenta. Mantenha B2 pressionado para gravar o valor.",
+      "texto": "Leave C17 equal to the generator's actual pressure: B1 decreases and B3 increases. Hold B2 pressed to store the value."
+    },
+    {
+      "pt": "Segure B1 por 3 segundos para sair do menu.",
+      "texto": "Hold B1 for 3 seconds to exit the menu."
+    },
+    {
+      "pt": "Verifique a confirmação: com a pressão de entrada de volta à faixa de C17, o alerta cai e o LED para de piscar.",
+      "texto": "Check the confirmation: with the inlet pressure back within the C17 range, the alert clears and the LED stops blinking."
+    },
+    {
+      "pt": "No A17 o alerta dispara com a pressão de entrada 20%, 30%, 40% ou 50% acima da pressão definida em C17.",
+      "texto": "On A17 the alert trips with the inlet pressure 20%, 30%, 40% or 50% above the pressure set in C17."
+    },
+    {
+      "pt": "Avance com B3 até o alerta de pressão indicado no display e pressione B2 para entrar.",
+      "texto": "Advance with B3 to the pressure alert shown on the display and press B2 to enter."
+    },
+    {
+      "pt": "Verifique a confirmação: o alerta foi desligado. Isso não muda a pressão de C17 nem o A9, que é sempre ligado.",
+      "texto": "Check the confirmation: the alert was switched off. This changes neither the C17 pressure nor A9, which is always on."
+    },
+    {
+      "pt": "Confirme o alerta A18: a pressão de entrada caiu abaixo do limite ajustado sobre o valor de C17 PRESSÃO DA LINHA.",
+      "texto": "Confirm alert A18: the inlet pressure fell below the limit set over the value of C17 PRESSÃO DA LINHA."
+    },
+    {
+      "pt": "No A18 o alerta dispara com a pressão de entrada 20%, 30%, 40% ou 50% abaixo da pressão definida em C17.",
+      "texto": "On A18 the alert trips with the inlet pressure 20%, 30%, 40% or 50% below the pressure set in C17."
+    },
+    {
+      "pt": "Confirme o alerta A19: tensão acima de 32Vcc em AS-Interface, ou 10% acima em PNP e DeviceNet.",
+      "texto": "Confirm alert A19: voltage above 32Vdc on AS-Interface, or 10% above on PNP and DeviceNet."
+    },
+    {
+      "pt": "A faixa aceita depende da versão do módulo: AS-Interface, DeviceNet ou PNP com IO-Link.",
+      "texto": "The accepted range depends on the module version: AS-Interface, DeviceNet or PNP with IO-Link."
+    },
+    {
+      "pt": "Avance com B3 até MENU DEVICE.",
+      "texto": "Advance with B3 to MENU DEVICE."
+    },
+    {
+      "pt": "Pressione B2 para entrar. Este menu só mostra informações, não altera nenhum parâmetro.",
+      "texto": "Press B2 to enter. This menu only shows information, it does not change any parameter."
+    },
+    {
+      "pt": "Selecione d1 PART NUMBER com B3 e pressione B2.",
+      "texto": "Select d1 PART NUMBER with B3 and press B2."
+    },
+    {
+      "pt": "O part number no display diz qual módulo você tem e, com ele, qual faixa de tensão vale aqui.",
+      "texto": "The part number on the display tells you which module you have and, with it, which voltage range applies here."
+    },
+    {
+      "pt": "PERIGO: desligue a fonte e impeça o religamento antes de abrir o compartimento elétrico.",
+      "texto": "DANGER: switch off the power supply and prevent it from being switched back on before opening the electrical compartment."
+    },
+    {
+      "pt": "Mesmo desligada a fonte, os circuitos guardam energia residual. Aguarde antes de manusear os fios.",
+      "texto": "Even with the supply switched off, the circuits hold residual energy. Wait before handling the wires."
+    },
+    {
+      "pt": "A alimentação entra pelo prensa cabos ou pelo conector M12 e termina no terminal aparafusável interno.",
+      "texto": "Power comes in through the cable gland or the M12 connector and ends at the internal screw terminal."
+    },
+    {
+      "pt": "Confira V+ e V- no borne: terminal frouxo, cabo esmagado ou umidade alteram a tensão que chega ao módulo.",
+      "texto": "Check V+ and V- on the terminal block: a loose terminal, a crushed cable or moisture change the voltage reaching the module."
+    },
+    {
+      "pt": "A conferência principal é fora do monitor: vá ao painel de controle e inspecione a fonte que o alimenta.",
+      "texto": "The main check is outside the monitor: go to the control panel and inspect the power supply that feeds it."
+    },
+    {
+      "pt": "Fonte mal dimensionada, ou dividida com outros equipamentos, tira a tensão da faixa aceita pelo módulo.",
+      "texto": "A poorly sized supply, or one shared with other equipment, takes the voltage out of the range the module accepts."
+    },
+    {
+      "pt": "Desabilitar os alertas de A19 a A25 apaga só a notificação no aplicativo. O monitor segue indicando.",
+      "texto": "Disabling alerts A19 to A25 only clears the notification in the app. The monitor keeps indicating them."
+    },
+    {
+      "pt": "Verifique a confirmação: com a tensão dentro da faixa do módulo, o alerta cai e o LED para de piscar.",
+      "texto": "Check the confirmation: with the voltage within the module's range, the alert clears and the LED stops blinking."
+    },
+    {
+      "pt": "Confirme o alerta A20: tensão abaixo de 27V em AS-Interface, ou de 22,8V em DeviceNet e PNP.",
+      "texto": "Confirm alert A20: voltage below 27V on AS-Interface, or below 22.8V on DeviceNet and PNP."
+    },
+    {
+      "pt": "Alerta A21: temperatura do monitor acima de 70°.",
+      "texto": "Alert A21: monitor temperature above 70°."
+    },
+    {
+      "pt": "Avance com B3 até C3 e pressione B2.",
+      "texto": "Advance with B3 to C3 and press B2."
+    },
+    {
+      "pt": "Selecione TEMPERATURA com B3 e pressione B2.",
+      "texto": "Select TEMPERATURA with B3 and press B2."
+    },
+    {
+      "pt": "O display mostra a temperatura interna. Verifique a temperatura do processo em campo.",
+      "texto": "The display shows the internal temperature. Check the process temperature in the field."
+    },
+    {
+      "pt": "Alerta A22: temperatura do monitor abaixo de -20°C.",
+      "texto": "Alert A22: monitor temperature below -20°C."
+    },
+    {
+      "pt": "Confirme o alerta A23: a bobina da solenoide está em curto circuito. Há caminho fechado onde não deveria haver.",
+      "texto": "Confirm alert A23: the solenoid coil is short circuited. There is a closed path where there should be none."
+    },
+    {
+      "pt": "Curto é o oposto de circuito aberto: aqui sobra corrente. Se faltasse continuidade, o alerta seria o A24.",
+      "texto": "A short is the opposite of an open circuit: here there is excess current. If continuity were missing, the alert would be A24."
+    },
+    {
+      "pt": "PERIGO: desligue a fonte e impeça o religamento antes de tocar na fiação, sob risco de choque e curto circuito.",
+      "texto": "DANGER: switch off the power supply and prevent it from being switched back on before touching the wiring, at risk of shock and short circuit."
+    },
+    {
+      "pt": "Procure sinais de curto nos fios da solenoide: isolamento derretido, marcas de queima e cobre à mostra.",
+      "texto": "Look for signs of a short on the solenoid wires: melted insulation, burn marks and exposed copper."
+    },
+    {
+      "pt": "No borne, um fio solto ou um fiapo de cobre atravessando dois terminais fecha o curto. Reaperte com chave de bornes.",
+      "texto": "On the terminal block, a loose wire or a copper strand bridging two terminals closes the short. Retighten it with a terminal screwdriver."
+    },
+    {
+      "pt": "Se o isolamento da bobina está queimado, troque a bobina: afrouxe os quatro parafusos e puxe a válvula do corpo.",
+      "texto": "If the coil insulation is burnt, replace the coil: loosen the four screws and pull the valve out of the body."
+    },
+    {
+      "pt": "Desabilitar o A23 no menu apaga só a notificação no aplicativo. A indicação física no monitor continua ativa.",
+      "texto": "Disabling A23 in the menu only clears the notification in the app. The physical indication on the monitor stays active."
+    },
+    {
+      "pt": "Verifique a confirmação: sem caminho fechado na bobina, o A23 é eliminado e o LED vermelho para de piscar.",
+      "texto": "Check the confirmation: with no closed path in the coil, A23 is cleared and the red LED stops blinking."
+    },
+    {
+      "pt": "Confirme o alerta A24: a bobina da solenoide ou o cabo dela está rompido. O circuito ficou aberto.",
+      "texto": "Confirm alert A24: the solenoid coil or its cable is broken. The circuit is open."
+    },
+    {
+      "pt": "Aberto é o oposto de curto: aqui falta continuidade. Se os fios estivessem fechados entre si, o alerta seria o A23.",
+      "texto": "Open is the opposite of a short: here continuity is missing. If the wires were closed onto each other, the alert would be A23."
+    },
+    {
+      "pt": "Siga o cabo da solenoide de ponta a ponta: procure rompimento, esmagamento e dobra na saída do prensa cabos.",
+      "texto": "Follow the solenoid cable end to end: look for breaks, crushing and kinks at the cable gland outlet."
+    },
+    {
+      "pt": "Confira a continuidade entre os dois fios da bobina. Sem continuidade, a bobina ou o cabo está partido.",
+      "texto": "Check the continuity between the two coil wires. With no continuity, the coil or the cable is broken."
+    },
+    {
+      "pt": "No borne, um fio que saiu do terminal aparafusável abre o circuito. Reaperte com uma chave de bornes adequada.",
+      "texto": "On the terminal block, a wire that came out of the screw terminal opens the circuit. Retighten it with a suitable terminal screwdriver."
+    },
+    {
+      "pt": "Cabo íntegro e bobina sem continuidade: troque a bobina, afrouxando os dois parafusos que a prendem.",
+      "texto": "Cable intact and coil without continuity: replace the coil by loosening the two screws that hold it."
+    },
+    {
+      "pt": "Antes de fechar, confira o anel de vedação da nova bobina; sem ele a válvula passa a vazar ar.",
+      "texto": "Before closing up, check the sealing ring of the new coil; without it the valve starts leaking air."
+    },
+    {
+      "pt": "Desabilitar o A24 no menu apaga só a notificação no aplicativo. A indicação física no monitor continua ativa.",
+      "texto": "Disabling A24 in the menu only clears the notification in the app. The physical indication on the monitor stays active."
+    },
+    {
+      "pt": "Verifique a confirmação: com a continuidade restabelecida, o A24 é eliminado e o LED vermelho para de piscar.",
+      "texto": "Check the confirmation: with continuity restored, A24 is cleared and the red LED stops blinking."
+    },
+    {
+      "pt": "Confirme o alerta A25: uma das saídas PNP, ou a carga ligada a ela, está em curto.",
+      "texto": "Confirm alert A25: one of the PNP outputs, or the load connected to it, is short circuited."
+    },
+    {
+      "pt": "Este alerta existe apenas no modelo IO-Link. Os demais módulos não têm saída PNP para monitorar.",
+      "texto": "This alert only exists on the IO-Link model. The other modules have no PNP output to monitor."
+    },
+    {
+      "pt": "A saída 1 indica a válvula aberta e a saída 2 indica a válvula fechada, ambas para o cartão de entrada do CLP.",
+      "texto": "Output 1 indicates the valve open and output 2 indicates the valve closed, both to the PLC input card."
+    },
+    {
+      "pt": "PERIGO: desligue a fonte e impeça o religamento antes de mexer nos fios das saídas, sob risco de choque.",
+      "texto": "DANGER: switch off the power supply and prevent it from being switched back on before working on the output wires, at risk of shock."
+    },
+    {
+      "pt": "Cada saída PNP chaveia no máximo 50 mA. Carga acima disso, ou em curto, derruba a saída e dispara o alerta.",
+      "texto": "Each PNP output switches 50 mA at most. A load above that, or short circuited, brings the output down and trips the alert."
+    },
+    {
+      "pt": "No painel de controle, confira a carga de cada saída: relé, sinaleiro ou entrada do CLP em curto.",
+      "texto": "At the control panel, check the load on each output: a relay, a pilot light or a PLC input that is short circuited."
+    },
+    {
+      "pt": "As saídas PNP enviam sinal positivo e devem ir a cartão de entrada SINK, que tem o negativo como comum.",
+      "texto": "The PNP outputs send a positive signal and must go to a SINK input card, which has the negative as common."
+    },
+    {
+      "pt": "Revise o conector M12 e o terminal aparafusável interno: pino torto, fiapo de cobre ou umidade fecham o curto.",
+      "texto": "Inspect the M12 connector and the internal screw terminal: a bent pin, a copper strand or moisture closes the short."
+    },
+    {
+      "pt": "Desabilitar o A25 no menu apaga só a notificação no aplicativo. A indicação física no monitor continua ativa.",
+      "texto": "Disabling A25 in the menu only clears the notification in the app. The physical indication on the monitor stays active."
+    },
+    {
+      "pt": "Verifique a confirmação: com as saídas e suas cargas livres de curto, o A25 é eliminado e o LED para de piscar.",
+      "texto": "Check the confirmation: with the outputs and their loads free of shorts, A25 is cleared and the LED stops blinking."
+    }
+  ]
+}

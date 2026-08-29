@@ -1,0 +1,924 @@
+{
+  "entradas": [
+    {
+      "pt": "Confirme o alerta A1: a válvula se moveu, mas o ângulo entre o ponto de abertura e o de fechamento ficou abaixo de 30°.",
+      "texto": "Confirmez l'alerte A1 : la vanne a bougé, mais l'angle entre le point d'ouverture et celui de fermeture est resté sous 30°."
+    },
+    {
+      "pt": "Verifique no gerador de ar comprimido, fora do monitor: o ar entra pela conexão P, a entrada de ar 1, e vai ao atuador.",
+      "texto": "Vérifiez au générateur d'air comprimé, hors du moniteur : l'air entre par le raccord P, l'entrée d'air 1, et va à l'actionneur."
+    },
+    {
+      "pt": "Confira a pressão da linha: o monitor opera entre 3 e 8 bar (45 a 120 psi) e sai de fábrica em 6 bar (87 psi).",
+      "texto": "Vérifiez la pression de la ligne : le moniteur fonctionne entre 3 et 8 bar (45 à 120 psi) et sort d'usine à 6 bar (87 psi)."
+    },
+    {
+      "pt": "Respeite o limite: acima de 10 bar (150 psi) o monitor é danificado permanentemente, mesmo em falha do fornecimento.",
+      "texto": "Respectez la limite : au-dessus de 10 bar (150 psi) le moniteur est endommagé de façon permanente, même en cas de défaut d'alimentation."
+    },
+    {
+      "pt": "Cheque mangueiras e engates: vazamento derruba a pressão e a válvula para antes do fim do curso. Despressurize antes.",
+      "texto": "Contrôlez tuyaux et raccords : une fuite fait chuter la pression et la vanne s'arrête avant la fin de course. Dépressurisez avant."
+    },
+    {
+      "pt": "Use ar comprimido limpo e isento de óleo. Os orifícios pneumáticos internos são pequenos e entopem, encurtando o curso.",
+      "texto": "Utilisez de l'air comprimé propre et exempt d'huile. Les orifices pneumatiques internes sont petits et se bouchent, raccourcissant la course."
+    },
+    {
+      "pt": "Se a pressão está no especificado e o curso segue curto, o problema não está na linha. Inspecione o conjunto.",
+      "texto": "Si la pression est conforme et que la course reste courte, le problème n'est pas dans la ligne. Inspectez l'ensemble."
+    },
+    {
+      "pt": "Com ar suficiente e curso curto, procure obstrução no conjunto. Desconecte o monitor do ar antes de tocar nele.",
+      "texto": "Avec assez d'air et une course courte, cherchez une obstruction dans l'ensemble. Débranchez le moniteur de l'air avant d'y toucher."
+    },
+    {
+      "pt": "Inspecione o acoplamento NAMUR: o adaptador de eixo deve encaixar perfeitamente no eixo, de 11 mm a 38 mm de diâmetro.",
+      "texto": "Inspectez l'accouplement NAMUR : l'adaptateur d'axe doit s'emboîter parfaitement sur l'axe, de 11 mm à 38 mm de diamètre."
+    },
+    {
+      "pt": "Procure desgaste nas partes móveis: diafragma, gaxetas e assentos. É o que o contador parcial acompanha.",
+      "texto": "Cherchez l'usure sur les pièces mobiles : membrane, joints et sièges. C'est ce que le compteur partiel suit."
+    },
+    {
+      "pt": "Em atuador simples ação, confira o tamponamento: NA tampona a saída de ar 4, NF a saída de ar 2. Use tampões metálicos.",
+      "texto": "Sur un actionneur simple effet, vérifiez l'obturation : NO obture la sortie d'air 4, NF la sortie d'air 2. Utilisez des bouchons métalliques."
+    },
+    {
+      "pt": "Confira o padrão dos orifícios pneumáticos, NPT ou BSP: conexão incompatível danifica a rosca e restringe a passagem.",
+      "texto": "Vérifiez le standard des orifices pneumatiques, NPT ou BSP : un raccord incompatible abîme le filetage et restreint le passage."
+    },
+    {
+      "pt": "Resolvida a avaria, refaça a auto calibração para o monitor reaprender os pontos de abertura e de fechamento.",
+      "texto": "Une fois la panne résolue, refaites l'auto calibrage pour que le moniteur réapprenne les points d'ouverture et de fermeture."
+    },
+    {
+      "pt": "Verifique a confirmação: com o curso completo reaprendido, o ângulo supera 30° e o alerta A1 é eliminado.",
+      "texto": "Vérifiez la confirmation : avec la course complète réapprise, l'angle dépasse 30° et l'alerte A1 est supprimée."
+    },
+    {
+      "pt": "Confirme o alerta A2: a auto calibração levou mais tempo que o máximo configurado em C6 TEMPO MAX CAL.",
+      "texto": "Confirmez l'alerte A2 : l'auto calibrage a duré plus longtemps que le maximum réglé dans C6 TEMPO MAX CAL."
+    },
+    {
+      "pt": "Aproxime o polo Sul do chaveiro magnético do botão B2 por mais de 6 segundos para entrar no menu.",
+      "texto": "Approchez le pôle Sud de la clé magnétique du bouton B2 pendant plus de 6 secondes pour entrer dans le menu."
+    },
+    {
+      "pt": "Após o bargraph, o display mostra MENU CONFIG. Pressione B2 para acessar as configurações.",
+      "texto": "Après le bargraphe, l'écran affiche MENU CONFIG. Appuyez sur B2 pour accéder aux réglages."
+    },
+    {
+      "pt": "Use B3 para avançar até C6 TEMPO MAX CAL. B1 volta à opção anterior e B2 entra na opção.",
+      "texto": "Utilisez B3 pour avancer jusqu'à C6 TEMPO MAX CAL. B1 revient à l'option précédente et B2 entre dans l'option."
+    },
+    {
+      "pt": "Ajuste o valor entre 10 e 120 segundos: B1 diminui, B3 aumenta. Mantenha B2 por mais de 3 segundos para confirmar.",
+      "texto": "Réglez la valeur entre 10 et 120 secondes : B1 diminue, B3 augmente. Maintenez B2 plus de 3 secondes pour confirmer."
+    },
+    {
+      "pt": "Verifique a confirmação: o novo tempo máximo de calibração foi salvo e o alerta A2 foi eliminado.",
+      "texto": "Vérifiez la confirmation : le nouveau temps maximal de calibrage a été enregistré et l'alerte A2 a été supprimée."
+    },
+    {
+      "pt": "Em uma opção principal, mantenha B1 por mais de 3 segundos para sair. O display mostra SAIR e retorna ao modo RUN.",
+      "texto": "Sur une option principale, maintenez B1 plus de 3 secondes pour sortir. L'écran affiche SAIR et revient au mode RUN."
+    },
+    {
+      "pt": "Com o curso completo mas lento, procure a avaria que freia o conjunto. Desconecte o monitor do ar antes de tocar nele.",
+      "texto": "Avec une course complète mais lente, cherchez la panne qui freine l'ensemble. Débranchez le moniteur de l'air avant d'y toucher."
+    },
+    {
+      "pt": "Cheque mangueiras e engates: dobra ou engate estreito restringe a passagem de ar e a válvula demora a completar o curso.",
+      "texto": "Contrôlez tuyaux et raccords : un pli ou un raccord étroit restreint le passage d'air et la vanne met plus de temps à finir sa course."
+    },
+    {
+      "pt": "Confira a pressão disponível na entrada de ar: entre 3 e 8 bar. Pressão baixa move a válvula, porém devagar demais.",
+      "texto": "Vérifiez la pression disponible à l'entrée d'air : entre 3 et 8 bar. Une pression basse déplace la vanne, mais bien trop lentement."
+    },
+    {
+      "pt": "Procure atrito e emperramento parcial: diafragma, gaxetas e assentos. É o que o contador parcial acompanha.",
+      "texto": "Cherchez frottement et grippage partiel : membrane, joints et sièges. C'est ce que le compteur partiel suit."
+    },
+    {
+      "pt": "Confira se o atuador não está subdimensionado para a pressão disponível: ele completa o curso, mas sempre com lentidão.",
+      "texto": "Vérifiez que l'actionneur n'est pas sous-dimensionné pour la pression disponible : il finit la course, mais toujours avec lenteur."
+    },
+    {
+      "pt": "Refaça a auto calibração: aproxime o polo Norte do chaveiro do botão B3 por 6 segundos. O display mostra FAST SETUP.",
+      "texto": "Refaites l'auto calibrage : approchez le pôle Nord de la clé du bouton B3 pendant 6 secondes. L'écran affiche FAST SETUP."
+    },
+    {
+      "pt": "O monitor avisa que a válvula vai se mover e mostra CERTO. Aproxime o polo Sul do chaveiro do botão B2 para iniciar.",
+      "texto": "Le moniteur prévient que la vanne va bouger et affiche CERTO. Approchez le pôle Sud de la clé du bouton B2 pour démarrer."
+    },
+    {
+      "pt": "Verifique a confirmação: com o conjunto livre, a calibração termina dentro de C6 e o alerta A2 é eliminado.",
+      "texto": "Vérifiez la confirmation : avec l'ensemble libre, le calibrage se termine dans le temps de C6 et l'alerte A2 est supprimée."
+    },
+    {
+      "pt": "Confirme o alerta A3: na auto calibração o monitor gravou pontos de aberto e fechado diferentes entre si.",
+      "texto": "Confirmez l'alerte A3 : lors de l'auto calibrage le moniteur a enregistré des points d'ouvert et de fermé différents entre eux."
+    },
+    {
+      "pt": "Cheque mangueiras e engates da entrada de ar: vazamento derruba a pressão. Despressurize a linha antes de mexer.",
+      "texto": "Contrôlez tuyaux et raccords de l'entrée d'air : une fuite fait chuter la pression. Dépressurisez la ligne avant d'intervenir."
+    },
+    {
+      "pt": "Use ar comprimido limpo e isento de óleo. Os orifícios pneumáticos internos são pequenos e entopem, travando o monitor.",
+      "texto": "Utilisez de l'air comprimé propre et exempt d'huile. Les orifices pneumatiques internes sont petits et se bouchent, bloquant le moniteur."
+    },
+    {
+      "pt": "Se o fornecimento de ar está no especificado, o problema não está na linha. Inspecione o conjunto válvula / atuador.",
+      "texto": "Si l'alimentation en air est conforme, le problème n'est pas dans la ligne. Inspectez l'ensemble vanne / actionneur."
+    },
+    {
+      "pt": "Antes de tocar no conjunto, desconecte o monitor do ar comprimido. Faça toda manutenção com a linha despressurizada.",
+      "texto": "Avant de toucher l'ensemble, débranchez le moniteur de l'air comprimé. Faites toute maintenance avec la ligne dépressurisée."
+    },
+    {
+      "pt": "Para interromper a calibração, aproxime o polo Norte do chaveiro do botão B1 por 3 segundos. O display mostra ABORT.",
+      "texto": "Pour interrompre le calibrage, approchez le pôle Nord de la clé du bouton B1 pendant 3 secondes. L'écran affiche ABORT."
+    },
+    {
+      "pt": "Verifique a confirmação: com os pontos iguais em todos os ciclos, a calibração conclui e o alerta A3 é eliminado.",
+      "texto": "Vérifiez la confirmation : avec des points identiques sur tous les cycles, le calibrage aboutit et l'alerte A3 est supprimée."
+    },
+    {
+      "pt": "Confirme o alerta A4: a pressão de alimentação subiu acima da usada na calibração e a válvula avança 5° além do ponto.",
+      "texto": "Confirmez l'alerte A4 : la pression d'alimentation est montée au-dessus de celle du calibrage et la vanne dépasse le point de 5°."
+    },
+    {
+      "pt": "Meça a pressão na entrada de ar: o monitor opera entre 3 e 8 bar (45 a 120 psi) e sai de fábrica em 6 bar (87 psi).",
+      "texto": "Mesurez la pression à l'entrée d'air : le moniteur fonctionne entre 3 et 8 bar (45 à 120 psi) et sort d'usine à 6 bar (87 psi)."
+    },
+    {
+      "pt": "Primeira saída: regule o gerador de volta à pressão da calibração e o A4 é eliminado sem mexer no monitor.",
+      "texto": "Première solution : réglez le générateur à nouveau sur la pression du calibrage et A4 est supprimée sans toucher au moniteur."
+    },
+    {
+      "pt": "Segunda saída, se a pressão nova veio para ficar: aproxime o polo Sul do chaveiro do botão B2 por mais de 6 segundos.",
+      "texto": "Deuxième solution, si la nouvelle pression est définitive : approchez le pôle Sud de la clé du bouton B2 pendant plus de 6 secondes."
+    },
+    {
+      "pt": "Após o bargraph o display mostra MENU CONFIG. Pressione B2 para acessar as configurações.",
+      "texto": "Après le bargraphe l'écran affiche MENU CONFIG. Appuyez sur B2 pour accéder aux réglages."
+    },
+    {
+      "pt": "Use B3 para avançar até C17 PRESSÃO DA LINHA. B1 volta à opção anterior e B2 entra na opção.",
+      "texto": "Utilisez B3 pour avancer jusqu'à C17 PRESSÃO DA LINHA. B1 revient à l'option précédente et B2 entre dans l'option."
+    },
+    {
+      "pt": "Informe a pressão que a linha passou a ter: B1 diminui e B3 aumenta, entre 3 e 8 bar. Mantenha B2 por 3 segundos.",
+      "texto": "Indiquez la pression que la ligne a désormais : B1 diminue et B3 augmente, entre 3 et 8 bar. Maintenez B2 pendant 3 secondes."
+    },
+    {
+      "pt": "Verifique a confirmação: com os pontos reaprendidos na pressão atual, a válvula fica na faixa e o A4 é eliminado.",
+      "texto": "Vérifiez la confirmation : avec les points réappris à la pression actuelle, la vanne reste dans la plage et A4 est supprimée."
+    },
+    {
+      "pt": "Confirme o alerta A5: na calibração o monitor não registrou movimento nenhum. É ausência de movimento, não curso curto.",
+      "texto": "Confirmez l'alerte A5 : lors du calibrage le moniteur n'a enregistré aucun mouvement. C'est une absence de mouvement, pas une course courte."
+    },
+    {
+      "pt": "Verifique no gerador de ar comprimido, fora do monitor. O ar entra pela conexão P e sai pela saída 4 e pela saída 2.",
+      "texto": "Vérifiez au générateur d'air comprimé, hors du moniteur. L'air entre par le raccord P et sort par la sortie 4 et par la sortie 2."
+    },
+    {
+      "pt": "Confira a pressão na entrada de ar: o monitor opera entre 3 e 8 bar (45 a 120 psi) e sai de fábrica em 6 bar (87 psi).",
+      "texto": "Vérifiez la pression à l'entrée d'air : le moniteur fonctionne entre 3 et 8 bar (45 à 120 psi) et sort d'usine à 6 bar (87 psi)."
+    },
+    {
+      "pt": "Siga as mangueiras até as portas do atuador: desconectada, invertida ou dobrada, ela bloqueia o ar. Despressurize antes.",
+      "texto": "Suivez les tuyaux jusqu'aux orifices de l'actionneur : débranché, inversé ou plié, un tuyau bloque l'air. Dépressurisez avant."
+    },
+    {
+      "pt": "Use ar comprimido limpo e isento de óleo. Os orifícios pneumáticos internos são pequenos e podem entupir o monitor.",
+      "texto": "Utilisez de l'air comprimé propre et exempt d'huile. Les orifices pneumatiques internes sont petits et peuvent boucher le moniteur."
+    },
+    {
+      "pt": "Se a pressão chega às portas do atuador e a válvula não se move, o problema não está na linha. Inspecione o conjunto.",
+      "texto": "Si la pression atteint les orifices de l'actionneur et que la vanne ne bouge pas, le problème n'est pas dans la ligne. Inspectez l'ensemble."
+    },
+    {
+      "pt": "Com ar disponível e a válvula parada, procure travamento ou acoplamento solto. Desconecte o ar antes de tocar nela.",
+      "texto": "Avec de l'air disponible et la vanne arrêtée, cherchez un blocage ou un accouplement desserré. Débranchez l'air avant d'y toucher."
+    },
+    {
+      "pt": "Procure emperramento nas partes móveis: diafragma, gaxetas e assentos. É o que o contador parcial acompanha.",
+      "texto": "Cherchez le grippage sur les pièces mobiles : membrane, joints et sièges. C'est ce que le compteur partiel suit."
+    },
+    {
+      "pt": "Verifique a confirmação: com a válvula percorrendo o curso completo, a calibração conclui e o alerta A5 é eliminado.",
+      "texto": "Vérifiez la confirmation : avec la vanne parcourant la course complète, le calibrage aboutit et l'alerte A5 est supprimée."
+    },
+    {
+      "pt": "Confirme o alerta A6: a válvula não executa o comando enviado à solenoide. O monitor manda o sinal e nada acontece.",
+      "texto": "Confirmez l'alerte A6 : la vanne n'exécute pas la commande envoyée à l'électrovanne. Le moniteur envoie le signal et rien ne se passe."
+    },
+    {
+      "pt": "Falha de comando é a válvula não responder ao sinal do monitor. A causa pode ser elétrica ou pneumática.",
+      "texto": "Un défaut de commande, c'est la vanne qui ne répond pas au signal du moniteur. La cause peut être électrique ou pneumatique."
+    },
+    {
+      "pt": "PERIGO: desligue a fonte de energia e impeça o religamento antes de abrir qualquer compartimento do monitor.",
+      "texto": "DANGER : coupez la source d'alimentation et empêchez la remise sous tension avant d'ouvrir tout compartiment du moniteur."
+    },
+    {
+      "pt": "Mesmo desligado, os circuitos guardam energia residual. Aguarde antes de encostar em fios ou terminais.",
+      "texto": "Même hors tension, les circuits gardent une énergie résiduelle. Attendez avant de toucher des fils ou des bornes."
+    },
+    {
+      "pt": "Desconecte o monitor do ar comprimido antes de qualquer manutenção na válvula.",
+      "texto": "Débranchez le moniteur de l'air comprimé avant toute maintenance sur la vanne."
+    },
+    {
+      "pt": "Para chegar à bobina, afrouxe os quatro parafusos que prendem a válvula ao corpo e puxe a válvula para fora.",
+      "texto": "Pour atteindre la bobine, desserrez les quatre vis qui fixent la vanne au corps et tirez la vanne vers l'extérieur."
+    },
+    {
+      "pt": "Desconecte os fios da solenoide, afrouxe os dois parafusos de fixação da bobina e remova a bobina do compartimento.",
+      "texto": "Débranchez les fils de l'électrovanne, desserrez les deux vis de fixation de la bobine et retirez la bobine du compartiment."
+    },
+    {
+      "pt": "Na bobina de troca, confira o anel de vedação em seu lugar: sem ele a válvula vaza ao ser fechada.",
+      "texto": "Sur la bobine de rechange, vérifiez que la bague d'étanchéité est en place : sans elle la vanne fuit à la fermeture."
+    },
+    {
+      "pt": "Recoloque a bobina, aperte os parafusos, refaça os fios e encaixe a válvula no invólucro com os quatro parafusos.",
+      "texto": "Remettez la bobine, serrez les vis, refaites le câblage et emboîtez la vanne dans le boîtier avec les quatre vis."
+    },
+    {
+      "pt": "Com a bobina íntegra e a válvula ainda sem responder, o defeito está no sinal elétrico que a comanda.",
+      "texto": "Avec la bobine intacte et la vanne toujours sans réponse, le défaut est dans le signal électrique qui la commande."
+    },
+    {
+      "pt": "Com a bobina íntegra, o A6 aponta falta de sinal elétrico: o comando não chega até a solenoide.",
+      "texto": "Avec la bobine intacte, A6 indique une absence de signal électrique : la commande n'arrive pas jusqu'à l'électrovanne."
+    },
+    {
+      "pt": "O comando vem da saída do controlador lógico e entra no monitor pelo terminal aparafusável interno.",
+      "texto": "La commande vient de la sortie de l'automate et entre dans le moniteur par le bornier à vis interne."
+    },
+    {
+      "pt": "PERIGO: desligue a fonte e impeça o religamento antes de mexer na fiação, sob risco de choque e curto circuito.",
+      "texto": "DANGER : coupez l'alimentation et empêchez la remise sous tension avant d'intervenir sur le câblage, sous risque de choc et de court-circuit."
+    },
+    {
+      "pt": "Na versão Reed, o comando da solenoide chega pelos terminais S1+ e S1- do borne interno, junto do GND.",
+      "texto": "Sur la version Reed, la commande de l'électrovanne arrive par les bornes S1+ et S1- du bornier interne, à côté du GND."
+    },
+    {
+      "pt": "Na versão IO-Link, a solenoide é alimentada por V+ e V- do mesmo borne. Confira também o conector M12.",
+      "texto": "Sur la version IO-Link, l'électrovanne est alimentée par V+ et V- du même bornier. Vérifiez aussi le connecteur M12."
+    },
+    {
+      "pt": "Reaperte os fios do borne com uma chave de bornes adequada e confira as cores contra o diagrama do seu modelo.",
+      "texto": "Resserrez les fils du bornier avec un tournevis de bornier adapté et comparez les couleurs au schéma de votre modèle."
+    },
+    {
+      "pt": "No prensa cabos, passe o cabo pela porca e pela borracha de vedação; cabo mal preso solta o fio do terminal.",
+      "texto": "Au presse-étoupe, passez le câble par l'écrou et par le joint en caoutchouc ; un câble mal serré arrache le fil de la borne."
+    },
+    {
+      "pt": "Na solenoide externa, gire a tampa do compartimento no sentido anti-horário para destravar e revise os bornes.",
+      "texto": "Sur l'électrovanne externe, tournez le couvercle du compartiment dans le sens antihoraire pour le déverrouiller et vérifiez les bornes."
+    },
+    {
+      "pt": "O módulo é encapsulado em resina e não deve ser aberto. Se a fiação está boa, substitua o módulo eletrônico.",
+      "texto": "Le module est encapsulé dans de la résine et ne doit pas être ouvert. Si le câblage est bon, remplacez le module électronique."
+    },
+    {
+      "pt": "Verifique a confirmação: com o comando chegando e a solenoide sã, a válvula responde e o alerta A6 é eliminado.",
+      "texto": "Vérifiez la confirmation : la commande arrivant et l'électrovanne étant saine, la vanne répond et l'alerte A6 est supprimée."
+    },
+    {
+      "pt": "Confirme o alerta A7: a válvula mudou de posição sem comando da solenoide. Não é falha de resposta, é movimento sozinho.",
+      "texto": "Confirmez l'alerte A7 : la vanne a changé de position sans commande de l'électrovanne. Ce n'est pas un défaut de réponse, elle a bougé seule."
+    },
+    {
+      "pt": "A posição é monitorada sem contato: o ímã do indicador local e o sensor Hall registram todo giro do eixo.",
+      "texto": "La position est surveillée sans contact : l'aimant de l'indicateur local et le capteur Hall enregistrent chaque rotation de l'axe."
+    },
+    {
+      "pt": "Vá ao corpo da válvula, em campo, e procure o acionador manual com trava. Ele move a válvula sem a solenoide.",
+      "texto": "Allez au corps de la vanne, sur site, et cherchez la commande manuelle avec verrouillage. Elle déplace la vanne sans l'électrovanne."
+    },
+    {
+      "pt": "O acionador manual é operado com chave de fenda: pressione e gire o botão. Veja se ele ficou pressionado ou travado.",
+      "texto": "La commande manuelle s'actionne avec un tournevis : appuyez et tournez le bouton. Voyez s'il est resté enfoncé ou verrouillé."
+    },
+    {
+      "pt": "Se estiver travado, destrave o acionador. A válvula volta ao estado comandado e para de se mover por conta própria.",
+      "texto": "S'il est verrouillé, déverrouillez la commande. La vanne revient à l'état commandé et cesse de bouger d'elle-même."
+    },
+    {
+      "pt": "Forçar a solenoide pede B1 e confirmação em B2; o display mostra Forc Aberta. Sem essa mensagem, não houve comando.",
+      "texto": "Forcer l'électrovanne demande B1 puis une confirmation sur B2 ; l'écran affiche Forc Aberta. Sans ce message, aucune commande n'a été donnée."
+    },
+    {
+      "pt": "O manual avisa: forçada pelo acionador físico, a solenoide não gera mensagem no display. Por isso o A7 aparece sozinho.",
+      "texto": "Le manuel prévient : forcée par la commande physique, l'électrovanne ne génère aucun message à l'écran. C'est pourquoi A7 apparaît seule."
+    },
+    {
+      "pt": "A solenoide também pode ser forçada pelo sistema de controle ou pelo software. Confirme com quem opera a rede.",
+      "texto": "L'électrovanne peut aussi être forcée par le système de contrôle ou par le logiciel. Confirmez auprès de qui exploite le réseau."
+    },
+    {
+      "pt": "Sem acionamento manual e sem comando forçado, o movimento veio pelo ar. Verifique as conexões pneumáticas.",
+      "texto": "Sans actionnement manuel et sans commande forcée, le mouvement est venu par l'air. Vérifiez les raccordements pneumatiques."
+    },
+    {
+      "pt": "Descartado o acionamento manual, o ar moveu a válvula sem comando. Procure a falha nas conexões pneumáticas.",
+      "texto": "L'actionnement manuel écarté, c'est l'air qui a déplacé la vanne sans commande. Cherchez le défaut dans les raccordements pneumatiques."
+    },
+    {
+      "pt": "Confira a ligação das portas: P é a entrada de ar 1, a saída de ar 4 abre o atuador e a saída de ar 2 fecha.",
+      "texto": "Vérifiez le raccordement des orifices : P est l'entrée d'air 1, la sortie d'air 4 ouvre l'actionneur et la sortie d'air 2 le ferme."
+    },
+    {
+      "pt": "Mangueiras trocadas entre as saídas 4 e 2 invertem o sentido: a válvula assume a posição contrária sem receber comando.",
+      "texto": "Des tuyaux inversés entre les sorties 4 et 2 inversent le sens : la vanne prend la position contraire sans recevoir de commande."
+    },
+    {
+      "pt": "Procure vazamento nos engates: ar chegando ao atuador com a solenoide desenergizada empurra a válvula sozinho.",
+      "texto": "Cherchez une fuite aux raccords : de l'air arrivant à l'actionneur avec l'électrovanne hors tension pousse la vanne tout seul."
+    },
+    {
+      "pt": "Desligue a linha antes de conectar ou desconectar qualquer mangueira da válvula do monitor.",
+      "texto": "Coupez la ligne avant de brancher ou de débrancher tout tuyau de la vanne du moniteur."
+    },
+    {
+      "pt": "Confira o padrão dos orifícios pneumáticos, NPT ou BSP: conexão incompatível danifica a rosca e deixa vazar.",
+      "texto": "Vérifiez le standard des orifices pneumatiques, NPT ou BSP : un raccord incompatible abîme le filetage et laisse fuir."
+    },
+    {
+      "pt": "Verifique a confirmação: sem acionador travado e com as conexões corretas, a válvula só se move sob comando e o A7 sai.",
+      "texto": "Vérifiez la confirmation : sans commande verrouillée et avec les raccordements corrects, la vanne ne bouge que sur commande et A7 disparaît."
+    },
+    {
+      "pt": "Confirme o alerta A8: o monitor não está no modo seguro. O LED vermelho deve piscar até a correção.",
+      "texto": "Confirmez l'alerte A8 : le moniteur n'est pas en mode sécurisé. La LED rouge doit clignoter jusqu'à la correction."
+    },
+    {
+      "pt": "Use B3 para avançar até C16 MODO SEGURO. B1 volta à opção anterior e B2 entra em C16.",
+      "texto": "Utilisez B3 pour avancer jusqu'à C16 MODO SEGURO. B1 revient à l'option précédente et B2 entre dans C16."
+    },
+    {
+      "pt": "Em C16, selecione SENHA com B1 ou B3 e pressione B2.",
+      "texto": "Dans C16, sélectionnez SENHA avec B1 ou B3 et appuyez sur B2."
+    },
+    {
+      "pt": "Use B3 para selecionar HABILITAR e pressione B2 para definir a senha.",
+      "texto": "Utilisez B3 pour sélectionner HABILITAR et appuyez sur B2 pour définir le mot de passe."
+    },
+    {
+      "pt": "Escolha quatro dígitos: B1 decrementa, B3 incrementa e B2 seleciona. Mantenha B2 por mais de 3 segundos para confirmar. 1234 é apenas o exemplo do manual.",
+      "texto": "Choisissez quatre chiffres : B1 décrémente, B3 incrémente et B2 sélectionne. Maintenez B2 plus de 3 secondes pour confirmer. 1234 n'est que l'exemple du manuel."
+    },
+    {
+      "pt": "Verifique a confirmação: o modo seguro está habilitado, o alerta A8 foi eliminado e o LED vermelho parou de piscar.",
+      "texto": "Vérifiez la confirmation : le mode sécurisé est activé, l'alerte A8 a été supprimée et la LED rouge a cessé de clignoter."
+    },
+    {
+      "pt": "Confirme o alerta A9: a pressão da linha ultrapassou 9 bar. O A9 é sempre ligado e não se desliga pelo menu.",
+      "texto": "Confirmez l'alerte A9 : la pression de la ligne a dépassé 9 bar. A9 est toujours active et ne se désactive pas depuis le menu."
+    },
+    {
+      "pt": "IMPORTANTE: há risco de danos ao equipamento se a pressão da linha exceder 9 bar (130,5 psi). Trate como risco imediato.",
+      "texto": "IMPORTANT : il y a un risque de dommages à l'équipement si la pression de la ligne dépasse 9 bar (130,5 psi). Traitez-le comme un risque immédiat."
+    },
+    {
+      "pt": "Desligue a pressão da linha antes de mexer em qualquer mangueira. Com a linha desligada, confira todas as conexões.",
+      "texto": "Coupez la pression de la ligne avant d'intervenir sur un tuyau. Ligne coupée, vérifiez tous les raccordements."
+    },
+    {
+      "pt": "Regule o gerador de volta para 3 a 8 bar (45 a 120 psi). O padrão é 6 bar (87 psi). Acima de 9 bar o A9 segue ativo.",
+      "texto": "Réglez le générateur à nouveau entre 3 et 8 bar (45 à 120 psi). Le réglage par défaut est 6 bar (87 psi). Au-dessus de 9 bar A9 reste active."
+    },
+    {
+      "pt": "O A17 ALTA PRESSÃO avisa antes: dispara 20% acima da pressão ajustada, ou seja, 7,2 bar (104 psi) para 6 bar.",
+      "texto": "A17 ALTA PRESSÃO prévient avant : elle se déclenche 20% au-dessus de la pression réglée, soit 7,2 bar (104 psi) pour 6 bar."
+    },
+    {
+      "pt": "Confira qual pressão o monitor tem como referência: aproxime o polo Sul do chaveiro do botão B2 por mais de 6 segundos.",
+      "texto": "Vérifiez quelle pression le moniteur prend comme référence : approchez le pôle Sud de la clé du bouton B2 pendant plus de 6 secondes."
+    },
+    {
+      "pt": "Deixe C17 igual à pressão do gerador: B1 diminui e B3 aumenta, entre 3 e 8 bar. Mantenha B2 por mais de 3 segundos.",
+      "texto": "Laissez C17 égal à la pression du générateur : B1 diminue et B3 augmente, entre 3 et 8 bar. Maintenez B2 plus de 3 secondes."
+    },
+    {
+      "pt": "Em uma opção principal, mantenha B1 por mais de 3 segundos para sair. O display mostra SAIR e volta ao modo RUN.",
+      "texto": "Sur une option principale, maintenez B1 plus de 3 secondes pour sortir. L'écran affiche SAIR et revient au mode RUN."
+    },
+    {
+      "pt": "Verifique a confirmação: com a pressão da linha abaixo de 9 bar, o A9 é eliminado e o LED vermelho para de piscar.",
+      "texto": "Vérifiez la confirmation : avec la pression de la ligne sous 9 bar, A9 est supprimée et la LED rouge cesse de clignoter."
+    },
+    {
+      "pt": "Confirme o alerta A11: o contador parcial atingiu o limite configurado. A11 vem desabilitado por padrão, então esse alerta indica que ele foi habilitado.",
+      "texto": "Confirmez l'alerte A11 : le compteur partiel a atteint la limite configurée. A11 est désactivée par défaut, donc cette alerte indique qu'elle a été activée."
+    },
+    {
+      "pt": "Use B3 para avançar até A11. B1 volta à opção anterior e B2 entra no menu do contador parcial, que configura o limite e também pode zerar o contador.",
+      "texto": "Utilisez B3 pour avancer jusqu'à A11. B1 revient à l'option précédente et B2 entre dans le menu du compteur partiel, qui règle la limite et peut aussi remettre le compteur à zéro."
+    },
+    {
+      "pt": "Alternativa 1: aumente o número de ciclos configurado como limite do contador parcial. B1 diminui e B3 aumenta o valor. Mantenha B2 por mais de 3 segundos para confirmar.",
+      "texto": "Alternative 1 : augmentez le nombre de cycles réglé comme limite du compteur partiel. B1 diminue et B3 augmente la valeur. Maintenez B2 plus de 3 secondes pour confirmer."
+    },
+    {
+      "pt": "Verifique a confirmação: o novo limite do contador parcial foi salvo e o alerta A11 foi eliminado. O contador total não é alterado.",
+      "texto": "Vérifiez la confirmation : la nouvelle limite du compteur partiel a été enregistrée et l'alerte A11 a été supprimée. Le compteur total n'est pas modifié."
+    },
+    {
+      "pt": "Alternativa 2: em vez de aumentar o limite, entre em C18 para resetar o contador parcial. Use B3 para avançar até C18 RESET CONTADOR PARCIAL. B1 volta à opção anterior e B2 entra no reset.",
+      "texto": "Alternative 2 : au lieu d'augmenter la limite, entrez dans C18 pour remettre le compteur partiel à zéro. Utilisez B3 pour avancer jusqu'à C18 RESET CONTADOR PARCIAL. B1 revient à l'option précédente et B2 entre dans la remise à zéro."
+    },
+    {
+      "pt": "Verifique a confirmação: o contador parcial voltou a zero e o alerta A11 foi eliminado. O contador total não é alterado nem resetado.",
+      "texto": "Vérifiez la confirmation : le compteur partiel est revenu à zéro et l'alerte A11 a été supprimée. Le compteur total n'est ni modifié ni remis à zéro."
+    },
+    {
+      "pt": "Identifique A11 no menu de alertas. Esta ação apenas desliga o alerta, sem ajustar o limite e sem resetar o contador parcial.",
+      "texto": "Repérez A11 dans le menu des alertes. Cette action ne fait que désactiver l'alerte, sans ajuster la limite et sans remettre le compteur partiel à zéro."
+    },
+    {
+      "pt": "Use B3 para avançar até A11 e B2 para selecionar a opção de desligar o alerta, mantendo o contador parcial como está.",
+      "texto": "Utilisez B3 pour avancer jusqu'à A11 et B2 pour sélectionner l'option qui désactive l'alerte, en laissant le compteur partiel tel quel."
+    },
+    {
+      "pt": "Verifique a confirmação: o alerta A11 foi desligado. Isso não reseta nem altera o contador parcial ou o total.",
+      "texto": "Vérifiez la confirmation : l'alerte A11 a été désactivée. Cela ne remet à zéro ni ne modifie le compteur partiel ou le total."
+    },
+    {
+      "pt": "Confirme o alerta A12: o contador total atingiu o limite configurado. O contador total mede a vida útil da válvula. A12 vem desabilitado por padrão, então esse alerta indica que ele foi habilitado.",
+      "texto": "Confirmez l'alerte A12 : le compteur total a atteint la limite configurée. Le compteur total mesure la durée de vie de la vanne. A12 est désactivée par défaut, donc cette alerte indique qu'elle a été activée."
+    },
+    {
+      "pt": "Use B3 para avançar até C19 RESET CONTADOR TOTAL. B1 volta à opção anterior e B2 entra no reset do contador total.",
+      "texto": "Utilisez B3 pour avancer jusqu'à C19 RESET CONTADOR TOTAL. B1 revient à l'option précédente et B2 entre dans la remise à zéro du compteur total."
+    },
+    {
+      "pt": "IMPORTANTE: o contador total é o medidor de vida útil da válvula e deve ser zerado somente quando o monitor for instalado em uma válvula diferente. O reset não é uma rotina comum de manutenção.",
+      "texto": "IMPORTANT : le compteur total est l'indicateur de durée de vie de la vanne et ne doit être remis à zéro que lorsque le moniteur est installé sur une vanne différente. Cette remise à zéro n'est pas une opération de maintenance courante."
+    },
+    {
+      "pt": "Selecione SIM com B1 ou B3 e pressione B2 para confirmar o reset do contador total.",
+      "texto": "Sélectionnez SIM avec B1 ou B3 et appuyez sur B2 pour confirmer la remise à zéro du compteur total."
+    },
+    {
+      "pt": "Verifique a confirmação: o contador total voltou a zero e o alerta A12 foi eliminado. O contador parcial e as demais configurações não são alterados.",
+      "texto": "Vérifiez la confirmation : le compteur total est revenu à zéro et l'alerte A12 a été supprimée. Le compteur partiel et les autres réglages ne sont pas modifiés."
+    },
+    {
+      "pt": "Identifique A12 no menu de alertas. Esta ação apenas desliga o alerta, sem resetar o contador total, que continua medindo a vida útil da válvula.",
+      "texto": "Repérez A12 dans le menu des alertes. Cette action ne fait que désactiver l'alerte, sans remettre à zéro le compteur total, qui continue de mesurer la durée de vie de la vanne."
+    },
+    {
+      "pt": "Após o bargraph, o display mostra MENU CONFIG. Use B3 para avançar até MENU ALERTA.",
+      "texto": "Après le bargraphe, l'écran affiche MENU CONFIG. Utilisez B3 pour avancer jusqu'à MENU ALERTA."
+    },
+    {
+      "pt": "Em MENU ALERTA, pressione B2 para entrar no menu de alertas.",
+      "texto": "Dans MENU ALERTA, appuyez sur B2 pour entrer dans le menu des alertes."
+    },
+    {
+      "pt": "Use B3 para avançar até A12 CONTADOR TOTAL e B2 para entrar na opção do alerta.",
+      "texto": "Utilisez B3 pour avancer jusqu'à A12 CONTADOR TOTAL et B2 pour entrer dans l'option de l'alerte."
+    },
+    {
+      "pt": "Selecione DESABILITAR com B1 ou B3 e pressione B2 para desligar o alerta A12.",
+      "texto": "Sélectionnez DESABILITAR avec B1 ou B3 et appuyez sur B2 pour désactiver l'alerte A12."
+    },
+    {
+      "pt": "Verifique a confirmação: o alerta A12 foi desligado. Isso não reseta nem altera o contador total ou o parcial.",
+      "texto": "Vérifiez la confirmation : l'alerte A12 a été désactivée. Cela ne remet à zéro ni ne modifie le compteur total ou le partiel."
+    },
+    {
+      "pt": "Confirme o alerta A13: o número de dias trabalhados programado para a manutenção foi atingido. O monitor acumula os dias desde que foi energizado na válvula.",
+      "texto": "Confirmez l'alerte A13 : le nombre de jours travaillés programmé pour la maintenance a été atteint. Le moniteur cumule les jours depuis sa mise sous tension sur la vanne."
+    },
+    {
+      "pt": "Use B3 para avançar até A13 ALERTA DIAS e B2 para entrar na opção do alerta.",
+      "texto": "Utilisez B3 pour avancer jusqu'à A13 ALERTA DIAS et B2 pour entrer dans l'option de l'alerte."
+    },
+    {
+      "pt": "Selecione LIMPAR com B1 ou B3 e pressione B2 para resetar a contagem de dias trabalhados.",
+      "texto": "Sélectionnez LIMPAR avec B1 ou B3 et appuyez sur B2 pour remettre à zéro le comptage des jours travaillés."
+    },
+    {
+      "pt": "Verifique a confirmação: a contagem de dias voltou a zero e uma nova contagem foi iniciada. Os contadores de ciclos parcial e total não são alterados.",
+      "texto": "Vérifiez la confirmation : le comptage des jours est revenu à zéro et un nouveau comptage a démarré. Les compteurs de cycles partiel et total ne sont pas modifiés."
+    },
+    {
+      "pt": "Identifique A13 no menu de alertas. Esta ação apenas desliga o alerta, sem resetar a contagem de dias trabalhados.",
+      "texto": "Repérez A13 dans le menu des alertes. Cette action ne fait que désactiver l'alerte, sans remettre à zéro le comptage des jours travaillés."
+    },
+    {
+      "pt": "Selecione DESABILITAR com B1 ou B3 e pressione B2 para desligar o alerta A13.",
+      "texto": "Sélectionnez DESABILITAR avec B1 ou B3 et appuyez sur B2 pour désactiver l'alerte A13."
+    },
+    {
+      "pt": "Verifique a confirmação: o alerta A13 foi desligado. A contagem de dias trabalhados continua registrada e não é apagada.",
+      "texto": "Vérifiez la confirmation : l'alerte A13 a été désactivée. Le comptage des jours travaillés reste enregistré et n'est pas effacé."
+    },
+    {
+      "pt": "Alerta A14: a data ajustada foi atingida. Depende do relógio C13 ajustado.",
+      "texto": "Alerte A14 : la date réglée a été atteinte. Cela dépend de l'horloge C13 réglée."
+    },
+    {
+      "pt": "Encoste o polo Sul do chaveiro em B2 por 6 segundos.",
+      "texto": "Posez le pôle Sud de la clé sur B2 pendant 6 secondes."
+    },
+    {
+      "pt": "Avance com B3 até MENU ALERTA.",
+      "texto": "Avancez avec B3 jusqu'à MENU ALERTA."
+    },
+    {
+      "pt": "Pressione B2 para entrar.",
+      "texto": "Appuyez sur B2 pour entrer."
+    },
+    {
+      "pt": "Avance com B3 até A14 e pressione B2.",
+      "texto": "Avancez avec B3 jusqu'à A14 et appuyez sur B2."
+    },
+    {
+      "pt": "Selecione HABILITAR com B3 e pressione B2.",
+      "texto": "Sélectionnez HABILITAR avec B3 et appuyez sur B2."
+    },
+    {
+      "pt": "Ajuste a data da manutenção. B1 diminui, B3 aumenta, B2 troca de dígito. Segure B2 por 3 segundos para confirmar.",
+      "texto": "Réglez la date de la maintenance. B1 diminue, B3 augmente, B2 change de chiffre. Maintenez B2 pendant 3 secondes pour confirmer."
+    },
+    {
+      "pt": "Data salva e alerta A14 encerrado. Sair com B1 antes de confirmar não salva nada.",
+      "texto": "Date enregistrée et alerte A14 clôturée. Sortir avec B1 avant de confirmer n'enregistre rien."
+    },
+    {
+      "pt": "Alerta A14 ativo. Aqui você só desliga o alerta, sem definir nova data.",
+      "texto": "Alerte A14 active. Ici vous ne faites que désactiver l'alerte, sans définir de nouvelle date."
+    },
+    {
+      "pt": "Selecione DESABILITAR com B3 e pressione B2.",
+      "texto": "Sélectionnez DESABILITAR avec B3 et appuyez sur B2."
+    },
+    {
+      "pt": "Alerta A14 desligado. O relógio C13 não é alterado.",
+      "texto": "Alerte A14 désactivée. L'horloge C13 n'est pas modifiée."
+    },
+    {
+      "pt": "Confirme o alerta A15: a válvula abriu por completo, mas gastou mais tempo do que o aprendido na calibração.",
+      "texto": "Confirmez l'alerte A15 : la vanne s'est ouverte complètement, mais a mis plus de temps que ce qui a été appris au calibrage."
+    },
+    {
+      "pt": "O alerta não tem tempo fixo: a referência é o tempo de curso que o monitor aprendeu no ciclo de auto calibração.",
+      "texto": "L'alerte n'a pas de temps fixe : la référence est le temps de course que le moniteur a appris lors du cycle d'auto calibrage."
+    },
+    {
+      "pt": "O disparo ocorre quando esse tempo aprendido é excedido em 20%, 30%, 40% ou 50%, conforme o percentual configurado.",
+      "texto": "Le déclenchement a lieu quand ce temps appris est dépassé de 20%, 30%, 40% ou 50%, selon le pourcentage configuré."
+    },
+    {
+      "pt": "Se a calibração foi feita em outras condições, a referência está defasada e o alerta acusa atraso mesmo sem avaria.",
+      "texto": "Si le calibrage a été fait dans d'autres conditions, la référence est dépassée et l'alerte signale un retard même sans panne."
+    },
+    {
+      "pt": "Comece pelo gerador de ar comprimido, fora do monitor: o ar entra pela conexão P, a entrada de ar 1, e vai ao atuador.",
+      "texto": "Commencez par le générateur d'air comprimé, hors du moniteur : l'air entre par le raccord P, l'entrée d'air 1, et va à l'actionneur."
+    },
+    {
+      "pt": "Cheque mangueiras e engates: dobra, vazamento ou engate estreito reduz a vazão e atrasa o curso. Despressurize antes.",
+      "texto": "Contrôlez tuyaux et raccords : un pli, une fuite ou un raccord étroit réduit le débit et retarde la course. Dépressurisez avant."
+    },
+    {
+      "pt": "Use ar comprimido limpo e isento de óleo. Os orifícios pneumáticos internos são pequenos e entopem, freando o curso.",
+      "texto": "Utilisez de l'air comprimé propre et exempt d'huile. Les orifices pneumatiques internes sont petits et se bouchent, freinant la course."
+    },
+    {
+      "pt": "Regule o gerador para a mesma pressão usada na calibração: com a vazão de volta, o curso cabe no tempo aprendido.",
+      "texto": "Réglez le générateur à la même pression que lors du calibrage : le débit rétabli, la course tient dans le temps appris."
+    },
+    {
+      "pt": "Verifique a confirmação: com o fornecimento de ar restabelecido, o curso termina no prazo e o LED para de piscar.",
+      "texto": "Vérifiez la confirmation : l'alimentation en air rétablie, la course se termine dans les temps et la LED cesse de clignoter."
+    },
+    {
+      "pt": "Com ar suficiente e a abertura ainda lenta, procure no conjunto o atrito que atrasa o curso. Desconecte o ar antes.",
+      "texto": "Avec assez d'air et une ouverture toujours lente, cherchez dans l'ensemble le frottement qui retarde la course. Débranchez l'air avant."
+    },
+    {
+      "pt": "Siga as mangueiras até as portas do atuador: engate solto ou mangueira dobrada rouba vazão e alonga o curso.",
+      "texto": "Suivez les tuyaux jusqu'aux orifices de l'actionneur : un raccord desserré ou un tuyau plié vole du débit et allonge la course."
+    },
+    {
+      "pt": "Resolvida a avaria, refaça a auto calibração para o monitor reaprender o tempo de curso nas condições atuais.",
+      "texto": "Une fois la panne résolue, refaites l'auto calibrage pour que le moniteur réapprenne le temps de course dans les conditions actuelles."
+    },
+    {
+      "pt": "C5 AUTO CAL define em quantos ciclos o monitor aprende posições, tempos e ângulos: 3, 5 ou 10 ciclos.",
+      "texto": "C5 AUTO CAL définit en combien de cycles le moniteur apprend positions, temps et angles : 3, 5 ou 10 cycles."
+    },
+    {
+      "pt": "Verifique a confirmação: com o conjunto livre e o tempo reaprendido, o curso cabe na referência e o alerta cai.",
+      "texto": "Vérifiez la confirmation : avec l'ensemble libre et le temps réappris, la course tient dans la référence et l'alerte disparaît."
+    },
+    {
+      "pt": "No A15 o alerta dispara quando o tempo de abertura passa em 20%, 30%, 40% ou 50% do tempo aprendido na calibração.",
+      "texto": "Sur A15 l'alerte se déclenche quand le temps d'ouverture dépasse de 20%, 30%, 40% ou 50% le temps appris au calibrage."
+    },
+    {
+      "pt": "Encoste o polo Sul do chaveiro em B2 por mais de 6 segundos para entrar no menu.",
+      "texto": "Posez le pôle Sud de la clé sur B2 pendant plus de 6 secondes pour entrer dans le menu."
+    },
+    {
+      "pt": "Após o bargraph o display mostra MENU CONFIG. Use B3 para avançar até MENU ALERTA.",
+      "texto": "Après le bargraphe l'écran affiche MENU CONFIG. Utilisez B3 pour avancer jusqu'à MENU ALERTA."
+    },
+    {
+      "pt": "Em MENU ALERTA, pressione B2 para entrar na lista de alertas configuráveis.",
+      "texto": "Dans MENU ALERTA, appuyez sur B2 pour entrer dans la liste des alertes configurables."
+    },
+    {
+      "pt": "Avance com B3 até o alerta de tempo indicado no display e pressione B2 para entrar.",
+      "texto": "Avancez avec B3 jusqu'à l'alerte de temps indiquée à l'écran et appuyez sur B2 pour entrer."
+    },
+    {
+      "pt": "Selecione DESABILITAR com B1 ou B3 e pressione B2 para desligar este alerta.",
+      "texto": "Sélectionnez DESABILITAR avec B1 ou B3 et appuyez sur B2 pour désactiver cette alerte."
+    },
+    {
+      "pt": "Verifique a confirmação: o alerta foi desligado. O monitor segue medindo o curso, mas não avisa mais o atraso.",
+      "texto": "Vérifiez la confirmation : l'alerte a été désactivée. Le moniteur continue de mesurer la course, mais ne signale plus le retard."
+    },
+    {
+      "pt": "Confirme o alerta A16: a válvula fechou por completo, mas gastou mais tempo do que o aprendido na calibração.",
+      "texto": "Confirmez l'alerte A16 : la vanne s'est fermée complètement, mais a mis plus de temps que ce qui a été appris au calibrage."
+    },
+    {
+      "pt": "Com ar suficiente e o fechamento ainda lento, procure no conjunto o atrito que atrasa o curso. Desconecte o ar antes.",
+      "texto": "Avec assez d'air et une fermeture toujours lente, cherchez dans l'ensemble le frottement qui retarde la course. Débranchez l'air avant."
+    },
+    {
+      "pt": "No A16 o alerta dispara quando o tempo de fechamento passa em 20%, 30%, 40% ou 50% do tempo aprendido na calibração.",
+      "texto": "Sur A16 l'alerte se déclenche quand le temps de fermeture dépasse de 20%, 30%, 40% ou 50% le temps appris au calibrage."
+    },
+    {
+      "pt": "Confirme o alerta A17: a pressão de entrada passou do limite alto ajustado sobre o valor de C17 PRESSÃO DA LINHA.",
+      "texto": "Confirmez l'alerte A17 : la pression d'entrée a dépassé la limite haute réglée sur la valeur de C17 PRESSÃO DA LINHA."
+    },
+    {
+      "pt": "O percentual do alerta é medido sobre a pressão definida em C17 PRESSÃO DA LINHA, e não sobre um valor fixo.",
+      "texto": "Le pourcentage de l'alerte est mesuré sur la pression définie dans C17 PRESSÃO DA LINHA, et non sur une valeur fixe."
+    },
+    {
+      "pt": "C17 vai de 3 a 8 bar (45 a 120 psi) e sai de fábrica em 6 bar (87 psi). O padrão do alerta é 20% desse valor.",
+      "texto": "C17 va de 3 à 8 bar (45 à 120 psi) et sort d'usine à 6 bar (87 psi). Le réglage par défaut de l'alerte est 20% de cette valeur."
+    },
+    {
+      "pt": "Com C17 em 6 bar e o padrão de 20%, a faixa vigiada vai de 4,8 a 7,2 bar (70 a 104 psi).",
+      "texto": "Avec C17 à 6 bar et le réglage de 20%, la plage surveillée va de 4,8 à 7,2 bar (70 à 104 psi)."
+    },
+    {
+      "pt": "A verificação principal é fora do monitor: vá ao gerador de ar comprimido que alimenta a entrada de ar 1.",
+      "texto": "La vérification principale est hors du moniteur : allez au générateur d'air comprimé qui alimente l'entrée d'air 1."
+    },
+    {
+      "pt": "Desligue a pressão da linha antes de mexer nas mangueiras. Vazamento, estrangulamento ou engate solto mudam a pressão.",
+      "texto": "Coupez la pression de la ligne avant d'intervenir sur les tuyaux. Une fuite, un étranglement ou un raccord desserré changent la pression."
+    },
+    {
+      "pt": "Limite absoluto: passar de 10 bar (150 psi) danifica o monitor permanentemente. O A9 vigia a linha em 9 bar.",
+      "texto": "Limite absolue : dépasser 10 bar (150 psi) endommage le moniteur de façon permanente. A9 surveille la ligne à 9 bar."
+    },
+    {
+      "pt": "Regule o gerador para a mesma pressão ajustada em C17, sempre dentro de 3 a 8 bar (45 a 120 psi).",
+      "texto": "Réglez le générateur à la même pression que celle réglée dans C17, toujours entre 3 et 8 bar (45 à 120 psi)."
+    },
+    {
+      "pt": "Encoste o polo Sul do chaveiro em B2 por mais de 6 segundos para conferir a referência do monitor.",
+      "texto": "Posez le pôle Sud de la clé sur B2 pendant plus de 6 secondes pour vérifier la référence du moniteur."
+    },
+    {
+      "pt": "Deixe C17 igual à pressão real do gerador: B1 diminui e B3 aumenta. Mantenha B2 pressionado para gravar o valor.",
+      "texto": "Laissez C17 égal à la pression réelle du générateur : B1 diminue et B3 augmente. Maintenez B2 enfoncé pour enregistrer la valeur."
+    },
+    {
+      "pt": "Segure B1 por 3 segundos para sair do menu.",
+      "texto": "Maintenez B1 pendant 3 secondes pour sortir du menu."
+    },
+    {
+      "pt": "Verifique a confirmação: com a pressão de entrada de volta à faixa de C17, o alerta cai e o LED para de piscar.",
+      "texto": "Vérifiez la confirmation : la pression d'entrée revenue dans la plage de C17, l'alerte disparaît et la LED cesse de clignoter."
+    },
+    {
+      "pt": "No A17 o alerta dispara com a pressão de entrada 20%, 30%, 40% ou 50% acima da pressão definida em C17.",
+      "texto": "Sur A17 l'alerte se déclenche avec la pression d'entrée 20%, 30%, 40% ou 50% au-dessus de la pression définie dans C17."
+    },
+    {
+      "pt": "Avance com B3 até o alerta de pressão indicado no display e pressione B2 para entrar.",
+      "texto": "Avancez avec B3 jusqu'à l'alerte de pression indiquée à l'écran et appuyez sur B2 pour entrer."
+    },
+    {
+      "pt": "Verifique a confirmação: o alerta foi desligado. Isso não muda a pressão de C17 nem o A9, que é sempre ligado.",
+      "texto": "Vérifiez la confirmation : l'alerte a été désactivée. Cela ne change ni la pression de C17 ni A9, qui est toujours active."
+    },
+    {
+      "pt": "Confirme o alerta A18: a pressão de entrada caiu abaixo do limite ajustado sobre o valor de C17 PRESSÃO DA LINHA.",
+      "texto": "Confirmez l'alerte A18 : la pression d'entrée est tombée sous la limite réglée sur la valeur de C17 PRESSÃO DA LINHA."
+    },
+    {
+      "pt": "No A18 o alerta dispara com a pressão de entrada 20%, 30%, 40% ou 50% abaixo da pressão definida em C17.",
+      "texto": "Sur A18 l'alerte se déclenche avec la pression d'entrée 20%, 30%, 40% ou 50% en dessous de la pression définie dans C17."
+    },
+    {
+      "pt": "Confirme o alerta A19: tensão acima de 32Vcc em AS-Interface, ou 10% acima em PNP e DeviceNet.",
+      "texto": "Confirmez l'alerte A19 : tension au-dessus de 32Vcc en AS-Interface, ou 10% au-dessus en PNP et DeviceNet."
+    },
+    {
+      "pt": "A faixa aceita depende da versão do módulo: AS-Interface, DeviceNet ou PNP com IO-Link.",
+      "texto": "La plage acceptée dépend de la version du module : AS-Interface, DeviceNet ou PNP avec IO-Link."
+    },
+    {
+      "pt": "Avance com B3 até MENU DEVICE.",
+      "texto": "Avancez avec B3 jusqu'à MENU DEVICE."
+    },
+    {
+      "pt": "Pressione B2 para entrar. Este menu só mostra informações, não altera nenhum parâmetro.",
+      "texto": "Appuyez sur B2 pour entrer. Ce menu n'affiche que des informations, il ne modifie aucun paramètre."
+    },
+    {
+      "pt": "Selecione d1 PART NUMBER com B3 e pressione B2.",
+      "texto": "Sélectionnez d1 PART NUMBER avec B3 et appuyez sur B2."
+    },
+    {
+      "pt": "O part number no display diz qual módulo você tem e, com ele, qual faixa de tensão vale aqui.",
+      "texto": "Le part number à l'écran indique quel module vous avez et, avec lui, quelle plage de tension s'applique ici."
+    },
+    {
+      "pt": "PERIGO: desligue a fonte e impeça o religamento antes de abrir o compartimento elétrico.",
+      "texto": "DANGER : coupez l'alimentation et empêchez la remise sous tension avant d'ouvrir le compartiment électrique."
+    },
+    {
+      "pt": "Mesmo desligada a fonte, os circuitos guardam energia residual. Aguarde antes de manusear os fios.",
+      "texto": "Même l'alimentation coupée, les circuits gardent une énergie résiduelle. Attendez avant de manipuler les fils."
+    },
+    {
+      "pt": "A alimentação entra pelo prensa cabos ou pelo conector M12 e termina no terminal aparafusável interno.",
+      "texto": "L'alimentation entre par le presse-étoupe ou par le connecteur M12 et se termine au bornier à vis interne."
+    },
+    {
+      "pt": "Confira V+ e V- no borne: terminal frouxo, cabo esmagado ou umidade alteram a tensão que chega ao módulo.",
+      "texto": "Vérifiez V+ et V- au bornier : une borne desserrée, un câble écrasé ou de l'humidité modifient la tension qui atteint le module."
+    },
+    {
+      "pt": "A conferência principal é fora do monitor: vá ao painel de controle e inspecione a fonte que o alimenta.",
+      "texto": "La vérification principale est hors du moniteur : allez à l'armoire de commande et inspectez l'alimentation qui le dessert."
+    },
+    {
+      "pt": "Fonte mal dimensionada, ou dividida com outros equipamentos, tira a tensão da faixa aceita pelo módulo.",
+      "texto": "Une alimentation mal dimensionnée, ou partagée avec d'autres équipements, sort la tension de la plage acceptée par le module."
+    },
+    {
+      "pt": "Desabilitar os alertas de A19 a A25 apaga só a notificação no aplicativo. O monitor segue indicando.",
+      "texto": "Désactiver les alertes A19 à A25 n'efface que la notification dans l'application. Le moniteur continue de les signaler."
+    },
+    {
+      "pt": "Verifique a confirmação: com a tensão dentro da faixa do módulo, o alerta cai e o LED para de piscar.",
+      "texto": "Vérifiez la confirmation : la tension étant dans la plage du module, l'alerte disparaît et la LED cesse de clignoter."
+    },
+    {
+      "pt": "Confirme o alerta A20: tensão abaixo de 27V em AS-Interface, ou de 22,8V em DeviceNet e PNP.",
+      "texto": "Confirmez l'alerte A20 : tension en dessous de 27V en AS-Interface, ou de 22,8V en DeviceNet et PNP."
+    },
+    {
+      "pt": "Alerta A21: temperatura do monitor acima de 70°.",
+      "texto": "Alerte A21 : température du moniteur au-dessus de 70°."
+    },
+    {
+      "pt": "Avance com B3 até C3 e pressione B2.",
+      "texto": "Avancez avec B3 jusqu'à C3 et appuyez sur B2."
+    },
+    {
+      "pt": "Selecione TEMPERATURA com B3 e pressione B2.",
+      "texto": "Sélectionnez TEMPERATURA avec B3 et appuyez sur B2."
+    },
+    {
+      "pt": "O display mostra a temperatura interna. Verifique a temperatura do processo em campo.",
+      "texto": "L'écran affiche la température interne. Vérifiez la température du procédé sur site."
+    },
+    {
+      "pt": "Alerta A22: temperatura do monitor abaixo de -20°C.",
+      "texto": "Alerte A22 : température du moniteur en dessous de -20°C."
+    },
+    {
+      "pt": "Confirme o alerta A23: a bobina da solenoide está em curto circuito. Há caminho fechado onde não deveria haver.",
+      "texto": "Confirmez l'alerte A23 : la bobine de l'électrovanne est en court-circuit. Il y a un chemin fermé là où il ne devrait pas y en avoir."
+    },
+    {
+      "pt": "Curto é o oposto de circuito aberto: aqui sobra corrente. Se faltasse continuidade, o alerta seria o A24.",
+      "texto": "Le court-circuit est l'opposé du circuit ouvert : ici il y a un excès de courant. S'il manquait la continuité, l'alerte serait A24."
+    },
+    {
+      "pt": "PERIGO: desligue a fonte e impeça o religamento antes de tocar na fiação, sob risco de choque e curto circuito.",
+      "texto": "DANGER : coupez l'alimentation et empêchez la remise sous tension avant de toucher au câblage, sous risque de choc et de court-circuit."
+    },
+    {
+      "pt": "Procure sinais de curto nos fios da solenoide: isolamento derretido, marcas de queima e cobre à mostra.",
+      "texto": "Cherchez des signes de court-circuit sur les fils de l'électrovanne : isolant fondu, traces de brûlure et cuivre à nu."
+    },
+    {
+      "pt": "No borne, um fio solto ou um fiapo de cobre atravessando dois terminais fecha o curto. Reaperte com chave de bornes.",
+      "texto": "Au bornier, un fil desserré ou un brin de cuivre reliant deux bornes ferme le court-circuit. Resserrez avec un tournevis de bornier."
+    },
+    {
+      "pt": "Se o isolamento da bobina está queimado, troque a bobina: afrouxe os quatro parafusos e puxe a válvula do corpo.",
+      "texto": "Si l'isolant de la bobine est brûlé, remplacez la bobine : desserrez les quatre vis et tirez la vanne hors du corps."
+    },
+    {
+      "pt": "Desabilitar o A23 no menu apaga só a notificação no aplicativo. A indicação física no monitor continua ativa.",
+      "texto": "Désactiver A23 dans le menu n'efface que la notification dans l'application. L'indication physique sur le moniteur reste active."
+    },
+    {
+      "pt": "Verifique a confirmação: sem caminho fechado na bobina, o A23 é eliminado e o LED vermelho para de piscar.",
+      "texto": "Vérifiez la confirmation : sans chemin fermé dans la bobine, A23 est supprimée et la LED rouge cesse de clignoter."
+    },
+    {
+      "pt": "Confirme o alerta A24: a bobina da solenoide ou o cabo dela está rompido. O circuito ficou aberto.",
+      "texto": "Confirmez l'alerte A24 : la bobine de l'électrovanne ou son câble est rompu. Le circuit est resté ouvert."
+    },
+    {
+      "pt": "Aberto é o oposto de curto: aqui falta continuidade. Se os fios estivessem fechados entre si, o alerta seria o A23.",
+      "texto": "Ouvert est l'opposé de court-circuit : ici la continuité manque. Si les fils étaient reliés entre eux, l'alerte serait A23."
+    },
+    {
+      "pt": "Siga o cabo da solenoide de ponta a ponta: procure rompimento, esmagamento e dobra na saída do prensa cabos.",
+      "texto": "Suivez le câble de l'électrovanne d'un bout à l'autre : cherchez une rupture, un écrasement et un pli à la sortie du presse-étoupe."
+    },
+    {
+      "pt": "Confira a continuidade entre os dois fios da bobina. Sem continuidade, a bobina ou o cabo está partido.",
+      "texto": "Vérifiez la continuité entre les deux fils de la bobine. Sans continuité, la bobine ou le câble est rompu."
+    },
+    {
+      "pt": "No borne, um fio que saiu do terminal aparafusável abre o circuito. Reaperte com uma chave de bornes adequada.",
+      "texto": "Au bornier, un fil sorti de la borne à vis ouvre le circuit. Resserrez avec un tournevis de bornier adapté."
+    },
+    {
+      "pt": "Cabo íntegro e bobina sem continuidade: troque a bobina, afrouxando os dois parafusos que a prendem.",
+      "texto": "Câble intact et bobine sans continuité : remplacez la bobine en desserrant les deux vis qui la retiennent."
+    },
+    {
+      "pt": "Antes de fechar, confira o anel de vedação da nova bobina; sem ele a válvula passa a vazar ar.",
+      "texto": "Avant de refermer, vérifiez la bague d'étanchéité de la nouvelle bobine ; sans elle la vanne se met à fuir de l'air."
+    },
+    {
+      "pt": "Desabilitar o A24 no menu apaga só a notificação no aplicativo. A indicação física no monitor continua ativa.",
+      "texto": "Désactiver A24 dans le menu n'efface que la notification dans l'application. L'indication physique sur le moniteur reste active."
+    },
+    {
+      "pt": "Verifique a confirmação: com a continuidade restabelecida, o A24 é eliminado e o LED vermelho para de piscar.",
+      "texto": "Vérifiez la confirmation : la continuité rétablie, A24 est supprimée et la LED rouge cesse de clignoter."
+    },
+    {
+      "pt": "Confirme o alerta A25: uma das saídas PNP, ou a carga ligada a ela, está em curto.",
+      "texto": "Confirmez l'alerte A25 : une des sorties PNP, ou la charge qui y est raccordée, est en court-circuit."
+    },
+    {
+      "pt": "Este alerta existe apenas no modelo IO-Link. Os demais módulos não têm saída PNP para monitorar.",
+      "texto": "Cette alerte n'existe que sur le modèle IO-Link. Les autres modules n'ont pas de sortie PNP à surveiller."
+    },
+    {
+      "pt": "A saída 1 indica a válvula aberta e a saída 2 indica a válvula fechada, ambas para o cartão de entrada do CLP.",
+      "texto": "La sortie 1 indique la vanne ouverte et la sortie 2 indique la vanne fermée, toutes deux vers la carte d'entrée de l'automate."
+    },
+    {
+      "pt": "PERIGO: desligue a fonte e impeça o religamento antes de mexer nos fios das saídas, sob risco de choque.",
+      "texto": "DANGER : coupez l'alimentation et empêchez la remise sous tension avant d'intervenir sur les fils des sorties, sous risque de choc."
+    },
+    {
+      "pt": "Cada saída PNP chaveia no máximo 50 mA. Carga acima disso, ou em curto, derruba a saída e dispara o alerta.",
+      "texto": "Chaque sortie PNP commute au maximum 50 mA. Une charge supérieure, ou en court-circuit, fait tomber la sortie et déclenche l'alerte."
+    },
+    {
+      "pt": "No painel de controle, confira a carga de cada saída: relé, sinaleiro ou entrada do CLP em curto.",
+      "texto": "À l'armoire de commande, vérifiez la charge de chaque sortie : relais, voyant ou entrée d'automate en court-circuit."
+    },
+    {
+      "pt": "As saídas PNP enviam sinal positivo e devem ir a cartão de entrada SINK, que tem o negativo como comum.",
+      "texto": "Les sorties PNP envoient un signal positif et doivent aller à une carte d'entrée SINK, qui a le négatif comme commun."
+    },
+    {
+      "pt": "Revise o conector M12 e o terminal aparafusável interno: pino torto, fiapo de cobre ou umidade fecham o curto.",
+      "texto": "Vérifiez le connecteur M12 et le bornier à vis interne : une broche tordue, un brin de cuivre ou de l'humidité ferment le court-circuit."
+    },
+    {
+      "pt": "Desabilitar o A25 no menu apaga só a notificação no aplicativo. A indicação física no monitor continua ativa.",
+      "texto": "Désactiver A25 dans le menu n'efface que la notification dans l'application. L'indication physique sur le moniteur reste active."
+    },
+    {
+      "pt": "Verifique a confirmação: com as saídas e suas cargas livres de curto, o A25 é eliminado e o LED para de piscar.",
+      "texto": "Vérifiez la confirmation : les sorties et leurs charges étant exemptes de court-circuit, A25 est supprimée et la LED cesse de clignoter."
+    }
+  ]
+}

@@ -5,7 +5,10 @@ public static class EtapasComDisplayDeAlerta
 {
     #region MARK: Composicao do display sobre as etapas oficiais
 
-    public static Etapa[] Aplicar(AlertaOficial alerta, Etapa[] etapas)
+    public static Etapa[] Aplicar(
+        AlertaOficial alerta,
+        Etapa[] etapas,
+        string idioma = InstrucoesDeDisplayLocalizadas.IdiomaCanonico)
     {
         if (alerta == null || etapas == null || etapas.Length == 0) return etapas;
 
@@ -34,6 +37,7 @@ public static class EtapasComDisplayDeAlerta
             {
                 Etapa passo = Copiar(etapaOficial);
                 quadro.Aplicar(passo);
+                passo.tutorial = InstrucoesDeDisplayLocalizadas.Traduzir(passo.tutorial, idioma);
                 passosGuiados.Add(passo);
             }
         }

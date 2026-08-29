@@ -77,7 +77,8 @@ public static class LocalizedDatabase
             return new ArExperienceData(uiText, new StepSequenceData());
         }
 
-        Etapa[] etapas = EtapasComDisplayDeAlerta.Aplicar(alerta, EtapasGuiadasDeAlerta.Criar(alerta));
+        Etapa[] etapas = EtapasComDisplayDeAlerta.Aplicar(
+            alerta, EtapasGuiadasDeAlerta.Criar(alerta), CurrentLanguage);
 
         if (etapas.Length == 0)
         {
